@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">cancelar</string>
+    <string name="capture_image">tomar la foto</string>
+    <string name="close">cerrar</string>
+    <string name="convert">convertir</string>
+    <string name="converting_">conversión:</string>
+    <string name="copied_to_clipboard">copiado en el portapapeles</string>
+    <string name="enter">aplicar</string>
+    <string name="error_hex_chars">Sólo números y letras de la A a la F</string>
+    <string name="error_number_6">Código hexadecimal debe ser de 6 dígitos</string>
+    <string name="error_number_between">El número debe estar entre 0 y 255</string>
+    <string name="gallery">galería</string>
+    <string name="hex_code">Código de color hexadecimal</string>
+    <string name="instructions_gallery_m">Toque el icono Galería a una imagen y seleccione un color de esto.</string>
+    <string name="instructions_gallery_t">Seleccionar imagen</string>
+    <string name="instructions_photo_m">Toque para tomar una foto y seleccionar un color de la misma en el icono de la cámara.</string>
+    <string name="next">Siguiente</string>
+    <string name="no_value_m">ningún valor establecido.</string>
+    <string name="no_value_t">ningún valor</string>
+    <string name="ok">bueno</string>
+    <string name="pick_color">elija el color</string>
+    <string name="pick_color_from_image">elegir el color de la imagen</string>
+    <string name="rate">Evaluar</string>
+    <string name="rate_app">tasa de aplicación</string>
+    <string name="rate_m">Tasa de Color Converter de Google Play puertas con 5 estrellas si te gusta la aplicación! También puede escribir sugerencias de mejora en la evaluación.</string>
+    <string name="recommend_string">Color Converter: Convertir colores, leer los colores de las imágenes y mucho más! Una herramienta eficaz para los programadores y diseñadores. Descargar desde Google Objetivos del juego: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="selection_">selección:</string>
+    <string name="share">recomendar</string>
+    <string name="share_app">recomendar aplicación</string>
+    <string name="share_m">Recomendar la aplicación a tus amigos!</string>
+    <string name="title_activity_image">Color de la imagen</string>
+</resources>

@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId 'com.mrgames13.jimdo.colorconverter'
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 105
+        versionName "1.0.5"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.3.+'
+    compile 'com.android.support:palette-v7:25.3.+'
+    compile 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.+'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
+    compile 'com.droidninja:filepicker:2.0.+'
+}

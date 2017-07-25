@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="capture_image">capture image</string>
+    <string name="close">close</string>
+    <string name="convert">convert</string>
+    <string name="converting_">Converting:</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="enter">commit</string>
+    <string name="error_hex_chars">only numbers and chars from A to F</string>
+    <string name="error_number_6">Hexcode must have 6 characters</string>
+    <string name="error_number_between">the number must be between 0 and 255</string>
+    <string name="gallery">gallery</string>
+    <string name="hex_code">Hex-code</string>
+    <string name="instructions_gallery_m">tap on the gallery-icon to select an image from the gallery and select a color from it.</string>
+    <string name="instructions_gallery_t">choose image</string>
+    <string name="instructions_photo_m">tap in the camera-icon to capture an image and select a color from it.</string>
+    <string name="next">Next</string>
+    <string name="no_value_m">No value entered.</string>
+    <string name="no_value_t">no entry</string>
+    <string name="ok">OK</string>
+    <string name="pick_color">choose color</string>
+    <string name="pick_color_from_image">choose color from image</string>
+    <string name="selection_">Selection:</string>
+    <string name="title_activity_image">color from image</string>
+    <string name="cancel">cancel</string>
+    <string name="rate_app">rate app</string>
+    <string name="rate_m">Rate Color Converter in Google PlayStore with 5 stars, if you are enjoying the app! You can also write suggestions for improvement in your rating.</string>
+    <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="share">Recommend</string>
+    <string name="share_app">recommend app</string>
+    <string name="share_m">Recommend ColorConverter to your friends!</string>
+    <string name="rate">Rate</string>
+</resources>

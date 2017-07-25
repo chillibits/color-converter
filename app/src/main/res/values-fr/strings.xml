@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">abandonner</string>
+    <string name="capture_image">prendre un photo</string>
+    <string name="close">fermer</string>
+    <string name="convert">convertir</string>
+    <string name="converting_">conversion:</string>
+    <string name="copied_to_clipboard">copié dans la presse-papiers</string>
+    <string name="enter">prendre</string>
+    <string name="error_hex_chars">Seuls les chiffres et les lettres de A à F</string>
+    <string name="error_number_6">Code hexadécimal doit être 6 chiffres</string>
+    <string name="error_number_between">Le nombre doit être compris entre 0 et 255</string>
+    <string name="gallery">galerie</string>
+    <string name="hex_code">code hexadécimal</string>
+    <string name="instructions_gallery_m">Appuyez sur l\'icône Galerie, sélectionnez une image et appuyez quelque part dans cette image, pour sélecter une couleur.</string>
+    <string name="instructions_gallery_t">Sélectionner une image</string>
+    <string name="instructions_photo_m">Appuyez sur l\'icône de la caméra pour prendre une photo et sélectionnez une couleur dans cette photo.</string>
+    <string name="next">Suivant</string>
+    <string name="no_value_m">aucune chiffre entrée</string>
+    <string name="no_value_t">pas des chiffres</string>
+    <string name="ok">OK</string>
+    <string name="pick_color">choisir la couleur</string>
+    <string name="pick_color_from_image">choisir la couleur de l\'image</string>
+    <string name="rate">Évaluer</string>
+    <string name="rate_app">évaluer l\'app</string>
+    <string name="rate_m">Évaluez Color Converter dans la Google PlayStore avec 5 étoiles, si vous aimez l\'application! Vous pouvez écrire des suggestions d\'amélioration dans l\'évaluation aussi.</string>
+    <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de la Google PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="selection_">sélection:</string>
+    <string name="share">recommander</string>
+    <string name="share_app">Recommander l\'application</string>
+    <string name="share_m">Recommander l\'application à vos amis!</string>
+    <string name="title_activity_image">couleur de l\'mage</string>
+</resources>

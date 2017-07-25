@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Abbrechen</string>
+    <string name="capture_image">Foto machen</string>
+    <string name="close">Schließen</string>
+    <string name="convert">konvertieren</string>
+    <string name="converting_">Konvertierung:</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
+    <string name="enter">Übernehmen</string>
+    <string name="error_hex_chars">Nur Zahlen und Buchstaben von A bis F</string>
+    <string name="error_number_6">Hexcode muss 6-stellig sein</string>
+    <string name="error_number_between">Die Zahl muss zwischen 0 und 255 liegen</string>
+    <string name="gallery">Galerie</string>
+    <string name="hex_code">Hex-Farbcode</string>
+    <string name="instructions_gallery_m">Tippen Sie auf das Galerie-Icon um ein Bild und von diesem eine Farbe auszuwählen.</string>
+    <string name="instructions_gallery_t">Bild auswählen</string>
+    <string name="instructions_photo_m">Tippen Sie auf das Kamera-Icon um ein Foto aufzunehmen und eine Farbe davon auszuwählen.</string>
+    <string name="next">Weiter</string>
+    <string name="no_value_m">Kein Wert festgelegt.</string>
+    <string name="no_value_t">Kein Wert</string>
+    <string name="ok">OK</string>
+    <string name="pick_color">Farbe wählen</string>
+    <string name="pick_color_from_image">Farbe von Bild wählen</string>
+    <string name="selection_">Auswahl:</string>
+    <string name="title_activity_image">Farbe von Bild</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="rate_m">Bewerten Sie Color Converter im Google PlayStore mit 5 Sternen, wenn Ihnen die App gefällt! Sie können auch Verbesserungsvorschläge mit in die Bewertung schreiben.</string>
+    <string name="recommend_string">Color Converter: Farben konvertieren, Farben aus Bildern auslesen und vieles mehr! Ein effizientes Tool für Programmierer und Designer. Download vom Google PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="share">Weiterempfehlen</string>
+    <string name="share_app">App weiterempfehlen</string>
+    <string name="share_m">Empfehlen Sie die App Ihren Freunden!</string>
+    <string name="rate">Bewerten</string>
+</resources>
