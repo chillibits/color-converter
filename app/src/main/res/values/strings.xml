@@ -23,7 +23,7 @@
     <string name="hex_to_hsv" translatable="false">HEX > HSV</string>
     <string name="hsv_to_rgb" translatable="false">HSV > RGB</string>
     <string name="hsv_to_hex" translatable="false">HSV > HEX</string>
-    <string name="error_number_between">the number must be between 0 and 255</string>
+    <string name="error_number_between">the number have to be between 0 and 255</string>
     <string name="error_number_6">Hexcode must have 6 characters</string>
     <string name="error_hex_chars">only numbers and chars from A to F</string>
     <string name="enter">commit</string>
@@ -43,5 +43,18 @@
     <string name="instructions_gallery_m">tap on the gallery-icon to select an image from the gallery and select a color from it.</string>
     <string name="instructions_photo_m">tap in the camera-icon to capture an image and select a color from it.</string>
     <string name="rate">Rate</string>
+    <string name="image_broken">This image is broken</string>
+
+    <!-- Image Chooser -->
+    <string name="done">Done</string>
+    <string name="all_photos">All Photos</string>
+    <string name="select_photo_text">Select an image</string>
+
+    <!-- Shortcuts -->
+    <string name="shortcut_disabled">action disabled</string>
+    <string name="shortcut_gallery_short">image from gallery</string>
+    <string name="shortcut_gallery_long">choose color of image from gallery</string>
+    <string name="shortcut_photo_short">take photo</string>
+    <string name="shortcut_photo_long">choose color of photo</string>
 
 </resources>

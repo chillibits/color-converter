@@ -30,4 +30,13 @@
     <string name="share_app">App weiterempfehlen</string>
     <string name="share_m">Empfehlen Sie die App Ihren Freunden!</string>
     <string name="rate">Bewerten</string>
+    <string name="shortcut_disabled">Funktion deaktiviert</string>
+    <string name="shortcut_gallery_long">Farbe aus einem Bild aus der Galerie wählen</string>
+    <string name="shortcut_gallery_short">Bild aus Galerie</string>
+    <string name="shortcut_photo_long">Farbe von Bild wählen</string>
+    <string name="shortcut_photo_short">Foto machen</string>
+    <string name="image_broken">Beschädigtes Bild</string>
+    <string name="select_photo_text">Bild auswählen</string>
+    <string name="done">Fertig</string>
+    <string name="all_photos">Alle Bilder</string>
 </resources>

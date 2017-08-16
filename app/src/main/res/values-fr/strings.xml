@@ -30,4 +30,13 @@
     <string name="share_app">Recommander l\'application</string>
     <string name="share_m">Recommander l\'application à vos amis!</string>
     <string name="title_activity_image">couleur de l\'mage</string>
+    <string name="shortcut_disabled">Action désactivée</string>
+    <string name="shortcut_gallery_long">Choisissez la couleur de l\'image dans la galerie</string>
+    <string name="shortcut_gallery_short">Image de la galerie</string>
+    <string name="shortcut_photo_long">Choisissez la couleur de la photo</string>
+    <string name="shortcut_photo_short">prendre une photo</string>
+    <string name="all_photos">Toutes les photos</string>
+    <string name="image_broken">Cette image est cassée</string>
+    <string name="select_photo_text">Sélectionnez une image</string>
+    <string name="done">Terminé</string>
 </resources>

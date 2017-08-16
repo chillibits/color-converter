@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_photo_camera_primary"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="100"
+        android:shortcutLongLabel="@string/shortcut_photo_long"
+        android:shortcutShortLabel="@string/shortcut_photo_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mrgames13.jimdo.colorconverter.App.MainActivity"
+            android:targetPackage="com.mrgames13.jimdo.colorconverter" >
+            <extra android:name="action" android:value="photo" />
+        </intent>
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_image_primary"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="200"
+        android:shortcutLongLabel="@string/shortcut_gallery_long"
+        android:shortcutShortLabel="@string/shortcut_gallery_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mrgames13.jimdo.colorconverter.App.MainActivity"
+            android:targetPackage="com.mrgames13.jimdo.colorconverter" >
+            <extra android:name="action" android:value="image" />
+        </intent>
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+</shortcuts>

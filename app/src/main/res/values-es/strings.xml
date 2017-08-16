@@ -30,4 +30,13 @@
     <string name="share_app">recomendar aplicación</string>
     <string name="share_m">Recomendar la aplicación a tus amigos!</string>
     <string name="title_activity_image">Color de la imagen</string>
+    <string name="shortcut_disabled">Acción deshabilitada</string>
+    <string name="shortcut_photo_short">tomar foto</string>
+    <string name="shortcut_gallery_long">Elegir el color de la imagen de la galería</string>
+    <string name="shortcut_gallery_short">Imagen de la galería</string>
+    <string name="shortcut_photo_long">Elegir el color de la foto</string>
+    <string name="select_photo_text">Seleccione una imagen</string>
+    <string name="image_broken">Esta imagen esta rota</string>
+    <string name="done">Hecho</string>
+    <string name="all_photos">Todas las fotos</string>
 </resources>

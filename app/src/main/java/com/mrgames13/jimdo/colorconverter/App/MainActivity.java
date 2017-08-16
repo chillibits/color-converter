@@ -27,10 +27,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrgames13.jimdo.colorconverter.R;
-import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleSeekBarChangedListener;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleTextWatcherUtils;
+import com.mrgames13.jimdo.colorconverter.R;
+import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
@@ -269,6 +269,14 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar Text und Farbe setzen
         getSupportActionBar().setTitle(res.getString(R.string.title_activity_main));
         if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(clru.darkenColor(res.getColor(R.color.colorPrimary)));
+
+        //Bei Bedarf auf ImageActivity umleiten
+        if(getIntent().hasExtra("action") && (getIntent().getStringExtra("action").equals("photo") || getIntent().getStringExtra("action").equals("image"))) {
+            Intent i = new Intent(this, ImageActivity.class);
+            i.putExtras(getIntent().getExtras());
+            startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE);
+            getIntent().removeExtra("action");
+        }
     }
 
     @Override
@@ -352,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         et_hex = (EditText) v.findViewById(R.id.et_hex);
@@ -432,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         tv_error = (TextView) v.findViewById(R.id.error);
@@ -515,7 +523,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         et_h = (EditText) v.findViewById(R.id.et_h);
@@ -603,7 +611,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_hex.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         et_h = (EditText) v.findViewById(R.id.et_h);
@@ -673,7 +681,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(et_h.getText().toString().length() >= 6) {
                     et_s.requestFocus();
-                };
+                }
             }
         });
         et_s = (EditText) v.findViewById(R.id.et_s);
@@ -682,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(et_s.getText().toString().length() >= 6) {
                     et_v.requestFocus();
-                };
+                }
             }
         });
         et_v = (EditText) v.findViewById(R.id.et_v);
@@ -693,7 +701,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_v.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         et_red = (EditText) v.findViewById(R.id.et_red);
@@ -759,7 +767,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(et_h.getText().toString().length() >= 6) {
                     et_s.requestFocus();
-                };
+                }
             }
         });
         et_s = (EditText) v.findViewById(R.id.et_s);
@@ -768,7 +776,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(et_s.getText().toString().length() >= 6) {
                     et_v.requestFocus();
-                };
+                }
             }
         });
         et_v = (EditText) v.findViewById(R.id.et_v);
@@ -779,7 +787,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_v.getWindowToken(), 0);
                     btn_convert.requestFocus();
-                };
+                }
             }
         });
         et_red = (EditText) v.findViewById(R.id.et_red);

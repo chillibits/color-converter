@@ -19,32 +19,32 @@ public class ColorUtils {
         this.res = res;
     }
 
-    public int getVibrantColor(Bitmap image) {
+    public int getVibrantColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getVibrantColor(res.getColor(R.color.grey));
     }
 
-    public int getLightVibrantColor(Bitmap image) {
+    public int getLightVibrantColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getLightVibrantColor(res.getColor(R.color.grey));
     }
 
-    public int getDarkVibrantColor(Bitmap image) {
+    public int getDarkVibrantColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getDarkVibrantColor(res.getColor(R.color.grey));
     }
 
-    public int getMutedColor(Bitmap image) {
+    public int getMutedColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getMutedColor(res.getColor(R.color.grey));
     }
 
-    public int getLightMutedColor(Bitmap image) {
+    public int getLightMutedColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getLightMutedColor(res.getColor(R.color.grey));
     }
 
-    public int getDarkMutedColor(Bitmap image) {
+    public int getDarkMutedColor(Bitmap image) throws Exception {
         Palette palette = Palette.from(image).generate();
         return palette.getDarkMutedColor(res.getColor(R.color.grey));
     }
