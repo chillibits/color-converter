@@ -6,6 +6,7 @@
     <string name="error" translatable="false">ERROR</string>
     <string name="ok">OK</string>
     <string name="cancel">cancel</string>
+    <string name="no_internet_available">No internet available</string>
 
     <!-- MainActivity -->
     <string name="title_activity_main" translatable="false">@string/app_name</string>
@@ -14,6 +15,7 @@
     <string name="selection_">Selection:</string>
     <string name="converting_">Converting:</string>
     <string name="pick_color">choose color</string>
+    <string name="pick_random_color">generate random color</string>
     <string name="pick_color_from_image">choose color from image</string>
     <string name="no_value_t">no entry</string>
     <string name="no_value_m">No value entered.</string>
@@ -30,6 +32,7 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="gallery">gallery</string>
     <string name="capture_image">capture image</string>
+    <string name="image_from_web">web image</string>
     <string name="rate_app">rate app</string>
     <string name="rate_m">Rate Color Converter in Google PlayStore with 5 stars, if you are enjoying the app!</string>
     <string name="share_app">recommend app</string>
@@ -44,6 +47,9 @@
     <string name="instructions_photo_m">tap in the camera-icon to capture an image and select a color from it.</string>
     <string name="rate">Rate</string>
     <string name="image_broken">This image is broken</string>
+    <string name="enter_web_url">Enter web url</string>
+    <string name="download_img">Download image</string>
+    <string name="malformed_url">Malformed url</string>
 
     <!-- Image Chooser -->
     <string name="done">Done</string>

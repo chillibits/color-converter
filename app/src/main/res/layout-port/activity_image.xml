@@ -26,7 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:layout_above="@+id/color_button_container"/>
+            android:layout_above="@+id/color_button_container"
+            android:src="@drawable/default_background_image"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:id="@+id/color_button_container"
@@ -153,7 +155,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -164,8 +166,10 @@
                     android:id="@+id/choose_from_gallery"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_image"
-                    android:layout_centerInParent="true"/>
+                    android:src="@drawable/ic_image_large"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -177,8 +181,25 @@
                     android:id="@+id/choose_from_camera"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_photo_camera"
-                    android:layout_centerInParent="true"/>
+                    android:src="@drawable/ic_photo_camera_large"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/choose_from_web"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_cloud_download_large"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"/>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

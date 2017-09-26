@@ -1,11 +1,13 @@
 package com.mrgames13.jimdo.colorconverter.App;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,26 +17,36 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.mrgames13.jimdo.colorconverter.R;
 import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
+import com.mrgames13.jimdo.colorconverter.Utils.NetworkUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +62,6 @@ import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 public class ImageActivity extends AppCompatActivity {
 
     //Konstanten
-    private final int REQ_IMAGE_CHOOSER = 10001;
     private final int REQ_CAMERA_CHOOSER = 10002;
     private final int REQ_PERMISSION_WRITE_EXTERNAL_STORAGE = 10003;
 
@@ -58,6 +69,7 @@ public class ImageActivity extends AppCompatActivity {
     private Resources res;
     private Toolbar toolbar;
     private ColorUtils clru;
+    private NetworkUtils nwu;
     private ShowcaseView.Builder showcase_view;
     private Bitmap choosed_image = null;
     private Handler h;
@@ -67,6 +79,7 @@ public class ImageActivity extends AppCompatActivity {
     private LinearLayout button_container;
     private ImageView choose_from_gallery;
     private ImageView choose_from_camera;
+    private ImageView choose_from_web;
     private RelativeLayout color_button_container;
     private ImageView vibrant_color;
     private ImageView light_vibrant_color;
@@ -77,7 +90,6 @@ public class ImageActivity extends AppCompatActivity {
     private ImageView selected_color;
 
     //Variablen
-    private Uri image_uri;
     private int int_vibrant_color;
     private int int_light_vibrant_color;
     private int int_dark_vibrant_color;
@@ -99,14 +111,17 @@ public class ImageActivity extends AppCompatActivity {
         h = new Handler();
 
         //Toolbar initialisieren
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //ColorUtils initialisieren
         clru = new ColorUtils(res);
 
+        //NetworkUtils initialisieren
+        nwu = new NetworkUtils(this);
+
         //Komponenten initialisieren
-        image = (ImageView) findViewById(R.id.image);
+        image = findViewById(R.id.image);
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -145,23 +160,30 @@ public class ImageActivity extends AppCompatActivity {
                 return true;
             }
         });
-        button_container = (LinearLayout) findViewById(R.id.button_container);
-        choose_from_gallery = (ImageView) findViewById(R.id.choose_from_gallery);
+        button_container = findViewById(R.id.button_container);
+        choose_from_gallery = findViewById(R.id.choose_from_gallery);
         choose_from_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImageFromGallery();
             }
         });
-        choose_from_camera = (ImageView) findViewById(R.id.choose_from_camera);
+        choose_from_camera = findViewById(R.id.choose_from_camera);
         choose_from_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImageFromCamera();
             }
         });
-        color_button_container = (RelativeLayout) findViewById(R.id.color_button_container);
-        vibrant_color = (ImageView) findViewById(R.id.vibrant_color);
+        choose_from_web = findViewById(R.id.choose_from_web);
+        choose_from_web.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImageFromWeb();
+            }
+        });
+        color_button_container = findViewById(R.id.color_button_container);
+        vibrant_color = findViewById(R.id.vibrant_color);
         vibrant_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +193,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        light_vibrant_color = (ImageView) findViewById(R.id.light_vibrant_color);
+        light_vibrant_color = findViewById(R.id.light_vibrant_color);
         light_vibrant_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +203,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        dark_vibrant_color = (ImageView) findViewById(R.id.dark_vibrant_color);
+        dark_vibrant_color = findViewById(R.id.dark_vibrant_color);
         dark_vibrant_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +213,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        muted_color = (ImageView) findViewById(R.id.muted_color);
+        muted_color = findViewById(R.id.muted_color);
         muted_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,7 +223,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        light_muted_color = (ImageView) findViewById(R.id.light_muted_color);
+        light_muted_color = findViewById(R.id.light_muted_color);
         light_muted_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,7 +233,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        dark_muted_color = (ImageView) findViewById(R.id.dark_muted_color);
+        dark_muted_color = findViewById(R.id.dark_muted_color);
         dark_muted_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +243,7 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        selected_color = (ImageView) findViewById(R.id.selected_color);
+        selected_color = findViewById(R.id.selected_color);
         selected_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -315,6 +337,8 @@ public class ImageActivity extends AppCompatActivity {
             chooseImageFromGallery();
         } else if(id == R.id.action_capture) {
             chooseImageFromCamera();
+        } else if(id == R.id.action_web) {
+            chooseImageFromWeb();
         } else if(id == android.R.id.home) {
             finish();
         }
@@ -365,6 +389,81 @@ public class ImageActivity extends AppCompatActivity {
         }
     }
 
+    private void chooseImageFromWeb() {
+        final EditText et_url = new EditText(this);
+        et_url.setHint(res.getString(R.string.enter_web_url));
+        et_url.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+
+        AlertDialog d = new AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle(res.getString(R.string.download_img))
+                .setView(et_url, 60, 0, 60, 0)
+                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(res.getString(R.string.download_img), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if(nwu.isInternetAvailable()) {
+                            String url = et_url.getText().toString().trim();
+                            if(nwu.isUrl(url)) {
+                                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                Glide.with(ImageActivity.this)
+                                        .load(url)
+                                        .listener(new RequestListener<Drawable>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                                Toast.makeText(ImageActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                                try{
+                                                    choosed_image = drawableToBitmap(resource);
+                                                    MainActivity.selected_image = choosed_image;
+
+                                                    button_container.setVisibility(View.GONE);
+
+                                                    int_vibrant_color = clru.getVibrantColor(choosed_image);
+                                                    vibrant_color.setBackgroundColor(int_vibrant_color);
+                                                    int_light_vibrant_color = clru.getLightVibrantColor(choosed_image);
+                                                    light_vibrant_color.setBackgroundColor(int_light_vibrant_color);
+                                                    int_dark_vibrant_color = clru.getDarkVibrantColor(choosed_image);
+                                                    dark_vibrant_color.setBackgroundColor(int_dark_vibrant_color);
+                                                    int_muted_color = clru.getMutedColor(choosed_image);
+                                                    muted_color.setBackgroundColor(int_muted_color);
+                                                    int_light_muted_color = clru.getLightMutedColor(choosed_image);
+                                                    light_muted_color.setBackgroundColor(int_light_muted_color);
+                                                    int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
+                                                    dark_muted_color.setBackgroundColor(int_dark_muted_color);
+
+                                                    Animation anim = AnimationUtils.loadAnimation(ImageActivity.this, R.anim.animation_scale_up);
+                                                    color_button_container.setVisibility(View.VISIBLE);
+                                                    color_button_container.startAnimation(anim);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                                return false;
+                                            }
+                                        })
+                                        .into(image);
+                            } else {
+                                Toast.makeText(ImageActivity.this, res.getString(R.string.malformed_url), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(ImageActivity.this, res.getString(R.string.no_internet_available), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .create();
+        d.show();
+    }
+
     private File createImageFile() throws IOException {
         //Dateinamen für das Bild erstellen
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -382,6 +481,8 @@ public class ImageActivity extends AppCompatActivity {
 
         if(requestCode == REQ_CAMERA_CHOOSER && resultCode == RESULT_OK && current_photo_path != null) {
             try{
+                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
                 choosed_image = BitmapFactory.decodeFile(current_photo_path);
                 MainActivity.selected_image = choosed_image;
 
@@ -409,6 +510,8 @@ public class ImageActivity extends AppCompatActivity {
             }
         } else if(requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
             try{
+                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
                 button_container.setVisibility(View.GONE);
                 String path = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA).get(0);
                 choosed_image = BitmapFactory.decodeFile(path);
@@ -444,5 +547,27 @@ public class ImageActivity extends AppCompatActivity {
         if(requestCode == REQ_PERMISSION_WRITE_EXTERNAL_STORAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             finish();
         }
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

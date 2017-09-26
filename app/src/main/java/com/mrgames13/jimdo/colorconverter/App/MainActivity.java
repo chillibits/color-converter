@@ -34,6 +34,8 @@ import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     //Konstanten
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText et_s;
     private EditText et_v;
     private Button btn_pick;
+    private Button btn_pick_random;
     private Button btn_pick_from_image;
     private Button btn_convert_rbg_to_hex;
     private Button btn_convert_hex_to_rgb;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private ColorPickerDialog color_picker;
     public static Bitmap selected_image = null;
     public static int selected_image_color;
+    private Random random;
 
     //Variablen
     private int red;
@@ -92,16 +96,16 @@ public class MainActivity extends AppCompatActivity {
         res = getResources();
 
         //Toolbar initialisieren
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //ColorUtils initialisieren
         clru = new ColorUtils(res);
 
         //Komponenten initialisieren
-        sb_red = (SeekBar) findViewById(R.id.color_red);
-        sb_green = (SeekBar) findViewById(R.id.color_green);
-        sb_blue = (SeekBar) findViewById(R.id.color_blue);
+        sb_red = findViewById(R.id.color_red);
+        sb_green = findViewById(R.id.color_green);
+        sb_blue = findViewById(R.id.color_blue);
 
         sb_red.getProgressDrawable().setColorFilter(res.getColor(R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
         sb_green.getProgressDrawable().setColorFilter(res.getColor(R.color.green), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -135,22 +139,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tv_r = (TextView) findViewById(R.id.tv_r);
-        tv_g = (TextView) findViewById(R.id.tv_g);
-        tv_b = (TextView) findViewById(R.id.tv_b);
+        tv_r = findViewById(R.id.tv_r);
+        tv_g = findViewById(R.id.tv_g);
+        tv_b = findViewById(R.id.tv_b);
 
-        tv_rgb = (TextView) findViewById(R.id.rgb_display);
-        tv_hex = (TextView) findViewById(R.id.hex_display);
-        tv_hsv = (TextView) findViewById(R.id.hsv_display);
+        tv_rgb = findViewById(R.id.rgb_display);
+        tv_hex = findViewById(R.id.hex_display);
+        tv_hsv = findViewById(R.id.hsv_display);
 
-        color_container = (RelativeLayout) findViewById(R.id.color_container);
+        color_container = findViewById(R.id.color_container);
 
-        et_red = (EditText) findViewById(R.id.et_red);
-        et_green = (EditText) findViewById(R.id.et_green);
-        et_blue = (EditText) findViewById(R.id.et_blue);
-        et_hex = (EditText) findViewById(R.id.et_hex);
+        et_red = findViewById(R.id.et_red);
+        et_green = findViewById(R.id.et_green);
+        et_blue = findViewById(R.id.et_blue);
+        et_hex = findViewById(R.id.et_hex);
 
-        btn_pick = (Button) findViewById(R.id.pick);
+        btn_pick = findViewById(R.id.pick);
         btn_pick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,7 +174,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_pick_from_image = (Button) findViewById(R.id.pick_from_image);
+        btn_pick_random = findViewById(R.id.pick_random_color);
+        btn_pick_random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                random = new Random(System.currentTimeMillis());
+                sb_red.setProgress(random.nextInt(256));
+                sb_green.setProgress(random.nextInt(256));
+                sb_blue.setProgress(random.nextInt(256));
+            }
+        });
+
+        btn_pick_from_image = findViewById(R.id.pick_from_image);
         btn_pick_from_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_rbg_to_hex = (Button) findViewById(R.id.convert_rgb_to_hex);
+        btn_convert_rbg_to_hex = findViewById(R.id.convert_rgb_to_hex);
         btn_convert_rbg_to_hex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_hex_to_rgb = (Button) findViewById(R.id.convert_hex_to_rgb);
+        btn_convert_hex_to_rgb = findViewById(R.id.convert_hex_to_rgb);
         btn_convert_hex_to_rgb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_rgb_to_hsv = (Button) findViewById(R.id.convert_rgb_to_hsv);
+        btn_convert_rgb_to_hsv = findViewById(R.id.convert_rgb_to_hsv);
         btn_convert_rgb_to_hsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_hex_to_hsv = (Button) findViewById(R.id.convert_hex_to_hsv);
+        btn_convert_hex_to_hsv = findViewById(R.id.convert_hex_to_hsv);
         btn_convert_hex_to_hsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_hsv_to_rgb = (Button) findViewById(R.id.convert_hsv_to_rgb);
+        btn_convert_hsv_to_rgb = findViewById(R.id.convert_hsv_to_rgb);
         btn_convert_hsv_to_rgb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_convert_hsv_to_hex = (Button) findViewById(R.id.convert_hsv_to_hex);
+        btn_convert_hsv_to_hex = findViewById(R.id.convert_hsv_to_hex);
         btn_convert_hsv_to_hex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Codes in Zwischenablage kopieren
 
-        ImageView btn_rgb_copy = (ImageView) findViewById(R.id.rgb_copy);
+        ImageView btn_rgb_copy = findViewById(R.id.rgb_copy);
         btn_rgb_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView btn_hex_copy = (ImageView) findViewById(R.id.hex_copy);
+        ImageView btn_hex_copy = findViewById(R.id.hex_copy);
         btn_hex_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView btn_hsv_copy = (ImageView) findViewById(R.id.hsv_copy);
+        ImageView btn_hsv_copy = findViewById(R.id.hsv_copy);
         btn_hsv_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -338,21 +353,21 @@ public class MainActivity extends AppCompatActivity {
     private void convertRGB2HEX() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_rgb_to_hex, null);
-        et_red = (EditText) v.findViewById(R.id.et_red);
+        et_red = v.findViewById(R.id.et_red);
         et_red.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
                 if(et_red.getText().toString().length() >= 3) et_green.requestFocus();
             }
         });
-        et_green = (EditText) v.findViewById(R.id.et_green);
+        et_green = v.findViewById(R.id.et_green);
         et_green.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
                 if(et_green.getText().toString().length() >= 3) et_blue.requestFocus();
             }
         });
-        et_blue = (EditText) v.findViewById(R.id.et_blue);
+        et_blue = v.findViewById(R.id.et_blue);
         et_blue.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -363,9 +378,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_hex = (EditText) v.findViewById(R.id.et_hex);
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        et_hex = v.findViewById(R.id.et_hex);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.rgb_to_hex))
@@ -429,10 +444,10 @@ public class MainActivity extends AppCompatActivity {
     private void convertHEX2RGB() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_hex_to_rgb, null);
-        et_red = (EditText) v.findViewById(R.id.et_red);
-        et_green = (EditText) v.findViewById(R.id.et_green);
-        et_blue = (EditText) v.findViewById(R.id.et_blue);
-        et_hex = (EditText) v.findViewById(R.id.et_hex);
+        et_red = v.findViewById(R.id.et_red);
+        et_green = v.findViewById(R.id.et_green);
+        et_blue = v.findViewById(R.id.et_blue);
+        et_hex = v.findViewById(R.id.et_hex);
         et_hex.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -443,8 +458,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -470,7 +485,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hex_to_rgb))
@@ -501,21 +516,21 @@ public class MainActivity extends AppCompatActivity {
     private void convertRGB2HSV() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_rgb_to_hsv, null);
-        et_red = (EditText) v.findViewById(R.id.et_red);
+        et_red = v.findViewById(R.id.et_red);
         et_red.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
                 if(et_red.getText().toString().length() >= 3) et_green.requestFocus();
             }
         });
-        et_green = (EditText) v.findViewById(R.id.et_green);
+        et_green = v.findViewById(R.id.et_green);
         et_green.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
                 if(et_green.getText().toString().length() >= 3) et_blue.requestFocus();
             }
         });
-        et_blue = (EditText) v.findViewById(R.id.et_blue);
+        et_blue = v.findViewById(R.id.et_blue);
         et_blue.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -526,11 +541,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_h = (EditText) v.findViewById(R.id.et_h);
-        et_s = (EditText) v.findViewById(R.id.et_s);
-        et_v = (EditText) v.findViewById(R.id.et_v);
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        et_h = v.findViewById(R.id.et_h);
+        et_s = v.findViewById(R.id.et_s);
+        et_v = v.findViewById(R.id.et_v);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -574,7 +589,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.rgb_to_hsv))
@@ -603,7 +618,7 @@ public class MainActivity extends AppCompatActivity {
     private void convertHEX2HSV() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_hex_to_hsv, null);
-        et_hex = (EditText) v.findViewById(R.id.et_hex);
+        et_hex = v.findViewById(R.id.et_hex);
         et_hex.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -614,11 +629,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_h = (EditText) v.findViewById(R.id.et_h);
-        et_s = (EditText) v.findViewById(R.id.et_s);
-        et_v = (EditText) v.findViewById(R.id.et_v);
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        et_h = v.findViewById(R.id.et_h);
+        et_s = v.findViewById(R.id.et_s);
+        et_v = v.findViewById(R.id.et_v);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -646,7 +661,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hex_to_hsv))
@@ -675,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
     private void convertHSV2RGB() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_hsv_to_rgb, null);
-        et_h = (EditText) v.findViewById(R.id.et_h);
+        et_h = v.findViewById(R.id.et_h);
         et_h.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -684,7 +699,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_s = (EditText) v.findViewById(R.id.et_s);
+        et_s = v.findViewById(R.id.et_s);
         et_s.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -693,7 +708,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_v = (EditText) v.findViewById(R.id.et_v);
+        et_v = v.findViewById(R.id.et_v);
         et_v.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -704,11 +719,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_red = (EditText) v.findViewById(R.id.et_red);
-        et_green = (EditText) v.findViewById(R.id.et_green);
-        et_blue = (EditText) v.findViewById(R.id.et_blue);
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        et_red = v.findViewById(R.id.et_red);
+        et_green = v.findViewById(R.id.et_green);
+        et_blue = v.findViewById(R.id.et_blue);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -732,7 +747,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hsv_to_rgb))
@@ -761,7 +776,7 @@ public class MainActivity extends AppCompatActivity {
     private void convertHSV2HEX() {
         View v;
         v = getLayoutInflater().inflate(R.layout.dialog_hsv_to_rgb, null);
-        et_h = (EditText) v.findViewById(R.id.et_h);
+        et_h = v.findViewById(R.id.et_h);
         et_h.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -770,7 +785,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_s = (EditText) v.findViewById(R.id.et_s);
+        et_s = v.findViewById(R.id.et_s);
         et_s.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -779,7 +794,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_v = (EditText) v.findViewById(R.id.et_v);
+        et_v = v.findViewById(R.id.et_v);
         et_v.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -790,11 +805,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        et_red = (EditText) v.findViewById(R.id.et_red);
-        et_green = (EditText) v.findViewById(R.id.et_green);
-        et_blue = (EditText) v.findViewById(R.id.et_blue);
-        tv_error = (TextView) v.findViewById(R.id.error);
-        btn_convert = (Button) v.findViewById(R.id.convert);
+        et_red = v.findViewById(R.id.et_red);
+        et_green = v.findViewById(R.id.et_green);
+        et_blue = v.findViewById(R.id.et_blue);
+        tv_error = v.findViewById(R.id.error);
+        btn_convert = v.findViewById(R.id.convert);
         btn_convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -819,7 +834,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        container = (RelativeLayout) v.findViewById(R.id.dialog_container);
+        container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hsv_to_hex))
