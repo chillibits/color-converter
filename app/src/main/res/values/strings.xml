@@ -15,6 +15,9 @@
     <string name="selection_">Selection:</string>
     <string name="converting_">Converting:</string>
     <string name="pick_color">choose color</string>
+    <string name="save_color">Save color</string>
+    <string name="save">save</string>
+    <string name="choose_name">choose name</string>
     <string name="pick_random_color">generate random color</string>
     <string name="pick_color_from_image">choose color from image</string>
     <string name="no_value_t">no entry</string>
@@ -44,12 +47,21 @@
     <string name="title_activity_image">color from image</string>
     <string name="instructions_gallery_t">choose image</string>
     <string name="instructions_gallery_m">tap on the gallery-icon to select an image from the gallery and select a color from it.</string>
-    <string name="instructions_photo_m">tap in the camera-icon to capture an image and select a color from it.</string>
+    <string name="instructions_photo_m">tap on the camera-icon to capture an image and select a color from it.</string>
+    <string name="instructions_web_m">tap on the web-icon to load an image from the internet and select a color from it.</string>
     <string name="rate">Rate</string>
     <string name="image_broken">This image is broken</string>
     <string name="enter_web_url">Enter web url</string>
     <string name="download_img">Download image</string>
     <string name="malformed_url">Malformed url</string>
+
+    <!-- ColorSelectionAcitivity -->
+    <string name="title_activity_color_selection">Saved colors</string>
+    <string name="delete">delete</string>
+    <string name="delete_m">Do you really want to delete this color?</string>
+    <string name="rename">rename</string>
+    <string name="selected">Selected</string>
+    <string name="no_colors_saved_yet">no colors saved yet!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
 
     <!-- Image Chooser -->
     <string name="done">Done</string>

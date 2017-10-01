@@ -11,5 +11,6 @@
     <color name="blue">#00F</color>
     <color name="grey">#989898</color>
     <color name="color_picker_initial">#000</color>
+    <color name="transparent">#0000</color>
 
 </resources>

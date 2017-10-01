@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".App.ColorSelectionActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:theme="@style/toolbarStyle"
+        android:title="@string/app_name"
+        android:fitsSystemWindows="true"
+        android:elevation="1dp"/>
+
+    <View
+        android:id="@+id/reveal_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/toolbar"
+        android:fitsSystemWindows="false"
+        android:background="@color/colorPrimary"/>
+
+    <View
+        android:id="@+id/reveal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/toolbar"
+        android:fitsSystemWindows="false"
+        android:background="@color/colorPrimary"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/saved_colors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"/>
+
+    <TextView
+        android:id="@+id/no_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:textColor="@color/grey"
+        android:text="@string/no_colors_saved_yet"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

@@ -7,14 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleSeekBarChangedListener;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleTextWatcherUtils;
 import com.mrgames13.jimdo.colorconverter.R;
 import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
+import com.mrgames13.jimdo.colorconverter.Utils.StorageUtils;
 
 import net.margaritov.preference.colorpicker.ColorPickerDialog;
 
@@ -40,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     //Konstanten
     private final int REQ_PICK_COLOR_FROM_IMAGE = 10001;
+    private final int REQ_LOAD_COLOR = 10002;
 
     //Variablen als Objekte
     private Resources res;
     private Toolbar toolbar;
     private ColorUtils clru;
+    private StorageUtils su;
 
     //Komponenten
     private SeekBar sb_red;
@@ -79,13 +84,10 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout container;
     private ColorPickerDialog color_picker;
     public static Bitmap selected_image = null;
-    public static int selected_image_color;
     private Random random;
+    public static Color selected_color = new Color(0, "Selection", android.graphics.Color.BLACK, -1);
 
     //Variablen
-    private int red;
-    private int green;
-    private int blue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         //ColorUtils initialisieren
         clru = new ColorUtils(res);
 
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
+
         //Komponenten initialisieren
         sb_red = findViewById(R.id.color_red);
         sb_green = findViewById(R.id.color_green);
@@ -114,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         sb_red.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                red = progress;
-                String value = String.valueOf(red);
+                selected_color.setRed(progress);
+                String value = String.valueOf(progress);
                 tv_r.setText(value);
                 updateDisplays();
             }
@@ -123,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         sb_green.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                green = progress;
-                String value = String.valueOf(green);
+                selected_color.setGreen(progress);
+                String value = String.valueOf(progress);
                 tv_g.setText(value);
                 updateDisplays();
             }
@@ -132,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
         sb_blue.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                blue = progress;
-                String value = String.valueOf(blue);
+                selected_color.setBlue(progress);
+                String value = String.valueOf(progress);
                 tv_b.setText(value);
                 updateDisplays();
             }
@@ -158,16 +163,16 @@ public class MainActivity extends AppCompatActivity {
         btn_pick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color_picker = new ColorPickerDialog(MainActivity.this, Color.parseColor(tv_hex.getText().toString().substring(5)));
+                color_picker = new ColorPickerDialog(MainActivity.this, android.graphics.Color.parseColor(tv_hex.getText().toString().substring(5)));
                 color_picker.setAlphaSliderVisible(false);
                 color_picker.setHexValueEnabled(true);
                 color_picker.setTitle(res.getString(R.string.pick_color));
                 color_picker.setOnColorChangedListener(new ColorPickerDialog.OnColorChangedListener() {
                     @Override
                     public void onColorChanged(int color) {
-                        sb_red.setProgress(Color.red(color));
-                        sb_green.setProgress(Color.green(color));
-                        sb_blue.setProgress(Color.blue(color));
+                        sb_red.setProgress(android.graphics.Color.red(color));
+                        sb_green.setProgress(android.graphics.Color.green(color));
+                        sb_blue.setProgress(android.graphics.Color.blue(color));
                     }
                 });
                 color_picker.show();
@@ -179,9 +184,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 random = new Random(System.currentTimeMillis());
-                sb_red.setProgress(random.nextInt(256));
-                sb_green.setProgress(random.nextInt(256));
-                sb_blue.setProgress(random.nextInt(256));
+                selected_color = new Color(0, "Selection", random.nextInt(256), random.nextInt(256), random.nextInt(256), -1);
+                sb_red.setProgress(selected_color.getRed());
+                sb_green.setProgress(selected_color.getGreen());
+                sb_blue.setProgress(selected_color.getBlue());
             }
         });
 
@@ -241,8 +247,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Codes in Zwischenablage kopieren
+        //Farbe Speichern / Laden
+        ImageView btn_load_color = findViewById(R.id.load_color);
+        btn_load_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Farbe laden
+                startActivityForResult(new Intent(MainActivity.this, ColorSelectionActivity.class), REQ_LOAD_COLOR);
+            }
+        });
 
+        ImageView btn_save_color = findViewById(R.id.save_color);
+        btn_save_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Farbe speichern
+                final EditText et_name = new EditText(MainActivity.this);
+                et_name.setHint(res.getString(R.string.choose_name));
+                et_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+
+                AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                        .setCancelable(true)
+                        .setTitle(res.getString(R.string.save_color))
+                        .setView(et_name, 60, 0, 60, 0)
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.save), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.dismiss();
+                                String name = et_name.getText().toString().trim();
+                                if(!name.equals("")) {
+                                    selected_color.setName(name);
+                                    su.saveColor(selected_color);
+                                } else {
+                                    Toast.makeText(MainActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .create();
+                d.show();
+            }
+        });
+
+        //Codes in Zwischenablage kopieren
         ImageView btn_rgb_copy = findViewById(R.id.rgb_copy);
         btn_rgb_copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,6 +327,25 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
             }
         });
+
+        //Bei Bedarf auf ImageActivity umleiten
+        if(getIntent().hasExtra("action") && (getIntent().getStringExtra("action").equals("photo") || getIntent().getStringExtra("action").equals("image"))) {
+            Intent i = new Intent(this, ImageActivity.class);
+            i.putExtras(getIntent().getExtras());
+            startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE);
+            getIntent().removeExtra("action");
+        }
+
+        Intent intent = getIntent();
+        if(Intent.ACTION_SEND.equals(intent.getAction()) && intent.getType() != null && intent.getType().startsWith("image/")) {
+            try{
+                Uri image_uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                selected_image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+            } catch (Exception e) {
+                Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+            startActivityForResult(new Intent(MainActivity.this, ImageActivity.class), REQ_PICK_COLOR_FROM_IMAGE);
+        }
     }
 
     @Override
@@ -284,14 +355,6 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar Text und Farbe setzen
         getSupportActionBar().setTitle(res.getString(R.string.title_activity_main));
         if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(clru.darkenColor(res.getColor(R.color.colorPrimary)));
-
-        //Bei Bedarf auf ImageActivity umleiten
-        if(getIntent().hasExtra("action") && (getIntent().getStringExtra("action").equals("photo") || getIntent().getStringExtra("action").equals("image"))) {
-            Intent i = new Intent(this, ImageActivity.class);
-            i.putExtras(getIntent().getExtras());
-            startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE);
-            getIntent().removeExtra("action");
-        }
     }
 
     @Override
@@ -316,36 +379,40 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQ_PICK_COLOR_FROM_IMAGE && resultCode == RESULT_OK) {
-            int selected_color = data.getIntExtra("Color", 0);
+            selected_color = new Color(0, "Selection", data.getIntExtra("Color", 0), -1);
             //Empfangenen Daten auswerten
-            if(selected_color != 0) {
-                sb_red.setProgress(Color.red(selected_color));
-                sb_green.setProgress(Color.green(selected_color));
-                sb_blue.setProgress(Color.blue(selected_color));
-            }
+            sb_red.setProgress(selected_color.getRed());
+            sb_green.setProgress(selected_color.getGreen());
+            sb_blue.setProgress(selected_color.getBlue());
+        } else if(requestCode == REQ_LOAD_COLOR && resultCode == RESULT_OK) {
+            selected_color = new Color(0, "Selection", data.getIntExtra("Color", 0), -1);
+            //Empfangenen Daten auswerten
+            sb_red.setProgress(selected_color.getRed());
+            sb_green.setProgress(selected_color.getGreen());
+            sb_blue.setProgress(selected_color.getBlue());
         }
     }
 
     private void updateDisplays() {
         //Update RGB TextView
-        tv_rgb.setText("RGB: " + String.valueOf(red) + ", " + String.valueOf(green) + ", " + String.valueOf(blue));
+        tv_rgb.setText("RGB: " + String.valueOf(selected_color.getRed()) + ", " + String.valueOf(selected_color.getGreen()) + ", " + String.valueOf(selected_color.getBlue()));
         //Update HEX TextView
-        String hex_red = Integer.toHexString(red).toUpperCase();
+        String hex_red = Integer.toHexString(selected_color.getRed()).toUpperCase();
         if(hex_red.length() < 2) hex_red = "0" + hex_red;
-        String hex_green = Integer.toHexString(green).toUpperCase();
+        String hex_green = Integer.toHexString(selected_color.getGreen()).toUpperCase();
         if(hex_green.length() < 2) hex_green = "0" + hex_green;
-        String hex_blue = Integer.toHexString(blue).toUpperCase();
+        String hex_blue = Integer.toHexString(selected_color.getBlue()).toUpperCase();
         if(hex_blue.length() < 2) hex_blue = "0" + hex_blue;
         tv_hex.setText("HEX: #" + hex_red + hex_green + hex_blue);
         //Update HSV TextView
         float[] hsv = new float[3];
-        Color.RGBToHSV(red, green, blue, hsv);
+        android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
         tv_hsv.setText("HSV: " + String.format("%.02f", hsv[0]) + ", " + String.format("%.02f", hsv[1]) + ", " + String.format("%.02f", hsv[2]));
-        tv_rgb.setTextColor(clru.getComplimentary(Color.rgb(red, green, blue)));
-        tv_hex.setTextColor(clru.getComplimentary(Color.rgb(red, green, blue)));
-        tv_hsv.setTextColor(clru.getComplimentary(Color.rgb(red, green, blue)));
+        tv_rgb.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        tv_hex.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        tv_hsv.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         //Update Container Color
-        color_container.setBackgroundColor(Color.parseColor("#" + hex_red + hex_green + hex_blue));
+        color_container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
     }
 
     //----------------------------------------Konvertierung-----------------------------------------
@@ -386,27 +453,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     tv_error.setVisibility(View.GONE);
-                    red = Integer.parseInt(et_red.getText().toString());
-                    green = Integer.parseInt(et_green.getText().toString());
-                    blue = Integer.parseInt(et_blue.getText().toString());
-                    if(red > 255 || red < 0) {
+                    selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
+                    selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
+                    selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
+                    if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
                         et_red.requestFocus();
                         et_red.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(green > 255 || green < 0) {
+                    } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
                         et_green.requestFocus();
                         et_green.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(blue > 255 || blue < 0) {
+                    } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
                         et_blue.requestFocus();
                         et_blue.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
                     } else {
-                        et_hex.setText(Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue));
-                        container.setBackgroundColor(Color.rgb(red, green, blue));
+                        et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
+                        container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -467,18 +534,18 @@ public class MainActivity extends AppCompatActivity {
                     tv_error.setVisibility(View.GONE);
                     String hex = et_hex.getText().toString().trim();
                     if(hex.length() == 6) {
-                        red = Integer.valueOf(hex.substring(0, 2), 16);
-                        green = Integer.valueOf(hex.substring(2, 4), 16);
-                        blue = Integer.valueOf(hex.substring(4, 6), 16);
-                        et_red.setText(String.valueOf(red));
-                        et_green.setText(String.valueOf(green));
-                        et_blue.setText(String.valueOf(blue));
+                        selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
+                        selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
+                        selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
+                        et_red.setText(String.valueOf(selected_color.getRed()));
+                        et_green.setText(String.valueOf(selected_color.getGreen()));
+                        et_blue.setText(String.valueOf(selected_color.getBlue()));
                     } else {
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_6));
                         return;
                     }
-                    container.setBackgroundColor(Color.parseColor("#" + hex));
+                    container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
                 } catch (Exception e) {
                     tv_error.setVisibility(View.VISIBLE);
                     tv_error.setText(res.getString(R.string.error_hex_chars));
@@ -550,37 +617,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    red = Integer.parseInt(et_red.getText().toString());
-                    green = Integer.parseInt(et_green.getText().toString());
-                    blue = Integer.parseInt(et_blue.getText().toString());
-                    if(red > 255 || red < 0) {
+                    selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
+                    selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
+                    selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
+                    if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
                         et_red.requestFocus();
                         et_red.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(green > 255 || green < 0) {
+                    } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
                         et_green.requestFocus();
                         et_green.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(blue > 255 || blue < 0) {
+                    } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
                         et_blue.requestFocus();
                         et_blue.setText(null);
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_between));
                     } else {
-                        String hex_red = Integer.toHexString(red);
+                        String hex_red = Integer.toHexString(selected_color.getRed());
                         if(hex_red.length() < 2) hex_red = "0" + hex_red;
-                        String hex_green = Integer.toHexString(green);
+                        String hex_green = Integer.toHexString(selected_color.getGreen());
                         if(hex_green.length() < 2) hex_green = "0" + hex_green;
-                        String hex_blue = Integer.toHexString(blue);
+                        String hex_blue = Integer.toHexString(selected_color.getBlue());
                         if(hex_blue.length() < 2) hex_blue = "0" + hex_blue;
                         float[] hsv = new float[3];
-                        Color.RGBToHSV(red, green, blue, hsv);
+                        android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
                         et_h.setText(String.format("%.02f", hsv[0]));
                         et_s.setText(String.format("%.02f", hsv[1]));
                         et_v.setText(String.format("%.02f", hsv[2]));
-                        container.setBackgroundColor(Color.parseColor("#" + hex_red + hex_green + hex_blue));
+                        container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -599,9 +666,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            sb_red.setProgress(red);
-                            sb_green.setProgress(green);
-                            sb_blue.setProgress(blue);
+                            sb_red.setProgress(selected_color.getRed());
+                            sb_green.setProgress(selected_color.getGreen());
+                            sb_blue.setProgress(selected_color.getBlue());
                         } catch (Exception e) {}
                     }
                 })
@@ -641,15 +708,15 @@ public class MainActivity extends AppCompatActivity {
                     tv_error.setVisibility(View.GONE);
                     String hex = et_hex.getText().toString().trim();
                     if(hex.length() == 6) {
-                        red = Integer.valueOf(hex.substring(0, 2), 16);
-                        green = Integer.valueOf(hex.substring(2, 4), 16);
-                        blue = Integer.valueOf(hex.substring(4, 6), 16);
+                        selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
+                        selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
+                        selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
                         float[] hsv = new float[3];
-                        Color.RGBToHSV(red, green, blue, hsv);
+                        android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
                         et_h.setText(String.format("%.02f", hsv[0]));
                         et_s.setText(String.format("%.02f", hsv[1]));
                         et_v.setText(String.format("%.02f", hsv[2]));
-                        container.setBackgroundColor(Color.parseColor("#" + hex));
+                        container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
                     } else {
                         tv_error.setVisibility(View.VISIBLE);
                         tv_error.setText(res.getString(R.string.error_number_6));
@@ -671,9 +738,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            sb_red.setProgress(red);
-                            sb_green.setProgress(green);
-                            sb_blue.setProgress(blue);
+                            sb_red.setProgress(selected_color.getRed());
+                            sb_green.setProgress(selected_color.getGreen());
+                            sb_blue.setProgress(selected_color.getBlue());
                         } catch (Exception e) {}
                     }
                 })
@@ -733,14 +800,14 @@ public class MainActivity extends AppCompatActivity {
                     hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
                     hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
                     hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
-                    int c = Color.HSVToColor(hsv);
-                    red = Color.red(c);
-                    et_red.setText(String.valueOf(red));
-                    green = Color.green(c);
-                    et_green.setText(String.valueOf(green));
-                    blue = Color.blue(c);
-                    et_blue.setText(String.valueOf(blue));
-                    container.setBackgroundColor(Color.rgb(red, green, blue));
+                    int c = android.graphics.Color.HSVToColor(hsv);
+                    selected_color.setRed(android.graphics.Color.red(c));
+                    et_red.setText(String.valueOf(selected_color.getRed()));
+                    selected_color.setGreen(android.graphics.Color.green(c));
+                    et_green.setText(String.valueOf(selected_color.getGreen()));
+                    selected_color.setBlue(android.graphics.Color.blue(c));
+                    et_blue.setText(String.valueOf(selected_color.getBlue()));
+                    container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
                 } catch (Exception e) {
                     tv_error.setVisibility(View.VISIBLE);
                     tv_error.setText(res.getString(R.string.error));
@@ -757,9 +824,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            sb_red.setProgress(red);
-                            sb_green.setProgress(green);
-                            sb_blue.setProgress(blue);
+                            sb_red.setProgress(selected_color.getRed());
+                            sb_green.setProgress(selected_color.getGreen());
+                            sb_blue.setProgress(selected_color.getBlue());
                         } catch (Exception e) {}
                     }
                 })
@@ -819,15 +886,15 @@ public class MainActivity extends AppCompatActivity {
                     hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
                     hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
                     hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
-                    int c = Color.HSVToColor(hsv);
-                    red = Color.red(c);
-                    et_red.setText(String.valueOf(red));
-                    green = Color.green(c);
-                    et_green.setText(String.valueOf(green));
-                    blue = Color.blue(c);
-                    et_blue.setText(String.valueOf(blue));
-                    et_hex.setText(Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue));
-                    container.setBackgroundColor(Color.rgb(red, green, blue));
+                    int c = android.graphics.Color.HSVToColor(hsv);
+                    selected_color.setRed(android.graphics.Color.red(c));
+                    et_red.setText(String.valueOf(selected_color.getRed()));
+                    selected_color.setGreen(android.graphics.Color.green(c));
+                    et_green.setText(String.valueOf(selected_color.getGreen()));
+                    selected_color.setBlue(android.graphics.Color.blue(c));
+                    et_blue.setText(String.valueOf(selected_color.getBlue()));
+                    et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
+                    container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
                 } catch (Exception e) {
                     tv_error.setVisibility(View.VISIBLE);
                     tv_error.setText(res.getString(R.string.error));
@@ -844,9 +911,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            sb_red.setProgress(red);
-                            sb_green.setProgress(green);
-                            sb_blue.setProgress(blue);
+                            sb_red.setProgress(selected_color.getRed());
+                            sb_green.setProgress(selected_color.getGreen());
+                            sb_blue.setProgress(selected_color.getBlue());
                         } catch (Exception e) {}
                     }
                 })

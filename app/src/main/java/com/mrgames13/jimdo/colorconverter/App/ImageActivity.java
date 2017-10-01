@@ -44,6 +44,7 @@ import com.bumptech.glide.request.target.Target;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;
 import com.mrgames13.jimdo.colorconverter.R;
 import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 import com.mrgames13.jimdo.colorconverter.Utils.NetworkUtils;
@@ -154,7 +155,7 @@ public class ImageActivity extends AppCompatActivity {
                     }
 
                     int_choosed_color = bitmap.getPixel(x, y);
-                    MainActivity.selected_image_color = int_choosed_color;
+                    MainActivity.selected_color = new Color(0, "Selection", int_choosed_color, -1);
                     selected_color.setBackgroundColor(int_choosed_color);
                 }
                 return true;
@@ -273,7 +274,30 @@ public class ImageActivity extends AppCompatActivity {
                                 .setContentText(R.string.instructions_photo_m)
                                 .setStyle(R.style.showCaseView)
                                 .blockAllTouches()
-                                .singleShot(2);
+                                .singleShot(2)
+                                .setShowcaseEventListener(new OnShowcaseEventListener() {
+                                    @Override
+                                    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                                        showcase_view = new ShowcaseView.Builder(ImageActivity.this)
+                                                .withHoloShowcase()
+                                                .setTarget(new ViewTarget(findViewById(R.id.choose_from_web)))
+                                                .setContentTitle(R.string.image_from_web)
+                                                .setContentText(R.string.instructions_web_m)
+                                                .setStyle(R.style.showCaseView)
+                                                .blockAllTouches()
+                                                .singleShot(3);
+                                        showcase_view.build();
+                                    }
+
+                                    @Override
+                                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {}
+
+                                    @Override
+                                    public void onShowcaseViewShow(ShowcaseView showcaseView) {}
+
+                                    @Override
+                                    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {}
+                                });
                         showcase_view.build();
                     }
 
@@ -305,7 +329,7 @@ public class ImageActivity extends AppCompatActivity {
                 light_muted_color.setBackgroundColor(int_light_muted_color);
                 int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
                 dark_muted_color.setBackgroundColor(int_dark_muted_color);
-                selected_color.setBackgroundColor(MainActivity.selected_image_color);
+                selected_color.setBackgroundColor(android.graphics.Color.argb(255, MainActivity.selected_color.getRed(), MainActivity.selected_color.getGreen(), MainActivity.selected_color.getBlue()));
 
                 button_container.setVisibility(View.GONE);
                 color_button_container.setVisibility(View.VISIBLE);
@@ -316,11 +340,29 @@ public class ImageActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(ImageActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQ_PERMISSION_WRITE_EXTERNAL_STORAGE);
         }
 
-        //Bei Shortcut-Aufruf auf Unterfunktion weiterleiten
-        if(getIntent().hasExtra("action") && getIntent().getStringExtra("action").equals("photo")) {
-            chooseImageFromCamera();
-        } else if(getIntent().hasExtra("action") && getIntent().getStringExtra("action").equals("image")) {
-            chooseImageFromGallery();
+        Intent intent = getIntent();
+        if(Intent.ACTION_SEND.equals(intent.getAction()) && intent.getType() != null) {
+            //Bei ShareIntent von anderer App, Bild direkt anzeigen
+            if(intent.getType().startsWith("image/")) {
+                try{
+                    Uri image_uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                    choosed_image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+                    MainActivity.selected_image = choosed_image;
+
+                    setBitmapToImageView();
+                } catch (Exception e) {
+                    Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            //Bei Shortcut-Aufruf auf Unterfunktion weiterleiten
+            if(getIntent().hasExtra("action") && getIntent().getStringExtra("action").equals("photo")) {
+                chooseImageFromCamera();
+            } else if(getIntent().hasExtra("action") && getIntent().getStringExtra("action").equals("image")) {
+                chooseImageFromGallery();
+            }
         }
     }
 
@@ -365,6 +407,7 @@ public class ImageActivity extends AppCompatActivity {
         FilePickerBuilder.getInstance()
                 .enableCameraSupport(false)
                 .setMaxCount(1)
+                .enableVideoPicker(false)
                 .pickPhoto(this);
     }
 
@@ -423,31 +466,10 @@ public class ImageActivity extends AppCompatActivity {
 
                                             @Override
                                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                                try{
-                                                    choosed_image = drawableToBitmap(resource);
-                                                    MainActivity.selected_image = choosed_image;
+                                                choosed_image = drawableToBitmap(resource);
+                                                MainActivity.selected_image = choosed_image;
 
-                                                    button_container.setVisibility(View.GONE);
-
-                                                    int_vibrant_color = clru.getVibrantColor(choosed_image);
-                                                    vibrant_color.setBackgroundColor(int_vibrant_color);
-                                                    int_light_vibrant_color = clru.getLightVibrantColor(choosed_image);
-                                                    light_vibrant_color.setBackgroundColor(int_light_vibrant_color);
-                                                    int_dark_vibrant_color = clru.getDarkVibrantColor(choosed_image);
-                                                    dark_vibrant_color.setBackgroundColor(int_dark_vibrant_color);
-                                                    int_muted_color = clru.getMutedColor(choosed_image);
-                                                    muted_color.setBackgroundColor(int_muted_color);
-                                                    int_light_muted_color = clru.getLightMutedColor(choosed_image);
-                                                    light_muted_color.setBackgroundColor(int_light_muted_color);
-                                                    int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
-                                                    dark_muted_color.setBackgroundColor(int_dark_muted_color);
-
-                                                    Animation anim = AnimationUtils.loadAnimation(ImageActivity.this, R.anim.animation_scale_up);
-                                                    color_button_container.setVisibility(View.VISIBLE);
-                                                    color_button_container.startAnimation(anim);
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
+                                                setBitmapToImageView();
                                                 return false;
                                             }
                                         })
@@ -480,63 +502,16 @@ public class ImageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQ_CAMERA_CHOOSER && resultCode == RESULT_OK && current_photo_path != null) {
-            try{
-                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            choosed_image = BitmapFactory.decodeFile(current_photo_path);
+            MainActivity.selected_image = choosed_image;
 
-                choosed_image = BitmapFactory.decodeFile(current_photo_path);
-                MainActivity.selected_image = choosed_image;
-
-                button_container.setVisibility(View.GONE);
-                image.setImageBitmap(choosed_image);
-
-                int_vibrant_color = clru.getVibrantColor(choosed_image);
-                vibrant_color.setBackgroundColor(int_vibrant_color);
-                int_light_vibrant_color = clru.getLightVibrantColor(choosed_image);
-                light_vibrant_color.setBackgroundColor(int_light_vibrant_color);
-                int_dark_vibrant_color = clru.getDarkVibrantColor(choosed_image);
-                dark_vibrant_color.setBackgroundColor(int_dark_vibrant_color);
-                int_muted_color = clru.getMutedColor(choosed_image);
-                muted_color.setBackgroundColor(int_muted_color);
-                int_light_muted_color = clru.getLightMutedColor(choosed_image);
-                light_muted_color.setBackgroundColor(int_light_muted_color);
-                int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
-                dark_muted_color.setBackgroundColor(int_dark_muted_color);
-
-                Animation anim = AnimationUtils.loadAnimation(this, R.anim.animation_scale_up);
-                color_button_container.setVisibility(View.VISIBLE);
-                color_button_container.startAnimation(anim);
-            } catch (Exception e) {
-                Toast.makeText(ImageActivity.this, res.getString(R.string.image_broken), Toast.LENGTH_SHORT).show();
-            }
+            setBitmapToImageView();
         } else if(requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
-            try{
-                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            String path = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA).get(0);
+            choosed_image = BitmapFactory.decodeFile(path);
+            MainActivity.selected_image = choosed_image;
 
-                button_container.setVisibility(View.GONE);
-                String path = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA).get(0);
-                choosed_image = BitmapFactory.decodeFile(path);
-                image.setImageBitmap(choosed_image);
-                MainActivity.selected_image = choosed_image;
-
-                int_vibrant_color = clru.getVibrantColor(choosed_image);
-                vibrant_color.setBackgroundColor(int_vibrant_color);
-                int_light_vibrant_color = clru.getLightVibrantColor(choosed_image);
-                light_vibrant_color.setBackgroundColor(int_light_vibrant_color);
-                int_dark_vibrant_color = clru.getDarkVibrantColor(choosed_image);
-                dark_vibrant_color.setBackgroundColor(int_dark_vibrant_color);
-                int_muted_color = clru.getMutedColor(choosed_image);
-                muted_color.setBackgroundColor(int_muted_color);
-                int_light_muted_color = clru.getLightMutedColor(choosed_image);
-                light_muted_color.setBackgroundColor(int_light_muted_color);
-                int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
-                dark_muted_color.setBackgroundColor(int_dark_muted_color);
-
-                Animation anim = AnimationUtils.loadAnimation(this, R.anim.animation_scale_up);
-                color_button_container.setVisibility(View.VISIBLE);
-                color_button_container.startAnimation(anim);
-            } catch (Exception e) {
-                Toast.makeText(ImageActivity.this, res.getString(R.string.image_broken), Toast.LENGTH_SHORT).show();
-            }
+            setBitmapToImageView();
         }
     }
 
@@ -544,14 +519,39 @@ public class ImageActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == REQ_PERMISSION_WRITE_EXTERNAL_STORAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            finish();
+        if(requestCode == REQ_PERMISSION_WRITE_EXTERNAL_STORAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) finish();
+    }
+
+    private void setBitmapToImageView() {
+        try{
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+            button_container.setVisibility(View.GONE);
+            image.setImageBitmap(choosed_image);
+
+            int_vibrant_color = clru.getVibrantColor(choosed_image);
+            vibrant_color.setBackgroundColor(int_vibrant_color);
+            int_light_vibrant_color = clru.getLightVibrantColor(choosed_image);
+            light_vibrant_color.setBackgroundColor(int_light_vibrant_color);
+            int_dark_vibrant_color = clru.getDarkVibrantColor(choosed_image);
+            dark_vibrant_color.setBackgroundColor(int_dark_vibrant_color);
+            int_muted_color = clru.getMutedColor(choosed_image);
+            muted_color.setBackgroundColor(int_muted_color);
+            int_light_muted_color = clru.getLightMutedColor(choosed_image);
+            light_muted_color.setBackgroundColor(int_light_muted_color);
+            int_dark_muted_color = clru.getDarkMutedColor(choosed_image);
+            dark_muted_color.setBackgroundColor(int_dark_muted_color);
+
+            Animation anim = AnimationUtils.loadAnimation(this, R.anim.animation_scale_up);
+            color_button_container.setVisibility(View.VISIBLE);
+            color_button_container.startAnimation(anim);
+        } catch (Exception e) {
+            Toast.makeText(ImageActivity.this, res.getString(R.string.image_broken), Toast.LENGTH_SHORT).show();
         }
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {
-        Bitmap bitmap = null;
-
+        Bitmap bitmap;
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             if(bitmapDrawable.getBitmap() != null) {
