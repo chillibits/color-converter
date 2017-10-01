@@ -39,4 +39,21 @@
     <string name="image_broken">Esta imagen esta rota</string>
     <string name="done">Hecho</string>
     <string name="all_photos">Todas las fotos</string>
+    <string name="choose_name">Seleccionar nombre</string>
+    <string name="delete">borrar</string>
+    <string name="delete_m">¿Desea realmente eliminar este color?</string>
+    <string name="download_img">Descargar imagen</string>
+    <string name="enter_web_url">Ingresar url web</string>
+    <string name="image_from_web">imagen de web</string>
+    <string name="instructions_web_m">toque en el icono web para cargar una imagen desde Internet y seleccione un color de la misma.</string>
+    <string name="malformed_url">URL mal formada</string>
+    <string name="no_colors_saved_yet">¡aún no se han guardado colores! Para guardar un color, toque en el icono de guardar en el lado izquierdo en la vista previa de color.</string>
+    <string name="no_internet_available">No hay internet disponible</string>
+    <string name="pick_random_color">generar color aleatorio</string>
+    <string name="rename">rebautizar</string>
+    <string name="save">salvar</string>
+    <string name="save_color">Guardar el color</string>
+    <string name="selected">Seleccionado</string>
+    <string name="title_activity_color_selection">Colores guardados</string>
+    <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
 </resources>

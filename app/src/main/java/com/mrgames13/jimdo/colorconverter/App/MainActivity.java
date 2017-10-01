@@ -408,9 +408,9 @@ public class MainActivity extends AppCompatActivity {
         float[] hsv = new float[3];
         android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
         tv_hsv.setText("HSV: " + String.format("%.02f", hsv[0]) + ", " + String.format("%.02f", hsv[1]) + ", " + String.format("%.02f", hsv[2]));
-        tv_rgb.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
-        tv_hex.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
-        tv_hsv.setTextColor(clru.getComplimentary(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        tv_rgb.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        tv_hex.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        tv_hsv.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         //Update Container Color
         color_container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
     }

@@ -42,6 +42,7 @@
     <string name="share">Recommend</string>
     <string name="share_m">Recommend ColorConverter to your friends!</string>
     <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="press_color_to_apply">Press on color to apply</string>
 
     <!-- ImageActivity -->
     <string name="title_activity_image">color from image</string>

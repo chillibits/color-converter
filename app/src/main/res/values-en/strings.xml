@@ -39,4 +39,21 @@
     <string name="select_photo_text">Select an image</string>
     <string name="done">Done</string>
     <string name="all_photos">All Photos</string>
+    <string name="choose_name">choose name</string>
+    <string name="delete">delete</string>
+    <string name="delete_m">Do you really want to delete this color?</string>
+    <string name="download_img">Download image</string>
+    <string name="enter_web_url">Enter web url</string>
+    <string name="image_from_web">web image</string>
+    <string name="instructions_web_m">tap on the web-icon to load an image from the internet and select a color from it.</string>
+    <string name="malformed_url">Malformed url</string>
+    <string name="no_colors_saved_yet">no colors saved yet! To save a color, tap on the save-icon on the left side in the color preview.</string>
+    <string name="no_internet_available">No internet available</string>
+    <string name="pick_random_color">generate random color</string>
+    <string name="rename">rename</string>
+    <string name="title_activity_color_selection">Saved colors</string>
+    <string name="save">save</string>
+    <string name="save_color">Save color</string>
+    <string name="selected">Selected</string>
+    <string name="press_color_to_apply">Press on color to apply</string>
 </resources>

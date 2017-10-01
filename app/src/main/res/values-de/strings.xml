@@ -39,4 +39,21 @@
     <string name="select_photo_text">Bild auswählen</string>
     <string name="done">Fertig</string>
     <string name="all_photos">Alle Bilder</string>
+    <string name="choose_name">Name wählen</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_m">Wollen Sie wirklich diese Farbe löschen?</string>
+    <string name="download_img">Bild herunterladen</string>
+    <string name="enter_web_url">Internet-Link eintragen</string>
+    <string name="image_from_web">Bild aus dem Internet</string>
+    <string name="instructions_web_m">Tippen Sie auf das Web-Icon um ein Bild aus dem Internet hetunterzuladen und eine Farbe davon auszuwählen.</string>
+    <string name="malformed_url">Fehlerhafte Adresse</string>
+    <string name="no_colors_saved_yet">Keine Farben gespeichern! Um eine Farbe zu speichern, tippen Sie auf das Speichern-Icon auf der linken Seite in der Farbenvorschau.</string>
+    <string name="no_internet_available">Internetverbindung nicht verfügbar</string>
+    <string name="rename">Umbenennen</string>
+    <string name="save">Speichern</string>
+    <string name="save_color">Farbe speichern</string>
+    <string name="selected">Ausgewählt</string>
+    <string name="title_activity_color_selection">Gespeicherte Farben</string>
+    <string name="pick_random_color">Zufällige Farbe generieren</string>
+    <string name="press_color_to_apply">Auf die Farbe tippen zum Bestätigen</string>
 </resources>

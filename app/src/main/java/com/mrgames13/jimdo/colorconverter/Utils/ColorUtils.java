@@ -64,8 +64,13 @@ public class ColorUtils {
         return Color.argb(alpha, red, green, blue);
     }
 
+    public int getTextColor(int color) {
+        int sum = Color.red(color) + Color.green(color) + Color.blue(color);
+        if(sum > 384) return Color.BLACK;
+        return Color.WHITE;
+    }
+
     public int getComplimentary(int color) {
-        int alpha = Color.alpha(color);
         int red = Color.red(color);
         int blue = Color.blue(color);
         int green = Color.green(color);
@@ -74,6 +79,6 @@ public class ColorUtils {
         blue = (~blue) & 0xff;
         green = (~green) & 0xff;
 
-        return Color.argb(alpha, red, green, blue);
+        return Color.argb(Color.alpha(color), red, green, blue);
     }
 }
