@@ -1,3 +1,5 @@
+Additional info: https://mrgames13.jimdo.com/color-converter/info/
+
 ColorConverter is a small & simple App for color converting.<br>
 Features:
 - Picking Color from ColorPicker
