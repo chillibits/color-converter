@@ -56,4 +56,6 @@
     <string name="selected">Seleccionado</string>
     <string name="title_activity_color_selection">Colores guardados</string>
     <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
+    <string name="image_from_camera">Tomar una foto</string>
+    <string name="image_from_gallery">Imagen de la galería</string>
 </resources>

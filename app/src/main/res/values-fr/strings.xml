@@ -56,4 +56,6 @@
     <string name="selected">sélectionné</string>
     <string name="title_activity_color_selection">couleurs, qui sont sauvent</string>
     <string name="press_color_to_apply">Pulse en color para aplicar</string>
+    <string name="image_from_gallery">Image de la galerie</string>
+    <string name="image_from_camera">Prendre une photo</string>
 </resources>

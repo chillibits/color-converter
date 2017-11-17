@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".App.MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -22,16 +23,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/tv_01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/selection_"
+                android:fontFamily="@font/abel"
                 android:gravity="center"
+                android:text="@string/selection_"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <SeekBar
                 android:id="@+id/color_red"
@@ -40,6 +43,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_01"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:max="@integer/rgb_max_value"/>
 
             <SeekBar
@@ -50,6 +55,8 @@
                 android:layout_below="@+id/color_red"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:max="@integer/rgb_max_value"/>
 
             <SeekBar
@@ -59,6 +66,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/color_green"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="15dp"
                 android:max="@integer/rgb_max_value"/>
 
@@ -76,40 +85,43 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="R"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/red"/>
+                    android:text="R"
+                    android:textColor="@color/red"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_g_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="G"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/green"/>
+                    android:text="G"
+                    android:textColor="@color/green"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_b_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="B"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/blue"/>
+                    android:text="B"
+                    android:textColor="@color/blue"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/container_rgb_values"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/container_rgb_labels"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -118,33 +130,36 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/red"/>
+                    android:text="0"
+                    android:textColor="@color/red"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_g"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/green"/>
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_b"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:textColor="@color/blue"/>
+                    android:text="0"
+                    android:textColor="@color/blue"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <RelativeLayout
@@ -153,100 +168,136 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/container_rgb_values"
                 android:background="@color/black"
-                android:padding="1dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="5dp">
 
                 <RelativeLayout
                     android:id="@+id/color_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    android:background="@color/black">
+                    android:layout_height="100dp"
+                    android:background="@color/black"
+                    android:padding="4dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:orientation="vertical"
+                        android:layout_marginLeft="3dp"
                         android:weightSum="2">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/load_color"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_folder_open"
-                            android:layout_marginBottom="3dp"/>
+                            app:srcCompat="@drawable/ic_folder_open"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:layout_marginBottom="7dp"/>
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/save_color"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_save" />
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            app:srcCompat="@drawable/ic_save" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/rgb_display"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="RGB: 0, 0, 0"
-                        android:textColor="@color/white"
-                        android:layout_centerHorizontal="true"
-                        android:textIsSelectable="true"
-                        android:textSize="18sp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="3">
 
-                    <ImageView
-                        android:id="@+id/rgb_copy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_copy"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@id/rgb_display"
-                        android:layout_alignBottom="@id/rgb_display"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/hex_display"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="HEX: #000000"
-                        android:textColor="@color/white"
-                        android:layout_centerHorizontal="true"
-                        android:textIsSelectable="true"
-                        android:textSize="18sp"
-                        android:layout_below="@id/rgb_display"/>
+                            <TextView
+                                android:id="@+id/rgb_display"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/abel"
+                                android:text="RGB: 0, 0, 0"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
 
-                    <ImageView
-                        android:id="@+id/hex_copy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_copy"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@id/hex_display"
-                        android:layout_alignBottom="@id/hex_display"/>
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/rgb_copy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_copy"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@id/rgb_display"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginRight="3dp"
+                                android:layout_alignBottom="@id/rgb_display"/>
+                        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/hsv_display"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="HSV: 0.00, 0.00, 0.00"
-                        android:textColor="@color/white"
-                        android:layout_centerHorizontal="true"
-                        android:textIsSelectable="true"
-                        android:textSize="18sp"
-                        android:layout_below="@id/hex_display"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
 
-                    <ImageView
-                        android:id="@+id/hsv_copy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_copy"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@id/hsv_display"
-                        android:layout_alignBottom="@id/hsv_display"/>
+                            <TextView
+                                android:id="@+id/hex_display"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/abel"
+                                android:text="HEX: #000000"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
 
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/hex_copy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_copy"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@id/hex_display"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginRight="3dp"
+                                android:layout_alignBottom="@id/hex_display"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/hsv_display"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/abel"
+                                android:text="HSV: 0.00, 0.00, 0.00"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/hsv_copy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_copy"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@id/hsv_display"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginRight="3dp"
+                                android:layout_alignBottom="@id/hsv_display"/>
+                        </RelativeLayout>
+                    </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -256,6 +307,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pick_color"
                 android:layout_below="@+id/color_container_outer"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="5dp"/>
 
             <Button
@@ -264,6 +317,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pick_random_color"
                 android:layout_below="@+id/pick"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="5dp"/>
 
             <Button
@@ -272,26 +327,31 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pick_color_from_image"
                 android:layout_below="@+id/pick_random_color"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="5dp"/>
 
             <RelativeLayout
                 android:id="@+id/seperator_01"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:background="@color/grey"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_below="@+id/pick_from_image"/>
 
             <TextView
                 android:id="@+id/tv_02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/converting_"
+                android:layout_below="@id/seperator_01"
+                android:fontFamily="@font/abel"
                 android:gravity="center"
+                android:text="@string/converting_"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_below="@id/seperator_01"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/convert_container_01"
@@ -299,6 +359,8 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2"
                 android:layout_below="@+id/tv_02"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="5dp">
 
                 <Button
@@ -321,6 +383,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_below="@+id/convert_container_01">
 
                 <Button
@@ -343,6 +407,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_below="@+id/convert_container_02">
 
                 <Button

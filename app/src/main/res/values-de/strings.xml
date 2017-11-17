@@ -56,4 +56,6 @@
     <string name="title_activity_color_selection">Gespeicherte Farben</string>
     <string name="pick_random_color">Zufällige Farbe generieren</string>
     <string name="press_color_to_apply">Auf die Farbe tippen zum Bestätigen</string>
+    <string name="image_from_gallery">Bild aus der Galerie</string>
+    <string name="image_from_camera">Foto aufnehmen</string>
 </resources>

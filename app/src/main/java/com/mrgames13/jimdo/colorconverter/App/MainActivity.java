@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         sb_green = findViewById(R.id.color_green);
         sb_blue = findViewById(R.id.color_blue);
 
-        sb_red.getProgressDrawable().setColorFilter(res.getColor(R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
-        sb_green.getProgressDrawable().setColorFilter(res.getColor(R.color.green), android.graphics.PorterDuff.Mode.SRC_IN);
-        sb_blue.getProgressDrawable().setColorFilter(res.getColor(R.color.blue), android.graphics.PorterDuff.Mode.SRC_IN);
+        sb_red.getProgressDrawable().setColorFilter(res.getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
+        sb_green.getProgressDrawable().setColorFilter(res.getColor(R.color.green), PorterDuff.Mode.MULTIPLY);
+        sb_blue.getProgressDrawable().setColorFilter(res.getColor(R.color.blue), PorterDuff.Mode.MULTIPLY);
 
         sb_red.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override

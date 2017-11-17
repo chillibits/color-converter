@@ -52,6 +52,7 @@ import com.mrgames13.jimdo.colorconverter.Utils.NetworkUtils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import droidninja.filepicker.FilePickerBuilder;
@@ -257,7 +258,7 @@ public class ImageActivity extends AppCompatActivity {
 
         //ShowCaseView initialisieren
         showcase_view = new ShowcaseView.Builder(ImageActivity.this)
-                .withHoloShowcase()
+                .withNewStyleShowcase()
                 .setTarget(new ViewTarget(findViewById(R.id.choose_from_gallery)))
                 .setContentTitle(R.string.instructions_gallery_t)
                 .setContentText(R.string.instructions_gallery_m)
@@ -268,7 +269,7 @@ public class ImageActivity extends AppCompatActivity {
                     @Override
                     public void onShowcaseViewHide(ShowcaseView showcaseView) {
                         showcase_view = new ShowcaseView.Builder(ImageActivity.this)
-                                .withHoloShowcase()
+                                .withNewStyleShowcase()
                                 .setTarget(new ViewTarget(findViewById(R.id.choose_from_camera)))
                                 .setContentTitle(R.string.capture_image)
                                 .setContentText(R.string.instructions_photo_m)
@@ -279,7 +280,7 @@ public class ImageActivity extends AppCompatActivity {
                                     @Override
                                     public void onShowcaseViewHide(ShowcaseView showcaseView) {
                                         showcase_view = new ShowcaseView.Builder(ImageActivity.this)
-                                                .withHoloShowcase()
+                                                .withNewStyleShowcase()
                                                 .setTarget(new ViewTarget(findViewById(R.id.choose_from_web)))
                                                 .setContentTitle(R.string.image_from_web)
                                                 .setContentText(R.string.instructions_web_m)
@@ -407,7 +408,6 @@ public class ImageActivity extends AppCompatActivity {
         FilePickerBuilder.getInstance()
                 .enableCameraSupport(false)
                 .setMaxCount(1)
-                .enableVideoPicker(false)
                 .pickPhoto(this);
     }
 
@@ -506,12 +506,16 @@ public class ImageActivity extends AppCompatActivity {
             MainActivity.selected_image = choosed_image;
 
             setBitmapToImageView();
-        } else if(requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
-            String path = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA).get(0);
-            choosed_image = BitmapFactory.decodeFile(path);
-            MainActivity.selected_image = choosed_image;
+        } else if(requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> paths = new ArrayList();
+            paths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+            if(paths.size() > 0) {
+                String path = paths.get(0);
+                choosed_image = BitmapFactory.decodeFile(path);
+                MainActivity.selected_image = choosed_image;
 
-            setBitmapToImageView();
+                setBitmapToImageView();
+            }
         }
     }
 

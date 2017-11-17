@@ -55,6 +55,8 @@
     <string name="enter_web_url">Enter web url</string>
     <string name="download_img">Download image</string>
     <string name="malformed_url">Malformed url</string>
+    <string name="image_from_gallery">Image from gallery</string>
+    <string name="image_from_camera">Image from camera</string>
 
     <!-- ColorSelectionAcitivity -->
     <string name="title_activity_color_selection">Saved colors</string>

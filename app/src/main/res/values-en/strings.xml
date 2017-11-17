@@ -56,4 +56,6 @@
     <string name="save_color">Save color</string>
     <string name="selected">Selected</string>
     <string name="press_color_to_apply">Press on color to apply</string>
+    <string name="image_from_gallery">Image from gallery</string>
+    <string name="image_from_camera">Image from camera</string>
 </resources>
