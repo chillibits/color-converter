@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_convert_hex_to_hsv;
     private Button btn_convert_hsv_to_rgb;
     private Button btn_convert_hsv_to_hex;
+    private ImageView btn_rgb_copy;
+    private ImageView btn_hex_copy;
+    private ImageView btn_hsv_copy;
+    private ImageView btn_load_color;
+    private ImageView btn_save_color;
     private TextView tv_error;
     private Button btn_convert;
     private AlertDialog d;
@@ -249,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Farbe Speichern / Laden
-        ImageView btn_load_color = findViewById(R.id.load_color);
+        btn_load_color = findViewById(R.id.load_color);
         btn_load_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -258,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView btn_save_color = findViewById(R.id.save_color);
+        btn_save_color = findViewById(R.id.save_color);
         btn_save_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -296,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Codes in Zwischenablage kopieren
-        ImageView btn_rgb_copy = findViewById(R.id.rgb_copy);
+        btn_rgb_copy = findViewById(R.id.rgb_copy);
         btn_rgb_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView btn_hex_copy = findViewById(R.id.hex_copy);
+        btn_hex_copy = findViewById(R.id.hex_copy);
         btn_hex_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -318,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView btn_hsv_copy = findViewById(R.id.hsv_copy);
+        btn_hsv_copy = findViewById(R.id.hsv_copy);
         btn_hsv_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -412,6 +417,11 @@ public class MainActivity extends AppCompatActivity {
         tv_rgb.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         tv_hex.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         tv_hsv.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_rgb_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_hex_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_hsv_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_save_color.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_load_color.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         //Update Container Color
         color_container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
     }
