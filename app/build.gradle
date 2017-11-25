@@ -9,8 +9,6 @@ android {
         targetSdkVersion 27
         versionCode 108
         versionName "1.0.8"
-        renderscriptTargetApi 27
-        renderscriptSupportModeEnabled true
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -24,18 +22,6 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    packagingOptions {
-        exclude 'lib/x86/libRSSupport.so'
-        exclude 'lib/x86/librsjni.so'
-        exclude 'lib/x86_64/libRSSupport.so'
-        exclude 'lib/x86_64/librsjni.so'
-        exclude 'lib/arm64-v8a/libRSSupport.so'
-        exclude 'lib/arm64-v8a/librsjni.so'
-        exclude 'lib/mips/libRSSupport.so'
-        exclude 'lib/mips/librsjni.so'
-        exclude 'lib/armeabi-v7a/libRSSupport.so'
-        exclude 'lib/armeabi-v7a/librsjni.so'
     }
 }
 
@@ -55,6 +41,4 @@ dependencies {
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.+'
     implementation 'com.github.amlcurran.showcaseview:library:5.4.+'
     implementation 'com.droidninja:filepicker:2.0.8'
-    //implementation 'com.github.bumptech.glide:glide:4.1.+'
-    //annotationProcessor 'com.github.bumptech.glide:compiler:4.1.+'
 }
