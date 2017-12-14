@@ -1,5 +1,7 @@
 package com.mrgames13.jimdo.colorconverter.App;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     //Konstanten
     private final int REQ_PICK_COLOR_FROM_IMAGE = 10001;
     private final int REQ_LOAD_COLOR = 10002;
+    private final int COLOR_ANIMATION_DURATION = 500;
 
     //Variablen als Objekte
     private Resources res;
@@ -125,28 +128,37 @@ public class MainActivity extends AppCompatActivity {
         sb_red.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                selected_color.setRed(progress);
-                String value = String.valueOf(progress);
-                tv_r.setText(value);
-                updateDisplays();
+                if(fromUser) {
+                    String value = String.valueOf(progress);
+                    tv_r.setText(value);
+                    Color tmp = selected_color;
+                    tmp.setRed(progress);
+                    updateDisplays(tmp);
+                }
             }
         });
         sb_green.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                selected_color.setGreen(progress);
-                String value = String.valueOf(progress);
-                tv_g.setText(value);
-                updateDisplays();
+                if(fromUser) {
+                    String value = String.valueOf(progress);
+                    tv_g.setText(value);
+                    Color tmp = selected_color;
+                    tmp.setGreen(progress);
+                    updateDisplays(tmp);
+                }
             }
         });
         sb_blue.setOnSeekBarChangeListener(new SimpleSeekBarChangedListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                selected_color.setBlue(progress);
-                String value = String.valueOf(progress);
-                tv_b.setText(value);
-                updateDisplays();
+                if(fromUser) {
+                    String value = String.valueOf(progress);
+                    tv_b.setText(value);
+                    Color tmp = selected_color;
+                    tmp.setBlue(progress);
+                    updateDisplays(tmp);
+                }
             }
         });
 
@@ -159,6 +171,12 @@ public class MainActivity extends AppCompatActivity {
         tv_hsv = findViewById(R.id.hsv_display);
 
         color_container = findViewById(R.id.color_container);
+        color_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseColor();
+            }
+        });
 
         et_red = findViewById(R.id.et_red);
         et_green = findViewById(R.id.et_green);
@@ -169,19 +187,7 @@ public class MainActivity extends AppCompatActivity {
         btn_pick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color_picker = new ColorPickerDialog(MainActivity.this, android.graphics.Color.parseColor(tv_hex.getText().toString().substring(5)));
-                color_picker.setAlphaSliderVisible(false);
-                color_picker.setHexValueEnabled(true);
-                color_picker.setTitle(res.getString(R.string.pick_color));
-                color_picker.setOnColorChangedListener(new ColorPickerDialog.OnColorChangedListener() {
-                    @Override
-                    public void onColorChanged(int color) {
-                        sb_red.setProgress(android.graphics.Color.red(color));
-                        sb_green.setProgress(android.graphics.Color.green(color));
-                        sb_blue.setProgress(android.graphics.Color.blue(color));
-                    }
-                });
-                color_picker.show();
+                chooseColor();
             }
         });
 
@@ -189,11 +195,7 @@ public class MainActivity extends AppCompatActivity {
         btn_pick_random.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                random = new Random(System.currentTimeMillis());
-                selected_color = new Color(0, "Selection", random.nextInt(256), random.nextInt(256), random.nextInt(256), -1);
-                sb_red.setProgress(selected_color.getRed());
-                sb_green.setProgress(selected_color.getGreen());
-                sb_blue.setProgress(selected_color.getBlue());
+                randomizeColor();
             }
         });
 
@@ -267,36 +269,7 @@ public class MainActivity extends AppCompatActivity {
         btn_save_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Farbe speichern
-                final EditText et_name = new EditText(MainActivity.this);
-                et_name.setHint(res.getString(R.string.choose_name));
-                et_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-
-                AlertDialog d = new AlertDialog.Builder(MainActivity.this)
-                        .setCancelable(true)
-                        .setTitle(res.getString(R.string.save_color))
-                        .setView(et_name, 60, 0, 60, 0)
-                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton(res.getString(R.string.save), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.dismiss();
-                                String name = et_name.getText().toString().trim();
-                                if(!name.equals("")) {
-                                    selected_color.setName(name);
-                                    su.saveColor(selected_color);
-                                } else {
-                                    Toast.makeText(MainActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .create();
-                d.show();
+                saveColor();
             }
         });
 
@@ -385,21 +358,65 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQ_PICK_COLOR_FROM_IMAGE && resultCode == RESULT_OK) {
-            selected_color = new Color(0, "Selection", data.getIntExtra("Color", 0), -1);
-            //Empfangenen Daten auswerten
-            sb_red.setProgress(selected_color.getRed());
-            sb_green.setProgress(selected_color.getGreen());
-            sb_blue.setProgress(selected_color.getBlue());
+            updateDisplays(new Color(0, "Selection", data.getIntExtra("Color", 0), -1));
         } else if(requestCode == REQ_LOAD_COLOR && resultCode == RESULT_OK) {
-            selected_color = new Color(0, "Selection", data.getIntExtra("Color", 0), -1);
-            //Empfangenen Daten auswerten
-            sb_red.setProgress(selected_color.getRed());
-            sb_green.setProgress(selected_color.getGreen());
-            sb_blue.setProgress(selected_color.getBlue());
+            updateDisplays(new Color(0, "Selection", data.getIntExtra("Color", 0), -1));
         }
     }
 
-    private void updateDisplays() {
+    private void saveColor() {
+        //Farbe speichern
+        final EditText et_name = new EditText(MainActivity.this);
+        et_name.setHint(res.getString(R.string.choose_name));
+        et_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+
+        AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                .setCancelable(true)
+                .setTitle(res.getString(R.string.save_color))
+                .setView(et_name, 60, 0, 60, 0)
+                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(res.getString(R.string.save), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                        String name = et_name.getText().toString().trim();
+                        if(!name.equals("")) {
+                            selected_color.setName(name);
+                            su.saveColor(selected_color);
+                        } else {
+                            Toast.makeText(MainActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .create();
+        d.show();
+    }
+
+    private void randomizeColor() {
+        random = new Random(System.currentTimeMillis());
+        updateDisplays(new Color(0, "Selection", random.nextInt(256), random.nextInt(256), random.nextInt(256), -1));
+    }
+
+    private void chooseColor() {
+        color_picker = new ColorPickerDialog(MainActivity.this, android.graphics.Color.parseColor(tv_hex.getText().toString().substring(5)));
+        color_picker.setAlphaSliderVisible(false);
+        color_picker.setHexValueEnabled(true);
+        color_picker.setTitle(res.getString(R.string.pick_color));
+        color_picker.setOnColorChangedListener(new ColorPickerDialog.OnColorChangedListener() {
+            @Override
+            public void onColorChanged(int color) {
+                updateDisplays(new Color(0, "Selection", android.graphics.Color.red(color), android.graphics.Color.green(color), android.graphics.Color.blue(color), 0));
+            }
+        });
+        color_picker.show();
+    }
+
+    private void updateDisplays(final Color selected_color) {
         //Update RGB TextView
         tv_rgb.setText("RGB: " + String.valueOf(selected_color.getRed()) + ", " + String.valueOf(selected_color.getGreen()) + ", " + String.valueOf(selected_color.getBlue()));
         //Update HEX TextView
@@ -423,7 +440,52 @@ public class MainActivity extends AppCompatActivity {
         btn_save_color.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         btn_load_color.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         //Update Container Color
-        color_container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
+
+        ValueAnimator red_anim = ValueAnimator.ofInt(sb_red.getProgress(), selected_color.getRed());
+        red_anim.setDuration(COLOR_ANIMATION_DURATION);
+        red_anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                sb_red.setProgress((int) valueAnimator.getAnimatedValue());
+                color_container.setBackgroundColor(android.graphics.Color.argb(255, sb_red.getProgress(), sb_green.getProgress(), sb_blue.getProgress()));
+            }
+        });
+        red_anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                MainActivity.selected_color = selected_color;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        red_anim.start();
+
+        ValueAnimator green_anim = ValueAnimator.ofInt(sb_green.getProgress(), selected_color.getGreen());
+        green_anim.setDuration(COLOR_ANIMATION_DURATION);
+        green_anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                sb_green.setProgress((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        green_anim.start();
+
+        ValueAnimator blue_anim = ValueAnimator.ofInt(sb_blue.getProgress(), selected_color.getBlue());
+        blue_anim.setDuration(COLOR_ANIMATION_DURATION);
+        blue_anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                sb_blue.setProgress((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        blue_anim.start();
     }
 
     //----------------------------------------Konvertierung-----------------------------------------
