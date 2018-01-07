@@ -417,6 +417,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDisplays(final Color selected_color) {
+        //Update RGB TextViews
+        tv_r.setText(String.valueOf(selected_color.getRed()));
+        tv_g.setText(String.valueOf(selected_color.getGreen()));
+        tv_b.setText(String.valueOf(selected_color.getBlue()));
         //Update RGB TextView
         tv_rgb.setText("RGB: " + String.valueOf(selected_color.getRed()) + ", " + String.valueOf(selected_color.getGreen()) + ", " + String.valueOf(selected_color.getBlue()));
         //Update HEX TextView

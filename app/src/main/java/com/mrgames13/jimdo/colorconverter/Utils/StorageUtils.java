@@ -157,11 +157,6 @@ public class StorageUtils extends SQLiteOpenHelper{
         }
     }
 
-    public void deleteColor(int id) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_COLORS, "id", new String[] {String.valueOf(id)});
-    }
-
     public ArrayList<Color> loadColors() {
         try{
             SQLiteDatabase db = getWritableDatabase();
