@@ -8,3 +8,5 @@ Features:
 
 Have fun with ColorConverter<br>
 Your M&R Games Team
+
+© M&R Games 2017 - 2018
