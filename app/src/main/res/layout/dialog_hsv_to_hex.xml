@@ -21,8 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="H"
-            android:enabled="false"/>
+            android:hint="H"/>
 
         <EditText
             android:id="@+id/et_s"
@@ -30,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="S"
-            android:enabled="false"/>
+            android:hint="S"/>
 
         <EditText
             android:id="@+id/et_v"
@@ -39,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="V"
-            android:enabled="false"/>
+            android:hint="V"/>
     </LinearLayout>
 
     <TextView
@@ -63,6 +60,7 @@
         android:gravity="center"
         android:maxLength="6"
         android:layout_toRightOf="@+id/tv_hashtag"
+        android:enabled="false"
         android:layout_below="@+id/container_et_rgb"/>
 
     <TextView
@@ -73,12 +71,4 @@
         android:layout_below="@id/et_hex"
         android:textColor="@color/red"
         android:gravity="center"/>
-
-    <Button
-        android:id="@+id/convert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/convert"
-        android:layout_below="@id/error"/>
-
 </RelativeLayout>

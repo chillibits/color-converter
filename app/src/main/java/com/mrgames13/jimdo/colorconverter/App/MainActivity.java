@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btn_load_color;
     private ImageView btn_save_color;
     private TextView tv_error;
-    private Button btn_convert;
     private AlertDialog d;
     private RelativeLayout container;
     private ColorPickerDialog color_picker;
@@ -97,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public static Color selected_color = new Color(0, "Selection", android.graphics.Color.BLACK, -1);
 
     //Variablen
+    private boolean already_converted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,8 +278,10 @@ public class MainActivity extends AppCompatActivity {
         btn_rgb_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String copy_string = tv_rgb.getText().toString();
+                copy_string = copy_string.substring(copy_string.indexOf(":") +2);
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("RGB-Code", tv_rgb.getText().toString());
+                ClipData clip = ClipData.newPlainText("RGB-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
             }
@@ -289,8 +291,10 @@ public class MainActivity extends AppCompatActivity {
         btn_hex_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String copy_string = tv_hex.getText().toString();
+                copy_string = copy_string.substring(copy_string.indexOf(":") +2);
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("HEX-Code", tv_hex.getText().toString());
+                ClipData clip = ClipData.newPlainText("HEX-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
             }
@@ -300,8 +304,10 @@ public class MainActivity extends AppCompatActivity {
         btn_hsv_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String copy_string = tv_hsv.getText().toString();
+                copy_string = copy_string.substring(copy_string.indexOf(":") +2);
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("HSV-Code", tv_hsv.getText().toString());
+                ClipData clip = ClipData.newPlainText("HSV-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
             }
@@ -518,71 +524,74 @@ public class MainActivity extends AppCompatActivity {
                 if(et_blue.getText().toString().length() >= 3) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
         et_hex = v.findViewById(R.id.et_hex);
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    tv_error.setVisibility(View.GONE);
-                    selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
-                    selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
-                    selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
-                    if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
-                        et_red.requestFocus();
-                        et_red.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
-                        et_green.requestFocus();
-                        et_green.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
-                        et_blue.requestFocus();
-                        et_blue.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else {
-                        et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
-                        container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.rgb_to_hex))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(Integer.parseInt(et_red.getText().toString()));
-                            sb_green.setProgress(Integer.parseInt(et_green.getText().toString()));
-                            sb_blue.setProgress(Integer.parseInt(et_blue.getText().toString()));
-                        } catch (Exception e) {}
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", Integer.parseInt(et_red.getText().toString()), Integer.parseInt(et_green.getText().toString()), Integer.parseInt(et_blue.getText().toString()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try {
+                        tv_error.setVisibility(View.GONE);
+                        selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
+                        selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
+                        selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
+                        if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
+                            et_red.requestFocus();
+                            et_red.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
+                            et_green.requestFocus();
+                            et_green.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
+                            et_blue.requestFocus();
+                            et_blue.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else {
+                            et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
+                            container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            already_converted = true;
+                        }
+                    } catch (Exception e) {
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error));
+                    }
+                }
+            }
+        });
     }
 
     private void convertHEX2RGB() {
@@ -598,63 +607,64 @@ public class MainActivity extends AppCompatActivity {
                 if(et_hex.getText().toString().length() >= 6) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    tv_error.setVisibility(View.GONE);
-                    String hex = et_hex.getText().toString().trim();
-                    if(hex.length() == 6) {
-                        selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
-                        selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
-                        selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
-                        et_red.setText(String.valueOf(selected_color.getRed()));
-                        et_green.setText(String.valueOf(selected_color.getGreen()));
-                        et_blue.setText(String.valueOf(selected_color.getBlue()));
-                    } else {
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_6));
-                        return;
-                    }
-                    container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
-                } catch (Exception e) {
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error_hex_chars));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hex_to_rgb))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(Integer.parseInt(et_red.getText().toString()));
-                            sb_green.setProgress(Integer.parseInt(et_green.getText().toString()));
-                            sb_blue.setProgress(Integer.parseInt(et_blue.getText().toString()));
-                        } catch (Exception e) {
-                            et_hex.setText(res.getString(R.string.error));
-                        }
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", Integer.parseInt(et_red.getText().toString()), Integer.parseInt(et_green.getText().toString()), Integer.parseInt(et_blue.getText().toString()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try{
+                        tv_error.setVisibility(View.GONE);
+                        String hex = et_hex.getText().toString().trim();
+                        if(hex.length() == 6) {
+                            selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
+                            selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
+                            selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
+                            et_red.setText(String.valueOf(selected_color.getRed()));
+                            et_green.setText(String.valueOf(selected_color.getGreen()));
+                            et_blue.setText(String.valueOf(selected_color.getBlue()));
+                            container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            already_converted = true;
+                        } else {
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_6));
+                        }
+                    } catch (Exception e) {
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error_hex_chars));
+                    }
+                }
+            }
+        });
     }
 
     private void convertRGB2HSV() {
@@ -681,7 +691,6 @@ public class MainActivity extends AppCompatActivity {
                 if(et_blue.getText().toString().length() >= 3) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_blue.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
@@ -689,74 +698,80 @@ public class MainActivity extends AppCompatActivity {
         et_s = v.findViewById(R.id.et_s);
         et_v = v.findViewById(R.id.et_v);
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
-                    selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
-                    selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
-                    if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
-                        et_red.requestFocus();
-                        et_red.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
-                        et_green.requestFocus();
-                        et_green.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
-                        et_blue.requestFocus();
-                        et_blue.setText(null);
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_between));
-                    } else {
-                        String hex_red = Integer.toHexString(selected_color.getRed());
-                        if(hex_red.length() < 2) hex_red = "0" + hex_red;
-                        String hex_green = Integer.toHexString(selected_color.getGreen());
-                        if(hex_green.length() < 2) hex_green = "0" + hex_green;
-                        String hex_blue = Integer.toHexString(selected_color.getBlue());
-                        if(hex_blue.length() < 2) hex_blue = "0" + hex_blue;
-                        float[] hsv = new float[3];
-                        android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
-                        et_h.setText(String.format("%.02f", hsv[0]));
-                        et_s.setText(String.format("%.02f", hsv[1]));
-                        et_v.setText(String.format("%.02f", hsv[2]));
-                        container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.rgb_to_hsv))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(selected_color.getRed());
-                            sb_green.setProgress(selected_color.getGreen());
-                            sb_blue.setProgress(selected_color.getBlue());
-                        } catch (Exception e) {}
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", Integer.parseInt(et_red.getText().toString()), Integer.parseInt(et_green.getText().toString()), Integer.parseInt(et_blue.getText().toString()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try {
+                        tv_error.setVisibility(View.GONE);
+                        selected_color.setRed(Integer.parseInt(et_red.getText().toString()));
+                        selected_color.setGreen(Integer.parseInt(et_green.getText().toString()));
+                        selected_color.setBlue(Integer.parseInt(et_blue.getText().toString()));
+                        if(selected_color.getRed() > 255 || selected_color.getRed() < 0) {
+                            et_red.requestFocus();
+                            et_red.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
+                            et_green.requestFocus();
+                            et_green.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
+                            et_blue.requestFocus();
+                            et_blue.setText(null);
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_between));
+                        } else {
+                            String hex_red = Integer.toHexString(selected_color.getRed());
+                            if(hex_red.length() < 2) hex_red = "0" + hex_red;
+                            String hex_green = Integer.toHexString(selected_color.getGreen());
+                            if(hex_green.length() < 2) hex_green = "0" + hex_green;
+                            String hex_blue = Integer.toHexString(selected_color.getBlue());
+                            if(hex_blue.length() < 2) hex_blue = "0" + hex_blue;
+                            float[] hsv = new float[3];
+                            android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
+                            et_h.setText(String.format("%.02f", hsv[0]));
+                            et_s.setText(String.format("%.02f", hsv[1]));
+                            et_v.setText(String.format("%.02f", hsv[2]));
+                            container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            already_converted = true;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error));
+                    }
+                }
+            }
+        });
     }
 
     private void convertHEX2HSV() {
@@ -769,7 +784,6 @@ public class MainActivity extends AppCompatActivity {
                 if(et_hex.getText().toString().length() >= 6) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_hex.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
@@ -777,58 +791,62 @@ public class MainActivity extends AppCompatActivity {
         et_s = v.findViewById(R.id.et_s);
         et_v = v.findViewById(R.id.et_v);
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    tv_error.setVisibility(View.GONE);
-                    String hex = et_hex.getText().toString().trim();
-                    if(hex.length() == 6) {
-                        selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
-                        selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
-                        selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
-                        float[] hsv = new float[3];
-                        android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
-                        et_h.setText(String.format("%.02f", hsv[0]));
-                        et_s.setText(String.format("%.02f", hsv[1]));
-                        et_v.setText(String.format("%.02f", hsv[2]));
-                        container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
-                    } else {
-                        tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_number_6));
-                        return;
-                    }
-                } catch (Exception e) {
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error_hex_chars));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hex_to_hsv))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(selected_color.getRed());
-                            sb_green.setProgress(selected_color.getGreen());
-                            sb_blue.setProgress(selected_color.getBlue());
-                        } catch (Exception e) {}
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", android.graphics.Color.parseColor("#" + et_hex.getText().toString().trim()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try {
+                        tv_error.setVisibility(View.GONE);
+                        String hex = et_hex.getText().toString().trim();
+                        if(hex.length() == 6) {
+                            selected_color.setRed(Integer.valueOf(hex.substring(0, 2), 16));
+                            selected_color.setGreen(Integer.valueOf(hex.substring(2, 4), 16));
+                            selected_color.setBlue(Integer.valueOf(hex.substring(4, 6), 16));
+                            float[] hsv = new float[3];
+                            android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
+                            et_h.setText(String.format("%.02f", hsv[0]));
+                            et_s.setText(String.format("%.02f", hsv[1]));
+                            et_v.setText(String.format("%.02f", hsv[2]));
+                            container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            already_converted = true;
+                        } else {
+                            tv_error.setVisibility(View.VISIBLE);
+                            tv_error.setText(res.getString(R.string.error_number_6));
+                        }
+                    } catch (Exception e) {
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error_hex_chars));
+                    }
+                }
+            }
+        });
     }
 
     private void convertHSV2RGB() {
@@ -838,18 +856,14 @@ public class MainActivity extends AppCompatActivity {
         et_h.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(et_h.getText().toString().length() >= 6) {
-                    et_s.requestFocus();
-                }
+                if(et_h.getText().toString().length() >= 6) et_s.requestFocus();
             }
         });
         et_s = v.findViewById(R.id.et_s);
         et_s.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(et_s.getText().toString().length() >= 6) {
-                    et_v.requestFocus();
-                }
+                if(et_s.getText().toString().length() >= 6) et_v.requestFocus();
             }
         });
         et_v = v.findViewById(R.id.et_v);
@@ -859,7 +873,6 @@ public class MainActivity extends AppCompatActivity {
                 if(et_v.getText().toString().length() >= 6) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_v.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
@@ -867,75 +880,76 @@ public class MainActivity extends AppCompatActivity {
         et_green = v.findViewById(R.id.et_green);
         et_blue = v.findViewById(R.id.et_blue);
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    tv_error.setVisibility(View.GONE);
-                    float[] hsv = new float[3];
-                    hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
-                    hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
-                    hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
-                    int c = android.graphics.Color.HSVToColor(hsv);
-                    selected_color.setRed(android.graphics.Color.red(c));
-                    et_red.setText(String.valueOf(selected_color.getRed()));
-                    selected_color.setGreen(android.graphics.Color.green(c));
-                    et_green.setText(String.valueOf(selected_color.getGreen()));
-                    selected_color.setBlue(android.graphics.Color.blue(c));
-                    et_blue.setText(String.valueOf(selected_color.getBlue()));
-                    container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                } catch (Exception e) {
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hsv_to_rgb))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(selected_color.getRed());
-                            sb_green.setProgress(selected_color.getGreen());
-                            sb_blue.setProgress(selected_color.getBlue());
-                        } catch (Exception e) {}
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", Integer.parseInt(et_red.getText().toString()), Integer.parseInt(et_green.getText().toString()), Integer.parseInt(et_blue.getText().toString()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try {
+                        tv_error.setVisibility(View.GONE);
+                        float[] hsv = new float[3];
+                        hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
+                        hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
+                        hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
+                        int c = android.graphics.Color.HSVToColor(hsv);
+                        selected_color.setRed(android.graphics.Color.red(c));
+                        et_red.setText(String.valueOf(selected_color.getRed()));
+                        selected_color.setGreen(android.graphics.Color.green(c));
+                        et_green.setText(String.valueOf(selected_color.getGreen()));
+                        selected_color.setBlue(android.graphics.Color.blue(c));
+                        et_blue.setText(String.valueOf(selected_color.getBlue()));
+                        container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
+                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                        already_converted = true;
+                    } catch (Exception e) {
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error));
+                    }
+                }
+            }
+        });
     }
 
     private void convertHSV2HEX() {
         View v;
-        v = getLayoutInflater().inflate(R.layout.dialog_hsv_to_rgb, null);
+        v = getLayoutInflater().inflate(R.layout.dialog_hsv_to_hex, null);
         et_h = v.findViewById(R.id.et_h);
         et_h.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(et_h.getText().toString().length() >= 6) {
-                    et_s.requestFocus();
-                }
+                if(et_h.getText().toString().length() >= 6) et_s.requestFocus();
             }
         });
         et_s = v.findViewById(R.id.et_s);
         et_s.addTextChangedListener(new SimpleTextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(et_s.getText().toString().length() >= 6) {
-                    et_v.requestFocus();
-                }
+                if(et_s.getText().toString().length() >= 6) et_v.requestFocus();
             }
         });
         et_v = v.findViewById(R.id.et_v);
@@ -945,63 +959,63 @@ public class MainActivity extends AppCompatActivity {
                 if(et_v.getText().toString().length() >= 6) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(et_v.getWindowToken(), 0);
-                    btn_convert.requestFocus();
                 }
             }
         });
-        et_red = v.findViewById(R.id.et_red);
-        et_green = v.findViewById(R.id.et_green);
-        et_blue = v.findViewById(R.id.et_blue);
+        et_hex = v.findViewById(R.id.et_hex);
         tv_error = v.findViewById(R.id.error);
-        btn_convert = v.findViewById(R.id.convert);
-        btn_convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    tv_error.setVisibility(View.GONE);
-                    float[] hsv = new float[3];
-                    hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
-                    hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
-                    hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
-                    int c = android.graphics.Color.HSVToColor(hsv);
-                    selected_color.setRed(android.graphics.Color.red(c));
-                    et_red.setText(String.valueOf(selected_color.getRed()));
-                    selected_color.setGreen(android.graphics.Color.green(c));
-                    et_green.setText(String.valueOf(selected_color.getGreen()));
-                    selected_color.setBlue(android.graphics.Color.blue(c));
-                    et_blue.setText(String.valueOf(selected_color.getBlue()));
-                    et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
-                    container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                } catch (Exception e) {
-                    tv_error.setVisibility(View.VISIBLE);
-                    tv_error.setText(res.getString(R.string.error));
-                }
-            }
-        });
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(res.getString(R.string.hsv_to_hex))
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.enter), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            sb_red.setProgress(selected_color.getRed());
-                            sb_green.setProgress(selected_color.getGreen());
-                            sb_blue.setProgress(selected_color.getBlue());
-                        } catch (Exception e) {}
-                    }
-                })
+                .setPositiveButton(res.getString(R.string.convert), null)
                 .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        already_converted = false;
+                    }
+                })
                 .create();
         d.show();
+        d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(already_converted) {
+                    //If already converted, commit
+                    updateDisplays(new Color(0, "Selection", android.graphics.Color.parseColor("#" + et_hex.getText().toString().trim()), System.currentTimeMillis()));
+                    d.dismiss();
+                } else {
+                    //If not already converted, convert
+                    try {
+                        tv_error.setVisibility(View.GONE);
+                        float[] hsv = new float[3];
+                        hsv[0] = Float.parseFloat(et_h.getText().toString().trim());
+                        hsv[1] = Float.parseFloat(et_s.getText().toString().trim());
+                        hsv[2] = Float.parseFloat(et_v.getText().toString().trim());
+                        int c = android.graphics.Color.HSVToColor(hsv);
+                        selected_color.setRed(android.graphics.Color.red(c));
+                        selected_color.setGreen(android.graphics.Color.green(c));
+                        selected_color.setBlue(android.graphics.Color.blue(c));
+                        et_hex.setText(String.format("%06X", (0xFFFFFF & c)));
+                        container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
+                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                        already_converted = true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        tv_error.setVisibility(View.VISIBLE);
+                        tv_error.setText(res.getString(R.string.error));
+                    }
+                }
+            }
+        });
     }
 
     private void rateApp() {

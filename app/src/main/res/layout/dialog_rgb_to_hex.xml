@@ -75,12 +75,4 @@
         android:layout_below="@id/et_hex"
         android:textColor="@color/red"
         android:gravity="center"/>
-
-    <Button
-        android:id="@+id/convert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/convert"
-        android:layout_below="@id/error"/>
-
 </RelativeLayout>

@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -37,10 +36,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -50,7 +45,6 @@ import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 import com.mrgames13.jimdo.colorconverter.Utils.NetworkUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -457,22 +451,6 @@ public class ImageActivity extends AppCompatActivity {
                                 image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                                 Glide.with(ImageActivity.this)
                                         .load(url)
-                                        .listener(new RequestListener<Drawable>() {
-                                            @Override
-                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                                Toast.makeText(ImageActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
-                                                return false;
-                                            }
-
-                                            @Override
-                                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                                choosed_image = drawableToBitmap(resource);
-                                                MainActivity.selected_image = choosed_image;
-
-                                                setBitmapToImageView();
-                                                return false;
-                                            }
-                                        })
                                         .into(image);
                             } else {
                                 Toast.makeText(ImageActivity.this, res.getString(R.string.malformed_url), Toast.LENGTH_SHORT).show();
@@ -486,7 +464,7 @@ public class ImageActivity extends AppCompatActivity {
         d.show();
     }
 
-    private File createImageFile() throws IOException {
+    private File createImageFile() {
         //Dateinamen für das Bild erstellen
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "img_" + timeStamp;
