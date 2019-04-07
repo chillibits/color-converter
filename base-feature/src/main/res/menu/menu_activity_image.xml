@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_galery"
+        android:title="@string/gallery"
+        android:icon="@drawable/ic_image"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_capture"
+        android:title="@string/capture_image"
+        android:icon="@drawable/ic_photo_camera"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_web"
+        android:title="@string/image_from_web"
+        android:icon="@drawable/ic_cloud_download"
+        app:showAsAction="always"/>
+</menu>

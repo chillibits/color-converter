@@ -1,0 +1,44 @@
+apply plugin: 'com.android.feature'
+
+android {
+    compileSdkVersion 27
+    baseFeature true
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 117
+        versionName "1.1.7"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://maven.google.com'
+    }
+}
+
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
+    implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.asksira.android:bsimagepicker:1.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.android.instantapps:instantapps:1.1.0'
+}
