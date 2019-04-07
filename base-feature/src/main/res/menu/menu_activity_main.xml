@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_install"
+        android:title="@string/install_app"
+        android:icon="@drawable/ic_download"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/action_rate"
+        android:title="@string/rate_app"
+        android:icon="@drawable/ic_star_border"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/share_app"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="always"/>
+</menu>

@@ -1,3 +1,3 @@
-<manifest package="com.mrgames13.jimdo.colorconverter.app"
+<manifest package="com.mrgames13.jimdo.colorconverter.instantapp"
     android:installLocation="auto"
     xmlns:android="http://schemas.android.com/apk/res/android"/>
