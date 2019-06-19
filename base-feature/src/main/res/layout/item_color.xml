@@ -8,7 +8,7 @@
     android:background="?attr/selectableItemBackground"
     android:padding="6dp">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/item_color"
         android:layout_width="55dp"
         android:layout_height="55dp"

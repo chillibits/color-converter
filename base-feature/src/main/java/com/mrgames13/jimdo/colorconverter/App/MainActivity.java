@@ -15,9 +15,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.Menu;
@@ -31,6 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.instantapps.InstantApps;
 import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("RGB-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("HEX-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -316,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("HSV-Code", copy_string);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(MainActivity.this, res.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -342,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                 Uri image_uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
                 selected_image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
             } catch (Exception e) {
-                Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             }
             startActivityForResult(new Intent(MainActivity.this, ImageActivity.class), REQ_PICK_COLOR_FROM_IMAGE);
         }
@@ -353,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         //Toolbar Text und Farbe setzen
-        getSupportActionBar().setTitle(res.getString(R.string.title_activity_main));
+        getSupportActionBar().setTitle(R.string.title_activity_main);
         if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(clru.darkenColor(res.getColor(R.color.colorPrimary)));
     }
 
@@ -405,30 +406,24 @@ public class MainActivity extends AppCompatActivity {
     private void saveColor() {
         //Farbe speichern
         final EditText et_name = new EditText(MainActivity.this);
-        et_name.setHint(res.getString(R.string.choose_name));
+        et_name.setHint(R.string.choose_name);
         et_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 
         @SuppressLint("RestrictedApi")
         AlertDialog d = new AlertDialog.Builder(MainActivity.this)
                 .setCancelable(true)
-                .setTitle(res.getString(R.string.save_color))
+                .setTitle(R.string.save_color)
                 .setView(et_name, 60, 0, 60, 0)
-                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
-                    }
-                })
-                .setPositiveButton(res.getString(R.string.save), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
                         String name = et_name.getText().toString().trim();
                         if(!name.equals("")) {
                             selected_color.setName(name);
                             su.saveColor(selected_color);
                         } else {
-                            Toast.makeText(MainActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -445,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
         ColorPickerDialog color_picker = new ColorPickerDialog(MainActivity.this, android.graphics.Color.parseColor(tv_hex.getText().toString().substring(5)));
         color_picker.setAlphaSliderVisible(false);
         color_picker.setHexValueEnabled(true);
-        color_picker.setTitle(res.getString(R.string.pick_color));
+        color_picker.setTitle(R.string.pick_color);
         color_picker.setOnColorChangedListener(new ColorPickerDialog.OnColorChangedListener() {
             @Override
             public void onColorChanged(int color) {
@@ -565,17 +560,12 @@ public class MainActivity extends AppCompatActivity {
         tv_error = v.findViewById(R.id.error);
         container = v.findViewById(R.id.dialog_container);
 
-        d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.rgb_to_hex))
+        d = new AlertDialog.Builder(this)
+                .setTitle(R.string.rgb_to_hex)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert,null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -602,17 +592,17 @@ public class MainActivity extends AppCompatActivity {
                             et_red.requestFocus();
                             et_red.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
                             et_green.requestFocus();
                             et_green.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
                             et_blue.requestFocus();
                             et_blue.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else {
                             et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
                             container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
@@ -621,7 +611,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error));
+                        tv_error.setText(R.string.error);
                     }
                 }
             }
@@ -647,17 +637,12 @@ public class MainActivity extends AppCompatActivity {
         tv_error = v.findViewById(R.id.error);
         container = v.findViewById(R.id.dialog_container);
 
-        d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.hex_to_rgb))
+        d = new AlertDialog.Builder(this)
+                .setTitle(R.string.hex_to_rgb)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert, null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -690,11 +675,11 @@ public class MainActivity extends AppCompatActivity {
                             already_converted = true;
                         } else {
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_6));
+                            tv_error.setText(R.string.error_number_6);
                         }
                     } catch (Exception e) {
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_hex_chars));
+                        tv_error.setText(R.string.error_hex_chars);
                     }
                 }
             }
@@ -734,17 +719,12 @@ public class MainActivity extends AppCompatActivity {
         tv_error = v.findViewById(R.id.error);
         container = v.findViewById(R.id.dialog_container);
 
-        d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.rgb_to_hsv))
+        d = new AlertDialog.Builder(this)
+                .setTitle(R.string.rgb_to_hsv)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert, null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -771,17 +751,17 @@ public class MainActivity extends AppCompatActivity {
                             et_red.requestFocus();
                             et_red.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else if(selected_color.getGreen() > 255 || selected_color.getGreen() < 0) {
                             et_green.requestFocus();
                             et_green.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else if(selected_color.getBlue() > 255 || selected_color.getBlue() < 0) {
                             et_blue.requestFocus();
                             et_blue.setText(null);
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_between));
+                            tv_error.setText(R.string.error_number_between);
                         } else {
                             String hex_red = Integer.toHexString(selected_color.getRed());
                             if(hex_red.length() < 2) hex_red = "0" + hex_red;
@@ -801,7 +781,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error));
+                        tv_error.setText(R.string.error);
                     }
                 }
             }
@@ -828,16 +808,11 @@ public class MainActivity extends AppCompatActivity {
         container = v.findViewById(R.id.dialog_container);
 
         d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.hex_to_hsv))
+                .setTitle(R.string.hex_to_hsv)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert, null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -872,11 +847,11 @@ public class MainActivity extends AppCompatActivity {
                             already_converted = true;
                         } else {
                             tv_error.setVisibility(View.VISIBLE);
-                            tv_error.setText(res.getString(R.string.error_number_6));
+                            tv_error.setText(R.string.error_number_6);
                         }
                     } catch (Exception e) {
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error_hex_chars));
+                        tv_error.setText(R.string.error_hex_chars);
                     }
                 }
             }
@@ -916,17 +891,12 @@ public class MainActivity extends AppCompatActivity {
         tv_error = v.findViewById(R.id.error);
         container = v.findViewById(R.id.dialog_container);
 
-        d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.hsv_to_rgb))
+        d = new AlertDialog.Builder(this)
+                .setTitle(R.string.hsv_to_rgb)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert, null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -962,7 +932,7 @@ public class MainActivity extends AppCompatActivity {
                         already_converted = true;
                     } catch (Exception e) {
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error));
+                        tv_error.setText(R.string.error);
                     }
                 }
             }
@@ -1000,17 +970,12 @@ public class MainActivity extends AppCompatActivity {
         tv_error = v.findViewById(R.id.error);
         container = v.findViewById(R.id.dialog_container);
 
-        d = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(res.getString(R.string.hsv_to_hex))
+        d = new AlertDialog.Builder(this)
+                .setTitle(R.string.hsv_to_hex)
                 .setCancelable(true)
                 .setView(v)
-                .setPositiveButton(res.getString(R.string.convert), null)
-                .setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.convert, null)
+                .setNegativeButton(R.string.close, null)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -1045,7 +1010,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                         tv_error.setVisibility(View.VISIBLE);
-                        tv_error.setText(res.getString(R.string.error));
+                        tv_error.setText(R.string.error);
                     }
                 }
             }
@@ -1054,14 +1019,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void rateApp() {
         AlertDialog d = new AlertDialog.Builder(this)
-                .setTitle(res.getString(R.string.rate))
-                .setMessage(res.getString(R.string.rate_m))
+                .setTitle(R.string.rate)
+                .setMessage(R.string.rate_m)
                 .setIcon(R.mipmap.ic_launcher)
                 .setCancelable(true)
-                .setPositiveButton(res.getString(R.string.rate), new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         final String app_package_name = getPackageName();
                         try {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + app_package_name)));
@@ -1070,39 +1034,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 })
-                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.cancel, null)
                 .create();
         d.show();
     }
 
     private void recommendApp() {
         AlertDialog d = new AlertDialog.Builder(this)
-                .setTitle(res.getString(R.string.share))
-                .setMessage(res.getString(R.string.share_m))
+                .setTitle(R.string.share)
+                .setMessage(R.string.share_m)
                 .setIcon(R.mipmap.ic_launcher)
                 .setCancelable(true)
-                .setPositiveButton(res.getString(R.string.share), new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         Intent i = new Intent();
                         i.setAction(Intent.ACTION_SEND);
-                        i.putExtra(Intent.EXTRA_TEXT, res.getString(R.string.recommend_string));
+                        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.recommend_string));
                         i.setType("text/plain");
                         startActivity(i);
                     }
                 })
-                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.cancel, null)
                 .create();
         d.show();
     }
