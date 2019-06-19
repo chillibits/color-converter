@@ -1,12 +1,13 @@
 package com.mrgames13.jimdo.colorconverter.RecyclerViewAdapters;
 
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mrgames13.jimdo.colorconverter.App.ColorSelectionActivity;
 import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;

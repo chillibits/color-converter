@@ -9,11 +9,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +16,12 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;
 import com.mrgames13.jimdo.colorconverter.R;
@@ -100,25 +101,19 @@ public class ColorSelectionActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.action_edit) {
             final EditText et_new_name = new EditText(ColorSelectionActivity.this);
-            et_new_name.setHint(res.getString(R.string.choose_name));
+            et_new_name.setHint(R.string.choose_name);
             et_new_name.setText(selected_color.getName());
             et_new_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 
             @SuppressLint("RestrictedApi")
             AlertDialog d = new AlertDialog.Builder(this)
                     .setCancelable(true)
-                    .setTitle(res.getString(R.string.rename))
+                    .setTitle(R.string.rename)
                     .setView(et_new_name, 60, 0, 60, 0)
-                    .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.rename, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .setPositiveButton(res.getString(R.string.rename), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
                             String new_name = et_new_name.getText().toString().trim();
                             if(!new_name.equals("")) {
                                 su.execSQL("UPDATE " + StorageUtils.TABLE_COLORS + " SET name='" + new_name + "' WHERE id='" + selected_color.getId() + "'");
@@ -127,7 +122,7 @@ public class ColorSelectionActivity extends AppCompatActivity {
                                 colors_view_adapter = new ColorsAdapter(colors);
                                 colors_view.setAdapter(colors_view_adapter);
                             } else {
-                                Toast.makeText(ColorSelectionActivity.this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ColorSelectionActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
                             }
                         }
                     })
@@ -138,18 +133,12 @@ public class ColorSelectionActivity extends AppCompatActivity {
         } else if(id == R.id.action_delete) {
             AlertDialog d = new AlertDialog.Builder(this)
                     .setCancelable(true)
-                    .setTitle(res.getString(R.string.delete))
-                    .setMessage(res.getString(R.string.delete_m))
-                    .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.delete)
+                    .setMessage(R.string.delete_m)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
                             su.removeRecord(StorageUtils.TABLE_COLORS, selected_color.getId());
                             //Adapter aktualisieren
                             colors = su.loadColors();
@@ -175,7 +164,7 @@ public class ColorSelectionActivity extends AppCompatActivity {
         super.onStart();
 
         //Toolbar Text und Farbe setzen
-        getSupportActionBar().setTitle(res.getString(R.string.title_activity_color_selection));
+        getSupportActionBar().setTitle(R.string.title_activity_color_selection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(clru.darkenColor(res.getColor(R.color.colorPrimary)));
     }
@@ -183,7 +172,7 @@ public class ColorSelectionActivity extends AppCompatActivity {
     public void selectedColor(Color color) {
         selected_color = color;
         invalidateOptionsMenu();
-        getSupportActionBar().setSubtitle(res.getString(R.string.selected) + ": " + color.getName());
+        getSupportActionBar().setSubtitle(R.string.selected + ": " + color.getName());
         animateAppAndStatusBar(color.getColor());
     }
 

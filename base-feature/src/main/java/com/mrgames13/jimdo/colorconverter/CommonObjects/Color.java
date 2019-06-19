@@ -1,6 +1,6 @@
 package com.mrgames13.jimdo.colorconverter.CommonObjects;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class Color implements Comparable {
 

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".App.MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_marginLeft="3dp"
                         android:weightSum="2">
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/load_color"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
@@ -195,7 +195,7 @@
                             android:clickable="true"
                             android:layout_marginBottom="7dp"/>
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/save_color"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
@@ -226,7 +226,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/rgb_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -254,7 +254,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/hex_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -282,7 +282,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/hsv_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"

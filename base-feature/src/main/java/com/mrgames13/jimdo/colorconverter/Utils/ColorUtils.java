@@ -3,7 +3,8 @@ package com.mrgames13.jimdo.colorconverter.Utils;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.v7.graphics.Palette;
+
+import androidx.palette.graphics.Palette;
 
 import com.mrgames13.jimdo.colorconverter.R;
 

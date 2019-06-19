@@ -1,13 +1,13 @@
 apply plugin: 'com.android.feature'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     baseFeature true
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 117
-        versionName "1.1.7"
+        targetSdkVersion 28
+        versionCode 118
+        versionName "1.1.8"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -32,13 +32,13 @@ repositories {
 
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.asksira.android:bsimagepicker:1.1.0'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
 }

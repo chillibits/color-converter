@@ -15,13 +15,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +27,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
@@ -347,10 +348,10 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
 
                     setBitmapToImageView();
                 } catch (Exception e) {
-                    Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, res.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             }
         } else {
             //Bei Shortcut-Aufruf auf Unterfunktion weiterleiten
@@ -388,7 +389,7 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
         super.onStart();
 
         //Toolbar Text und Farbe setzen
-        getSupportActionBar().setTitle(res.getString(R.string.title_activity_image));
+        getSupportActionBar().setTitle(R.string.title_activity_image);
         if (Build.VERSION.SDK_INT >= 21)
             getWindow().setStatusBarColor(clru.darkenColor(res.getColor(R.color.colorPrimary)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -424,24 +425,18 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
 
     private void chooseImageFromWeb() {
         final EditText et_url = new EditText(this);
-        et_url.setHint(res.getString(R.string.enter_web_url));
+        et_url.setHint(R.string.enter_web_url);
         et_url.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 
         @SuppressLint("RestrictedApi")
         AlertDialog d = new AlertDialog.Builder(this)
                 .setCancelable(true)
-                .setTitle(res.getString(R.string.download_img))
+                .setTitle(R.string.download_img)
                 .setView(et_url, 60, 0, 60, 0)
-                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.download_img, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setPositiveButton(res.getString(R.string.download_img), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         if (nwu.isInternetAvailable()) {
                             String url = et_url.getText().toString().trim();
                             if (nwu.isUrl(url)) {
@@ -463,10 +458,10 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
                                         })
                                         .into(image);
                             } else {
-                                Toast.makeText(ImageActivity.this, res.getString(R.string.malformed_url), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ImageActivity.this, R.string.malformed_url, Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(ImageActivity.this, res.getString(R.string.no_internet_available), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ImageActivity.this, R.string.no_internet_available, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -527,7 +522,7 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
             color_button_container.startAnimation(anim);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(ImageActivity.this, res.getString(R.string.image_broken), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ImageActivity.this, R.string.image_broken, Toast.LENGTH_SHORT).show();
         }
     }
 

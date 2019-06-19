@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".App.ImageActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/choose_from_gallery"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -178,7 +178,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/choose_from_camera"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -194,7 +194,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/choose_from_web"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
