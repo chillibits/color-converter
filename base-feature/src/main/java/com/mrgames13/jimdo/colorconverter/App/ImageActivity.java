@@ -63,6 +63,7 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
     //Konstanten
     private final int REQ_CAMERA_CHOOSER = 10002;
     private final int REQ_PERMISSION_READ_EXTERNAL_STORAGE = 10003;
+    private final int REQ_PERMISSION_CAMERA = 10004;
 
     //Variablen als Objekte
     private Resources res;
@@ -403,23 +404,29 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
     }
 
     private void chooseImageFromCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePictureIntent.addFlags(FLAG_GRANT_READ_URI_PERMISSION);
-        takePictureIntent.addFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            try {
-                File photoFile = createImageFile();
-                if (photoFile != null) {
-                    Uri photoURI;
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        photoURI = FileProvider.getUriForFile(this, "com.mrgames13.jimdo.colorconverter.fileprovider", photoFile);
-                    } else {
-                        photoURI = Uri.fromFile(photoFile);
+        if (ActivityCompat.checkSelfPermission(ImageActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.addFlags(FLAG_GRANT_READ_URI_PERMISSION);
+            takePictureIntent.addFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                try {
+                    File photoFile = createImageFile();
+                    if (photoFile != null) {
+                        Uri photoURI;
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            photoURI = FileProvider.getUriForFile(this, "com.mrgames13.jimdo.colorconverter.fileprovider", photoFile);
+                        } else {
+                            photoURI = Uri.fromFile(photoFile);
+                        }
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(takePictureIntent, REQ_CAMERA_CHOOSER);
                     }
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    startActivityForResult(takePictureIntent, REQ_CAMERA_CHOOSER);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {}
+            }
+        } else {
+            ActivityCompat.requestPermissions(ImageActivity.this, new String[]{Manifest.permission.CAMERA}, REQ_PERMISSION_CAMERA);
         }
     }
 
@@ -494,7 +501,11 @@ public class ImageActivity extends AppCompatActivity implements BSImagePicker.On
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQ_PERMISSION_READ_EXTERNAL_STORAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) finish();
+        if(requestCode == REQ_PERMISSION_CAMERA && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            chooseImageFromCamera();
+        } else if(requestCode == REQ_PERMISSION_READ_EXTERNAL_STORAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            finish();
+        }
     }
 
     private void setBitmapToImageView() {
