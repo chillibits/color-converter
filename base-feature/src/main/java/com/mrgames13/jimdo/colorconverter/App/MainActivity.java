@@ -38,6 +38,7 @@ import com.mrgames13.jimdo.colorconverter.CommonObjects.Color;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleSeekBarChangedListener;
 import com.mrgames13.jimdo.colorconverter.HelpClasses.SimpleTextWatcherUtils;
 import com.mrgames13.jimdo.colorconverter.R;
+import com.mrgames13.jimdo.colorconverter.Utils.ColorNameUtils;
 import com.mrgames13.jimdo.colorconverter.Utils.ColorUtils;
 import com.mrgames13.jimdo.colorconverter.Utils.StorageUtils;
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Resources res;
     private ColorUtils clru;
+    private ColorNameUtils cnu;
     private StorageUtils su;
 
     //Komponenten
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_r;
     private TextView tv_g;
     private TextView tv_b;
+    private TextView tv_name;
     private TextView tv_rgb;
     private TextView tv_hex;
     private TextView tv_hsv;
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText et_h;
     private EditText et_s;
     private EditText et_v;
+    private ImageView btn_name_copy;
     private ImageView btn_rgb_copy;
     private ImageView btn_hex_copy;
     private ImageView btn_hsv_copy;
@@ -102,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
 
         //ColorUtils initialisieren
         clru = new ColorUtils(res);
+
+        //ColorNameUtils initialisieren
+        cnu = new ColorNameUtils();
 
         //StorageUtils initialisieren
         su = new StorageUtils(this);
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         tv_g = findViewById(R.id.tv_g);
         tv_b = findViewById(R.id.tv_b);
 
+        tv_name = findViewById(R.id.name_display);
         tv_rgb = findViewById(R.id.rgb_display);
         tv_hex = findViewById(R.id.hex_display);
         tv_hsv = findViewById(R.id.hsv_display);
@@ -282,6 +290,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Codes in Zwischenablage kopieren
+        btn_name_copy = findViewById(R.id.name_copy);
+        btn_name_copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String copy_string = tv_name.getText().toString();
+                copy_string = copy_string.substring(copy_string.indexOf(":") + 2);
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Color name", copy_string);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(MainActivity.this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         btn_rgb_copy = findViewById(R.id.rgb_copy);
         btn_rgb_copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -407,6 +428,7 @@ public class MainActivity extends AppCompatActivity {
         //Farbe speichern
         final EditText et_name = new EditText(MainActivity.this);
         et_name.setHint(R.string.choose_name);
+        et_name.setText(cnu.getColorNameFromColor(selected_color));
         et_name.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 
         @SuppressLint("RestrictedApi")
@@ -455,6 +477,8 @@ public class MainActivity extends AppCompatActivity {
         tv_r.setText(String.valueOf(selected_color.getRed()));
         tv_g.setText(String.valueOf(selected_color.getGreen()));
         tv_b.setText(String.valueOf(selected_color.getBlue()));
+        //Update Name TextView
+        tv_name.setText(getString(R.string.color_name).concat(": ").concat(cnu.getColorNameFromColor(selected_color)));
         //Update RGB TextView
         tv_rgb.setText("RGB: " + selected_color.getRed() + ", " + selected_color.getGreen() + ", " + selected_color.getBlue());
         //Update HEX TextView
@@ -469,9 +493,12 @@ public class MainActivity extends AppCompatActivity {
         float[] hsv = new float[3];
         android.graphics.Color.RGBToHSV(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue(), hsv);
         tv_hsv.setText("HSV: " + String.format("%.02f", hsv[0]) + ", " + String.format("%.02f", hsv[1]) + ", " + String.format("%.02f", hsv[2]));
+        //Update TextColors
+        tv_name.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         tv_rgb.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         tv_hex.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         tv_hsv.setTextColor(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
+        btn_name_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         btn_rgb_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         btn_hex_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
         btn_hsv_copy.setColorFilter(clru.getTextColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue())));
@@ -606,7 +633,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             et_hex.setText(Integer.toHexString(selected_color.getRed()) + Integer.toHexString(selected_color.getGreen()) + Integer.toHexString(selected_color.getBlue()));
                             container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                             already_converted = true;
                         }
                     } catch (Exception e) {
@@ -671,7 +698,7 @@ public class MainActivity extends AppCompatActivity {
                             et_green.setText(String.valueOf(selected_color.getGreen()));
                             et_blue.setText(String.valueOf(selected_color.getBlue()));
                             container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
-                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                             already_converted = true;
                         } else {
                             tv_error.setVisibility(View.VISIBLE);
@@ -775,7 +802,7 @@ public class MainActivity extends AppCompatActivity {
                             et_s.setText(String.format("%.02f", hsv[1]));
                             et_v.setText(String.format("%.02f", hsv[2]));
                             container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex_red + hex_green + hex_blue));
-                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                             already_converted = true;
                         }
                     } catch (Exception e) {
@@ -843,7 +870,7 @@ public class MainActivity extends AppCompatActivity {
                             et_s.setText(String.format("%.02f", hsv[1]));
                             et_v.setText(String.format("%.02f", hsv[2]));
                             container.setBackgroundColor(android.graphics.Color.parseColor("#" + hex));
-                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                            d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                             already_converted = true;
                         } else {
                             tv_error.setVisibility(View.VISIBLE);
@@ -928,7 +955,7 @@ public class MainActivity extends AppCompatActivity {
                         selected_color.setBlue(android.graphics.Color.blue(c));
                         et_blue.setText(String.valueOf(selected_color.getBlue()));
                         container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                         already_converted = true;
                     } catch (Exception e) {
                         tv_error.setVisibility(View.VISIBLE);
@@ -1005,7 +1032,7 @@ public class MainActivity extends AppCompatActivity {
                         selected_color.setBlue(android.graphics.Color.blue(c));
                         et_hex.setText(String.format("%06X", (0xFFFFFF & c)));
                         container.setBackgroundColor(android.graphics.Color.rgb(selected_color.getRed(), selected_color.getGreen(), selected_color.getBlue()));
-                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(res.getText(R.string.enter));
+                        d.getButton(DialogInterface.BUTTON_POSITIVE).setText(getString(R.string.enter));
                         already_converted = true;
                     } catch (Exception e) {
                         e.printStackTrace();

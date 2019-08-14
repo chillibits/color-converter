@@ -56,6 +56,7 @@
     <string name="press_color_to_apply">Pulse en color para aplicar</string>
     <string name="image_from_gallery">Image de la galerie</string>
     <string name="image_from_camera">Prendre une photo</string>
+    <string name="color_name">Prénom</string>
 
     <!-- InstantApp -->
     <string name="install_app">Installer l\'application</string>

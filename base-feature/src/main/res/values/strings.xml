@@ -5,7 +5,7 @@
     <string name="close">close</string>
     <string name="error" translatable="false">ERROR</string>
     <string name="ok">OK</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="no_internet_available">No internet available</string>
 
     <!-- MainActivity -->
@@ -42,6 +42,7 @@
     <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
     <string name="press_color_to_apply">Press on color to apply</string>
     <string name="rate">Rate</string>
+    <string name="color_name">Name</string>
 
     <!-- ImageActivity -->
     <string name="title_activity_image">color from image</string>

@@ -56,6 +56,7 @@
     <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
     <string name="image_from_camera">Tomar una foto</string>
     <string name="image_from_gallery">Imagen de la galería</string>
+    <string name="color_name">Nombre</string>
 
     <!-- InstantApp -->
     <string name="install_app">Instalar aplicación</string>

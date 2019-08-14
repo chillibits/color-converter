@@ -56,6 +56,10 @@
     <string name="press_color_to_apply">Auf die Farbe tippen zum Bestätigen</string>
     <string name="image_from_gallery">Bild aus der Galerie</string>
     <string name="image_from_camera">Foto aufnehmen</string>
+    <string name="color_name">Name</string>
+
+    <!-- Colors -->
+
 
     <!-- InstantApp -->
     <string name="install_app">App installieren</string>
