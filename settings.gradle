@@ -1,1 +1,2 @@
-include ':base-feature', ':app', ':instantapp'
+include ':app', ':image'
+rootProject.name='Color Converter'

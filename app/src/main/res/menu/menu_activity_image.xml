@@ -5,18 +5,18 @@
     <item
         android:id="@+id/action_galery"
         android:title="@string/gallery"
-        android:icon="@drawable/ic_image"
+        android:icon="@drawable/image"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_capture"
         android:title="@string/capture_image"
-        android:icon="@drawable/ic_photo_camera"
+        android:icon="@drawable/camera"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_web"
         android:title="@string/image_from_web"
-        android:icon="@drawable/ic_cloud_download"
+        android:icon="@drawable/download"
         app:showAsAction="always"/>
 </menu>

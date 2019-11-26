@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_alice_blue">Alice Blue</string>
+    <string name="color_antique_white">Antique White</string>
+    <string name="color_aqua">Aqua</string>
+    <string name="color_aquamarine">Aquamarine</string>
+    <string name="color_azure">Azure</string>
+    <string name="color_beige">Beige</string>
+    <string name="color_bisque">Bisque</string>
+    <string name="color_black">Black</string>
+    <string name="color_blanched_almond">Blanched Almond</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_blue_violet">Blue Violet</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_burly_wood">Burly Wood</string>
+    <string name="color_cadet_blue">Cadet Blue</string>
+
+
+</resources>

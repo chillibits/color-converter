@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ColorConverter.iml" filepath="$PROJECT_DIR$/ColorConverter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Color Converter.iml" filepath="$PROJECT_DIR$/Color Converter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/image/image.iml" filepath="$PROJECT_DIR$/image/image.iml" />
     </modules>
   </component>
 </project>

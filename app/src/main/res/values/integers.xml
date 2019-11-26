@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="rgb_max_value">255</integer>
-
+    <integer name="default_rgb_value">0</integer>
 </resources>
