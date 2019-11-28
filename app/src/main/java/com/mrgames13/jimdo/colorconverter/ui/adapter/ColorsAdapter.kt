@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.item_color.view.*
 
 class ColorsAdapter(private val activity: ColorSelectionActivity, private val colors: ArrayList<Color>) : RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorsAdapter.ViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_color, null)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView: View = LayoutInflater.from(activity).inflate(R.layout.item_color, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -24,6 +24,20 @@ class ColorsAdapter(private val activity: ColorSelectionActivity, private val co
 
         holder.itemView.item_color.setTint(color.color)
         holder.itemView.item_color_name.text = color.name
+
+        val hsv = FloatArray(3)
+        android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
+
+        holder.itemView.item_color_values.text = String.format(
+            activity.getString(R.string.color_summary),
+            color.red, color.green,
+            color.blue,
+            String.format("#%06X", 0xFFFFFF and color.color),
+            String.format("%.02f", hsv[0]),
+            String.format("%.02f", hsv[1]),
+            String.format("%.02f", hsv[2])
+        )
+        holder.itemView.isSelected = true
 
         holder.itemView.setOnClickListener {
             activity.selectedColor(color)

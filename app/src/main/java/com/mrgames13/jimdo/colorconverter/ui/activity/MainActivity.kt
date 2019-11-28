@@ -5,16 +5,14 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.Selection
 import android.text.method.DigitsKeyListener
-import android.view.Menu
-import android.view.MenuItem
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.SeekBar
@@ -24,10 +22,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import com.google.android.instantapps.InstantApps
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.mrgames13.jimdo.colorconverter.BuildConfig
 import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.model.Color
 import com.mrgames13.jimdo.colorconverter.tools.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -53,6 +55,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            window.decorView.setOnApplyWindowInsetsListener { _, insets ->
+                toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                insets
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        }
 
         setSupportActionBar(toolbar)
 
@@ -122,7 +135,23 @@ class MainActivity : AppCompatActivity() {
                         .setNegativeButton(R.string.close, null)
                         .show()
             } else {
-                //startActivityForResult(Intent(this@MainActivity, ImageActivity::class.java), REQ_PICK_COLOR_FROM_IMAGE)
+                val splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+                val request = SplitInstallRequest.newBuilder()
+                    .addModule("image")
+                    .build()
+                splitInstallManager.startInstall(request)
+                    .addOnSuccessListener {
+                        if (splitInstallManager.installedModules.contains("registration")) {
+                            val i = Intent()
+                            i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.ImageActivity")
+                            startActivity(i)
+                        } else {
+                            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                    }
             }
         }
 
@@ -235,18 +264,21 @@ class MainActivity : AppCompatActivity() {
         })
         editTextName.selectAll()
         editTextName.requestFocus()
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     private fun editHexCode() {
         // Initialize views
-        val hexValue = layoutInflater.inflate(R.layout.dialog_edit_hex, null) as EditText
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
+        val hexValue = dialogView.dialog_hex
         hexValue.setText(String.format("#%06X", 0xFFFFFF and selectedColor.color))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
         val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.hex_code)
-            .setView(hexValue)
+            .setView(dialogView)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
@@ -274,7 +306,7 @@ class MainActivity : AppCompatActivity() {
         hexValue.setSelection(1, 7)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     private fun editHSVCode() {
@@ -324,7 +356,7 @@ class MainActivity : AppCompatActivity() {
 
         container.dialog_h.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     private fun randomizeColor() {

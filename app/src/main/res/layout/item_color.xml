@@ -31,7 +31,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/color_values"
+        android:id="@+id/item_color_values"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/item_color"

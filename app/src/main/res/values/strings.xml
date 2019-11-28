@@ -11,6 +11,9 @@
     <string name="r" translatable="false">R</string>
     <string name="g" translatable="false">G</string>
     <string name="b" translatable="false">B</string>
+    <string name="h" translatable="false">H</string>
+    <string name="s" translatable="false">S</string>
+    <string name="v" translatable="false">V</string>
 
     <!-- MainActivity -->
     <string name="title_activity_main" translatable="false">@string/app_name</string>
@@ -70,9 +73,10 @@
     <!-- ColorSelectionAcitivity -->
     <string name="title_activity_color_selection">Saved colors</string>
     <string name="delete">Delete</string>
-    <string name="delete_m">Do you really want to delete this color?</string>
+    <string name="delete_m">Do you really want to delete the color named \'%s\'?</string>
     <string name="rename">Rename</string>
     <string name="selected">Selected</string>
+    <string name="color_summary">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
     <string name="no_colors_saved">No colors saved!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
 
     <!-- Image Chooser -->

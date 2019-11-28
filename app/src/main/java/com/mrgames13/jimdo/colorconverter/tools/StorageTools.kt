@@ -16,7 +16,7 @@ class StorageTools(context: Context): SQLiteOpenHelper(context, "database.db", n
     override fun onCreate(db: SQLiteDatabase?) {
         try {
             //Tabellen erstellen
-            db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer, name text, red integer, green integer, blue integer, creation_timestamp integer);")
+            db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer);")
         } catch (e: Exception) {
             Log.e("ColorConverter", "Database creation error: ", e)
         }
