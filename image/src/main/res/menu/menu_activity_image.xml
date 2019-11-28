@@ -3,13 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_galery"
+        android:id="@+id/action_gallery"
         android:title="@string/gallery"
         android:icon="@drawable/image"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_capture"
+        android:id="@+id/action_photo"
         android:title="@string/capture_image"
         android:icon="@drawable/camera"
         app:showAsAction="always"/>

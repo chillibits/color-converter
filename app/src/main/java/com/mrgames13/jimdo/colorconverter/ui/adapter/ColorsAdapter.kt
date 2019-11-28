@@ -9,6 +9,7 @@ import com.mrgames13.jimdo.colorconverter.model.Color
 import com.mrgames13.jimdo.colorconverter.tools.setTint
 import com.mrgames13.jimdo.colorconverter.ui.activity.ColorSelectionActivity
 import kotlinx.android.synthetic.main.item_color.view.*
+import java.text.DecimalFormat
 
 class ColorsAdapter(private val activity: ColorSelectionActivity, private val colors: ArrayList<Color>) : RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 

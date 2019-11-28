@@ -20,6 +20,10 @@
 
     <application
         android:allowBackup="true">
-        <activity android:name=".ui.ImageActivity"/>
+
+        <activity
+            android:name=".ui.ImageActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 </manifest>

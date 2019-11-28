@@ -8,10 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputFilter
 import android.text.InputType
 import android.text.Selection
-import android.text.method.DigitsKeyListener
 import android.view.*
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -30,9 +28,7 @@ import com.mrgames13.jimdo.colorconverter.model.Color
 import com.mrgames13.jimdo.colorconverter.tools.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
-import kotlinx.android.synthetic.main.dialog_edit_hsv.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
-import kotlinx.android.synthetic.main.toolbar.*
 import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
 
@@ -123,36 +119,7 @@ class MainActivity : AppCompatActivity() {
         pick.setOnClickListener { chooseColor() }
         pick_random_color.setOnClickListener { randomizeColor() }
         pick_from_image.setOnClickListener {
-            if (InstantApps.isInstantApp(this@MainActivity)) {
-                AlertDialog.Builder(this@MainActivity)
-                        .setTitle(R.string.install_app)
-                        .setMessage(R.string.instant_install_m)
-                        .setPositiveButton(R.string.install_app) { _, _ ->
-                            val i = Intent(this@MainActivity, MainActivity::class.java)
-                            i.putExtra("InstantInstalled", true)
-                            InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
-                        }
-                        .setNegativeButton(R.string.close, null)
-                        .show()
-            } else {
-                val splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
-                val request = SplitInstallRequest.newBuilder()
-                    .addModule("image")
-                    .build()
-                splitInstallManager.startInstall(request)
-                    .addOnSuccessListener {
-                        if (splitInstallManager.installedModules.contains("registration")) {
-                            val i = Intent()
-                            i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.ImageActivity")
-                            startActivity(i)
-                        } else {
-                            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
-                    }
-            }
+            pickColorFromImage()
         }
 
         // Load color
@@ -229,6 +196,39 @@ class MainActivity : AppCompatActivity() {
             REQ_LOAD_COLOR -> {
                 if(resultCode == Activity.RESULT_OK) updateDisplays(Color(0, "Selection", data!!.getIntExtra("Color", 0), -1))
             }
+        }
+    }
+
+    private fun pickColorFromImage() {
+        if (InstantApps.isInstantApp(this@MainActivity)) {
+            AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.install_app)
+                .setMessage(R.string.instant_install_m)
+                .setPositiveButton(R.string.install_app) { _, _ ->
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.putExtra("InstantInstalled", true)
+                    InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
+                }
+                .setNegativeButton(R.string.close, null)
+                .show()
+        } else {
+            val splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+            val request = SplitInstallRequest.newBuilder()
+                .addModule("image")
+                .build()
+            splitInstallManager.startInstall(request)
+                .addOnSuccessListener {
+                    if (splitInstallManager.installedModules.contains("image")) {
+                        val i = Intent()
+                        i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.ImageActivity")
+                        startActivity(i)
+                    } else {
+                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
