@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter.image.network
 
 import android.content.Context

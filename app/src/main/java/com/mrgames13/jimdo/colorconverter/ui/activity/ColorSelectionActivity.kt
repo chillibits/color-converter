@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter.ui.activity
 
 import android.animation.Animator
@@ -9,7 +13,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.view.*
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat

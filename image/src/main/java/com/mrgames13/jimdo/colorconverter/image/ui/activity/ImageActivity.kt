@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter.image.ui.activity
 
 import android.app.Activity
@@ -31,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_image.*
 class ImageActivity : AppCompatActivity() {
 
     // Constants
-    private val REQ_IMAGE_PICKER = 10001;
+    private val REQ_IMAGE_PICKER = 10001
 
     // Tools packages
     private val ct = ColorTools(this)

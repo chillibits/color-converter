@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>

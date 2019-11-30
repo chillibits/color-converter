@@ -1,8 +1,11 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
 <resources>
     <string name="color_alice_blue">Alice Blue</string>
     <string name="color_antique_white">Antique White</string>

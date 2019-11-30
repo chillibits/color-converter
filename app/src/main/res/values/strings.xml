@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
 <resources>
     <!-- Common strings -->
     <string name="app_name" translatable="false">Color Converter</string>

@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter.model
 
 import org.jetbrains.annotations.NotNull
@@ -24,7 +28,7 @@ class Color: Comparable<Color> {
     }
 
     constructor(id: Int, name: String, red: Int, green: Int, blue: Int, creationTimestamp: Long) {
-        this.id = id;
+        this.id = id
         this.name = name
         this.color = android.graphics.Color.argb(255, red, green, blue)
         this.red = red

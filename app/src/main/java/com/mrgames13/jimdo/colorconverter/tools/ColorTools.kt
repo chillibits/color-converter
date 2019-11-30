@@ -1,7 +1,10 @@
+/*
+ * Copyright © 2019 Marc Auberer. All rights reserved.
+ */
+
 package com.mrgames13.jimdo.colorconverter.tools
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.content.ContextCompat
