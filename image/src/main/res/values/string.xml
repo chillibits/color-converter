@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ImageActivity -->
-    <string name="title_activity_image">Color from image</string>
-    <string name="instructions_gallery_t">Choose image</string>
-    <string name="instructions_gallery_m">Tap on the gallery-icon to select an image from the gallery and select a color from it.</string>
-    <string name="instructions_photo_m">Tap on the camera-icon to capture an image and select a color from it.</string>
-    <string name="instructions_web_m">Tap on the web-icon to load an image from the internet and select a color from it.</string>
-    <string name="image_broken">This image is broken</string>
-    <string name="enter_web_url">Enter web url</string>
-    <string name="download_img">Download image</string>
-    <string name="malformed_url">Malformed url</string>
-    <string name="image_from_gallery">Image from gallery</string>
-    <string name="image_from_camera">Image from camera</string>
+    <string name="approve_image_picker_permission">Approve permissions to use the image picker</string>
+    <string name="instructions">Click on the image to select and on one of the round buttons to apply a color.</string>
+    <string name="rgb_">RGB: %1$s, %2$s, %3$s</string>
+    <string name="hex_">HEX: %s</string>
+    <string name="hsv_">HSV: %1$s, %2$s, %3$s</string>
 </resources>

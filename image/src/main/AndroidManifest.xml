@@ -22,8 +22,9 @@
         android:allowBackup="true">
 
         <activity
-            android:name=".ui.ImageActivity"
+            android:name=".ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
     </application>
 </manifest>

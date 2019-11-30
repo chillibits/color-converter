@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_gallery"
-        android:title="@string/gallery"
-        android:icon="@drawable/image"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_photo"
-        android:title="@string/capture_image"
-        android:icon="@drawable/camera"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_web"
-        android:title="@string/image_from_web"
-        android:icon="@drawable/download"
-        app:showAsAction="always"/>
+        android:id="@+id/action_new_image"
+        android:title="@string/new_iamge"
+        android:icon="@drawable/replay"
+        app:showAsAction="ifRoom"/>
 </menu>

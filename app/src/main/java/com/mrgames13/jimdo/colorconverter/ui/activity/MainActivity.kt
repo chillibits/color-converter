@@ -161,6 +161,24 @@ class MainActivity : AppCompatActivity() {
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+
+        // Redirect to ImageActivity, if needed
+        if (intent.hasExtra("action") && intent.getStringExtra("action") == "image") pickColorFromImage()
+
+        // Check if app was installed
+        val intent = intent
+        if (intent.getBooleanExtra("InstantInstalled", false)) {
+            val d: AlertDialog =
+                AlertDialog.Builder(this)
+                    .setTitle(R.string.instant_installed_t)
+                    .setMessage(R.string.instant_installed_m)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.ok, null)
+                    .create()
+            d.show()
+        } else if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/")) {
+            pickColorFromImage(intent.getParcelableExtra(Intent.EXTRA_STREAM))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -199,7 +217,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun pickColorFromImage() {
+    private fun pickColorFromImage(defaultImageUri: Uri? = null) {
         if (InstantApps.isInstantApp(this@MainActivity)) {
             AlertDialog.Builder(this@MainActivity)
                 .setTitle(R.string.install_app)
@@ -220,8 +238,9 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     if (splitInstallManager.installedModules.contains("image")) {
                         val i = Intent()
-                        i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.ImageActivity")
-                        startActivity(i)
+                        if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
+                        i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.activity.ImageActivity")
+                        startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
                     } else {
                         Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
                     }
