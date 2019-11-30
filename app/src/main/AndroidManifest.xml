@@ -12,7 +12,6 @@
     <dist:module dist:instant="true" />
 
     <application
-        android:name=".ColorConverter"
         android:allowBackup="false"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"

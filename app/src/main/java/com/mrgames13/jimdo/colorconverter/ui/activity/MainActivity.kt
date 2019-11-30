@@ -29,20 +29,23 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.mrgames13.jimdo.colorconverter.BuildConfig
 import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.model.Color
-import com.mrgames13.jimdo.colorconverter.tools.*
+import com.mrgames13.jimdo.colorconverter.tools.ColorNameTools
+import com.mrgames13.jimdo.colorconverter.tools.ColorTools
+import com.mrgames13.jimdo.colorconverter.tools.SimpleTextWatcher
+import com.mrgames13.jimdo.colorconverter.tools.StorageTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
 import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+// Constants
+private const val REQ_PICK_COLOR_FROM_IMAGE: Int = 10001
+private const val REQ_LOAD_COLOR = 10002
+private const val REQ_INSTANT_INSTALL = 10003
+private const val COLOR_ANIMATION_DURATION = 500L
 
-    // Constants
-    private val REQ_PICK_COLOR_FROM_IMAGE: Int = 10001
-    private val REQ_LOAD_COLOR = 10002
-    private val REQ_INSTANT_INSTALL = 10003
-    private val COLOR_ANIMATION_DURATION = 500L
+class MainActivity : AppCompatActivity() {
 
     // Tools packages
     private val st = StorageTools(this)
@@ -418,7 +421,7 @@ class MainActivity : AppCompatActivity() {
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
 
         // Update text colors
-        val textColor = ct.getTextColor(rgb(color))
+        val textColor = ct.getTextColor(android.graphics.Color.rgb(color.red, color.green, color.blue))
         display_name.setTextColor(textColor)
         display_rgb.setTextColor(textColor)
         display_hex.setTextColor(textColor)

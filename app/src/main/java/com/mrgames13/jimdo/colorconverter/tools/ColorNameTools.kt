@@ -8,7 +8,7 @@ import android.content.Context
 import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.model.Color
 
-class ColorNameTools(val context: Context) {
+class ColorNameTools(private val context: Context) {
 
     private fun initColorList(): List<ColorName> {
         val c = context

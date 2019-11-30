@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.model.Color
-import com.mrgames13.jimdo.colorconverter.tools.ColorTools
 import com.mrgames13.jimdo.colorconverter.tools.SimpleTextWatcher
 import com.mrgames13.jimdo.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.ui.adapter.ColorsAdapter
@@ -29,10 +28,9 @@ import kotlinx.android.synthetic.main.dialog_color_rename.view.*
 class ColorSelectionActivity : AppCompatActivity() {
 
     // Tools packages
-    private val ct = ColorTools(this)
     private val st = StorageTools(this)
 
-    // Varibles as objects
+    // Variables as objects
     private lateinit var colors: ArrayList<Color>
     private var selectedColor: Color? = null
 

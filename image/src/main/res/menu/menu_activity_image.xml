@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/action_new_image"
-        android:title="@string/new_iamge"
+        android:title="@string/new_image"
         android:icon="@drawable/replay"
         app:showAsAction="ifRoom"/>
 </menu>

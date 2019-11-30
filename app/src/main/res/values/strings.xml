@@ -27,7 +27,7 @@
     <string name="pick_random_color">Generate random color</string>
     <string name="pick_color_from_image">Choose color from image</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
-    <string name="new_iamge">Choose new image</string>
+    <string name="new_image">Choose new image</string>
     <string name="rate_app">Rate app</string>
     <string name="rate_m">Rate Color Converter in Google PlayStore with 5 stars, if you are enjoying the app!</string>
     <string name="share_app">Recommend app</string>
@@ -44,7 +44,7 @@
     <string name="hex_">HEX: %s</string>
     <string name="hsv_">HSV: %1$s, %2$s, %3$s</string>
 
-    <!-- ColorSelectionAcitivity -->
+    <!-- ColorSelectionActivity -->
     <string name="delete">Delete</string>
     <string name="delete_m">Do you really want to delete the color named \'%s\'?</string>
     <string name="rename">Rename</string>

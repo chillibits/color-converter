@@ -31,11 +31,10 @@ import com.mrgames13.jimdo.colorconverter.tools.ColorTools
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 
+// Constants
+private const val REQ_IMAGE_PICKER = 10001
 
 class ImageActivity : AppCompatActivity() {
-
-    // Constants
-    private val REQ_IMAGE_PICKER = 10001
 
     // Tools packages
     private val ct = ColorTools(this)
@@ -74,7 +73,7 @@ class ImageActivity : AppCompatActivity() {
 
         if(intent.hasExtra("ImageUri")) {
             // Load default image
-            val defaultImageUri: Uri = intent.getParcelableExtra("ImageUri")
+            val defaultImageUri = intent.getParcelableExtra("ImageUri") as Uri
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, defaultImageUri)
             runOnUiThread { applyImage(bitmap) }
         } else {

@@ -12,14 +12,13 @@ import android.util.Log
 import com.mrgames13.jimdo.colorconverter.model.Color
 import java.util.*
 
+// Constants
+const val TABLE_COLORS: String = "Colors"
+
 class StorageTools(context: Context): SQLiteOpenHelper(context, "database.db", null, 1) {
-
-    // Constants
-    val TABLE_COLORS: String = "Colors"
-
     override fun onCreate(db: SQLiteDatabase?) {
         try {
-            //Tabellen erstellen
+            // Create tables
             db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer);")
         } catch (e: Exception) {
             Log.e("ColorConverter", "Database creation error: ", e)
@@ -32,11 +31,11 @@ class StorageTools(context: Context): SQLiteOpenHelper(context, "database.db", n
         writableDatabase.insert(table, null, values)
     }
 
-    fun removeRecord(table: String?, id: Int) {
+    private fun removeRecord(table: String?, id: Int) {
         writableDatabase.delete(table, "id=?", arrayOf(id.toString()))
     }
 
-    fun execSQL(command: String?) {
+    private fun execSQL(command: String?) {
         writableDatabase.execSQL(command)
     }
 
