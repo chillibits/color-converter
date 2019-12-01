@@ -1,25 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright © 2019 Marc Auberer. All rights reserved.
   -->
 
-<resources>
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter Colors
+ Release: Working copy
+ Locale: de, German
+ Exported by: M&R Games
+ Exported at: Sun, 01 Dec 2019 22:50:32 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="color_alice_blue">Aliceblau</string>
+    <string name="color_antique_white">Antikes Weiß</string>
     <string name="color_aqua">Aqua</string>
+    <string name="color_aquamarine">Aquamarinblau</string>
     <string name="color_azure">Azur</string>
     <string name="color_beige">Beige</string>
+    <string name="color_bisque">Tomatencreme</string>
     <string name="color_black">Schwarz</string>
+    <string name="color_blanched_almond">Mandelweiß</string>
     <string name="color_blue">Blau</string>
     <string name="color_blue_violet">Blau-Violett</string>
     <string name="color_brown">Braun</string>
-    <string name="color_chocolate">Schokolade</string>
-    <string name="color_alice_blue">Aliceblau</string>
-    <string name="color_antique_white">Antikes Weiß</string>
-    <string name="color_aquamarine">Aquamarinblau</string>
-    <string name="color_bisque">Tomatencreme</string>
-    <string name="color_blanched_almond">Mandelweiß</string>
     <string name="color_burly_wood">Grobes Braun</string>
     <string name="color_cadet_blue">Kadettblau</string>
     <string name="color_chartreuse">Hellgrün</string>
+    <string name="color_chocolate">Schokolade</string>
     <string name="color_coral">Koralle</string>
     <string name="color_cornflower_blue">Kornblumenblau</string>
     <string name="color_cornsilk">Mais</string>
@@ -31,7 +39,6 @@
     <string name="color_dark_gray">Dunkelgrau</string>
     <string name="color_dark_green">Dunkelgrün</string>
     <string name="color_dark_khaki">Dunkles Khaki</string>
-    <string name="color_dark_late_gray">Dunkles Schiefergrau</string>
     <string name="color_dark_magenta">Dunkles Magentarot</string>
     <string name="color_dark_olive_green">Dunkles Olivgrün</string>
     <string name="color_dark_orange">Dunkles Orange</string>
@@ -40,6 +47,7 @@
     <string name="color_dark_salmon">Dunkle Lachsfarbe</string>
     <string name="color_dark_sea_green">Dunkles Seegrün</string>
     <string name="color_dark_slate_blue">Dunkles Schieferblau</string>
+    <string name="color_dark_late_gray">Dunkles Schiefergrau</string>
     <string name="color_dark_turquoise">Dunkles Türkis</string>
     <string name="color_dark_violet">Dunkles Violett</string>
     <string name="color_deep_pink">Dunkles Pink</string>
@@ -98,7 +106,6 @@
     <string name="color_mint_cream">Cremig Pfefferminz</string>
     <string name="color_misty_rose">Altrosa</string>
     <string name="color_moccasin">Moccasin</string>
-    <string name="color_name">Name</string>
     <string name="color_navajo_white">Navajoweiß</string>
     <string name="color_navy">Marineblau</string>
     <string name="color_old_lace">Altgold</string>
@@ -145,5 +152,4 @@
     <string name="color_white_smoke">Weißer Rauch</string>
     <string name="color_yellow">Gelb</string>
     <string name="color_yellow_green">Gelbgrün</string>
-
 </resources>

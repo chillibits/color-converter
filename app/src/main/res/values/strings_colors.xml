@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright © 2019 Marc Auberer. All rights reserved.
   -->
 
-<resources>
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter Colors
+ Release: Working copy
+ Locale: en, English
+ Exported by: M&R Games
+ Exported at: Sun, 01 Dec 2019 22:50:32 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="color_alice_blue">Alice Blue</string>
     <string name="color_antique_white">Antique White</string>
     <string name="color_aqua">Aqua</string>
@@ -144,5 +152,4 @@
     <string name="color_white_smoke">White Smoke</string>
     <string name="color_yellow">Yellow</string>
     <string name="color_yellow_green">Yellow Green</string>
-
 </resources>
