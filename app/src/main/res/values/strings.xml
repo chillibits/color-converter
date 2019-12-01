@@ -57,9 +57,6 @@
 
     <!-- Shortcuts -->
     <string name="shortcut_disabled">Action disabled</string>
-    <string name="shortcut_gallery_short">Image from gallery</string>
-    <string name="shortcut_gallery_long">Choose color of image from gallery</string>
-    <string name="shortcut_photo_short">Take a photo</string>
     <string name="shortcut_photo_long">Choose color of photo</string>
 
     <!-- InstantApp -->

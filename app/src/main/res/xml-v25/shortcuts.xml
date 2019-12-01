@@ -5,8 +5,12 @@
 
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
+        android:shortcutId="image"
         android:enabled="true"
-        android:icon="@drawable/image_primary">
+        android:icon="@drawable/image_primary"
+        android:shortcutShortLabel="@string/pick_color_from_image"
+        android:shortcutLongLabel="@string/shortcut_photo_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.mrgames13.jimdo.colorconverter"

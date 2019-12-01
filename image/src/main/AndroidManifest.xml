@@ -22,14 +22,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <application android:allowBackup="false">
-
+    <application
+        android:allowBackup="false"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

@@ -47,8 +47,7 @@ class ImageActivity : AppCompatActivity() {
     private var mutedColor: Int = Color.BLACK
     private var mutedColorLight: Int = Color.BLACK
     private var mutedColorDark: Int = Color.BLACK
-
-    // Variables
+    private var imageUri: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,8 +74,8 @@ class ImageActivity : AppCompatActivity() {
             // Load default image
             val defaultImageUri = intent.getParcelableExtra("ImageUri") as Uri
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, defaultImageUri)
-            runOnUiThread { applyImage(bitmap) }
-        } else {
+            applyImage(bitmap)
+        } else if(savedInstanceState == null) {
             // Launch image picker
             chooseImage()
         }
@@ -95,12 +94,25 @@ class ImageActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("ImageUri", imageUri.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        imageUri = savedInstanceState.getString("ImageUri")
+        applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQ_IMAGE_PICKER) {
             if(resultCode == Activity.RESULT_OK) {
-                val result = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
-                applyImage(applyRotation(BitmapFactory.decodeFile(result), result)!!)
+                try{
+                    imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
+                    applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
+                } catch (e: Exception) {}
             } else {
                 finish()
             }

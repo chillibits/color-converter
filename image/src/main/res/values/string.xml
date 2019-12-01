@@ -6,7 +6,6 @@
 <resources>
     <!-- ImageActivity -->
     <string name="approve_image_picker_permission">Approve permissions to use the image picker</string>
-    <string name="instructions">Click on the image to select and on one of the round buttons to apply a color.</string>
     <string name="rgb_">RGB: %1$s, %2$s, %3$s</string>
     <string name="hex_">HEX: %s</string>
     <string name="hsv_">HSV: %1$s, %2$s, %3$s</string>

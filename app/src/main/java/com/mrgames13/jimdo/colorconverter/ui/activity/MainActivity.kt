@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private val cnt = ColorNameTools(this)
 
     // Variables as objects
-    private var selectedColor: Color = Color(0, "Selection", android.graphics.Color.BLACK, -1)
+    private var selectedColor = Color(0, "Selection", android.graphics.Color.BLACK, -1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -207,9 +207,21 @@ class MainActivity : AppCompatActivity() {
                         i.putExtra("InstantInstalled", true)
                         InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
                     }
+                    .setNegativeButton(R.string.close, null)
+                    .show()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("SelectedColor", selectedColor.color)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        updateDisplays(Color(0, "Selection", savedInstanceState.getInt("SelectedColor"), -1))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
