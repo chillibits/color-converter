@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<resources>
+    <string name="cancel">Abbrechen</string>
+    <string name="choose_color">Farbe wählen</string>
+    <string name="choose_name">Namen wählen</string>
+    <string name="close">schließen</string>
+    <string name="copied_to_clipboard">In Zwischenablage kopiert</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_m">Wollen Sie wirklich die Farbe \'%s\' löschen?</string>
+    <string name="done">Fertig</string>
+    <string name="hex_code">HEX-Code</string>
+    <string name="hsv_code">HSV-Code</string>
+    <string name="install_app">App installieren</string>
+    <string name="install_app_download">Installieren Sie diese App um alle Funktionen zu genießen, auch Funktionen, die wir in der Instant-Version der App nicht unterstützen.</string>
+    <string name="instant_install_m">Diese Funktion wird nicht in der Instant-Version der App unterstützt. Bitte installieren Sie die App, um diese Funktion zu nutzen.</string>
+    <string name="instant_installed_m">Vielen Dank dass Sie unsere App installiert haben. Tippen Sie auf OK um fortzufahren.</string>
+    <string name="instant_installed_t">App installiert</string>
+    <string name="name_">Name: %s</string>
+    <string name="new_image">Neues Bild wählen</string>
+    <string name="no_colors_saved">Keine Farben gespeichert! Um eine Farbe zu speichern, tippen Sie auf das Speichern-Symbol auf der linken Seite in der Farbvorschau.</string>
+    <string name="ok">OK</string>
+    <string name="pick_color_from_image">Farbe von Bild wählen</string>
+    <string name="pick_random_color">Zufällige Farbe generieren</string>
+    <string name="press_color_to_apply">Auf Farbe tippen zum Bestätigen</string>
+    <string name="rate">Bewerten</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="rate_m">Bewerten Sie Color Converter auf Google Play mit 5 Sternen, wenn Ihnen die App gefällt!</string>
+    <string name="recommend_string">Color Converter: Farben konvertieren, Farben aus Bildern wählen und vieles mehr! Ein einfaches Werkzeug für Programmierer und Grafikdesigner. Von Google Play herunterladen: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="rename">Umbenennen</string>
+    <string name="rgb_code">RGB-Code</string>
+    <string name="save">Speichern</string>
+    <string name="save_color">Farbe speichern</string>
+    <string name="selected">Ausgewählt</string>
+    <string name="selection_">Auswahl:</string>
+    <string name="share">Weiterempfehlen</string>
+    <string name="share_app">App weiterempfehlen</string>
+    <string name="share_m">Emfehlen Sie Color Converter an Ihre Freunde!</string>
+    <string name="shortcut_disabled">Aktion deaktiviert</string>
+    <string name="shortcut_photo_long">Farbe von Bild wählen</string>
+    <string name="title_image">Funktion für die Farbwahl von Bildern</string>
+</resources>

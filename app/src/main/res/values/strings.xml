@@ -5,7 +5,7 @@
 <resources>
     <!-- Common strings -->
     <string name="app_name" translatable="false">Color Converter</string>
-    <string name="title_image">Choose From Image Feature</string>
+    <string name="title_image">Feature for color choosing from images</string>
     <string name="close">close</string>
     <string name="ok">OK</string>
     <string name="error" translatable="false">ERROR</string>
@@ -29,27 +29,27 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="new_image">Choose new image</string>
     <string name="rate_app">Rate app</string>
-    <string name="rate_m">Rate Color Converter in Google PlayStore with 5 stars, if you are enjoying the app!</string>
+    <string name="rate_m">Rate Color Converter on Google Play with 5 stars, if you are enjoying the app!</string>
     <string name="share_app">Recommend app</string>
     <string name="share">Recommend</string>
-    <string name="share_m">Recommend ColorConverter to your friends!</string>
-    <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
-    <string name="press_color_to_apply">Press on color to apply</string>
+    <string name="share_m">Recommend Color Converter to your friends!</string>
+    <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="press_color_to_apply">Tap on color to apply</string>
     <string name="rate">Rate</string>
     <string name="color_name">Name</string>
     <string name="rgb_code">RGB code</string>
     <string name="hsv_code">HSV code</string>
     <string name="name_">Name: %s</string>
-    <string name="rgb_">RGB: %1$s, %2$s, %3$s</string>
-    <string name="hex_">HEX: %s</string>
-    <string name="hsv_">HSV: %1$s, %2$s, %3$s</string>
+    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
+    <string name="hex_" translatable="false">HEX: %s</string>
+    <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
 
     <!-- ColorSelectionActivity -->
     <string name="delete">Delete</string>
-    <string name="delete_m">Do you really want to delete the color named \'%s\'?</string>
+    <string name="delete_m">Do you really want to delete the color \'%s\'?</string>
     <string name="rename">Rename</string>
     <string name="selected">Selected</string>
-    <string name="color_summary">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
+    <string name="color_summary" translatable="false">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
     <string name="no_colors_saved">No colors saved!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
 
     <!-- Image Chooser -->
