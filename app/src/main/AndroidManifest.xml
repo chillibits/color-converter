@@ -35,7 +35,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -48,6 +47,7 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
+
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -56,6 +56,11 @@
 
                 <data
                     android:scheme="https"
+                    android:host="mrgames-server.de"
+                    android:pathPrefix="/colorconverter" />
+
+                <data
+                    android:scheme="http"
                     android:host="mrgames-server.de"
                     android:pathPrefix="/colorconverter" />
             </intent-filter>
