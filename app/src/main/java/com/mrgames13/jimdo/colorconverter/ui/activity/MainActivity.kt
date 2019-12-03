@@ -349,7 +349,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun editHSVCode() {
         // Initialize views
-        val container = layoutInflater.inflate(R.layout.dialog_edit_hsv, null)
+        val container = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hsv, container, false)
         val hsv = FloatArray(3)
         android.graphics.Color.colorToHSV(selectedColor.color, hsv)
         container.dialog_h.setText(hsv[0].toString())
@@ -358,7 +358,7 @@ class MainActivity : AppCompatActivity() {
 
         // Create dialog
         val dialog = AlertDialog.Builder(this)
-            .setTitle(R.string.hex_code)
+            .setTitle(R.string.hsv_code)
             .setView(container)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
