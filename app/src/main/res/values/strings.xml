@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: M&R Games
- Exported at: Sun, 01 Dec 2019 22:52:56 +0100
+ Exported at: Tue, 03 Dec 2019 21:24:53 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Common strings -->
@@ -41,7 +41,7 @@
     <string name="share_app">Recommend app</string>
     <string name="share">Recommend</string>
     <string name="share_m">Recommend Color Converter to your friends!</string>
-    <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="recommend_string">Color Converter: Converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
     <string name="press_color_to_apply">Tap on color to apply</string>
     <string name="rate">Rate</string>
     <string name="color_name">Name</string>
@@ -64,7 +64,7 @@
     <string name="done">Done</string>
     <!-- Shortcuts -->
     <string name="shortcut_disabled">Action disabled</string>
-    <string name="shortcut_photo_long">Choose color of photo</string>
+    <string name="shortcut_photo_long">Choose color from photo</string>
     <!-- InstantApp -->
     <string name="install_app">Install app</string>
     <string name="instant_install_m">This feature is not supported in the instant app version. Please install the app to use this feature.</string>

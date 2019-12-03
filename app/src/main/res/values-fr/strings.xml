@@ -9,54 +9,54 @@
  Release: Working copy
  Locale: fr, French
  Exported by: M&R Games
- Exported at: Sun, 01 Dec 2019 22:52:56 +0100
+ Exported at: Tue, 03 Dec 2019 21:38:26 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Common strings -->
-    <string name="title_image"></string>
+    <string name="title_image">Fonctionnalité pour choisir des couleurs des images.</string>
     <string name="close">fermer</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <!-- MainActivity -->
     <string name="hex_code">Code hexadécimal</string>
     <string name="selection_">Sélection:</string>
-    <string name="choose_color"></string>
+    <string name="choose_color">Choisir une couleur</string>
     <string name="save_color">Sauver couleur</string>
     <string name="save">Sauver</string>
-    <string name="choose_name">Coisir nom</string>
+    <string name="choose_name">Choisir nom</string>
     <string name="pick_random_color">Générer couleur au hasard</string>
-    <string name="pick_color_from_image">Choisir la couleur de l\\\'image</string>
+    <string name="pick_color_from_image">Choisir la couleur de l\'image</string>
     <string name="copied_to_clipboard">Copié dans la presse-papiers</string>
-    <string name="new_image"></string>
-    <string name="rate_app">Évaluer l\\\'app</string>
-    <string name="rate_m">Évaluez Color Converter dans Google Play avec 5 étoiles, si vous aimez l\\\'application! Vous pouvez écrire des suggestions d\\\'amélioration dans l\\\'évaluation aussi.</string>
-    <string name="share_app">Recommander l\\\'application</string>
+    <string name="new_image">Choisir une nouvelle image</string>
+    <string name="rate_app">Évaluer l\'app</string>
+    <string name="rate_m">Évaluez Color Converter dans Google Play avec 5 étoiles, si vous aimez l\'application!</string>
+    <string name="share_app">Recommander l\'application</string>
     <string name="share">Recommander</string>
     <string name="share_m">Recommander Color Converter à vos amis!</string>
     <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
-    <string name="press_color_to_apply"></string>
+    <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
     <string name="rate">Évaluer</string>
     <string name="color_name">Prénom</string>
-    <string name="rgb_code"></string>
-    <string name="hsv_code"></string>
+    <string name="rgb_code">Code RGB</string>
+    <string name="hsv_code">Code HSV</string>
     <!-- %s is a placeholder -->
-    <string name="name_">Prénom: %s</string>
+    <string name="name_">Nom: %s</string>
     <!-- ColorSelectionActivity -->
     <string name="delete">Effacer</string>
     <!-- %s is a placeholder -->
-    <string name="delete_m">Voulez vous vraiment effacer cette couleur \'%s\'?</string>
+    <string name="delete_m">Voulez-vous vraiment effacer cette couleur \'%s\'?</string>
     <string name="rename">Rebaptiser</string>
     <string name="selected">Sélectionné</string>
-    <string name="no_colors_saved">Pas des couleurs sauvent jusqu\\\'ici!\nPour sauver une\u0020\u0020couleur , touchez le save-icon à gauche dans le couleur-avant-première.</string>
+    <string name="no_colors_saved">Pas des couleurs sauvent jusqu\'ici!\nPour sauver une\u0020\u0020couleur, touchez le save-icon à gauche dans le couleur-avant-première.</string>
     <!-- Image Chooser -->
     <string name="done">Terminé</string>
     <!-- Shortcuts -->
     <string name="shortcut_disabled">Action désactivée</string>
-    <string name="shortcut_photo_long"></string>
+    <string name="shortcut_photo_long">Choisir couleur de la photo</string>
     <!-- InstantApp -->
-    <string name="install_app">Installer l\\\'application</string>
-    <string name="instant_install_m">Cette fonctionnalité n\\\'est pas prise en charge dans la version de l\\\'application instantanée. Veuillez installer l\\\'application pour utiliser cette fonctionnalité.</string>
-    <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\\\'application instantanée.</string>
+    <string name="install_app">Installer l\'application</string>
+    <string name="instant_install_m">Cette fonctionnalité n\'est pas prise en charge dans la version de l\'application instantanée. Installez l\'application pour utiliser cette fonctionnalité, s\'il vous plaît.</string>
+    <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
     <string name="instant_installed_t">Application installée</string>
-    <string name="instant_installed_m">Merci d\\\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
+    <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
 </resources>
