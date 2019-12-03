@@ -48,6 +48,7 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
 
+            <!-- Instant links -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -64,6 +65,9 @@
                     android:host="mrgames-server.de"
                     android:pathPrefix="/colorconverter" />
             </intent-filter>
+
+            <!-- Default url -->
+            <meta-data android:name="default-url" android:value="https://mrgames-server.de/colorconverter" />
         </activity>
         <activity
             android:name=".ui.activity.ColorSelectionActivity"
