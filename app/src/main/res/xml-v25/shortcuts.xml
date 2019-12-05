@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="image"
+        android:enabled="true"
+        android:icon="@drawable/image_primary"
+        android:shortcutShortLabel="@string/pick_color_from_image"
+        android:shortcutLongLabel="@string/shortcut_photo_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.mrgames13.jimdo.colorconverter"
+            android:targetClass="com.mrgames13.jimdo.colorconverter.ui.activity.MainActivity">
+            <extra android:name="action" android:value="image" />
+        </intent>
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+</shortcuts>

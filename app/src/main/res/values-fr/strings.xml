@@ -1,61 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="cancel">abandonner</string>
-    <string name="capture_image">prendre un photo</string>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter
+ Release: Working copy
+ Locale: fr, French
+ Exported by: M&R Games
+ Exported at: Tue, 03 Dec 2019 21:38:26 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Common strings -->
+    <string name="title_image">Fonctionnalité pour choisir des couleurs des images.</string>
     <string name="close">fermer</string>
-    <string name="convert">convertir</string>
-    <string name="converting_">conversion:</string>
-    <string name="copied_to_clipboard">copié dans la presse-papiers</string>
-    <string name="enter">prendre</string>
-    <string name="error_hex_chars">Seuls les chiffres et les lettres de A à F</string>
-    <string name="error_number_6">Code hexadécimal doit être 6 chiffres</string>
-    <string name="error_number_between">Le nombre doit être compris entre 0 et 255</string>
-    <string name="gallery">galerie</string>
-    <string name="hex_code">code hexadécimal</string>
-    <string name="instructions_gallery_m">Appuyez sur l\'icône Galerie, sélectionnez une image et appuyez quelque part dans cette image, pour sélecter une couleur.</string>
-    <string name="instructions_gallery_t">Sélectionner une image</string>
-    <string name="instructions_photo_m">Appuyez sur l\'icône de la caméra pour prendre une photo et sélectionnez une couleur dans cette photo.</string>
-    <string name="next">Suivant</string>
-    <string name="no_value_m">aucune chiffre entrée</string>
-    <string name="no_value_t">pas des chiffres</string>
     <string name="ok">OK</string>
-    <string name="pick_color">choisir la couleur</string>
-    <string name="pick_color_from_image">choisir la couleur de l\'image</string>
-    <string name="rate">Évaluer</string>
-    <string name="rate_app">évaluer l\'app</string>
-    <string name="rate_m">Évaluez Color Converter dans la Google PlayStore avec 5 étoiles, si vous aimez l\'application! Vous pouvez écrire des suggestions d\'amélioration dans l\'évaluation aussi.</string>
-    <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de la Google PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
-    <string name="selection_">sélection:</string>
-    <string name="share">recommander</string>
-    <string name="share_app">Recommander l\'application</string>
-    <string name="share_m">Recommander l\'application à vos amis!</string>
-    <string name="title_activity_image">couleur de l\'mage</string>
-    <string name="shortcut_disabled">Action désactivée</string>
-    <string name="shortcut_gallery_long">Choisissez la couleur de l\'image dans la galerie</string>
-    <string name="shortcut_gallery_short">Image de la galerie</string>
-    <string name="shortcut_photo_long">Choisissez la couleur de la photo</string>
-    <string name="shortcut_photo_short">prendre une photo</string>
-    <string name="all_photos">Toutes les photos</string>
-    <string name="image_broken">Cette image est cassée</string>
-    <string name="select_photo_text">Sélectionnez une image</string>
-    <string name="done">Terminé</string>
-    <string name="choose_name">coisir nom</string>
-    <string name="delete">effacer</string>
-    <string name="delete_m">Voulez vous vraiment effacer cette couleur?</string>
-    <string name="download_img">Télécharcher image</string>
-    <string name="enter_web_url">entrer web url</string>
-    <string name="image_from_web">image de l\'internet</string>
-    <string name="instructions_web_m">touchez le web-icon pour télécharger une image de l\'internet et choisiz une couleur de cette image.</string>
-    <string name="malformed_url">défectueuse url</string>
-    <string name="no_colors_saved_yet">Pas des couleurs sauvent jusqu\'ici! Pour sauver une  couleur , touchez le save-icon à gauche dans le couleur-avant-première.</string>
-    <string name="no_internet_available">Pas d\'internet disponible.</string>
+    <string name="cancel">Annuler</string>
+    <!-- MainActivity -->
+    <string name="hex_code">Code hexadécimal</string>
+    <string name="selection_">Sélection:</string>
+    <string name="choose_color">Choisir une couleur</string>
+    <string name="save_color">Sauver couleur</string>
+    <string name="save">Sauver</string>
+    <string name="choose_name">Choisir nom</string>
     <string name="pick_random_color">Générer couleur au hasard</string>
-    <string name="rename">rebaptiser</string>
-    <string name="save">sauver</string>
-    <string name="save_color">sauver couleur</string>
-    <string name="selected">sélectionné</string>
-    <string name="title_activity_color_selection">couleurs, qui sont sauvent</string>
-    <string name="press_color_to_apply">Pulse en color para aplicar</string>
-    <string name="image_from_gallery">Image de la galerie</string>
-    <string name="image_from_camera">Prendre une photo</string>
+    <string name="pick_color_from_image">Choisir la couleur de l\'image</string>
+    <string name="copied_to_clipboard">Copié dans la presse-papiers</string>
+    <string name="new_image">Choisir une nouvelle image</string>
+    <string name="rate_app">Évaluer l\'app</string>
+    <string name="rate_m">Évaluez Color Converter dans Google Play avec 5 étoiles, si vous aimez l\'application!</string>
+    <string name="share_app">Recommander l\'application</string>
+    <string name="share">Recommander</string>
+    <string name="share_m">Recommander Color Converter à vos amis!</string>
+    <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
+    <string name="rate">Évaluer</string>
+    <string name="color_name">Prénom</string>
+    <string name="rgb_code">Code RGB</string>
+    <string name="hsv_code">Code HSV</string>
+    <!-- %s is a placeholder -->
+    <string name="name_">Nom: %s</string>
+    <!-- ColorSelectionActivity -->
+    <string name="delete">Effacer</string>
+    <!-- %s is a placeholder -->
+    <string name="delete_m">Voulez-vous vraiment effacer cette couleur \'%s\'?</string>
+    <string name="rename">Rebaptiser</string>
+    <string name="selected">Sélectionné</string>
+    <string name="no_colors_saved">Pas des couleurs sauvent jusqu\'ici!\nPour sauver une\u0020\u0020couleur, touchez le save-icon à gauche dans le couleur-avant-première.</string>
+    <!-- Image Chooser -->
+    <string name="done">Terminé</string>
+    <!-- Shortcuts -->
+    <string name="shortcut_disabled">Action désactivée</string>
+    <string name="shortcut_photo_long">Choisir couleur de la photo</string>
+    <!-- InstantApp -->
+    <string name="install_app">Installer l\'application</string>
+    <string name="instant_install_m">Cette fonctionnalité n\'est pas prise en charge dans la version de l\'application instantanée. Installez l\'application pour utiliser cette fonctionnalité, s\'il vous plaît.</string>
+    <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
+    <string name="instant_installed_t">Application installée</string>
+    <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
 </resources>

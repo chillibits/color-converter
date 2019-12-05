@@ -1,117 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".App.MainActivity">
+    tools:context=".ui.activity.MainActivity"
+    android:background="@color/window_background_color">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/colorPrimary"
         android:theme="@style/toolbarStyle"
-        android:title="@string/app_name"
-        android:fitsSystemWindows="true" />
+        android:elevation="1dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="8dp">
 
+            <!-- Selection -->
             <TextView
-                android:id="@+id/tv_01"
+                android:id="@+id/title_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
                 android:gravity="center"
                 android:text="@string/selection_"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@drawable/button_outline_text"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <SeekBar
                 android:id="@+id/color_red"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tv_01"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:max="@integer/rgb_max_value"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:max="@integer/rgb_max_value"
+                app:layout_constraintTop_toBottomOf="@+id/title_selection"/>
 
             <SeekBar
                 android:id="@+id/color_green"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_below="@+id/color_red"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:max="@integer/rgb_max_value"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:max="@integer/rgb_max_value"
+                app:layout_constraintTop_toBottomOf="@+id/color_red"/>
 
             <SeekBar
                 android:id="@+id/color_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/color_green"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="15dp"
-                android:max="@integer/rgb_max_value"/>
+                android:max="@integer/rgb_max_value"
+                app:layout_constraintTop_toBottomOf="@+id/color_green"/>
 
             <LinearLayout
                 android:id="@+id/container_rgb_labels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/color_blue"
+                app:layout_constraintTop_toBottomOf="@+id/color_blue"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/tv_r_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="R"
+                    android:text="@string/r"
                     android:textColor="@color/red"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_g_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="G"
+                    android:text="@string/g"
                     android:textColor="@color/green"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_b_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="B"
+                    android:text="@string/b"
                     android:textColor="@color/blue"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -120,311 +122,270 @@
                 android:id="@+id/container_rgb_values"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/container_rgb_labels"
+                app:layout_constraintTop_toBottomOf="@+id/container_rgb_labels"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/tv_r"
+                    android:id="@+id/display_red"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@integer/default_rgb_value"
                     android:textColor="@color/red"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_g"
+                    android:id="@+id/display_green"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@integer/default_rgb_value"
                     android:textColor="@color/green"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_b"
+                    android:id="@+id/display_blue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@integer/default_rgb_value"
                     android:textColor="@color/blue"
                     android:textSize="23sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/color_container_outer"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/color_container_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/container_rgb_values"
-                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/container_rgb_values"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:elevation="5dp">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/color_container"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/black"
-                    android:padding="4dp">
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@android:color/black"
+                    android:padding="10dp">
 
-                    <LinearLayout
+                    <!-- Load and save buttons -->
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/load_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="3dp"
-                        android:weightSum="2">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/save_color"
+                        app:srcCompat="@drawable/load"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/load_color"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_folder_open"
-                            android:background="?selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:layout_marginBottom="7dp"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/save_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/load_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:srcCompat="@drawable/save"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/save_color"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="?selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            app:srcCompat="@drawable/ic_save" />
-                    </LinearLayout>
+                    <!-- Color format displays -->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/display_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/abel"
+                        android:text="@string/name_"
+                        android:textColor="@android:color/white"
+                        android:padding="7dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/display_rgb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/display_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/abel"
+                        android:text="@string/rgb_"
+                        android:textColor="@android:color/white"
+                        android:padding="7dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/display_hex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/display_rgb"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/abel"
+                        android:text="@string/hex_"
+                        android:textColor="@android:color/white"
+                        android:padding="7dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/display_hsv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/display_hex"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/abel"
+                        android:text="@string/hsv_"
+                        android:textColor="@android:color/white"
+                        android:padding="7dp"
+                        android:textSize="18sp" />
+
+                    <!-- Copy buttons -->
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/copy_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="3">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/copy_rgb"
+                        app:srcCompat="@drawable/copy"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/copy_rgb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toBottomOf="@+id/copy_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/copy_hex"
+                        app:srcCompat="@drawable/copy"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                            <TextView
-                                android:id="@+id/rgb_display"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/abel"
-                                android:text="RGB: 0, 0, 0"
-                                android:textColor="@color/white"
-                                android:textSize="18sp" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/copy_hex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toBottomOf="@+id/copy_rgb"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/copy_hsv"
+                        app:srcCompat="@drawable/copy"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/rgb_copy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                app:srcCompat="@drawable/ic_copy"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignTop="@id/rgb_display"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:layout_marginRight="3dp"
-                                android:layout_alignBottom="@id/rgb_display"/>
-                        </RelativeLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/copy_hsv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toBottomOf="@+id/copy_hex"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:srcCompat="@drawable/copy"
+                        android:padding="3dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/edit_hex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/color_container_wrapper"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_hsv"
+                android:text="@string/hex_code"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
+                app:drawableStartCompat="@drawable/edit"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/button_outline"
+                android:textColor="@drawable/button_outline_text"/>
 
-                            <TextView
-                                android:id="@+id/hex_display"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/abel"
-                                android:text="HEX: #000000"
-                                android:textColor="@color/white"
-                                android:textSize="18sp" />
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/hex_copy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                app:srcCompat="@drawable/ic_copy"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignTop="@id/hex_display"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:layout_marginRight="3dp"
-                                android:layout_alignBottom="@id/hex_display"/>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
-
-                            <TextView
-                                android:id="@+id/hsv_display"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/abel"
-                                android:text="HSV: 0.00, 0.00, 0.00"
-                                android:textColor="@color/white"
-                                android:textSize="18sp" />
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/hsv_copy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                app:srcCompat="@drawable/ic_copy"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignTop="@id/hsv_display"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:layout_marginRight="3dp"
-                                android:layout_alignBottom="@id/hsv_display"/>
-                        </RelativeLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-            </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/edit_hsv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/color_container_wrapper"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/edit_hex"
+                android:text="@string/hsv_code"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:drawableStartCompat="@drawable/edit"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/button_outline"
+                android:textColor="@drawable/button_outline_text"/>
 
             <Button
                 android:id="@+id/pick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pick_color"
-                android:layout_below="@+id/color_container_outer"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="5dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/edit_hex"
+                android:text="@string/choose_color"
+                android:layout_margin="8dp"
+                android:background="@drawable/button_outline_rounded"
+                android:textColor="@drawable/button_outline_text"/>
 
             <Button
                 android:id="@+id/pick_random_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/pick"
                 android:text="@string/pick_random_color"
-                android:layout_below="@+id/pick"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_margin="8dp"
+                android:background="@drawable/button_outline_rounded"
+                android:textColor="@drawable/button_outline_text"/>
 
             <Button
                 android:id="@+id/pick_from_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/pick_random_color"
                 android:text="@string/pick_color_from_image"
-                android:layout_below="@+id/pick_random_color"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_margin="8dp"
+                android:background="@drawable/button_outline_rounded"
+                android:textColor="@drawable/button_outline_text"/>
 
-            <RelativeLayout
-                android:id="@+id/seperator_01"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_below="@+id/pick_from_image"/>
-
-            <TextView
-                android:id="@+id/tv_02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/seperator_01"
-                android:fontFamily="@font/abel"
-                android:gravity="center"
-                android:text="@string/converting_"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/convert_container_01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:layout_below="@+id/tv_02"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="5dp">
-
-                <Button
-                    android:id="@+id/convert_rgb_to_hex"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/rgb_to_hex"/>
-
-                <Button
-                    android:id="@+id/convert_hex_to_rgb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/hex_to_rgb"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/convert_container_02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_below="@+id/convert_container_01">
-
-                <Button
-                    android:id="@+id/convert_rgb_to_hsv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/rgb_to_hsv"/>
-
-                <Button
-                    android:id="@+id/convert_hex_to_hsv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/hex_to_hsv"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/convert_container_03"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_below="@+id/convert_container_02">
-
-                <Button
-                    android:id="@+id/convert_hsv_to_rgb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/hsv_to_rgb"/>
-
-                <Button
-                    android:id="@+id/convert_hsv_to_hex"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/hsv_to_hex"/>
-            </LinearLayout>
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

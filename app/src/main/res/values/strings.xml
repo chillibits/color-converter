@@ -1,81 +1,74 @@
-<resources>
-    <!-- CommonStrings -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter
+ Release: Working copy
+ Locale: en, English
+ Exported by: M&R Games
+ Exported at: Tue, 03 Dec 2019 21:24:53 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Common strings -->
     <string name="app_name" translatable="false">Color Converter</string>
-    <string name="next">Next</string>
+    <string name="title_image">Feature for color choosing from images</string>
     <string name="close">close</string>
-    <string name="error" translatable="false">ERROR</string>
     <string name="ok">OK</string>
-    <string name="cancel">cancel</string>
-    <string name="no_internet_available">No internet available</string>
-
+    <string name="error" translatable="false">ERROR</string>
+    <string name="cancel">Cancel</string>
+    <string name="r" translatable="false">R</string>
+    <string name="g" translatable="false">G</string>
+    <string name="b" translatable="false">B</string>
+    <string name="h" translatable="false">H</string>
+    <string name="s" translatable="false">S</string>
+    <string name="v" translatable="false">V</string>
     <!-- MainActivity -->
-    <string name="title_activity_main" translatable="false">@string/app_name</string>
-    <string name="hex_code">Hex-code</string>
-    <string name="convert">convert</string>
+    <string name="hex_code">HEX code</string>
     <string name="selection_">Selection:</string>
-    <string name="converting_">Converting:</string>
-    <string name="pick_color">choose color</string>
+    <string name="choose_color">Choose color</string>
     <string name="save_color">Save color</string>
-    <string name="save">save</string>
-    <string name="choose_name">choose name</string>
-    <string name="pick_random_color">generate random color</string>
-    <string name="pick_color_from_image">choose color from image</string>
-    <string name="no_value_t">no entry</string>
-    <string name="no_value_m">No value entered.</string>
-    <string name="rgb_to_hex" translatable="false">RGB > HEX</string>
-    <string name="hex_to_rgb" translatable="false">HEX > RGB</string>
-    <string name="rgb_to_hsv" translatable="false">RGB > HSV</string>
-    <string name="hex_to_hsv" translatable="false">HEX > HSV</string>
-    <string name="hsv_to_rgb" translatable="false">HSV > RGB</string>
-    <string name="hsv_to_hex" translatable="false">HSV > HEX</string>
-    <string name="error_number_between">the number have to be between 0 and 255</string>
-    <string name="error_number_6">Hexcode must have 6 characters</string>
-    <string name="error_hex_chars">only numbers and chars from A to F</string>
-    <string name="enter">commit</string>
+    <string name="save">Save</string>
+    <string name="choose_name">Choose name</string>
+    <string name="pick_random_color">Generate random color</string>
+    <string name="pick_color_from_image">Choose color from image</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
-    <string name="gallery">gallery</string>
-    <string name="capture_image">capture image</string>
-    <string name="image_from_web">web image</string>
-    <string name="rate_app">rate app</string>
-    <string name="rate_m">Rate Color Converter in Google PlayStore with 5 stars, if you are enjoying the app!</string>
-    <string name="share_app">recommend app</string>
+    <string name="new_image">Choose new image</string>
+    <string name="rate_app">Rate app</string>
+    <string name="rate_m">Rate Color Converter on Google Play with 5 stars, if you are enjoying the app!</string>
+    <string name="share_app">Recommend app</string>
     <string name="share">Recommend</string>
-    <string name="share_m">Recommend ColorConverter to your friends!</string>
-    <string name="recommend_string">Color Converter: converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from PlayStore: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
-    <string name="press_color_to_apply">Press on color to apply</string>
-
-    <!-- ImageActivity -->
-    <string name="title_activity_image">color from image</string>
-    <string name="instructions_gallery_t">choose image</string>
-    <string name="instructions_gallery_m">tap on the gallery-icon to select an image from the gallery and select a color from it.</string>
-    <string name="instructions_photo_m">tap on the camera-icon to capture an image and select a color from it.</string>
-    <string name="instructions_web_m">tap on the web-icon to load an image from the internet and select a color from it.</string>
+    <string name="share_m">Recommend Color Converter to your friends!</string>
+    <string name="recommend_string">Color Converter: Converting colors, picking colors from an image and much more! An lightweight tool for programmers and designers. Download from Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="press_color_to_apply">Tap on color to apply</string>
     <string name="rate">Rate</string>
-    <string name="image_broken">This image is broken</string>
-    <string name="enter_web_url">Enter web url</string>
-    <string name="download_img">Download image</string>
-    <string name="malformed_url">Malformed url</string>
-    <string name="image_from_gallery">Image from gallery</string>
-    <string name="image_from_camera">Image from camera</string>
-
-    <!-- ColorSelectionAcitivity -->
-    <string name="title_activity_color_selection">Saved colors</string>
-    <string name="delete">delete</string>
-    <string name="delete_m">Do you really want to delete this color?</string>
-    <string name="rename">rename</string>
+    <string name="color_name">Name</string>
+    <string name="rgb_code">RGB code</string>
+    <string name="hsv_code">HSV code</string>
+    <!-- %s is a placeholder -->
+    <string name="name_">Name: %s</string>
+    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
+    <string name="hex_" translatable="false">HEX: %s</string>
+    <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
+    <!-- ColorSelectionActivity -->
+    <string name="delete">Delete</string>
+    <!-- %s is a placeholder -->
+    <string name="delete_m">Do you really want to delete the color \'%s\'?</string>
+    <string name="rename">Rename</string>
     <string name="selected">Selected</string>
-    <string name="no_colors_saved_yet">no colors saved yet!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
-
+    <string name="color_summary" translatable="false">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
+    <string name="no_colors_saved">No colors saved!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
     <!-- Image Chooser -->
     <string name="done">Done</string>
-    <string name="all_photos">All Photos</string>
-    <string name="select_photo_text">Select an image</string>
-
     <!-- Shortcuts -->
-    <string name="shortcut_disabled">action disabled</string>
-    <string name="shortcut_gallery_short">image from gallery</string>
-    <string name="shortcut_gallery_long">choose color of image from gallery</string>
-    <string name="shortcut_photo_short">take photo</string>
-    <string name="shortcut_photo_long">choose color of photo</string>
-
+    <string name="shortcut_disabled">Action disabled</string>
+    <string name="shortcut_photo_long">Choose color from photo</string>
+    <!-- InstantApp -->
+    <string name="install_app">Install app</string>
+    <string name="instant_install_m">This feature is not supported in the instant app version. Please install the app to use this feature.</string>
+    <string name="install_app_download">Install this app to enjoy all the features and also the features we cannot support in the instant app version.</string>
+    <string name="instant_installed_t">App installed</string>
+    <string name="instant_installed_m">Thank you for installing our app. Tap on OK to continue.</string>
 </resources>

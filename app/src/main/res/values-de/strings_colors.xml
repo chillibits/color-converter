@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter Colors
+ Release: Working copy
+ Locale: de, German
+ Exported by: M&R Games
+ Exported at: Sun, 01 Dec 2019 22:50:32 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="color_alice_blue">Aliceblau</string>
+    <string name="color_antique_white">Antikes Weiß</string>
+    <string name="color_aqua">Aqua</string>
+    <string name="color_aquamarine">Aquamarinblau</string>
+    <string name="color_azure">Azur</string>
+    <string name="color_beige">Beige</string>
+    <string name="color_bisque">Tomatencreme</string>
+    <string name="color_black">Schwarz</string>
+    <string name="color_blanched_almond">Mandelweiß</string>
+    <string name="color_blue">Blau</string>
+    <string name="color_blue_violet">Blau-Violett</string>
+    <string name="color_brown">Braun</string>
+    <string name="color_burly_wood">Grobes Braun</string>
+    <string name="color_cadet_blue">Kadettblau</string>
+    <string name="color_chartreuse">Hellgrün</string>
+    <string name="color_chocolate">Schokolade</string>
+    <string name="color_coral">Koralle</string>
+    <string name="color_cornflower_blue">Kornblumenblau</string>
+    <string name="color_cornsilk">Mais</string>
+    <string name="color_crimson">Karmesinrot</string>
+    <string name="color_cyan">Zyanblau</string>
+    <string name="color_dark_blue">Dunkelblau</string>
+    <string name="color_dark_cyan">Dunkles Zyanblau</string>
+    <string name="color_dark_golden_rod">Dunkle Goldrutenfarbe</string>
+    <string name="color_dark_gray">Dunkelgrau</string>
+    <string name="color_dark_green">Dunkelgrün</string>
+    <string name="color_dark_khaki">Dunkles Khaki</string>
+    <string name="color_dark_magenta">Dunkles Magentarot</string>
+    <string name="color_dark_olive_green">Dunkles Olivgrün</string>
+    <string name="color_dark_orange">Dunkles Orange</string>
+    <string name="color_dark_orchid">\tDunkle Orchideenfarbe</string>
+    <string name="color_dark_red">Dunkelrot</string>
+    <string name="color_dark_salmon">Dunkle Lachsfarbe</string>
+    <string name="color_dark_sea_green">Dunkles Seegrün</string>
+    <string name="color_dark_slate_blue">Dunkles Schieferblau</string>
+    <string name="color_dark_late_gray">Dunkles Schiefergrau</string>
+    <string name="color_dark_turquoise">Dunkles Türkis</string>
+    <string name="color_dark_violet">Dunkles Violett</string>
+    <string name="color_deep_pink">Dunkles Pink</string>
+    <string name="color_deep_sky_blue">Tiefes Himmelblau</string>
+    <string name="color_dim_gray">Mattes Grau</string>
+    <string name="color_dodger_blue">Dodger-Blau</string>
+    <string name="color_fire_brick">Ziegelfarbe</string>
+    <string name="color_floral_white">Blütenweiß</string>
+    <string name="color_forest_green">Waldgrün</string>
+    <string name="color_fuchsia">Fuchsie</string>
+    <string name="color_gainsboro">Gainsboro</string>
+    <string name="color_ghost_white">Geisterweiß</string>
+    <string name="color_gold">Gold</string>
+    <string name="color_golden_rod">Goldrute</string>
+    <string name="color_gray">Grau</string>
+    <string name="color_green">Grün</string>
+    <string name="color_green_yellow">Grüngelb</string>
+    <string name="color_honey_dew">Honigmelone</string>
+    <string name="color_hot_pink">Leuchtendes Rosa</string>
+    <string name="color_indian_red">Indischrot</string>
+    <string name="color_indigo">Indigo</string>
+    <string name="color_ivory">Elfenbein</string>
+    <string name="color_khaki">Khaki</string>
+    <string name="color_lavender">Lavendelfarbe</string>
+    <string name="color_lavender_blush">Rosige Lavenderfarbe</string>
+    <string name="color_lawn_green">Rasengrün</string>
+    <string name="color_lemon_chiffon">Chiffongelb</string>
+    <string name="color_light_blue">Hellblau</string>
+    <string name="color_light_coral">Helles Korallenrot</string>
+    <string name="color_light_cyan">Helles Cyanblau</string>
+    <string name="color_light_golden_rod_yellow">Helles Goldrutengelb</string>
+    <string name="color_light_gray">Hellgrau</string>
+    <string name="color_light_green">Hellgrün</string>
+    <string name="color_light_pink">Helles Pink</string>
+    <string name="color_light_salmon">Helle Lachsfarbe</string>
+    <string name="color_light_sea_green">Helles Seegrün</string>
+    <string name="color_light_sky_blue">Helles Himmelblau</string>
+    <string name="color_light_slate_gray">Helles Schiefergrau</string>
+    <string name="color_light_steel_blue">Helles Stahlblau</string>
+    <string name="color_light_yellow">Hellgelb</string>
+    <string name="color_lime">Limettengrün</string>
+    <string name="color_lime_green">Gelbgrün</string>
+    <string name="color_linen">Leinenfarbe</string>
+    <string name="color_magenta">Magentarot</string>
+    <string name="color_maroon">Kastanienbraun</string>
+    <string name="color_medium_aqua_marine">Mittleres Aquamarinblau</string>
+    <string name="color_medium_blue">Mittelblau</string>
+    <string name="color_medium_orchid">Mittlere Orchideenfarbe</string>
+    <string name="color_medium_purple">Mittleres Violett</string>
+    <string name="color_medium_sea_green">Mittleres Seegrün</string>
+    <string name="color_medium_slate_blue">Mittleres Schieferblau</string>
+    <string name="color_medium_spring_green">Mittleres Frühlingsgrün</string>
+    <string name="color_medium_turquoise">Mittleres Türkis</string>
+    <string name="color_medium_violet_red">Mittleres Violettrot</string>
+    <string name="color_midnight_blue">Mitternachtsblau</string>
+    <string name="color_mint_cream">Cremig Pfefferminz</string>
+    <string name="color_misty_rose">Altrosa</string>
+    <string name="color_moccasin">Moccasin</string>
+    <string name="color_navajo_white">Navajoweiß</string>
+    <string name="color_navy">Marineblau</string>
+    <string name="color_old_lace">Altgold</string>
+    <string name="color_olive">Olivgrün</string>
+    <string name="color_olive_drab">Olivfarbiges Graubraun</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_orange_red">Orangenrot</string>
+    <string name="color_orchid">Orchidee</string>
+    <string name="color_pale_golden_rod">Blasse Goldrutenfarbe</string>
+    <string name="color_pale_green">Blassgrün</string>
+    <string name="color_pale_turquoise">Blasses Türkis</string>
+    <string name="color_pale_violet_red">Blasses Violettrot</string>
+    <string name="color_papaya_whip">Cremiges Papaya</string>
+    <string name="color_peach_puff">Pfirsich</string>
+    <string name="color_peru">Peru</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_plum">Pflaume</string>
+    <string name="color_powder_blue">Taubenblau</string>
+    <string name="color_purple">Violett</string>
+    <string name="color_red">Rot</string>
+    <string name="color_rosy_brown">Rosiges Braun</string>
+    <string name="color_royal_blue">Königsblau</string>
+    <string name="color_saddle_brown">Sattelbraun</string>
+    <string name="color_salmon">Lachs</string>
+    <string name="color_sandy_brown">Sandbraun</string>
+    <string name="color_sea_green">Seegrün</string>
+    <string name="color_sea_shell">Muschel</string>
+    <string name="color_sienna">Ocker</string>
+    <string name="color_silver">Silber</string>
+    <string name="color_sky_blue">Himmelblau</string>
+    <string name="color_slate_blue">Schieferblau</string>
+    <string name="color_slate_gray">Schiefergrau</string>
+    <string name="color_snow">Schneeweiß</string>
+    <string name="color_spring_green">Frühlingsgrün</string>
+    <string name="color_steel_blue">Stahlblau</string>
+    <string name="color_tan">Gelbbraun</string>
+    <string name="color_teal">Entenbraun</string>
+    <string name="color_thistle">Distel</string>
+    <string name="color_tomato">Tomatenrot</string>
+    <string name="color_turquoise">Türkis</string>
+    <string name="color_violet">Violett</string>
+    <string name="color_wheat">Weizen</string>
+    <string name="color_white">Weiß</string>
+    <string name="color_white_smoke">Weißer Rauch</string>
+    <string name="color_yellow">Gelb</string>
+    <string name="color_yellow_green">Gelbgrün</string>
+</resources>
