@@ -41,3 +41,4 @@ Thanks to following people:
 
 Thanks to all contributers and translators!
 
+© M&R Games 2017-2019 (Designed and developed by Marc Auberer from 2017 to 2019)
