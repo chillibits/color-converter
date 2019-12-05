@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter Colors
+ Release: Working copy
+ Locale: fr, French
+ Exported by: M&R Games
+ Exported at: Sun, 01 Dec 2019 22:50:32 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="color_alice_blue">Bleu alice</string>
+    <string name="color_antique_white">Beige antique</string>
+    <string name="color_aqua">Cyan</string>
+    <string name="color_aquamarine">Aigue-marine</string>
+    <string name="color_azure">Bleu azur</string>
+    <string name="color_beige">Beige</string>
+    <string name="color_bisque">Bisque</string>
+    <string name="color_black">Noir</string>
+    <string name="color_blanched_almond">Amande</string>
+    <string name="color_blue">Bleu</string>
+    <string name="color_blue_violet">Bleu violet</string>
+    <string name="color_brown">Brun</string>
+    <string name="color_burly_wood">Brun bois rustique\t</string>
+    <string name="color_cadet_blue">Bleu pétrole</string>
+    <string name="color_chartreuse">Chartreuse</string>
+    <string name="color_chocolate">Chocolat</string>
+    <string name="color_coral">Corail</string>
+    <string name="color_cornflower_blue">Bleuet</string>
+    <string name="color_cornsilk">Jaune maïs doux</string>
+    <string name="color_crimson">Rouge cramoisi</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_dark_blue">Bleu foncé</string>
+    <string name="color_dark_cyan">Cyan foncé</string>
+    <string name="color_dark_golden_rod">Jaune doré foncé</string>
+    <string name="color_dark_gray">Gris foncé (Acier)</string>
+    <string name="color_dark_green">Vert foncé</string>
+    <string name="color_dark_khaki">Brun kaki foncé</string>
+    <string name="color_dark_magenta">Magenta foncé</string>
+    <string name="color_dark_olive_green">Vert olive foncé</string>
+    <string name="color_dark_orange">Orange foncé</string>
+    <string name="color_dark_orchid">Violet orchidée foncé</string>
+    <string name="color_dark_red">Rouge foncé</string>
+    <string name="color_dark_salmon">Saumon Foncé</string>
+    <string name="color_dark_sea_green">Vert océan foncé</string>
+    <string name="color_dark_slate_blue">Bleu ardoise foncé</string>
+    <string name="color_dark_late_gray">Gris ardoise foncé</string>
+    <string name="color_dark_turquoise">Turquoise foncé</string>
+    <string name="color_dark_violet">Violet foncé</string>
+    <string name="color_deep_pink">Rose profond</string>
+    <string name="color_deep_sky_blue">Bleu azur profond</string>
+    <string name="color_dim_gray">Gris mat</string>
+    <string name="color_dodger_blue">Bleu toile</string>
+    <string name="color_fire_brick">Rouge brique</string>
+    <string name="color_floral_white">Blanc floral</string>
+    <string name="color_forest_green">Vert forêt</string>
+    <string name="color_fuchsia">Fushia\u0020</string>
+    <string name="color_gainsboro">Gris gainsboro (Etain)</string>
+    <string name="color_ghost_white">Blanc spectral</string>
+    <string name="color_gold">Or</string>
+    <string name="color_golden_rod">Jaune doré</string>
+    <string name="color_gray">Gris</string>
+    <string name="color_green">Vert</string>
+    <string name="color_green_yellow">Vert jaune</string>
+    <string name="color_honey_dew">Miellat</string>
+    <string name="color_hot_pink">Rose Passion</string>
+    <string name="color_indian_red">Rouge Indien</string>
+    <string name="color_indigo">Indigo</string>
+    <string name="color_ivory">Ivoire</string>
+    <string name="color_khaki">Brun kaki</string>
+    <string name="color_lavender">Bleu lavande</string>
+    <string name="color_lavender_blush">Blanc lavande</string>
+    <string name="color_lawn_green">Vert prairie</string>
+    <string name="color_lemon_chiffon">Beige citron soie</string>
+    <string name="color_light_blue">Bleu clair</string>
+    <string name="color_light_coral">Corail clair</string>
+    <string name="color_light_cyan">Cyan clair</string>
+    <string name="color_light_golden_rod_yellow">Jaune doré clair</string>
+    <string name="color_light_gray">Gris clair</string>
+    <string name="color_light_green">Vert clair</string>
+    <string name="color_light_pink">Rose clair</string>
+    <string name="color_light_salmon">Saumon clair</string>
+    <string name="color_light_sea_green">Vert marin clair</string>
+    <string name="color_light_sky_blue">Bleu azur clair</string>
+    <string name="color_light_slate_gray">Gris ardoise clair</string>
+    <string name="color_light_steel_blue">Bleu acier clair</string>
+    <string name="color_light_yellow">Jaune clair</string>
+    <string name="color_lime">Citron vert</string>
+    <string name="color_lime_green">Citron vert foncé</string>
+    <string name="color_linen">Blanc Lin</string>
+    <string name="color_magenta">Magenta</string>
+    <string name="color_maroon">Bordeaux</string>
+    <string name="color_medium_aqua_marine">Aigue-marine moyen</string>
+    <string name="color_medium_blue">Bleu moyen</string>
+    <string name="color_medium_orchid">Violet orchidée moyen</string>
+    <string name="color_medium_purple">Pourpre moyen</string>
+    <string name="color_medium_sea_green">Vert océan moyen</string>
+    <string name="color_medium_slate_blue">Bleu ardoise moyen</string>
+    <string name="color_medium_spring_green">Vert printemps moyen</string>
+    <string name="color_medium_turquoise">Turquoise moyen</string>
+    <string name="color_medium_violet_red">Violet moyen</string>
+    <string name="color_midnight_blue">Bleu de minuit</string>
+    <string name="color_mint_cream">Blanc menthe</string>
+    <string name="color_misty_rose">Rose brumeux</string>
+    <string name="color_moccasin">Beige mocassin</string>
+    <string name="color_navajo_white">Jaune blanc navaro</string>
+    <string name="color_navy">Bleu marin</string>
+    <string name="color_old_lace">Blanc dentelle</string>
+    <string name="color_olive">Olive</string>
+    <string name="color_olive_drab">Kaki</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_orange_red">Orangé</string>
+    <string name="color_orchid">Violet orchidée</string>
+    <string name="color_pale_golden_rod">Jaune doré pâle</string>
+    <string name="color_pale_green">Vert pâle</string>
+    <string name="color_pale_turquoise">Azurin</string>
+    <string name="color_pale_violet_red">Violet pâle</string>
+    <string name="color_papaya_whip">Beige papaye</string>
+    <string name="color_peach_puff">Beige pêche</string>
+    <string name="color_peru">Brun pérou</string>
+    <string name="color_pink">Rose</string>
+    <string name="color_plum">Prune</string>
+    <string name="color_powder_blue">Bleu poudre</string>
+    <string name="color_purple">Pourpre</string>
+    <string name="color_red">Rouge</string>
+    <string name="color_rosy_brown">Brun rosé</string>
+    <string name="color_royal_blue">Bleu royal</string>
+    <string name="color_saddle_brown">Brun cuir</string>
+    <string name="color_salmon">Saumon</string>
+    <string name="color_sandy_brown">Brun sable</string>
+    <string name="color_sea_green">Vert océan</string>
+    <string name="color_sea_shell">Blanc coquillage</string>
+    <string name="color_sienna">Terre de Sienne</string>
+    <string name="color_silver">Gris argent</string>
+    <string name="color_sky_blue">Bleu azur</string>
+    <string name="color_slate_blue">Bleu ardoise</string>
+    <string name="color_slate_gray">Gris ardoise</string>
+    <string name="color_snow">neige</string>
+    <string name="color_spring_green">Vert printemps</string>
+    <string name="color_steel_blue">Bleu acier</string>
+    <string name="color_tan">Brun roux</string>
+    <string name="color_teal">Vert sarcelle</string>
+    <string name="color_thistle">Violet chardon</string>
+    <string name="color_tomato">Tomate</string>
+    <string name="color_turquoise">Turquoise\t</string>
+    <string name="color_violet">Violet</string>
+    <string name="color_wheat">Jaune blé</string>
+    <string name="color_white">Blanc</string>
+    <string name="color_white_smoke">Blanc fumée</string>
+    <string name="color_yellow">Jaune</string>
+    <string name="color_yellow_green">Jaune vert</string>
+</resources>

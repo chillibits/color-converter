@@ -1,5 +1,9 @@
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -8,27 +12,17 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <style name="toolbarStyle" parent="Theme.AppCompat">
         <item name="popupTheme">@style/Theme.AppCompat.Light</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
-    <style name="showCaseView" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">@color/colorPrimaryTransparent</item>
-        <item name="sv_buttonText">@string/next</item>
-        <item name="sv_titleTextAppearance">@style/showCaseView.text.title</item>
-        <item name="sv_detailTextAppearance">@style/showCaseView.text</item>
-    </style>
-
-    <style name="showCaseView.text">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="showCaseView.text.title" parent="showCaseView.text">
-        <item name="android:textStyle">bold</item>
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 </resources>

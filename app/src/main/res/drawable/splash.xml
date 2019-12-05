@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/window_background_color" />
+    <item android:width="200dp" android:height="200dp" android:drawable="@drawable/app_icon" android:gravity="center"/>
+</layer-list>

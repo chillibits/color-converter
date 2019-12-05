@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="230dp"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:background="@drawable/flag"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/flag_color"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/simple_circle"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/flag_color_rgb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/white"
+        tools:text="@string/rgb_"/>
+
+    <TextView
+        android:id="@+id/flag_color_hex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/flag_color_rgb"
+        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/white"
+        tools:text="@string/hex_"/>
+
+    <TextView
+        android:id="@+id/flag_color_hsv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/flag_color_hex"
+        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/white"
+        tools:text="@string/hsv_"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
