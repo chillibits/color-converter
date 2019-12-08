@@ -9,11 +9,9 @@
  Release: Working copy
  Locale: de, German
  Exported by: M&R Games
- Exported at: Sun, 08 Dec 2019 17:23:49 +0100
+ Exported at: Sun, 08 Dec 2019 17:40:03 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Common strings -->
-    <string name="title_image">Funktion für die Farbwahl von Bildern</string>
     <string name="close">schließen</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>

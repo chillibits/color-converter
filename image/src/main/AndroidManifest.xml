@@ -5,11 +5,12 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mrgames13.jimdo.colorconverter.image">
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/app_name">
+        dist:title="@string/title_image">
         <dist:delivery>
             <dist:on-demand />
         </dist:delivery>
@@ -24,7 +25,8 @@
 
     <application
         android:allowBackup="false"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="q">
         <activity
             android:name=".ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"

@@ -4,8 +4,6 @@
   -->
 
 <resources>
-    <!-- ImageActivity -->
-    <string name="app_name" translatable="false">Color Converter</string>
     <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
     <string name="hex_" translatable="false">HEX: %s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>

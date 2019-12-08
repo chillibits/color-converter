@@ -5,6 +5,7 @@
 
 <resources>
     <string name="app_name" translatable="false">Color Converter</string>
+    <string name="title_image" translatable="false">Color Converter Image Picker</string>
     <string name="r" translatable="false">R</string>
     <string name="g" translatable="false">G</string>
     <string name="b" translatable="false">B</string>
