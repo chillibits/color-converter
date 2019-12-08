@@ -9,11 +9,9 @@
  Release: Working copy
  Locale: fr, French
  Exported by: M&R Games
- Exported at: Tue, 03 Dec 2019 21:38:26 +0100
+ Exported at: Sun, 08 Dec 2019 17:40:03 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Common strings -->
-    <string name="title_image">Fonctionnalité pour choisir des couleurs des images.</string>
     <string name="close">fermer</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
@@ -59,4 +57,6 @@
     <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
     <string name="instant_installed_t">Application installée</string>
     <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
+    <string name="module_installation_failed">L\'installation du module a échoué!</string>
+    <string name="approve_permissions">La fonctionnalité a besoin des autorisations pour fonctionner.</string>
 </resources>

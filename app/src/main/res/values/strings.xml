@@ -9,22 +9,12 @@
  Release: Working copy
  Locale: en, English
  Exported by: M&R Games
- Exported at: Tue, 03 Dec 2019 21:24:53 +0100
+ Exported at: Sun, 08 Dec 2019 17:40:03 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Common strings -->
-    <string name="app_name" translatable="false">Color Converter</string>
-    <string name="title_image">Feature for color choosing from images</string>
     <string name="close">close</string>
     <string name="ok">OK</string>
-    <string name="error" translatable="false">ERROR</string>
     <string name="cancel">Cancel</string>
-    <string name="r" translatable="false">R</string>
-    <string name="g" translatable="false">G</string>
-    <string name="b" translatable="false">B</string>
-    <string name="h" translatable="false">H</string>
-    <string name="s" translatable="false">S</string>
-    <string name="v" translatable="false">V</string>
     <!-- MainActivity -->
     <string name="hex_code">HEX code</string>
     <string name="selection_">Selection:</string>
@@ -49,16 +39,12 @@
     <string name="hsv_code">HSV code</string>
     <!-- %s is a placeholder -->
     <string name="name_">Name: %s</string>
-    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
-    <string name="hex_" translatable="false">HEX: %s</string>
-    <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
     <!-- ColorSelectionActivity -->
     <string name="delete">Delete</string>
     <!-- %s is a placeholder -->
     <string name="delete_m">Do you really want to delete the color \'%s\'?</string>
     <string name="rename">Rename</string>
     <string name="selected">Selected</string>
-    <string name="color_summary" translatable="false">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
     <string name="no_colors_saved">No colors saved!\nTo save a color, tap on the save-icon on the left side in the color preview.</string>
     <!-- Image Chooser -->
     <string name="done">Done</string>
@@ -71,4 +57,6 @@
     <string name="install_app_download">Install this app to enjoy all the features and also the features we cannot support in the instant app version.</string>
     <string name="instant_installed_t">App installed</string>
     <string name="instant_installed_m">Thank you for installing our app. Tap on OK to continue.</string>
+    <string name="module_installation_failed">Module installation failed!</string>
+    <string name="approve_permissions">The feature needs the permissions to work.</string>
 </resources>

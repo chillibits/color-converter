@@ -4,10 +4,12 @@
 
 package com.mrgames13.jimdo.colorconverter.ui.activity
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.*
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +23,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import com.google.android.instantapps.InstantApps
@@ -43,6 +46,7 @@ import java.util.*
 private const val REQ_PICK_COLOR_FROM_IMAGE: Int = 10001
 private const val REQ_LOAD_COLOR = 10002
 private const val REQ_INSTANT_INSTALL = 10003
+private const val REQ_PERMISSIONS = 10004
 private const val COLOR_ANIMATION_DURATION = 500L
 
 class MainActivity : AppCompatActivity() {
@@ -84,9 +88,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_red.text = value
-                    val tmp = selectedColor
-                    tmp.red = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", progress, color_green.progress, color_blue.progress, -1))
                 }
             }
 
@@ -98,9 +100,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_green.text = value
-                    val tmp = selectedColor
-                    tmp.green = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", color_red.progress, progress, color_blue.progress, -1))
                 }
             }
 
@@ -112,9 +112,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_blue.text = value
-                    val tmp = selectedColor
-                    tmp.blue = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", color_red.progress, color_green.progress, progress, -1))
                 }
             }
 
@@ -123,11 +121,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         color_container.setOnClickListener { chooseColor() }
-        pick.setOnClickListener { chooseColor() }
-        pick_random_color.setOnClickListener { randomizeColor() }
-        pick_from_image.setOnClickListener {
-            pickColorFromImage()
-        }
 
         // Load color
         load_color.setOnClickListener {
@@ -160,6 +153,10 @@ class MainActivity : AppCompatActivity() {
         edit_hsv.setOnClickListener {
             editHSVCode()
         }
+
+        pick.setOnClickListener { chooseColor() }
+        pick_random_color.setOnClickListener { randomizeColor() }
+        pick_from_image.setOnClickListener { pickColorFromImage() }
 
         // Initialize views
         display_name.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
@@ -236,6 +233,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if(requestCode == REQ_PERMISSIONS) {
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                pickColorFromImage()
+            } else {
+                Toast.makeText(this, R.string.approve_permissions, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun pickColorFromImage(defaultImageUri: Uri? = null) {
         if (InstantApps.isInstantApp(this@MainActivity)) {
             AlertDialog.Builder(this@MainActivity)
@@ -253,20 +260,32 @@ class MainActivity : AppCompatActivity() {
             val request = SplitInstallRequest.newBuilder()
                 .addModule("image")
                 .build()
-            splitInstallManager.startInstall(request)
-                .addOnSuccessListener {
-                    if (splitInstallManager.installedModules.contains("image")) {
-                        val i = Intent()
-                        if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
-                        i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.activity.ImageActivity")
-                        startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
-                    } else {
-                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+            if(splitInstallManager.installedModules.contains("image")) {
+                // Module is installed
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    // All permissions granted
+                    val i = Intent()
+                    if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
+                    i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.activity.ImageActivity")
+                    startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
+                } else {
+                    // Request required permissions
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQ_PERMISSIONS)
+                }
+            } else {
+                // Install module
+                splitInstallManager.startInstall(request)
+                    .addOnSuccessListener {
+                        if (splitInstallManager.installedModules.contains("image")) {
+                            pickColorFromImage(defaultImageUri)
+                        } else {
+                            Toast.makeText(this, R.string.module_installation_failed, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
-                }
+                    .addOnFailureListener {
+                        Toast.makeText(this, R.string.module_installation_failed, Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 
@@ -425,9 +444,11 @@ class MainActivity : AppCompatActivity() {
         display_green.text = color.green.toString()
         display_blue.text = color.blue.toString()
         display_name.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
+        // Update RGB TextView
         display_rgb.text = String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
+        // Update HEX TextView
         display_hex.text = String.format(getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and color.color))
-        //Update HSV TextView
+        // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
@@ -450,7 +471,7 @@ class MainActivity : AppCompatActivity() {
         redAnim.duration = COLOR_ANIMATION_DURATION
         redAnim.addUpdateListener { valueAnimator ->
             color_red.progress = valueAnimator.animatedValue as Int
-            color_container.setBackgroundColor(android.graphics.Color.rgb(color_red.progress, color_green.progress, color_blue.progress))
+            color_container.setBackgroundColor(color.color)
         }
         redAnim.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animator: Animator) {}
