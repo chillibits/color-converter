@@ -84,9 +84,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_red.text = value
-                    val tmp = selectedColor
-                    tmp.red = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", progress, color_green.progress, color_blue.progress, -1))
                 }
             }
 
@@ -98,9 +96,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_green.text = value
-                    val tmp = selectedColor
-                    tmp.green = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", color_red.progress, progress, color_blue.progress, -1))
                 }
             }
 
@@ -112,9 +108,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     display_blue.text = value
-                    val tmp = selectedColor
-                    tmp.blue = progress
-                    updateDisplays(tmp)
+                    updateDisplays(Color(0, "Selection", color_red.progress, color_green.progress, progress, -1))
                 }
             }
 
@@ -425,9 +419,11 @@ class MainActivity : AppCompatActivity() {
         display_green.text = color.green.toString()
         display_blue.text = color.blue.toString()
         display_name.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
+        // Update RGB TextView
         display_rgb.text = String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
+        // Update HEX TextView
         display_hex.text = String.format(getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and color.color))
-        //Update HSV TextView
+        // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
@@ -450,7 +446,7 @@ class MainActivity : AppCompatActivity() {
         redAnim.duration = COLOR_ANIMATION_DURATION
         redAnim.addUpdateListener { valueAnimator ->
             color_red.progress = valueAnimator.animatedValue as Int
-            color_container.setBackgroundColor(android.graphics.Color.rgb(color_red.progress, color_green.progress, color_blue.progress))
+            color_container.setBackgroundColor(color.color)
         }
         redAnim.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animator: Animator) {}
