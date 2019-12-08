@@ -18,7 +18,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
@@ -156,8 +155,6 @@ class ImageActivity : AppCompatActivity() {
         if(requestCode == PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Pix.start(this, Options.init().setRequestCode(REQ_IMAGE_PICKER))
-            } else {
-                Toast.makeText(this, getString(R.string.approve_image_picker_permission), Toast.LENGTH_LONG).show()
             }
         }
     }

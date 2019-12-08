@@ -31,9 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/color_button_container"
-            app:palette="@drawable/palette"
-            app:selector="@drawable/wheel" />
+            app:layout_constraintBottom_toTopOf="@+id/color_button_container" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/color_button_container"

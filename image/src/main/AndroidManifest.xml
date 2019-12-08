@@ -9,7 +9,7 @@
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/title_image">
+        dist:title="@string/app_name">
         <dist:delivery>
             <dist:on-demand />
         </dist:delivery>

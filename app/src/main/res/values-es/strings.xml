@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: M&R Games
- Exported at: Tue, 03 Dec 2019 21:24:53 +0100
+ Exported at: Sun, 08 Dec 2019 16:47:18 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Common strings -->
@@ -59,4 +59,6 @@
     <string name="install_app_download">Instale esta aplicación para disfrutar de todas las funciones y también las funciones que no podemos admitir en la versión de la aplicación instantánea.</string>
     <string name="instant_installed_t">Aplicación instalada</string>
     <string name="instant_installed_m">Gracias por instalar nuestra aplicación. Toque Aceptar para continuar.</string>
+    <string name="module_installation_failed">¡Instalación fallida del módulo!</string>
+    <string name="approve_permissions">La característica necesita los permisos para funcionar.</string>
 </resources>
