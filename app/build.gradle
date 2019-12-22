@@ -39,7 +39,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.core:core-ktx:1.2.0-rc01'
-    api 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+    api 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
     implementation 'com.google.android.play:core:1.6.4'
     implementation 'androidx.palette:palette:1.0.0'
@@ -52,3 +52,51 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61"
 }
+
+// Task for downloading all translation files
+task downloadTranslations {
+    group 'pre-build tasks'
+    description 'Downloads all translation files when building the app.'
+
+    ext.apiKey = 'IEKWn_DI-otivDlUWAN-NvNIT3bBWO_h'
+    ext.apiKeyColors = 'ReBhdq025DTUFKoKIvmvLLyY6hznXyCg'
+
+    //English
+    doLast {
+        // Main string file
+        def f = new File("${project.projectDir}/src/main/res/values/strings.xml")
+        new URL("https://localise.biz/api/export/locale/en.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file
+        f = new File("${project.projectDir}/src/main/res/values/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/en.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+    //French
+    doLast {
+        // Main string file
+        def f = new File("${project.projectDir}/src/main/res/values-fr/strings.xml")
+        new URL("https://localise.biz/api/export/locale/fr.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file
+        f = new File("${project.projectDir}/src/main/res/values-fr/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/fr.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+    //German
+    doLast {
+        // Main string file
+        def f = new File("${project.projectDir}/src/main/res/values-de/strings.xml")
+        new URL("https://localise.biz/api/export/locale/de.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file
+        f = new File("${project.projectDir}/src/main/res/values-de/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/de.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+    //Spanish
+    doLast {
+        // Main string file
+        def f = new File("${project.projectDir}/src/main/res/values-es/strings.xml")
+        new URL("https://localise.biz/api/export/locale/es.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file
+        f = new File("${project.projectDir}/src/main/res/values-es/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/es.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+}
+
+preBuild.dependsOn downloadTranslations

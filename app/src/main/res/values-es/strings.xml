@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2019 Marc Auberer. All rights reserved.
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: es, Spanish
  Exported by: M&R Games
- Exported at: Sun, 08 Dec 2019 17:40:03 +0100
+ Exported at: Sun, 22 Dec 2019 22:05:00 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
