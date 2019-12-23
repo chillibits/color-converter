@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/dark_muted_color"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="LMC"
+                android:text="DMC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
