@@ -2,7 +2,7 @@
  * Copyright © 2019 Marc Auberer. All rights reserved.
  */
 
-package com.mrgames13.jimdo.colorconverter.image.ui.activity
+package com.mrgames13.jimdo.colorconverter.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -21,12 +20,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.exifinterface.media.ExifInterface
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
-import com.mrgames13.jimdo.colorconverter.image.R
-import com.mrgames13.jimdo.colorconverter.image.ui.viewmodel.DetailedFlagView
+import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.tools.ColorTools
+import com.mrgames13.jimdo.colorconverter.viewmodel.DetailedFlagView
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -59,7 +59,11 @@ class ImageActivity : AppCompatActivity() {
             selectedColor = color
             selected_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
         }
-        image.flagView = DetailedFlagView(this, R.layout.flag_layout)
+        image.flagView =
+            DetailedFlagView(
+                this,
+                R.layout.flag_layout
+            )
 
         selected_color.setOnClickListener { finishWithResult(selectedColor) }
         vibrant_color.setOnClickListener { finishWithResult(vibrantColor) }

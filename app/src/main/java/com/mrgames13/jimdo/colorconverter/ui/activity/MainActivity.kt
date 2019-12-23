@@ -4,7 +4,6 @@
 
 package com.mrgames13.jimdo.colorconverter.ui.activity
 
-import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
@@ -23,13 +22,9 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import com.google.android.instantapps.InstantApps
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
-import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.mrgames13.jimdo.colorconverter.BuildConfig
 import com.mrgames13.jimdo.colorconverter.R
 import com.mrgames13.jimdo.colorconverter.model.Color
 import com.mrgames13.jimdo.colorconverter.tools.ColorNameTools
@@ -256,36 +251,10 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(R.string.close, null)
                 .show()
         } else {
-            val splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
-            val request = SplitInstallRequest.newBuilder()
-                .addModule("image")
-                .build()
-            if(splitInstallManager.installedModules.contains("image")) {
-                // Module is installed
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    // All permissions granted
-                    val i = Intent()
-                    if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
-                    i.setClassName(BuildConfig.APPLICATION_ID, "com.mrgames13.jimdo.colorconverter.image.ui.activity.ImageActivity")
-                    startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
-                } else {
-                    // Request required permissions
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQ_PERMISSIONS)
-                }
-            } else {
-                // Install module
-                splitInstallManager.startInstall(request)
-                    .addOnSuccessListener {
-                        if (splitInstallManager.installedModules.contains("image")) {
-                            pickColorFromImage(defaultImageUri)
-                        } else {
-                            Toast.makeText(this, R.string.module_installation_failed, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, R.string.module_installation_failed, Toast.LENGTH_SHORT).show()
-                    }
-            }
+            val i = Intent(this, ImageActivity::class.java)
+            if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
+            startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
+            getString(R.string.message_to_drag_up)
         }
     }
 

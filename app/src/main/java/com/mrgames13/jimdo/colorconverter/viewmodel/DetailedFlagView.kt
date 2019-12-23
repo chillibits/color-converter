@@ -2,15 +2,17 @@
  * Copyright © 2019 Marc Auberer. All rights reserved.
  */
 
-package com.mrgames13.jimdo.colorconverter.image.ui.viewmodel
+package com.mrgames13.jimdo.colorconverter.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
-import com.mrgames13.jimdo.colorconverter.image.R
+import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.flag.FlagView
 import kotlinx.android.synthetic.main.flag_layout.view.*
 
+@SuppressLint("ViewConstructor")
 class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
     override fun onRefresh(colorEnvelope: ColorEnvelope?) {
         flag_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colorEnvelope!!.color, BlendModeCompat.SRC_IN)

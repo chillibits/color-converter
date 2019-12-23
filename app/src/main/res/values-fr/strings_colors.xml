@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2019 Marc Auberer. All rights reserved.
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter Colors
  Release: Working copy
  Locale: fr, French
  Exported by: M&R Games
- Exported at: Sun, 01 Dec 2019 22:50:32 +0100
+ Exported at: Mon, 23 Dec 2019 13:31:28 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="color_alice_blue">Bleu alice</string>

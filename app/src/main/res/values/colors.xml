@@ -22,4 +22,7 @@
     <color name="button_color">@color/colorPrimary</color>
     <color name="button_color_transparent">@color/colorPrimaryTransparent</color>
 
+    <!-- Pix image picker -->
+    <color name="colorPrimaryPix">@color/colorPrimary</color>
+    <color name="colorPrimaryLightPix">@color/colorPrimaryTransparent</color>
 </resources>

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2019 Marc Auberer. All rights reserved.
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: fr, French
  Exported by: M&R Games
- Exported at: Sun, 08 Dec 2019 17:40:03 +0100
+ Exported at: Mon, 23 Dec 2019 16:41:59 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -57,6 +53,6 @@
     <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
     <string name="instant_installed_t">Application installée</string>
     <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
-    <string name="module_installation_failed">L\'installation du module a échoué!</string>
     <string name="approve_permissions">La fonctionnalité a besoin des autorisations pour fonctionner.</string>
+    <string name="message_to_drag_up">Glissez les images en haut pour entrer la galerie</string>
 </resources>
