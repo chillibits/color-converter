@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: M&R Games
- Exported at: Mon, 23 Dec 2019 12:15:06 +0100
+ Exported at: Mon, 23 Dec 2019 12:49:21 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -55,4 +55,5 @@
     <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
     <string name="module_installation_failed">L\'installation du module a échoué!</string>
     <string name="approve_permissions">La fonctionnalité a besoin des autorisations pour fonctionner.</string>
+    <string name="message_to_drag_up"></string>
 </resources>

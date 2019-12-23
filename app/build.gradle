@@ -31,7 +31,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dynamicFeatures = [":image"]
 }
 
 dependencies {
@@ -45,6 +44,9 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'com.fxn769:pix:1.4.4'
+    implementation 'com.github.skydoves:colorpickerview:2.1.5'
 
     // dependencies for testing
     testImplementation 'junit:junit:4.12'
