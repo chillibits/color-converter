@@ -2,5 +2,5 @@
  * Copyright © 2019 Marc Auberer. All rights reserved.
  */
 
-include ':app', ':image'
+include ':app'
 rootProject.name='Color Converter'
