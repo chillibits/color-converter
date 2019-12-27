@@ -17,6 +17,5 @@
         android:inputType="textCapCharacters"
         android:hint="@string/hex_code"
         android:maxLength="7"
-        android:importantForAutofill="no"
-        android:digits="0123456789ABCDEF"/>
+        android:importantForAutofill="no"/>
 </FrameLayout>
