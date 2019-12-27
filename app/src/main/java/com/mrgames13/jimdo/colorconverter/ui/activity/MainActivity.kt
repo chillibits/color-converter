@@ -321,10 +321,12 @@ class MainActivity : AppCompatActivity() {
         // Prepare views
         hexValue.addTextChangedListener(object : SimpleTextWatcher() {
             override fun afterTextChanged(s: Editable?) {
-                if(!s.toString().startsWith("#")) {
+                val value = s.toString()
+                if(!value.startsWith("#")) {
                     hexValue.setText("#")
                     Selection.setSelection(hexValue.text, hexValue.text.length)
                 } else {
+                    if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 7 || s.toString().length == 4
                 }
             }
