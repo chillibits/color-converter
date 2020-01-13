@@ -1,15 +1,15 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.tools
+package com.chillibits.colorconverter.tools
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
-import com.mrgames13.jimdo.colorconverter.R
+import com.chillibits.colorconverter.R
 
 class ColorTools(private var context: Context) {
 
