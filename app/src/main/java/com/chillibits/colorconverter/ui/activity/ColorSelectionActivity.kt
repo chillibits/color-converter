@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.ui.activity
+package com.chillibits.colorconverter.ui.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -17,11 +17,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mrgames13.jimdo.colorconverter.R
-import com.mrgames13.jimdo.colorconverter.model.Color
-import com.mrgames13.jimdo.colorconverter.tools.SimpleTextWatcher
-import com.mrgames13.jimdo.colorconverter.tools.StorageTools
-import com.mrgames13.jimdo.colorconverter.ui.adapter.ColorsAdapter
+import com.chillibits.colorconverter.R
+import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.tools.SimpleTextWatcher
+import com.chillibits.colorconverter.tools.StorageTools
+import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
 

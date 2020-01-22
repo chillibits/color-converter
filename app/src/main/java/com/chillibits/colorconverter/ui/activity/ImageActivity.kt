@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.ui.activity
+package com.chillibits.colorconverter.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -21,12 +21,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
+import com.chillibits.colorconverter.R
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
-import com.mrgames13.jimdo.colorconverter.R
-import com.mrgames13.jimdo.colorconverter.tools.ColorTools
-import com.mrgames13.jimdo.colorconverter.viewmodel.DetailedFlagView
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 

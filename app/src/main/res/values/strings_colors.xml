@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  ~ Copyright © Marc Auberer 2020. All rights reserved
+  -->
+
+<!--
  Loco xml export: Android string resources
  Project: Color Converter Colors
  Release: Working copy
  Locale: en, English
- Exported by: M&R Games
- Exported at: Fri, 27 Dec 2019 20:40:19 +0000
+ Exported by: ChilliBits
+ Exported at: Mon, 13 Jan 2020 21:22:53 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="color_alice_blue">Alice Blue</string>

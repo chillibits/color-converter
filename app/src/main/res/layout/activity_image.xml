@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  ~ Copyright © Marc Auberer 2020. All rights reserved
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mrgames13.jimdo.colorconverter.ui.activity.ImageActivity">
+    tools:context="com.chillibits.colorconverter.ui.activity.ImageActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

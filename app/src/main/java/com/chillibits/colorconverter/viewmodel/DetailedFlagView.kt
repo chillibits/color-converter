@@ -1,13 +1,13 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.viewmodel
+package com.chillibits.colorconverter.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
-import com.mrgames13.jimdo.colorconverter.R
+import com.chillibits.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.flag.FlagView
 import kotlinx.android.synthetic.main.flag_layout.view.*
@@ -20,6 +20,6 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
         flag_color_hex.text = String.format(context.getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and colorEnvelope.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue, hsv)
-        flag_color_hsv.text = String.format(context.getString(com.mrgames13.jimdo.colorconverter.R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+        flag_color_hsv.text = String.format(context.getString(com.chillibits.colorconverter.R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
     }
 }
