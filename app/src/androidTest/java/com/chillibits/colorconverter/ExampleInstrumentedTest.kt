@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter
+package com.chillibits.colorconverter
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -21,6 +21,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.mrgames13.jimdo.colorconverter", appContext.packageName)
+        assertEquals("com.chillibits.colorconverter", appContext.packageName)
     }
 }

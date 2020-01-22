@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.tools
+package com.chillibits.colorconverter.tools
 
 import android.content.res.ColorStateList
 import android.widget.ImageView

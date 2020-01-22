@@ -1,15 +1,15 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.tools
+package com.chillibits.colorconverter.tools
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.mrgames13.jimdo.colorconverter.model.Color
+import com.chillibits.colorconverter.model.Color
 import java.util.*
 
 // Constants

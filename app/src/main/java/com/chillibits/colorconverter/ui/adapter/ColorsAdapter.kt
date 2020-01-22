@@ -1,17 +1,17 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.ui.adapter
+package com.chillibits.colorconverter.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mrgames13.jimdo.colorconverter.R
-import com.mrgames13.jimdo.colorconverter.model.Color
-import com.mrgames13.jimdo.colorconverter.tools.setTint
-import com.mrgames13.jimdo.colorconverter.ui.activity.ColorSelectionActivity
+import com.chillibits.colorconverter.R
+import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.tools.setTint
+import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
 import kotlinx.android.synthetic.main.item_color.view.*
 
 class ColorsAdapter(private val activity: ColorSelectionActivity, private val colors: ArrayList<Color>) : RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {

@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 Marc Auberer. All rights reserved.
+ * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.mrgames13.jimdo.colorconverter.tools
+package com.chillibits.colorconverter.tools
 
 class ColorName(private var name: String, private var r: Int, private var g: Int, private var b: Int) {
     fun computeMSE(pixR: Int, pixG: Int, pixB: Int): Int {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © 2019 Marc Auberer. All rights reserved.
+  ~ Copyright © Marc Auberer 2020. All rights reserved
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mrgames13.jimdo.colorconverter"
+    package="com.chillibits.colorconverter"
     android:installLocation="auto">
 
     <dist:module dist:instant="true" />
@@ -28,7 +28,7 @@
 
         <!-- Activities -->
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.chillibits.colorconverter.ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustPan">
@@ -59,25 +59,25 @@
 
                 <data
                     android:scheme="https"
-                    android:host="mrgames-server.de"
-                    android:pathPrefix="/colorconverter" />
+                    android:host="chillibits.com"
+                    android:pathPrefix="/instant/colorconverter" />
 
                 <data
                     android:scheme="http"
-                    android:host="mrgames-server.de"
-                    android:pathPrefix="/colorconverter" />
+                    android:host="chillibits.com"
+                    android:pathPrefix="/instant/colorconverter" />
             </intent-filter>
 
             <!-- Default url -->
-            <meta-data android:name="default-url" android:value="https://mrgames-server.de/colorconverter" />
+            <meta-data android:name="default-url" android:value="https://chillibits.com/instant/colorconverter" />
         </activity>
         <activity
-            android:name=".ui.activity.ColorSelectionActivity"
+            android:name="com.chillibits.colorconverter.ui.activity.ColorSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.activity.ImageActivity"
+            android:name="com.chillibits.colorconverter.ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
