@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Mon, 13 Jan 2020 21:52:44 +0000
+ Exported at: Wed, 22 Jan 2020 15:45:47 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -31,7 +31,7 @@
     <string name="share_app">Recommander l\'application</string>
     <string name="share">Recommander</string>
     <string name="share_m">Recommander Color Converter à vos amis!</string>
-    <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de Google Play: https://play.google.com/store/apps/details?id=com.chillibits.colorconverter</string>
+    <string name="recommend_string">Color Converter: Convertir les couleurs, déterminer des couleurs des images et bien plus encore! Un outil efficace pour les programmeurs et les concepteurs. Télécharger de Google Play: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
     <string name="press_color_to_apply">Appuyez sur la couleur pour appliquer</string>
     <string name="rate">Évaluer</string>
     <string name="color_name">Prénom</string>
