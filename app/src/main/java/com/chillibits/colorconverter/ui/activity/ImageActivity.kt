@@ -13,15 +13,19 @@ import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.speech.tts.TextToSpeech
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.R
+import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
@@ -29,6 +33,7 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
+import java.util.*
 
 // Constants
 private const val REQ_IMAGE_PICKER = 10001
@@ -37,8 +42,10 @@ class ImageActivity : AppCompatActivity() {
 
     // Tools packages
     private val ct = ColorTools(this)
+    private val cnt = ColorNameTools(this)
 
     // Variables as objects
+    private lateinit var tts: TextToSpeech
     private var selectedColor: Int = Color.BLACK
     private var vibrantColor: Int = Color.BLACK
     private var vibrantColorLight: Int = Color.BLACK
@@ -47,6 +54,9 @@ class ImageActivity : AppCompatActivity() {
     private var mutedColorLight: Int = Color.BLACK
     private var mutedColorDark: Int = Color.BLACK
     private var imageUri: String? = null
+
+    // Variables
+    private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +69,7 @@ class ImageActivity : AppCompatActivity() {
             selectedColor = color
             selected_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
         }
-        image.flagView =
-            DetailedFlagView(
-                this,
-                R.layout.flag_layout
-            )
+        image.flagView = DetailedFlagView(this, R.layout.flag_layout)
 
         selected_color.setOnClickListener { finishWithResult(selectedColor) }
         vibrant_color.setOnClickListener { finishWithResult(vibrantColor) }
@@ -72,6 +78,19 @@ class ImageActivity : AppCompatActivity() {
         muted_color.setOnClickListener { finishWithResult(mutedColor) }
         light_muted_color.setOnClickListener { finishWithResult(mutedColorLight) }
         dark_muted_color.setOnClickListener { finishWithResult(mutedColorDark) }
+
+        tts = TextToSpeech(this) { status ->
+            if(status == TextToSpeech.SUCCESS) {
+                val result = tts.setLanguage(Locale.getDefault())
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                } else {
+                    initialized = true
+                }
+            } else {
+                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         if(intent.hasExtra("ImageUri")) {
             // Load default image
@@ -92,6 +111,7 @@ class ImageActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> finish()
+            R.id.action_speak -> speakColor()
             R.id.action_new_image -> chooseImage()
         }
         return super.onOptionsItemSelected(item)
@@ -165,6 +185,15 @@ class ImageActivity : AppCompatActivity() {
 
     private fun chooseImage() {
         Pix.start(this, Options.init().setRequestCode(REQ_IMAGE_PICKER))
+    }
+
+    private fun speakColor() {
+        val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", selectedColor, 0))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts.speak(colorName,TextToSpeech.QUEUE_FLUSH,null,null)
+        } else {
+            tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
+        }
     }
 
     private fun finishWithResult(color: Int) {

@@ -8,6 +8,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_speak"
+        android:title="@string/speak_color"
+        android:icon="@drawable/volume_up"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_new_image"
         android:title="@string/new_image"
         android:icon="@drawable/replay"
