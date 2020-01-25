@@ -26,13 +26,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
-import com.chillibits.colorconverter.R
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.SimpleTextWatcher
 import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
+import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*

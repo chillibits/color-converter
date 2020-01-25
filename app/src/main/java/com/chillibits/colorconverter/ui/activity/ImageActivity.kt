@@ -26,13 +26,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
-import com.chillibits.colorconverter.R
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
+import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 import java.util.*

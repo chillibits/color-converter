@@ -17,11 +17,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chillibits.colorconverter.R
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.SimpleTextWatcher
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
+import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
 
