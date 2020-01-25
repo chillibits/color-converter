@@ -356,11 +356,27 @@
                 android:background="@drawable/button_outline"
                 android:textColor="@drawable/button_outline_text"/>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/speak_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/edit_hex"
+                android:text="@string/speak_color"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:drawableStartCompat="@drawable/volume_up"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/button_outline"
+                android:textColor="@drawable/button_outline_text"/>
+
             <Button
                 android:id="@+id/pick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/edit_hex"
+                app:layout_constraintTop_toBottomOf="@+id/speak_color"
                 android:text="@string/choose_color"
                 android:layout_margin="8dp"
                 android:background="@drawable/button_outline_rounded"

@@ -5,6 +5,7 @@
 package com.chillibits.colorconverter.ui.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,6 +13,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -188,11 +190,19 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun speakColor() {
-        val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", selectedColor, 0))
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(colorName,TextToSpeech.QUEUE_FLUSH,null,null)
+        if(isAudioMuted()) {
+            Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
         } else {
-            tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
+            if(initialized) {
+                val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", selectedColor, 0))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
+                } else {
+                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
+                }
+            } else {
+                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -201,5 +211,10 @@ class ImageActivity : AppCompatActivity() {
         data.putExtra("Color", color)
         setResult(Activity.RESULT_OK, data)
         finish()
+    }
+
+    private fun isAudioMuted(): Boolean {
+        val manager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        return manager.ringerMode != AudioManager.RINGER_MODE_NORMAL
     }
 }

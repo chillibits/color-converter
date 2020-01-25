@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Sat, 25 Jan 2020 12:56:41 +0000
+ Exported at: Sat, 25 Jan 2020 13:30:53 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -62,4 +62,5 @@
     <string name="speak_color">Speak color</string>
     <string name="language_not_available">Language not available</string>
     <string name="initialization_failed">Initialization failed</string>
+    <string name="audio_muted">Please increase volume</string>
 </resources>
