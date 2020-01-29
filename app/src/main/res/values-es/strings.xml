@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Sat, 25 Jan 2020 13:47:54 +0000
+ Exported at: Wed, 29 Jan 2020 18:09:34 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -60,7 +60,7 @@
     <string name="approve_permissions">La característica necesita los permisos para funcionar.</string>
     <string name="message_to_drag_up">Arrastra las imágenes hacia arriba para la galería</string>
     <string name="speak_color">Hablar color</string>
-    <string name="language_not_available"></string>
-    <string name="initialization_failed"></string>
-    <string name="audio_muted"></string>
+    <string name="language_not_available">Idioma no disponible</string>
+    <string name="initialization_failed">Inicialización falló</string>
+    <string name="audio_muted">Por favor aumente el volumen</string>
 </resources>

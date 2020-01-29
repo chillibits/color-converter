@@ -28,6 +28,7 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
@@ -45,9 +46,11 @@ class ImageActivity : AppCompatActivity() {
     // Tools packages
     private val ct = ColorTools(this)
     private val cnt = ColorNameTools(this)
+    private val su = StorageTools(this)
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
+    private var speakItem: MenuItem? = null
     private var selectedColor: Int = Color.BLACK
     private var vibrantColor: Int = Color.BLACK
     private var vibrantColorLight: Int = Color.BLACK
@@ -70,6 +73,7 @@ class ImageActivity : AppCompatActivity() {
         image.colorListener = ColorListener { color, _ ->
             selectedColor = color
             selected_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
+            if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
         image.flagView = DetailedFlagView(this, R.layout.flag_layout)
 
@@ -107,13 +111,19 @@ class ImageActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_image, menu)
+        speakItem = menu?.getItem(0)
+        speakItem?.isChecked = su.getBoolean("speak_color")
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> finish()
-            R.id.action_speak -> speakColor()
+            R.id.action_speak -> {
+                val newState = !item.isChecked
+                su.putBoolean("speak_color", newState)
+                item.isChecked = newState
+            }
             R.id.action_new_image -> chooseImage()
         }
         return super.onOptionsItemSelected(item)
@@ -137,10 +147,8 @@ class ImageActivity : AppCompatActivity() {
                 try{
                     imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
                     applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
-                } catch (e: Exception) {}
-            } else {
-                finish()
-            }
+                } catch (ignored: Exception) {}
+            } else finish()
         }
     }
 

@@ -11,7 +11,8 @@
         android:id="@+id/action_speak"
         android:title="@string/speak_color"
         android:icon="@drawable/volume_up"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"
+        android:checkable="true"/>
 
     <item
         android:id="@+id/action_new_image"
