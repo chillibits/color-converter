@@ -15,10 +15,7 @@ import java.util.*
 // Constants
 const val TABLE_COLORS: String = "Colors"
 
-class StorageTools(context: Context): SQLiteOpenHelper(context, "database.db", null, 1) {
-
-    // Variables as objects
-    private val prefs = context.getSharedPreferences("com.mrgames13.jimdo.colorconverter_preferences", Context.MODE_PRIVATE)
+class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase?) {
         try {
@@ -46,10 +43,14 @@ class StorageTools(context: Context): SQLiteOpenHelper(context, "database.db", n
     // ------------------------------------ Shared Preference --------------------------------------
 
     fun putBoolean(name: String, value: Boolean) {
+        val prefs = context.getSharedPreferences("com.mrgames13.jimdo.colorconverter_preferences", Context.MODE_PRIVATE)
         prefs.edit().putBoolean(name, value).apply()
     }
 
-    fun getBoolean(name: String, default: Boolean = false) = prefs.getBoolean(name, default)
+    fun getBoolean(name: String, default: Boolean = false): Boolean {
+        val prefs = context.getSharedPreferences("com.mrgames13.jimdo.colorconverter_preferences", Context.MODE_PRIVATE)
+        return prefs.getBoolean(name, default)
+    }
 
     // ------------------------------------ Color Management ---------------------------------------
 

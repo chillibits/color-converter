@@ -46,7 +46,7 @@ class ImageActivity : AppCompatActivity() {
     // Tools packages
     private val ct = ColorTools(this)
     private val cnt = ColorNameTools(this)
-    private val su = StorageTools(this)
+    private val st = StorageTools(this)
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
@@ -112,7 +112,7 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_image, menu)
         speakItem = menu?.getItem(0)
-        speakItem?.isChecked = su.getBoolean("speak_color")
+        speakItem?.isChecked = st.getBoolean("speak_color")
         return true
     }
 
@@ -121,7 +121,7 @@ class ImageActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.action_speak -> {
                 val newState = !item.isChecked
-                su.putBoolean("speak_color", newState)
+                st.putBoolean("speak_color", newState)
                 item.isChecked = newState
             }
             R.id.action_new_image -> chooseImage()
