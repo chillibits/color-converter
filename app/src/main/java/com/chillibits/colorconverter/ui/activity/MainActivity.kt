@@ -9,9 +9,11 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.*
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.InputType
 import android.text.Selection
@@ -24,13 +26,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
-import com.chillibits.colorconverter.R
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.SimpleTextWatcher
 import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
+import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
@@ -52,7 +54,11 @@ class MainActivity : AppCompatActivity() {
     private val cnt = ColorNameTools(this)
 
     // Variables as objects
+    private lateinit var tts: TextToSpeech
     private var selectedColor = Color(0, "Selection", android.graphics.Color.BLACK, -1)
+
+    // Variables
+    private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,6 +155,11 @@ class MainActivity : AppCompatActivity() {
             editHSVCode()
         }
 
+        // Speak color
+        speak_color.setOnClickListener {
+            speakColor()
+        }
+
         pick.setOnClickListener { chooseColor() }
         pick_random_color.setOnClickListener { randomizeColor() }
         pick_from_image.setOnClickListener { pickColorFromImage() }
@@ -160,6 +171,20 @@ class MainActivity : AppCompatActivity() {
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+
+        // Initialize tts
+        tts = TextToSpeech(this) { status ->
+            if(status == TextToSpeech.SUCCESS) {
+                val result = tts.setLanguage(Locale.getDefault())
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                } else {
+                    initialized = true
+                }
+            } else {
+                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // Redirect to ImageActivity, if needed
         if (intent.hasExtra("action") && intent.getStringExtra("action") == "image") pickColorFromImage()
@@ -495,5 +520,27 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
+    }
+
+    private fun speakColor() {
+        if(isAudioMuted()) {
+            Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
+        } else {
+            if(initialized) {
+                val colorName = cnt.getColorNameFromColor(selectedColor)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
+                } else {
+                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
+                }
+            } else {
+                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun isAudioMuted(): Boolean {
+        val manager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        return manager.ringerMode != AudioManager.RINGER_MODE_NORMAL
     }
 }

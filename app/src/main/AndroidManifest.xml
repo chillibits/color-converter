@@ -6,7 +6,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.chillibits.colorconverter"
+    package="com.mrgames13.jimdo.colorconverter"
     android:installLocation="auto">
 
     <dist:module dist:instant="true" />

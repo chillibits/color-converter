@@ -9,7 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
-import com.chillibits.colorconverter.R
+import com.mrgames13.jimdo.colorconverter.R
 
 class ColorTools(private var context: Context) {
 

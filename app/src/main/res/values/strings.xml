@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Wed, 22 Jan 2020 15:45:47 +0000
+ Exported at: Wed, 29 Jan 2020 18:09:33 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -59,4 +59,8 @@
     <string name="instant_installed_m">Thank you for installing our app. Tap on OK to continue.</string>
     <string name="approve_permissions">The feature needs the permissions to work.</string>
     <string name="message_to_drag_up">Drag images up for gallery</string>
+    <string name="speak_color">Speak color</string>
+    <string name="language_not_available">Language not available</string>
+    <string name="initialization_failed">Initialization failed</string>
+    <string name="audio_muted">Please increase volume</string>
 </resources>
