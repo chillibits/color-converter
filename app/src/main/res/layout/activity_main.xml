@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity"
+    tools:context="com.chillibits.colorconverter.ui.activity.MainActivity"
     android:background="@color/window_background_color">
 
     <androidx.appcompat.widget.Toolbar
@@ -29,6 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scroll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"

@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ColorSelectionActivity">
+    tools:context="com.chillibits.colorconverter.ui.activity.ColorSelectionActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

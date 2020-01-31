@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             window.decorView.setOnApplyWindowInsetsListener { _, insets ->
                 toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                val bottomInsets = insets.systemWindowInsetBottom
+                scroll_container.setPadding(0, 0, 0, bottomInsets)
                 insets
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
