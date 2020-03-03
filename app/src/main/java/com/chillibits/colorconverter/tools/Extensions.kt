@@ -4,7 +4,6 @@
 
 package com.chillibits.colorconverter.tools
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.widget.ImageView
@@ -14,4 +13,4 @@ fun ImageView.setTint(color: Int) {
     ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(color))
 }
 
-fun Context.dpToPx(dp: Int) = (dp * Resources.getSystem().displayMetrics.density).toInt()
+fun dpToPx(dp: Int) = (dp * Resources.getSystem().displayMetrics.density).toInt()

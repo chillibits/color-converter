@@ -7,6 +7,7 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mrgames13.jimdo.colorconverter"
+    tools:ignore="LockedOrientationActivity"
     android:installLocation="auto">
 
     <dist:module dist:instant="true" />
