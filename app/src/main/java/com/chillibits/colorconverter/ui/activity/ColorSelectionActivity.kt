@@ -56,9 +56,9 @@ class ColorSelectionActivity : AppCompatActivity() {
         // Load colors
         colors = st.loadColors()
 
-        saved_colors.layoutManager = LinearLayoutManager(this)
-        saved_colors.adapter = ColorsAdapter(this, colors)
-        no_items.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
+        savedColors.layoutManager = LinearLayoutManager(this)
+        savedColors.adapter = ColorsAdapter(this, colors)
+        noItems.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,8 +105,8 @@ class ColorSelectionActivity : AppCompatActivity() {
                         st.removeColor(selectedColor!!.id)
                         // Refresh adapters
                         colors = st.loadColors()
-                        saved_colors.adapter = ColorsAdapter(this, colors)
-                        no_items.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
+                        savedColors.adapter = ColorsAdapter(this, colors)
+                        noItems.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
                     }
                     .setNegativeButton(R.string.cancel, null)
                     .show()
@@ -144,7 +144,7 @@ class ColorSelectionActivity : AppCompatActivity() {
                 }
 
                 override fun onAnimationEnd(animation: Animator) {
-                    reveal_background.setBackgroundColor(toColor)
+                    revealBackground.setBackgroundColor(toColor)
                 }
             })
             animator.duration = 480
@@ -152,7 +152,7 @@ class ColorSelectionActivity : AppCompatActivity() {
             reveal.visibility = View.VISIBLE
         } else {
             reveal.setBackgroundColor(toColor)
-            reveal_background.setBackgroundColor(toColor)
+            revealBackground.setBackgroundColor(toColor)
         }
     }
 }

@@ -32,6 +32,7 @@ import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
+import com.chillibits.colorconverter.tools.dpToPx
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
@@ -54,13 +55,13 @@ class ImageActivity : AppCompatActivity() {
     // Variables as objects
     private lateinit var tts: TextToSpeech
     private var speakItem: MenuItem? = null
-    private var selectedColor: Int = Color.BLACK
-    private var vibrantColor: Int = Color.BLACK
-    private var vibrantColorLight: Int = Color.BLACK
-    private var vibrantColorDark: Int = Color.BLACK
-    private var mutedColor: Int = Color.BLACK
-    private var mutedColorLight: Int = Color.BLACK
-    private var mutedColorDark: Int = Color.BLACK
+    private var valueSelectedColor: Int = Color.BLACK
+    private var valueVibrantColor: Int = Color.BLACK
+    private var valueVibrantColorLight: Int = Color.BLACK
+    private var valueVibrantColorDark: Int = Color.BLACK
+    private var valueMutedColor: Int = Color.BLACK
+    private var valueMutedColorLight: Int = Color.BLACK
+    private var valueMutedColorDark: Int = Color.BLACK
     private var imageUri: String? = null
 
     // Variables
@@ -74,6 +75,8 @@ class ImageActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             window.decorView.setOnApplyWindowInsetsListener { _, insets ->
                 toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                val bottomInsets = insets.systemWindowInsetBottom
+                colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), bottomInsets + dpToPx(3))
                 insets
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -85,19 +88,19 @@ class ImageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         image.colorListener = ColorListener { color, _ ->
-            selectedColor = color
-            selected_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
+            valueSelectedColor = color
+            selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
         image.flagView = DetailedFlagView(this, R.layout.flag_layout)
 
-        selected_color.setOnClickListener { finishWithResult(selectedColor) }
-        vibrant_color.setOnClickListener { finishWithResult(vibrantColor) }
-        light_vibrant_color.setOnClickListener { finishWithResult(vibrantColorLight) }
-        dark_vibrant_color.setOnClickListener { finishWithResult(vibrantColorDark) }
-        muted_color.setOnClickListener { finishWithResult(mutedColor) }
-        light_muted_color.setOnClickListener { finishWithResult(mutedColorLight) }
-        dark_muted_color.setOnClickListener { finishWithResult(mutedColorDark) }
+        selectedColor.setOnClickListener { finishWithResult(valueSelectedColor) }
+        vibrantColor.setOnClickListener { finishWithResult(valueVibrantColor) }
+        lightVibrantColor.setOnClickListener { finishWithResult(valueVibrantColorLight) }
+        darkVibrantColor.setOnClickListener { finishWithResult(valueVibrantColorDark) }
+        mutedColor.setOnClickListener { finishWithResult(valueMutedColor) }
+        lightMutedColor.setOnClickListener { finishWithResult(valueMutedColorLight) }
+        darkMutedColor.setOnClickListener { finishWithResult(valueMutedColorDark) }
 
         tts = TextToSpeech(this) { status ->
             if(status == TextToSpeech.SUCCESS) {
@@ -184,18 +187,18 @@ class ImageActivity : AppCompatActivity() {
 
     private fun applyImage(bitmap: Bitmap) {
         image.setPaletteDrawable(BitmapDrawable(resources, bitmap))
-        vibrantColor = ct.getVibrantColor(bitmap)
-        vibrant_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vibrantColor, BlendModeCompat.SRC_IN)
-        vibrantColorLight = ct.getLightVibrantColor(bitmap)
-        light_vibrant_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vibrantColorLight, BlendModeCompat.SRC_IN)
-        vibrantColorDark = ct.getDarkVibrantColor(bitmap)
-        dark_vibrant_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vibrantColorDark, BlendModeCompat.SRC_IN)
-        mutedColor = ct.getMutedColor(bitmap)
-        muted_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mutedColor, BlendModeCompat.SRC_IN)
-        mutedColorLight = ct.getLightMutedColor(bitmap)
-        light_muted_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mutedColorLight, BlendModeCompat.SRC_IN)
-        mutedColorDark = ct.getDarkMutedColor(bitmap)
-        dark_muted_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mutedColorDark, BlendModeCompat.SRC_IN)
+        valueVibrantColor = ct.getVibrantColor(bitmap)
+        vibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColor, BlendModeCompat.SRC_IN)
+        valueVibrantColorLight = ct.getLightVibrantColor(bitmap)
+        lightVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColorLight, BlendModeCompat.SRC_IN)
+        valueVibrantColorDark = ct.getDarkVibrantColor(bitmap)
+        darkVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColorDark, BlendModeCompat.SRC_IN)
+        valueMutedColor = ct.getMutedColor(bitmap)
+        mutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColor, BlendModeCompat.SRC_IN)
+        valueMutedColorLight = ct.getLightMutedColor(bitmap)
+        lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorLight, BlendModeCompat.SRC_IN)
+        valueMutedColorDark = ct.getDarkMutedColor(bitmap)
+        darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorDark, BlendModeCompat.SRC_IN)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -216,7 +219,7 @@ class ImageActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
         } else {
             if(initialized) {
-                val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", selectedColor, 0))
+                val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", valueSelectedColor, 0))
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
                 } else {
