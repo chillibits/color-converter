@@ -194,14 +194,11 @@ class MainActivity : AppCompatActivity() {
         // Check if app was installed
         val intent = intent
         if (intent.getBooleanExtra("InstantInstalled", false)) {
-            val d: AlertDialog =
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.instant_installed_t)
-                    .setMessage(R.string.instant_installed_m)
-                    .setCancelable(true)
-                    .setPositiveButton(R.string.ok, null)
-                    .create()
-            d.show()
+            AlertDialog.Builder(this)
+                .setTitle(R.string.instant_installed_t)
+                .setMessage(R.string.instant_installed_m)
+                .setPositiveButton(R.string.ok, null)
+                .show()
         } else if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/")) {
             pickColorFromImage(intent.getParcelableExtra(Intent.EXTRA_STREAM))
         }
