@@ -22,6 +22,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -68,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             window.decorView.setOnApplyWindowInsetsListener { _, insets ->
                 toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                val bottomInsets = insets.systemWindowInsetBottom
+                scroll_container.setPadding(0, 0, 0, bottomInsets)
                 insets
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -157,7 +160,12 @@ class MainActivity : AppCompatActivity() {
 
         // Speak color
         speak_color.setOnClickListener {
-            speakColor()
+            if(InstantApps.isInstantApp(this)) {
+                // It's not allowed to use tts in an instant app
+                showInstantAppInstallDialog(R.string.instant_install_m)
+            } else {
+                speakColor()
+            }
         }
 
         pick.setOnClickListener { chooseColor() }
@@ -172,17 +180,19 @@ class MainActivity : AppCompatActivity() {
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
 
-        // Initialize tts
-        tts = TextToSpeech(this) { status ->
-            if(status == TextToSpeech.SUCCESS) {
-                val result = tts.setLanguage(Locale.getDefault())
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+        if (!InstantApps.isInstantApp(this@MainActivity)) {
+            // Initialize tts
+            tts = TextToSpeech(this) { status ->
+                if(status == TextToSpeech.SUCCESS) {
+                    val result = tts.setLanguage(Locale.getDefault())
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                    } else {
+                        initialized = true
+                    }
                 } else {
-                    initialized = true
+                    Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -192,14 +202,11 @@ class MainActivity : AppCompatActivity() {
         // Check if app was installed
         val intent = intent
         if (intent.getBooleanExtra("InstantInstalled", false)) {
-            val d: AlertDialog =
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.instant_installed_t)
-                    .setMessage(R.string.instant_installed_m)
-                    .setCancelable(true)
-                    .setPositiveButton(R.string.ok, null)
-                    .create()
-            d.show()
+            AlertDialog.Builder(this)
+                .setTitle(R.string.instant_installed_t)
+                .setMessage(R.string.instant_installed_m)
+                .setPositiveButton(R.string.ok, null)
+                .show()
         } else if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/")) {
             pickColorFromImage(intent.getParcelableExtra(Intent.EXTRA_STREAM))
         }
@@ -215,18 +222,7 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.action_rate -> rateApp()
             R.id.action_share -> recommendApp()
-            R.id.action_install -> {
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.install_app)
-                    .setMessage(R.string.install_app_download)
-                    .setPositiveButton(R.string.install_app) { _, _ ->
-                        val i = Intent(this@MainActivity, MainActivity::class.java)
-                        i.putExtra("InstantInstalled", true)
-                        InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
-                    }
-                    .setNegativeButton(R.string.close, null)
-                    .show()
-            }
+            R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -265,22 +261,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun pickColorFromImage(defaultImageUri: Uri? = null) {
         if (InstantApps.isInstantApp(this@MainActivity)) {
-            AlertDialog.Builder(this@MainActivity)
-                .setTitle(R.string.install_app)
-                .setMessage(R.string.instant_install_m)
-                .setPositiveButton(R.string.install_app) { _, _ ->
-                    val i = Intent(this@MainActivity, MainActivity::class.java)
-                    i.putExtra("InstantInstalled", true)
-                    InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
-                }
-                .setNegativeButton(R.string.close, null)
-                .show()
+            showInstantAppInstallDialog(R.string.instant_install_m)
         } else {
             val i = Intent(this, ImageActivity::class.java)
             if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
             startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
             getString(R.string.message_to_drag_up)
         }
+    }
+
+    private fun showInstantAppInstallDialog(@StringRes message: Int) {
+        AlertDialog.Builder(this@MainActivity)
+            .setTitle(R.string.install_app)
+            .setMessage(message)
+            .setPositiveButton(R.string.install_app) { _, _ ->
+                val i = Intent(this@MainActivity, MainActivity::class.java)
+                i.putExtra("InstantInstalled", true)
+                InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
+            }
+            .setNegativeButton(R.string.close, null)
+            .show()
     }
 
     private fun saveColor() {

@@ -8,6 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="HardcodedText"
     tools:context="com.chillibits.colorconverter.ui.activity.ImageActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,8 +17,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/colorPrimary"
-        android:theme="@style/toolbarStyle"
-        android:elevation="1dp"/>
+        android:theme="@style/toolbarStyle"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,12 +31,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/color_button_container" />
+            app:layout_constraintBottom_toTopOf="@+id/colorButtonContainer" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/color_button_container"
+            android:id="@+id/colorButtonContainer"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="3dp"
             android:background="@color/white_transparent">
@@ -44,131 +44,126 @@
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/vibrant_color"
+                app:layout_constraintStart_toStartOf="@id/vibrantColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="VC"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/vibrant_color"
+                android:id="@+id/vibrantColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_left"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/light_vibrant_color"
+                app:layout_constraintStart_toStartOf="@id/lightVibrantColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="LVC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/light_vibrant_color"
+                android:id="@+id/lightVibrantColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_middle"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
-                app:layout_constraintStart_toEndOf="@+id/vibrant_color"
+                app:layout_constraintStart_toEndOf="@+id/vibrantColor"
                 android:layout_marginStart="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/dark_vibrant_color"
+                app:layout_constraintStart_toStartOf="@id/darkVibrantColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="DVC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/dark_vibrant_color"
+                android:id="@+id/darkVibrantColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_right"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
-                app:layout_constraintStart_toEndOf="@+id/light_vibrant_color"
+                app:layout_constraintStart_toEndOf="@+id/lightVibrantColor"
                 android:layout_marginStart="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/muted_color"
+                app:layout_constraintStart_toStartOf="@id/mutedColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="MC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/muted_color"
+                android:id="@+id/mutedColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_left"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
-                app:layout_constraintStart_toEndOf="@+id/dark_vibrant_color"
+                app:layout_constraintStart_toEndOf="@+id/darkVibrantColor"
                 android:layout_marginStart="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/light_muted_color"
+                app:layout_constraintStart_toStartOf="@id/lightMutedColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="LMC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/light_muted_color"
+                android:id="@+id/lightMutedColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_middle"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
-                app:layout_constraintStart_toEndOf="@+id/muted_color"
+                app:layout_constraintStart_toEndOf="@+id/mutedColor"
                 android:layout_marginStart="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/dark_muted_color"
+                app:layout_constraintStart_toStartOf="@id/darkMutedColor"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="DMC"
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/dark_muted_color"
+                android:id="@+id/darkMutedColor"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/tear_button_right"
                 app:srcCompat="@drawable/done"
                 android:padding="10dp"
-                app:layout_constraintStart_toEndOf="@+id/light_muted_color"
+                app:layout_constraintStart_toEndOf="@+id/lightMutedColor"
                 android:layout_marginStart="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="5dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/selected_color"
+                android:id="@+id/selectedColor"
                 android:layout_width="59dp"
-                android:layout_height="match_parent"
+                android:layout_height="59dp"
                 android:padding="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@drawable/tear_button_left"
-                app:srcCompat="@drawable/done"
-                android:elevation="5dp"/>
+                app:srcCompat="@drawable/done"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
