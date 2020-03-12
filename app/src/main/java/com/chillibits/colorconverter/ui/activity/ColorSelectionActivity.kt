@@ -38,15 +38,17 @@ class ColorSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_color_selection)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            window.decorView.setOnApplyWindowInsetsListener { _, insets ->
-                toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                insets
+        window.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    insets
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         }
 
         toolbar.layoutTransition = LayoutTransition()
@@ -68,58 +70,66 @@ class ColorSelectionActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_edit -> {
-                // Initialize views
-                val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
-                val newName = dialogView.dialog_name
-                newName.setText(selectedColor?.name)
-
-                // Create dialog
-                val dialog = AlertDialog.Builder(this)
-                    .setTitle(R.string.rename)
-                    .setView(dialogView)
-                    .setPositiveButton(R.string.rename) { _, _ ->
-                        val name = newName.text.toString().trim()
-                        if(name.isNotEmpty()) st.updateColor(selectedColor!!.id, name)
-                    }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-
-                // Prepare views
-                newName.addTextChangedListener(object : SimpleTextWatcher() {
-                    override fun afterTextChanged(s: Editable?) {
-                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
-                    }
-                })
-                newName.selectAll()
-                newName.requestFocus()
-                dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            }
-            R.id.action_delete -> {
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.delete)
-                    .setMessage(String.format(getString(R.string.delete_m), selectedColor?.name))
-                    .setIcon(R.drawable.delete_forever)
-                    .setPositiveButton(R.string.delete) { _, _ ->
-                        st.removeColor(selectedColor!!.id)
-                        // Refresh adapters
-                        colors = st.loadColors()
-                        savedColors.adapter = ColorsAdapter(this, colors)
-                        noItems.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
-                    }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-            }
-            R.id.action_done -> {
-                val data = Intent()
-                data.putExtra("Color", selectedColor!!.color)
-                setResult(Activity.RESULT_OK, data)
-                finish()
-            }
+            R.id.action_edit -> showRenameColorDialog()
+            R.id.action_delete -> showDeleteColorDialog()
+            R.id.action_done -> done()
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun done() {
+        Intent().run {
+            putExtra("Color", selectedColor!!.color)
+            setResult(Activity.RESULT_OK, this)
+        }
+        finish()
+    }
+
+    private fun showRenameColorDialog() {
+        // Initialize views
+        val dialogView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
+        val newName = dialogView.dialog_name
+        newName.setText(selectedColor?.name)
+
+        // Create dialog
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.rename)
+            .setView(dialogView)
+            .setPositiveButton(R.string.rename) { _, _ ->
+                val name = newName.text.toString().trim()
+                if (name.isNotEmpty()) st.updateColor(selectedColor!!.id, name)
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+
+        // Prepare views
+        newName.addTextChangedListener(object : SimpleTextWatcher() {
+            override fun afterTextChanged(s: Editable?) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
+            }
+        })
+        newName.selectAll()
+        newName.requestFocus()
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+    }
+
+    private fun showDeleteColorDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.delete)
+            .setMessage(String.format(getString(R.string.delete_m), selectedColor?.name))
+            .setIcon(R.drawable.delete_forever)
+            .setPositiveButton(R.string.delete) { _, _ ->
+                st.removeColor(selectedColor!!.id)
+                // Refresh adapters
+                colors = st.loadColors()
+                savedColors.adapter = ColorsAdapter(this, colors)
+                noItems.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
 
     fun selectedColor(color: Color) {
@@ -131,13 +141,7 @@ class ColorSelectionActivity : AppCompatActivity() {
 
     private fun animateAppAndStatusBar(toColor: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val animator = ViewAnimationUtils.createCircularReveal(
-                reveal,
-                toolbar.width / 2,
-                toolbar.height / 2,
-                0f,
-                toolbar.width / 2.0f + 50
-            )
+            val animator = ViewAnimationUtils.createCircularReveal(reveal, toolbar.width / 2, toolbar.height / 2, 0f, toolbar.width / 2.0f + 50)
             animator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationStart(animation: Animator) {
                     reveal.setBackgroundColor(toColor)

@@ -48,7 +48,6 @@ private const val REQ_PERMISSIONS = 10004
 private const val COLOR_ANIMATION_DURATION = 500L
 
 class MainActivity : AppCompatActivity() {
-
     // Tools packages
     private val st = StorageTools(this)
     private val ct = ColorTools(this)
@@ -65,17 +64,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            window.decorView.setOnApplyWindowInsetsListener { _, insets ->
-                toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                val bottomInsets = insets.systemWindowInsetBottom
-                scroll_container.setPadding(0, 0, 0, bottomInsets)
-                insets
+        window.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    val bottomInsets = insets.systemWindowInsetBottom
+                    scroll_container.setPadding(0, 0, 0, bottomInsets)
+                    insets
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         }
 
         setSupportActionBar(toolbar)
@@ -263,10 +264,10 @@ class MainActivity : AppCompatActivity() {
         if (InstantApps.isInstantApp(this@MainActivity)) {
             showInstantAppInstallDialog(R.string.instant_install_m)
         } else {
-            val i = Intent(this, ImageActivity::class.java)
-            if(defaultImageUri != null) i.putExtra("ImageUri", defaultImageUri)
-            startActivityForResult(i, REQ_PICK_COLOR_FROM_IMAGE)
-            getString(R.string.message_to_drag_up)
+            Intent(this, ImageActivity::class.java).run {
+                if(defaultImageUri != null) putExtra("ImageUri", defaultImageUri)
+                startActivityForResult(this, REQ_PICK_COLOR_FROM_IMAGE)
+            }
         }
     }
 
@@ -275,9 +276,10 @@ class MainActivity : AppCompatActivity() {
             .setTitle(R.string.install_app)
             .setMessage(message)
             .setPositiveButton(R.string.install_app) { _, _ ->
-                val i = Intent(this@MainActivity, MainActivity::class.java)
-                i.putExtra("InstantInstalled", true)
-                InstantApps.showInstallPrompt(this@MainActivity, i, REQ_INSTANT_INSTALL, "")
+                Intent(this@MainActivity, MainActivity::class.java).run {
+                    putExtra("InstantInstalled", true)
+                    InstantApps.showInstallPrompt(this@MainActivity, this, REQ_INSTANT_INSTALL, "")
+                }
             }
             .setNegativeButton(R.string.close, null)
             .show()
@@ -512,11 +514,12 @@ class MainActivity : AppCompatActivity() {
             .setMessage(R.string.share_m)
             .setIcon(R.mipmap.ic_launcher)
             .setPositiveButton(R.string.share) { _, _ ->
-                val i = Intent()
-                i.action = Intent.ACTION_SEND
-                i.putExtra(Intent.EXTRA_TEXT, getString(R.string.recommend_string))
-                i.type = "text/plain"
-                startActivity(i)
+                Intent().run {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, getString(R.string.recommend_string))
+                    type = "text/plain"
+                    startActivity(this)
+                }
             }
             .setNegativeButton(R.string.cancel, null)
             .show()

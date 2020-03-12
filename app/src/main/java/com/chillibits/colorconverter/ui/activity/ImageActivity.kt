@@ -71,17 +71,19 @@ class ImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            window.decorView.setOnApplyWindowInsetsListener { _, insets ->
-                toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                val bottomInsets = insets.systemWindowInsetBottom
-                colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), bottomInsets + dpToPx(3))
-                insets
+        window.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    val bottomInsets = insets.systemWindowInsetBottom
+                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), bottomInsets + dpToPx(3))
+                    insets
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         }
 
         setSupportActionBar(toolbar)
@@ -232,9 +234,10 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun finishWithResult(color: Int) {
-        val data = Intent()
-        data.putExtra("Color", color)
-        setResult(Activity.RESULT_OK, data)
+        Intent().run {
+            putExtra("Color", color)
+            setResult(Activity.RESULT_OK, this)
+        }
         finish()
     }
 
