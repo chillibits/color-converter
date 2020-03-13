@@ -140,10 +140,10 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.color_name), display_name.text.toString())
         }
         copy_rgb.setOnClickListener {
-            copyTextToClipboard(getString(R.string.rgb_code), display_rgb.text.toString())
+            copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard), selectedColor.red, selectedColor.green, selectedColor.blue))
         }
         copy_hex.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hex_code), display_hex.text.toString())
+            copyTextToClipboard(getString(R.string.hex_code), String.format("#%06X", 0xFFFFFF and selectedColor.color))
         }
         copy_hsv.setOnClickListener {
             copyTextToClipboard(getString(R.string.hsv_code), display_hsv.text.toString())
