@@ -8,10 +8,8 @@ import android.content.Context
 import com.chillibits.colorconverter.model.Color
 import com.mrgames13.jimdo.colorconverter.R
 
-class ColorNameTools(private val context: Context) {
-
+class ColorNameTools(private val c: Context) {
     private fun initColorList(): List<ColorName> {
-        val c = context
         return mutableListOf(
             ColorName(c.getString(R.string.color_alice_blue), 0xF0, 0xF8, 0xFF),
             ColorName(c.getString(R.string.color_antique_white), 0xFA, 0xEB, 0xD7),
@@ -157,21 +155,18 @@ class ColorNameTools(private val context: Context) {
     }
 
     private fun getColorNameFromRgb(r: Int, g: Int, b: Int): String {
-        val colorList = initColorList()
         var closestMatch: ColorName? = null
         var minMSE = Int.MAX_VALUE
         var mse: Int
-        for (c in colorList) {
-            mse = c.computeMSE(r, g, b)
+        for (color in initColorList()) {
+            mse = color.computeMSE(r, g, b)
             if (mse < minMSE) {
                 minMSE = mse
-                closestMatch = c
+                closestMatch = color
             }
         }
         return closestMatch?.getName() ?: "No color"
     }
 
-    fun getColorNameFromColor(color: Color): String {
-        return getColorNameFromRgb(color.red, color.green, color.blue)
-    }
+    fun getColorNameFromColor(color: Color) = getColorNameFromRgb(color.red, color.green, color.blue)
 }

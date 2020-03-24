@@ -14,7 +14,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.text.Editable
 import android.text.InputType
 import android.text.Selection
 import android.view.*
@@ -27,10 +26,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
+import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.SimpleTextWatcher
 import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -310,11 +309,9 @@ class MainActivity : AppCompatActivity() {
             .show()
 
         // Prepare views
-        editTextName.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
-            }
-        })
+        editTextName.doAfterTextChanged {s ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
+        }
         editTextName.selectAll()
         editTextName.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
@@ -346,18 +343,16 @@ class MainActivity : AppCompatActivity() {
             .show()
 
         // Prepare views
-        hexValue.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                val value = s.toString()
-                if(!value.startsWith("#")) {
-                    hexValue.setText("#")
-                    Selection.setSelection(hexValue.text, hexValue.text.length)
-                } else {
-                    if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 7 || s.toString().length == 4
-                }
+        hexValue.doAfterTextChanged { s ->
+            val value = s.toString()
+            if(!value.startsWith("#")) {
+                hexValue.setText("#")
+                Selection.setSelection(hexValue.text, hexValue.text.length)
+            } else {
+                if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 7 || s.toString().length == 4
             }
-        })
+        }
         hexValue.setSelection(1, 7)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
@@ -393,21 +388,15 @@ class MainActivity : AppCompatActivity() {
             }
             .show()
 
-        container.dialog_h.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty() && container.dialog_s.text.isNotEmpty() && container.dialog_v.text.isNotEmpty()
-            }
-        })
-        container.dialog_s.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialog_h.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialog_v.text.isNotEmpty()
-            }
-        })
-        container.dialog_v.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialog_h.text.isNotEmpty() && container.dialog_s.text.isNotEmpty() && s.toString().isNotEmpty()
-            }
-        })
+        container.dialog_h.doAfterTextChanged {s ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty() && container.dialog_s.text.isNotEmpty() && container.dialog_v.text.isNotEmpty()
+        }
+        container.dialog_s.doAfterTextChanged {s ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialog_h.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialog_v.text.isNotEmpty()
+        }
+        container.dialog_v.doAfterTextChanged {s ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialog_h.text.isNotEmpty() && container.dialog_s.text.isNotEmpty() && s.toString().isNotEmpty()
+        }
 
         container.dialog_h.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
