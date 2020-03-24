@@ -4,7 +4,6 @@
 
 package com.chillibits.colorconverter.ui.activity
 
-import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.*
@@ -24,12 +23,14 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.SimpleOnSeekBarChangeListener
 import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -45,6 +46,7 @@ private const val REQ_LOAD_COLOR = 10002
 private const val REQ_INSTANT_INSTALL = 10003
 private const val REQ_PERMISSIONS = 10004
 private const val COLOR_ANIMATION_DURATION = 500L
+private const val HEX_FORMAT_STRING = "#%06X"
 
 class MainActivity : AppCompatActivity() {
     // Tools packages
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         color_blue.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
         color_blue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
 
-        color_red.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        color_red.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val value = progress.toString()
@@ -95,11 +97,8 @@ class MainActivity : AppCompatActivity() {
                     updateDisplays(Color(0, "Selection", progress, color_green.progress, color_blue.progress, -1))
                 }
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        color_green.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        color_green.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val value = progress.toString()
@@ -107,11 +106,8 @@ class MainActivity : AppCompatActivity() {
                     updateDisplays(Color(0, "Selection", color_red.progress, progress, color_blue.progress, -1))
                 }
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        color_blue.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        color_blue.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val value = progress.toString()
@@ -119,9 +115,6 @@ class MainActivity : AppCompatActivity() {
                     updateDisplays(Color(0, "Selection", color_red.progress, color_green.progress, progress, -1))
                 }
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
         color_container.setOnClickListener { chooseColor() }
@@ -142,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard), selectedColor.red, selectedColor.green, selectedColor.blue))
         }
         copy_hex.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hex_code), String.format("#%06X", 0xFFFFFF and selectedColor.color))
+            copyTextToClipboard(getString(R.string.hex_code), String.format(HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
         }
         copy_hsv.setOnClickListener {
             copyTextToClipboard(getString(R.string.hsv_code), display_hsv.text.toString())
@@ -175,10 +168,11 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         display_name.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
         display_rgb.text = String.format(getString(R.string.rgb_), selectedColor.red, selectedColor.green, selectedColor.blue)
-        display_hex.text = String.format(getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and selectedColor.color))
+        display_hex.text = String.format(getString(R.string.hex_), String.format(HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
-        display_hsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+        val formatString = "%.02f"
+        display_hsv.text = String.format(getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
 
         if (!InstantApps.isInstantApp(this@MainActivity)) {
             // Initialize tts
@@ -322,7 +316,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialog_hex
-        hexValue.setText(String.format("#%06X", 0xFFFFFF and selectedColor.color))
+        hexValue.setText(String.format(HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -434,7 +428,7 @@ class MainActivity : AppCompatActivity() {
         // Update RGB TextView
         display_rgb.text = String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
         // Update HEX TextView
-        display_hex.text = String.format(getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and color.color))
+        display_hex.text = String.format(getString(R.string.hex_), String.format(HEX_FORMAT_STRING, 0xFFFFFF and color.color))
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
@@ -460,14 +454,9 @@ class MainActivity : AppCompatActivity() {
             color_red.progress = valueAnimator.animatedValue as Int
             color_container.setBackgroundColor(color.color)
         }
-        redAnim.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animator: Animator) {}
-            override fun onAnimationEnd(animator: Animator) {
-                selectedColor = color
-            }
-            override fun onAnimationCancel(animator: Animator) {}
-            override fun onAnimationRepeat(animator: Animator) {}
-        })
+        redAnim.doOnEnd {
+            selectedColor = color
+        }
         redAnim.start()
 
         val greenAnim = ValueAnimator.ofInt(color_green.progress, color.green)
@@ -514,6 +503,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    @Suppress("DEPRECATION")
     private fun speakColor() {
         if(isAudioMuted()) {
             Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()

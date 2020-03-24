@@ -20,6 +20,7 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
         flag_color_hex.text = String.format(context.getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and colorEnvelope.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue, hsv)
-        flag_color_hsv.text = String.format(context.getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+        val formatString = "%.02f"
+        flag_color_hsv.text = String.format(context.getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
     }
 }
