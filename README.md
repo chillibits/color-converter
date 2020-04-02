@@ -1,4 +1,6 @@
 ## Color Converter
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb98dbe7ca6d46af8b385dadd618c446)](https://app.codacy.com/gh/ChilliBits/color-converter?utm_source=github.com&utm_medium=referral&utm_content=ChilliBits/color-converter&utm_campaign=Badge_Grade_Dashboard)
+[![Build Status](https://travis-ci.com/ChilliBits/color-converter.svg?branch=master)](https://travis-ci.com/ChilliBits/color-converter)
 
 Color Converter is an Android app to pick, display and convert colors.
 
@@ -26,7 +28,6 @@ You can contribute to this project by doing following things:
 -   If you want to submit a request for a new feature, please also write an email to: [contact@chillibits.com](mailto:contact@chillibits.com&subject=Feature%20request)
 
 ## Used third party libraries
-
 Thanks to following people:
 
 -   [Glide](https://github.com/bumptech/glide) by Bump Technologies
@@ -34,6 +35,6 @@ Thanks to following people:
 -   [PixImagePicker](https://github.com/akshay2211/PixImagePicker) by Akshay Sharma
 -   [ColorPickerView](https://github.com/skydoves/ColorPickerView) by Jaewoong Eum
 
-Thanks to all contributers and translators!
+Thanks to all contributors and translators!
 
 © ChilliBits 2017-2020 (Designed and developed by Marc Auberer)
