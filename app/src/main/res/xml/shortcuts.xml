@@ -7,12 +7,14 @@
     <shortcut
         android:enabled="true"
         android:icon="@drawable/image_primary">
+
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.chillibits.colorconverter"
+            android:targetPackage="com.mrgames13.jimdo.colorconverter"
             android:targetClass="com.chillibits.colorconverter.ui.activity.MainActivity">
             <extra android:name="action" android:value="image" />
         </intent>
+
         <categories android:name="android.shortcut.app" />
     </shortcut>
 </shortcuts>

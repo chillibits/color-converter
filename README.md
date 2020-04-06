@@ -4,9 +4,9 @@
 
 Color Converter is an Android app to pick, display and convert colors.
 
-Download Color Converter from Google Play: [https://play.google.com/store/apps/details?id=com.chillibits.colorconverter](https://play.google.com/store/apps/details?id=com.chillibits.colorconverter)
+Download Color Converter from [Google Play](https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter)!
 
-More info on our homepage: [https://chillibits.com/color-converter](https://chillibits.com/color-converter)
+More info on our homepage: [https://chillibits.com/color-converter](https://chillibits.com/colorconverter)
 
 ## Features
 

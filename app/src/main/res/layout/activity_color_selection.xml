@@ -12,14 +12,7 @@
     android:layout_height="match_parent"
     tools:context="com.chillibits.colorconverter.ui.activity.ColorSelectionActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/transparent"
-        android:theme="@style/toolbarStyle"
-        android:elevation="1dp"/>
+    <include layout="@layout/toolbar" />
 
     <View
         android:id="@+id/revealBackground"

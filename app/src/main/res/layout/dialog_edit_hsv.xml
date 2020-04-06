@@ -12,7 +12,7 @@
     android:weightSum="3">
 
     <EditText
-        android:id="@+id/dialog_h"
+        android:id="@+id/dialogH"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/dialog_s"
+        android:id="@+id/dialogS"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/dialog_v"
+        android:id="@+id/dialogV"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"

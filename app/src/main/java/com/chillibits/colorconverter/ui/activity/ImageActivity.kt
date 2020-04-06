@@ -29,10 +29,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
-import com.chillibits.colorconverter.tools.ColorNameTools
-import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.StorageTools
-import com.chillibits.colorconverter.tools.dpToPx
+import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
@@ -40,10 +37,8 @@ import com.fxn.utility.PermUtil
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
-
-// Constants
-private const val REQ_IMAGE_PICKER = 10001
 
 class ImageActivity : AppCompatActivity() {
 
@@ -71,13 +66,13 @@ class ImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
+        // Apply window insets
         window.run {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    val bottomInsets = insets.systemWindowInsetBottom
-                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), bottomInsets + dpToPx(3))
+                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
                     insets
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -86,9 +81,11 @@ class ImageActivity : AppCompatActivity() {
             }
         }
 
+        // Initialize toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Initialize other layout components
         image.colorListener = ColorListener { color, _ ->
             valueSelectedColor = color
             selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
@@ -104,6 +101,7 @@ class ImageActivity : AppCompatActivity() {
         lightMutedColor.setOnClickListener { finishWithResult(valueMutedColorLight) }
         darkMutedColor.setOnClickListener { finishWithResult(valueMutedColorDark) }
 
+        // Initialize tts
         tts = TextToSpeech(this) { status ->
             if(status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.getDefault())
@@ -161,7 +159,7 @@ class ImageActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQ_IMAGE_PICKER) {
+        if(requestCode == Constants.REQ_IMAGE_PICKER) {
             if(resultCode == Activity.RESULT_OK) {
                 try{
                     imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
@@ -207,13 +205,13 @@ class ImageActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Pix.start(this, Options.init().setRequestCode(REQ_IMAGE_PICKER))
+                Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
             }
         }
     }
 
     private fun chooseImage() {
-        Pix.start(this, Options.init().setRequestCode(REQ_IMAGE_PICKER))
+        Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
     }
 
     private fun speakColor() {

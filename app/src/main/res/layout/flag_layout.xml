@@ -13,7 +13,7 @@
     android:orientation="horizontal">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/flag_color"
+        android:id="@+id/flagColor"
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,31 +23,31 @@
         android:orientation="vertical"/>
 
     <TextView
-        android:id="@+id/flag_color_rgb"
+        android:id="@+id/flagColorRgb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        app:layout_constraintStart_toEndOf="@+id/flagColor"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/white"
         tools:text="@string/rgb_"/>
 
     <TextView
-        android:id="@+id/flag_color_hex"
+        android:id="@+id/flagColorHex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/flag_color_rgb"
-        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        app:layout_constraintTop_toBottomOf="@+id/flagColorRgb"
+        app:layout_constraintStart_toEndOf="@+id/flagColor"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/white"
         tools:text="@string/hex_"/>
 
     <TextView
-        android:id="@+id/flag_color_hsv"
+        android:id="@+id/flagColorHsv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/flag_color_hex"
-        app:layout_constraintStart_toEndOf="@+id/flag_color"
+        app:layout_constraintTop_toBottomOf="@+id/flagColorHex"
+        app:layout_constraintStart_toEndOf="@+id/flagColor"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/white"
         tools:text="@string/hsv_"/>

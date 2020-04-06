@@ -23,6 +23,7 @@ import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class ColorSelectionActivity : AppCompatActivity() {
 
@@ -89,7 +90,7 @@ class ColorSelectionActivity : AppCompatActivity() {
         // Initialize views
         val dialogView =
             LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
-        val newName = dialogView.dialog_name
+        val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
         // Create dialog

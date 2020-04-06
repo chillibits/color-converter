@@ -15,12 +15,12 @@ import kotlinx.android.synthetic.main.flag_layout.view.*
 @SuppressLint("ViewConstructor")
 class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
     override fun onRefresh(colorEnvelope: ColorEnvelope?) {
-        flag_color.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colorEnvelope!!.color, BlendModeCompat.SRC_IN)
-        flag_color_rgb.text = String.format(context.getString(R.string.rgb_), colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue)
-        flag_color_hex.text = String.format(context.getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and colorEnvelope.color))
+        flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colorEnvelope!!.color, BlendModeCompat.SRC_IN)
+        flagColorRgb.text = String.format(context.getString(R.string.rgb_), colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue)
+        flagColorHex.text = String.format(context.getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and colorEnvelope.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue, hsv)
         val formatString = "%.02f"
-        flag_color_hsv.text = String.format(context.getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
+        flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
     }
 }

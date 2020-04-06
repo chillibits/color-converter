@@ -27,15 +27,8 @@ class Color: Comparable<Color> {
         if(creationTimestamp != -1L) this.creationTimestamp = creationTimestamp
     }
 
-    constructor(id: Int, name: String, red: Int, green: Int, blue: Int, creationTimestamp: Long) {
-        this.id = id
-        this.name = name
-        this.color = android.graphics.Color.argb(255, red, green, blue)
-        this.red = red
-        this.green = green
-        this.blue = blue
-        if(creationTimestamp != -1L) this.creationTimestamp = creationTimestamp
-    }
+    constructor(id: Int, name: String, red: Int, green: Int, blue: Int, creationTimestamp: Long):
+            this(id, name, android.graphics.Color.argb(255, red, green, blue), creationTimestamp)
 
     override fun compareTo(@NotNull other: Color): Int {
         return other.creationTimestamp.compareTo(creationTimestamp)

@@ -16,6 +16,7 @@
     <color name="white_transparent">#80FFFFFF</color>
     <color name="gray_light">#BBB</color>
     <color name="window_background_color">#FAFAFA</color>
+    <color name="googlePlayHeaderColor">#01875F</color>
 
     <!-- Button colors -->
     <color name="disabled">@color/gray_light</color>

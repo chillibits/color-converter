@@ -13,14 +13,7 @@
     tools:context="com.chillibits.colorconverter.ui.activity.MainActivity"
     android:background="@color/window_background_color">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimary"
-        android:theme="@style/toolbarStyle"
-        android:elevation="1dp"/>
+    <include layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,15 +22,13 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scroll_container"
+            android:id="@+id/scrollContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:paddingBottom="8dp">
 
-            <!-- Selection -->
             <TextView
-                android:id="@+id/title_selection"
+                android:id="@+id/titleSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
@@ -45,43 +36,44 @@
                 android:text="@string/selection_"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_marginTop="8dp"
                 android:textColor="@drawable/button_outline_text"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <SeekBar
-                android:id="@+id/color_red"
+                android:id="@+id/colorRed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:max="@integer/rgb_max_value"
-                app:layout_constraintTop_toBottomOf="@+id/title_selection"/>
+                app:layout_constraintTop_toBottomOf="@+id/titleSelection"/>
 
             <SeekBar
-                android:id="@+id/color_green"
+                android:id="@+id/colorGreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:max="@integer/rgb_max_value"
-                app:layout_constraintTop_toBottomOf="@+id/color_red"/>
+                app:layout_constraintTop_toBottomOf="@+id/colorRed"/>
 
             <SeekBar
-                android:id="@+id/color_blue"
+                android:id="@+id/colorBlue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="15dp"
                 android:max="@integer/rgb_max_value"
-                app:layout_constraintTop_toBottomOf="@+id/color_green"/>
+                app:layout_constraintTop_toBottomOf="@+id/colorGreen"/>
 
             <LinearLayout
-                android:id="@+id/container_rgb_labels"
+                android:id="@+id/containerRgbLabels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/color_blue"
+                app:layout_constraintTop_toBottomOf="@+id/colorBlue"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
@@ -120,16 +112,16 @@
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/container_rgb_values"
+                android:id="@+id/containerRgbValues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/container_rgb_labels"
+                app:layout_constraintTop_toBottomOf="@+id/containerRgbLabels"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/display_red"
+                    android:id="@+id/displayRed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,7 +133,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/display_green"
+                    android:id="@+id/displayGreen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -153,7 +145,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/display_blue"
+                    android:id="@+id/displayBlue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -166,17 +158,18 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/color_container_wrapper"
+                android:id="@+id/colorContainerWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/container_rgb_values"
+                app:layout_constraintTop_toBottomOf="@+id/containerRgbValues"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:elevation="5dp">
+                android:elevation="5dp"
+                tools:targetApi="lollipop">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/color_container"
+                    android:id="@+id/colorContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
@@ -186,12 +179,12 @@
                     <!-- Load and save buttons -->
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/load_color"
+                        android:id="@+id/loadColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/save_color"
+                        app:layout_constraintBottom_toTopOf="@+id/saveColor"
                         app:srcCompat="@drawable/load"
                         android:padding="3dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -199,11 +192,11 @@
                         android:focusable="true" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/save_color"
+                        android:id="@+id/saveColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/load_color"
+                        app:layout_constraintTop_toBottomOf="@+id/loadColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:srcCompat="@drawable/save"
                         android:padding="3dp"
@@ -214,7 +207,7 @@
                     <!-- Color format displays -->
 
                     <TextView
-                        android:id="@+id/display_name"
+                        android:id="@+id/displayName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -227,10 +220,10 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/display_rgb"
+                        android:id="@+id/displayRgb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/display_name"
+                        app:layout_constraintTop_toBottomOf="@+id/displayName"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/abel"
@@ -240,10 +233,10 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/display_hex"
+                        android:id="@+id/displayHex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/display_rgb"
+                        app:layout_constraintTop_toBottomOf="@+id/displayRgb"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/abel"
@@ -253,10 +246,10 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/display_hsv"
+                        android:id="@+id/displayHsv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/display_hex"
+                        app:layout_constraintTop_toBottomOf="@+id/displayHex"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/abel"
@@ -268,12 +261,12 @@
                     <!-- Copy buttons -->
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/copy_name"
+                        android:id="@+id/copyName"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/copy_rgb"
+                        app:layout_constraintBottom_toTopOf="@+id/copyRgb"
                         app:srcCompat="@drawable/copy"
                         android:padding="3dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -281,12 +274,12 @@
                         android:focusable="true" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/copy_rgb"
+                        android:id="@+id/copyRgb"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@+id/copy_name"
+                        app:layout_constraintTop_toBottomOf="@+id/copyName"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/copy_hex"
+                        app:layout_constraintBottom_toTopOf="@+id/copyHex"
                         app:srcCompat="@drawable/copy"
                         android:padding="3dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -294,12 +287,12 @@
                         android:focusable="true" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/copy_hex"
+                        android:id="@+id/copyHex"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@+id/copy_rgb"
+                        app:layout_constraintTop_toBottomOf="@+id/copyRgb"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/copy_hsv"
+                        app:layout_constraintBottom_toTopOf="@+id/copyHsv"
                         app:srcCompat="@drawable/copy"
                         android:padding="3dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -307,10 +300,10 @@
                         android:focusable="true" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/copy_hsv"
+                        android:id="@+id/copyHsv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@+id/copy_hex"
+                        app:layout_constraintTop_toBottomOf="@+id/copyHex"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:srcCompat="@drawable/copy"
@@ -322,12 +315,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/edit_hex"
+                android:id="@+id/editHex"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/color_container_wrapper"
+                app:layout_constraintTop_toBottomOf="@+id/colorContainerWrapper"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit_hsv"
+                app:layout_constraintEnd_toStartOf="@+id/editHsv"
                 android:text="@string/hex_code"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
@@ -340,12 +333,12 @@
                 android:textColor="@drawable/button_outline_text"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/edit_hsv"
+                android:id="@+id/editHsv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/color_container_wrapper"
+                app:layout_constraintTop_toBottomOf="@+id/colorContainerWrapper"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edit_hex"
+                app:layout_constraintStart_toEndOf="@+id/editHex"
                 android:text="@string/hsv_code"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="4dp"
@@ -358,10 +351,10 @@
                 android:textColor="@drawable/button_outline_text"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/speak_color"
+                android:id="@+id/speakColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/edit_hex"
+                app:layout_constraintTop_toBottomOf="@+id/editHex"
                 android:text="@string/speak_color"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
@@ -377,7 +370,7 @@
                 android:id="@+id/pick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/speak_color"
+                app:layout_constraintTop_toBottomOf="@+id/speakColor"
                 android:text="@string/choose_color"
                 android:layout_margin="8dp"
                 android:background="@drawable/button_outline_rounded"
@@ -394,7 +387,7 @@
                 android:textColor="@drawable/button_outline_text"/>
 
             <Button
-                android:id="@+id/pick_from_image"
+                android:id="@+id/pickFromImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/pick_random_color"
@@ -405,4 +398,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/finishWithColorWrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finishWithColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/done"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
