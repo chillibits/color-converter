@@ -89,8 +89,7 @@ class ColorSelectionActivity : AppCompatActivity() {
 
     private fun showRenameColorDialog() {
         // Initialize views
-        val dialogView =
-            LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
         val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
@@ -150,6 +149,7 @@ class ColorSelectionActivity : AppCompatActivity() {
                     revealBackground.setBackgroundColor(toColor)
                 }
             })
+
             animator.duration = 480
             animator.start()
             reveal.visibility = View.VISIBLE

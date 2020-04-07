@@ -19,6 +19,7 @@ fun Context.showRecommendationDialog() {
     MaterialStyledDialog.Builder(this)
         .setStyle(Style.HEADER_WITH_ICON)
         .setHeaderColorInt(ContextCompat.getColor(this, R.color.colorPrimary))
+        .withIconAnimation(false)
         .setIcon(IconicsDrawable(this, MaterialDesignIconic.Icon.gmi_share).apply {
             colorInt = Color.WHITE
         })

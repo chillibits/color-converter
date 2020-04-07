@@ -24,4 +24,5 @@ object Constants {
     const val COLOR_ANIMATION_DURATION = 500L
     const val HEX_FORMAT_STRING = "#%06X"
     const val NAME_SELECTED_COLOR = "Selection"
+    const val HSV_FORMAT_STRING = "%.02f"
 }

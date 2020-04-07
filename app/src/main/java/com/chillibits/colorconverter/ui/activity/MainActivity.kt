@@ -139,24 +139,16 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
         }
 
-        // Edit hex code
-        editHex.setOnClickListener {
-            editHexCode()
-        }
-
-        // Edit hsv code
-        editHsv.setOnClickListener {
-            editHSVCode()
-        }
+        // Edit codes
+        editHex.setOnClickListener { editHexCode() }
+        editHsv.setOnClickListener { editHSVCode() }
 
         // Speak color
         speakColor.setOnClickListener {
             if(InstantApps.isInstantApp(this)) {
                 // It's not allowed to use tts in an instant app
                 showInstantAppInstallDialog(R.string.instant_install_m)
-            } else {
-                speakColor()
-            }
+            } else speakColor()
         }
 
         pick.setOnClickListener { chooseColor() }
@@ -169,8 +161,7 @@ class MainActivity : AppCompatActivity() {
         displayHex.text = String.format(getString(R.string.hex_), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
-        val formatString = "%.02f"
-        displayHsv.text = String.format(getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
+        displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
 
         if (!InstantApps.isInstantApp(this@MainActivity)) {
             // Initialize tts
@@ -179,12 +170,8 @@ class MainActivity : AppCompatActivity() {
                     val result = tts.setLanguage(Locale.getDefault())
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                    } else {
-                        initialized = true
-                    }
-                } else {
-                    Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-                }
+                    } else initialized = true
+                } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -427,7 +414,7 @@ class MainActivity : AppCompatActivity() {
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
-        displayHsv.text = String.format(getString(R.string.hsv_), String.format("%.02f", hsv[0]), String.format("%.02f", hsv[1]), String.format("%.02f", hsv[2]))
+        displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
 
         // Update text colors
         val textColor = ct.getTextColor(android.graphics.Color.rgb(color.red, color.green, color.blue))
@@ -449,9 +436,7 @@ class MainActivity : AppCompatActivity() {
                 colorRed.progress = valueAnimator.animatedValue as Int
                 colorContainer.setBackgroundColor(color.color)
             }
-            doOnEnd {
-                selectedColor = color
-            }
+            doOnEnd { selectedColor = color }
             start()
         }
 

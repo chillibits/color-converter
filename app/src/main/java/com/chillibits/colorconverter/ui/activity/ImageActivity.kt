@@ -107,12 +107,8 @@ class ImageActivity : AppCompatActivity() {
                 val result = tts.setLanguage(Locale.getDefault())
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                } else {
-                    initialized = true
-                }
-            } else {
-                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-            }
+                } else initialized = true
+            } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
         }
 
         if(intent.hasExtra(Constants.EXTRA_IMAGE_URI)) {

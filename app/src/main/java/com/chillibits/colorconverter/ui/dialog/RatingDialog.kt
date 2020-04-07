@@ -20,6 +20,7 @@ fun Context.showRatingDialog() {
     MaterialStyledDialog.Builder(this)
         .setStyle(Style.HEADER_WITH_ICON)
         .setHeaderColorInt(ContextCompat.getColor(this, R.color.googlePlayHeaderColor))
+        .withIconAnimation(false)
         .setIcon(IconicsDrawable(this, MaterialDesignIconic.Icon.gmi_google_play).apply {
             colorInt = Color.WHITE
         })

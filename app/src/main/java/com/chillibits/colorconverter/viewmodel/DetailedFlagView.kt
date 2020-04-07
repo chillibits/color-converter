@@ -7,6 +7,7 @@ package com.chillibits.colorconverter.viewmodel
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
+import com.chillibits.colorconverter.tools.Constants
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.flag.FlagView
@@ -17,10 +18,9 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
     override fun onRefresh(colorEnvelope: ColorEnvelope?) {
         flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colorEnvelope!!.color, BlendModeCompat.SRC_IN)
         flagColorRgb.text = String.format(context.getString(R.string.rgb_), colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue)
-        flagColorHex.text = String.format(context.getString(R.string.hex_), String.format("#%06X", 0xFFFFFF and colorEnvelope.color))
+        flagColorHex.text = String.format(context.getString(R.string.hex_), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and colorEnvelope.color))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue, hsv)
-        val formatString = "%.02f"
-        flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(formatString, hsv[0]), String.format(formatString, hsv[1]), String.format(formatString, hsv[2]))
+        flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
     }
 }
