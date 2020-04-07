@@ -115,9 +115,9 @@ class ImageActivity : AppCompatActivity() {
             }
         }
 
-        if(intent.hasExtra("ImageUri")) {
+        if(intent.hasExtra(Constants.EXTRA_IMAGE_URI)) {
             // Load default image
-            val defaultImageUri = intent.getParcelableExtra("ImageUri") as Uri
+            val defaultImageUri = intent.getParcelableExtra(Constants.EXTRA_IMAGE_URI) as Uri
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, defaultImageUri)
             applyImage(bitmap)
         } else if(savedInstanceState == null) {
@@ -234,7 +234,7 @@ class ImageActivity : AppCompatActivity() {
 
     private fun finishWithResult(color: Int) {
         Intent().run {
-            putExtra("Color", color)
+            putExtra(Constants.EXTRA_COLOR, color)
             setResult(Activity.RESULT_OK, this)
         }
         finish()

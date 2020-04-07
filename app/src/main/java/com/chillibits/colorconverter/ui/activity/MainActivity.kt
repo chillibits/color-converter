@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
-    private var selectedColor = Color(0, "Selection", android.graphics.Color.BLACK, -1)
+    private var selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK, -1)
 
     // Variables
     private var initialized = false
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayRed.text = value
-                    updateDisplays(Color(0, "Selection", progress, colorGreen.progress, colorBlue.progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorGreen.progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayGreen.text = value
-                    updateDisplays(Color(0, "Selection", colorRed.progress, progress, colorBlue.progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorRed.progress, progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayBlue.text = value
-                    updateDisplays(Color(0, "Selection", colorRed.progress, colorGreen.progress, progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorRed.progress, colorGreen.progress, progress, -1))
                 }
             }
         })
@@ -194,13 +194,13 @@ class MainActivity : AppCompatActivity() {
         // Set to choose color mode, if required
         if(intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             finishWithColor.setOnClickListener { finishWithSelectedColor() }
-            updateDisplays(Color(0, "Selection", intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
         } else {
             finishWithColor.visibility = View.GONE
         }
 
         // Check if app was installed
-        if (intent.getBooleanExtra("InstantInstalled", false)) {
+        if (intent.getBooleanExtra(Constants.EXTRA_INSTANT_INSTALLED, false)) {
             AlertDialog.Builder(this)
                 .setTitle(R.string.instant_installed_t)
                 .setMessage(R.string.instant_installed_m)
@@ -230,22 +230,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("SelectedColor", selectedColor.color)
+        outState.putInt(Constants.EXTRA_SELECTED_COLOR, selectedColor.color)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        updateDisplays(Color(0, "Selection", savedInstanceState.getInt("SelectedColor"), -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, savedInstanceState.getInt(Constants.EXTRA_SELECTED_COLOR), -1))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
             Constants.REQ_PICK_COLOR_FROM_IMAGE -> {
-                if(resultCode == Activity.RESULT_OK) updateDisplays(Color(0, "Selection", data!!.getIntExtra("Color", 0), -1))
+                if(resultCode == Activity.RESULT_OK)
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
             }
             Constants.REQ_LOAD_COLOR -> {
-                if(resultCode == Activity.RESULT_OK) updateDisplays(Color(0, "Selection", data!!.getIntExtra("Color", 0), -1))
+                if(resultCode == Activity.RESULT_OK)
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
             }
         }
     }
@@ -392,7 +394,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun randomizeColor() {
         val random = Random(System.currentTimeMillis())
-        updateDisplays(Color(0, "Selection", random.nextInt(256), random.nextInt(256), random.nextInt(256), -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, random.nextInt(256), random.nextInt(256), random.nextInt(256), -1))
     }
 
     private fun chooseColor() {
@@ -401,7 +403,7 @@ class MainActivity : AppCompatActivity() {
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
-            updateDisplays(Color(0, "Selection", android.graphics.Color.red(color), android.graphics.Color.green(color), android.graphics.Color.blue(color), 0))
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.red(color), android.graphics.Color.green(color), android.graphics.Color.blue(color), 0))
         }
         colorPicker.show()
     }

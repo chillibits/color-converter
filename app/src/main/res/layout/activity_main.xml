@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chillibits.colorconverter.ui.activity.MainActivity"
-    android:background="@color/window_background_color">
+    android:background="@color/windowBackgroundColor">
 
     <include layout="@layout/toolbar" />
 

@@ -15,8 +15,13 @@ object Constants {
     // Intent extra names
     const val EXTRA_ACTION = "action"
     const val EXTRA_CHOOSE_COLOR = "ChooseColor"
+    const val EXTRA_IMAGE_URI = "ImageUri"
+    const val EXTRA_INSTANT_INSTALLED = "InstantInstalled"
+    const val EXTRA_COLOR = "Color"
+    const val EXTRA_SELECTED_COLOR = "SelectedColor"
 
     // Other constants
     const val COLOR_ANIMATION_DURATION = 500L
     const val HEX_FORMAT_STRING = "#%06X"
+    const val NAME_SELECTED_COLOR = "Selection"
 }

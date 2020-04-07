@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.tools.Constants
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
@@ -80,7 +81,7 @@ class ColorSelectionActivity : AppCompatActivity() {
 
     private fun done() {
         Intent().run {
-            putExtra("Color", selectedColor!!.color)
+            putExtra(Constants.EXTRA_COLOR, selectedColor!!.color)
             setResult(Activity.RESULT_OK, this)
         }
         finish()

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="3dp"
-            android:background="@color/white_transparent">
+            android:background="@color/whiteTransparent">
 
             <TextView
                 android:layout_width="40dp"
