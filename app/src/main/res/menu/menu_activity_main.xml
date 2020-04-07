@@ -3,8 +3,12 @@
   ~ Copyright © Marc Auberer 2020. All rights reserved
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="AlwaysShowAction">
+
     <item
         android:id="@+id/action_install"
         android:title="@string/install_app"
@@ -23,4 +27,11 @@
         android:title="@string/share_app"
         android:icon="@drawable/share"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_done"
+        android:title="@string/done"
+        android:icon="@drawable/done"
+        app:showAsAction="always"
+        android:visible="false"/>
 </menu>

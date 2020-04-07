@@ -16,28 +16,13 @@ import java.util.*
 const val TABLE_COLORS: String = "Colors"
 
 class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 1) {
-
     override fun onCreate(db: SQLiteDatabase?) {
-        try {
-            // Create tables
-            db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer);")
-        } catch (e: Exception) {
-            Log.e("ColorConverter", "Database creation error: ", e)
-        }
+        // Create tables
+        db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer);")
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
-
-    private fun addRecord(table: String, values: ContentValues) {
-        writableDatabase.insert(table, null, values)
-    }
-
-    private fun removeRecord(table: String?, id: Int) {
-        writableDatabase.delete(table, "id=?", arrayOf(id.toString()))
-    }
-
-    private fun execSQL(command: String?) {
-        writableDatabase.execSQL(command)
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        // Nothing to upgrade
     }
 
     // ------------------------------------ Shared Preference --------------------------------------
@@ -63,18 +48,18 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
             values.put("green", color.green)
             values.put("blue", color.blue)
             values.put("creation_timestamp", color.creationTimestamp)
-            addRecord(TABLE_COLORS, values)
+            writableDatabase.insert(TABLE_COLORS, null, values)
         } catch (e: java.lang.Exception) {
             Log.e("ColorConverter", "Error storing color", e)
         }
     }
 
     fun updateColor(id: Int, newName: String) {
-        execSQL("UPDATE $TABLE_COLORS SET name='$newName' WHERE id=$id")
+        writableDatabase.execSQL("UPDATE $TABLE_COLORS SET name='$newName' WHERE id=$id")
     }
 
     fun removeColor(id: Int) {
-        removeRecord(TABLE_COLORS, id)
+        writableDatabase.delete(TABLE_COLORS, "id=?", arrayOf(id.toString()))
     }
 
     fun loadColors(): ArrayList<Color> {

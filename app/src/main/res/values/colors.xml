@@ -13,14 +13,15 @@
     <color name="green">#0F0</color>
     <color name="blue">#00F</color>
     <color name="gray">#989898</color>
-    <color name="white_transparent">#80FFFFFF</color>
-    <color name="gray_light">#BBB</color>
-    <color name="window_background_color">#FAFAFA</color>
+    <color name="whiteTransparent">#80FFFFFF</color>
+    <color name="grayLight">#BBB</color>
+    <color name="windowBackgroundColor">#FAFAFA</color>
+    <color name="googlePlayHeaderColor">#01875F</color>
 
     <!-- Button colors -->
-    <color name="disabled">@color/gray_light</color>
-    <color name="button_color">@color/colorPrimary</color>
-    <color name="button_color_transparent">@color/colorPrimaryTransparent</color>
+    <color name="disabled">@color/grayLight</color>
+    <color name="buttonColor">@color/colorPrimary</color>
+    <color name="buttonColorTransparent">@color/colorPrimaryTransparent</color>
 
     <!-- Pix image picker -->
     <color name="colorPrimaryPix">@color/colorPrimary</color>

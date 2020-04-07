@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.tools.Constants
 import com.chillibits.colorconverter.tools.setTint
 import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
 import com.mrgames13.jimdo.colorconverter.R
@@ -21,30 +22,30 @@ class ColorsAdapter(private val activity: ColorSelectionActivity, private val co
         return ViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = colors.size
+    override fun getItemCount() = colors.size
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
-        val color = colors[pos]
+        holder.run {
+            val color = colors[pos]
 
-        holder.itemView.item_color.setTint(color.color)
-        holder.itemView.item_color_name.text = color.name
+            itemView.itemColor.setTint(color.color)
+            itemView.itemColorName.text = color.name
 
-        val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
+            val hsv = FloatArray(3)
+            android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
 
-        holder.itemView.item_color_values.text = String.format(
-            activity.getString(R.string.color_summary),
-            color.red, color.green,
-            color.blue,
-            String.format("#%06X", 0xFFFFFF and color.color),
-            String.format("%.02f", hsv[0]),
-            String.format("%.02f", hsv[1]),
-            String.format("%.02f", hsv[2])
-        )
-        holder.itemView.isSelected = true
+            itemView.itemColorValues.text = String.format(
+                activity.getString(R.string.color_summary),
+                color.red, color.green,
+                color.blue,
+                String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and color.color),
+                String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
+                String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
+                String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+            )
+            itemView.isSelected = true
 
-        holder.itemView.setOnClickListener {
-            activity.selectedColor(color)
+            itemView.setOnClickListener { activity.selectedColor(color) }
         }
     }
 

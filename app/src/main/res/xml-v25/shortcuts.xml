@@ -11,12 +11,14 @@
         android:shortcutShortLabel="@string/pick_color_from_image"
         android:shortcutLongLabel="@string/shortcut_photo_long"
         android:shortcutDisabledMessage="@string/shortcut_disabled">
+
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.chillibits.colorconverter"
+            android:targetPackage="com.mrgames13.jimdo.colorconverter"
             android:targetClass="com.chillibits.colorconverter.ui.activity.MainActivity">
             <extra android:name="action" android:value="image" />
         </intent>
+
         <categories android:name="android.shortcut.app" />
     </shortcut>
 </shortcuts>

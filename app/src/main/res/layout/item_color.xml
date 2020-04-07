@@ -14,18 +14,18 @@
     android:padding="6dp">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/item_color"
+        android:id="@+id/itemColor"
         android:layout_width="55dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/simple_circle" />
 
     <TextView
-        android:id="@+id/item_color_name"
+        android:id="@+id/itemColorName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_color"
+        app:layout_constraintStart_toEndOf="@+id/itemColor"
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -35,12 +35,12 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/item_color_values"
+        android:id="@+id/itemColorValues"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/item_color"
+        app:layout_constraintStart_toEndOf="@+id/itemColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_color_name"
+        app:layout_constraintTop_toBottomOf="@+id/itemColorName"
         android:layout_marginStart="15dp"
         android:layout_marginTop="2dp"
         android:singleLine="true"
