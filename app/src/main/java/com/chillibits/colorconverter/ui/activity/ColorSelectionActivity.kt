@@ -23,7 +23,6 @@ import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class ColorSelectionActivity : AppCompatActivity() {
 
@@ -43,6 +42,7 @@ class ColorSelectionActivity : AppCompatActivity() {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    savedColors.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
                     insets
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

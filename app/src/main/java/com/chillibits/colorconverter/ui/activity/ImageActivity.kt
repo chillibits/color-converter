@@ -199,6 +199,7 @@ class ImageActivity : AppCompatActivity() {
         lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorLight, BlendModeCompat.SRC_IN)
         valueMutedColorDark = ct.getDarkMutedColor(bitmap)
         darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorDark, BlendModeCompat.SRC_IN)
+        image.visibility = View.VISIBLE
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

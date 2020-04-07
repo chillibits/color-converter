@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  ~ Copyright © Marc Auberer 2020. All rights reserved
+  -->
+
+<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Mon, 06 Apr 2020 23:35:31 +0100
+ Exported at: Tue, 07 Apr 2020 10:46:28 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -23,7 +27,7 @@
     <string name="copied_to_clipboard">Copié dans la presse-papiers</string>
     <string name="new_image">Choisir une nouvelle image</string>
     <string name="rate_app">Évaluer l\'app</string>
-    <string name="rate_m">Évaluez Color Converter dans Google Play avec 5 étoiles, si vous aimez l\'application!</string>
+    <string name="rate_m">Si vous appréciez notre application, veuillez passer une minute et noter Color Converter avec 5 étoiles sur Google Play!</string>
     <string name="share_app">Recommander l\'application</string>
     <string name="share">Recommander</string>
     <string name="share_m">Recommander Color Converter à vos amis!</string>
