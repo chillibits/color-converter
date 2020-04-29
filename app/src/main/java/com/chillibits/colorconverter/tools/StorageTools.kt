@@ -54,13 +54,11 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
         }
     }
 
-    fun updateColor(id: Int, newName: String) {
+    fun updateColor(id: Int, newName: String) =
         writableDatabase.execSQL("UPDATE $TABLE_COLORS SET name='$newName' WHERE id=$id")
-    }
 
-    fun removeColor(id: Int) {
+    fun removeColor(id: Int) =
         writableDatabase.delete(TABLE_COLORS, "id=?", arrayOf(id.toString()))
-    }
 
     fun loadColors(): ArrayList<Color> {
         try {

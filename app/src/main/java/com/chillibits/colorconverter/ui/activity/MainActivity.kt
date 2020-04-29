@@ -44,6 +44,7 @@ import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
     // Tools packages
     private val st = StorageTools(this)
     private val ct = ColorTools(this)
