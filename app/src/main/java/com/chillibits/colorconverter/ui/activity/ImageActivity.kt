@@ -201,14 +201,15 @@ class ImageActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
-            }
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) chooseImage()
         }
     }
 
     private fun chooseImage() {
-        Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
+        val options = Options.init()
+            .setExcludeVideos(true)
+            .setRequestCode(Constants.REQ_IMAGE_PICKER)
+        Pix.start(this, options)
     }
 
     private fun speakColor() {
