@@ -41,19 +41,30 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <SeekBar
-                android:id="@+id/colorRed"
+                android:id="@+id/colorAlpha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:max="@integer/rgb_max_value"
+                android:progress="255"
                 app:layout_constraintTop_toBottomOf="@+id/titleSelection"/>
+
+            <SeekBar
+                android:id="@+id/colorRed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:max="@integer/rgb_max_value"
+                app:layout_constraintTop_toBottomOf="@+id/colorAlpha"/>
 
             <SeekBar
                 android:id="@+id/colorGreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:max="@integer/rgb_max_value"
@@ -65,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="17dp"
                 android:max="@integer/rgb_max_value"
                 app:layout_constraintTop_toBottomOf="@+id/colorGreen"/>
 
@@ -76,7 +87,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/colorBlue"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:gravity="center"
+                    android:text="@string/a"
+                    android:textColor="@color/gray"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -118,7 +140,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/containerRgbLabels"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/displayAlpha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:gravity="center"
+                    android:text="@integer/default_rgb_value"
+                    android:textColor="@color/gray"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/displayRed"

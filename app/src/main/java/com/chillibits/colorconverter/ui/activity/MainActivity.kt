@@ -11,6 +11,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.LinearGradient
+import android.graphics.Shader
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
@@ -81,6 +85,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Initialize other layout components
+        val shape = ShapeDrawable(RectShape())
+        shape.paint.shader = LinearGradient(0f, 0f, 1000f, 0f, android.graphics.Color.TRANSPARENT, android.graphics.Color.BLACK, Shader.TileMode.CLAMP)
+        colorAlpha.progressDrawable = shape
+        colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP)
         colorRed.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
         colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
         colorGreen.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP)
