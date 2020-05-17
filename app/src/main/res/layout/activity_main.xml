@@ -46,8 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:max="@integer/rgb_max_value"
-                android:progress="255"
+                android:max="@integer/argb_max_value"
+                android:progress="@integer/argb_max_value"
+                android:progressDrawable="@drawable/alpha_progress"
                 app:layout_constraintTop_toBottomOf="@+id/titleSelection"/>
 
             <SeekBar
@@ -57,7 +58,7 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:max="@integer/rgb_max_value"
+                android:max="@integer/argb_max_value"
                 app:layout_constraintTop_toBottomOf="@+id/colorAlpha"/>
 
             <SeekBar
@@ -67,7 +68,7 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:max="@integer/rgb_max_value"
+                android:max="@integer/argb_max_value"
                 app:layout_constraintTop_toBottomOf="@+id/colorRed"/>
 
             <SeekBar
@@ -77,11 +78,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="17dp"
-                android:max="@integer/rgb_max_value"
+                android:max="@integer/argb_max_value"
                 app:layout_constraintTop_toBottomOf="@+id/colorGreen"/>
 
             <LinearLayout
-                android:id="@+id/containerRgbLabels"
+                android:id="@+id/containerArgbLabels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/colorBlue"
@@ -134,10 +135,10 @@
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/containerRgbValues"
+                android:id="@+id/containerArgbValues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/containerRgbLabels"
+                app:layout_constraintTop_toBottomOf="@+id/containerArgbLabels"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
@@ -149,7 +150,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/abel"
                     android:gravity="center"
-                    android:text="@integer/default_rgb_value"
+                    android:text="@integer/default_alpha_value"
                     android:textColor="@color/gray"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -195,7 +196,7 @@
                 android:id="@+id/colorContainerWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/containerRgbValues"
+                app:layout_constraintTop_toBottomOf="@+id/containerArgbValues"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -254,14 +255,14 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/displayRgb"
+                        android:id="@+id/displayArgb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@+id/displayName"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/abel"
-                        android:text="@string/rgb_"
+                        android:text="@string/argb_"
                         android:textColor="@android:color/white"
                         android:padding="7dp"
                         android:textSize="18sp" />
@@ -270,7 +271,7 @@
                         android:id="@+id/displayHex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/displayRgb"
+                        app:layout_constraintTop_toBottomOf="@+id/displayArgb"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/abel"
@@ -300,7 +301,7 @@
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/copyRgb"
+                        app:layout_constraintBottom_toTopOf="@+id/copyArgb"
                         app:srcCompat="@drawable/copy"
                         android:padding="3dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -308,7 +309,7 @@
                         android:focusable="true" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/copyRgb"
+                        android:id="@+id/copyArgb"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toBottomOf="@+id/copyName"
@@ -324,7 +325,7 @@
                         android:id="@+id/copyHex"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@+id/copyRgb"
+                        app:layout_constraintTop_toBottomOf="@+id/copyArgb"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toTopOf="@+id/copyHsv"
                         app:srcCompat="@drawable/copy"

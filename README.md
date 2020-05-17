@@ -12,7 +12,7 @@ More info on our homepage: [https://chillibits.com/color-converter](https://chil
 
 -   Pick colors
 -   Get name of picked colors
--   Display picked colors in different formats (RGB, HEX, HSV)
+-   Display picked colors in different formats (ARGB, HEX, HSV)
 -   Generate random colors
 -   Pick color from a photo / image
 -   Save / load colors

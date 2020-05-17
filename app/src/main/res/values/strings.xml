@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 11:28:56 +0100
+ Exported at: Sun, 17 May 2020 14:26:28 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -35,7 +35,7 @@
     <string name="press_color_to_apply">Tap on color to apply</string>
     <string name="rate">Rate</string>
     <string name="color_name">Name</string>
-    <string name="rgb_code">RGB code</string>
+    <string name="argb_code">ARGB code</string>
     <string name="hsv_code">HSV code</string>
     <!-- %s is a placeholder -->
     <string name="name_">Name: %s</string>

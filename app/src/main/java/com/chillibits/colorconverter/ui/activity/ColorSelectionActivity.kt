@@ -80,10 +80,9 @@ class ColorSelectionActivity : AppCompatActivity() {
     }
 
     private fun done() {
-        Intent().run {
+        setResult(Activity.RESULT_OK, Intent().apply {
             putExtra(Constants.EXTRA_COLOR, selectedColor!!.color)
-            setResult(Activity.RESULT_OK, this)
-        }
+        })
         finish()
     }
 

@@ -12,6 +12,7 @@ class Color: Comparable<Color> {
     var id: Int
     var name: String
     var color: Int
+    var alpha: Int
     var red: Int
     var green: Int
     var blue: Int
@@ -21,14 +22,15 @@ class Color: Comparable<Color> {
         this.id = id
         this.name = name
         this.color = color
+        this.alpha = android.graphics.Color.alpha(color)
         this.red = android.graphics.Color.red(color)
         this.green = android.graphics.Color.green(color)
         this.blue = android.graphics.Color.blue(color)
         if(creationTimestamp != -1L) this.creationTimestamp = creationTimestamp
     }
 
-    constructor(id: Int, name: String, red: Int, green: Int, blue: Int, creationTimestamp: Long):
-            this(id, name, android.graphics.Color.argb(255, red, green, blue), creationTimestamp)
+    constructor(id: Int, name: String, alpha: Int, red: Int, green: Int, blue: Int, creationTimestamp: Long):
+            this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
 
     override fun compareTo(@NotNull other: Color) = other.creationTimestamp.compareTo(creationTimestamp)
 }
