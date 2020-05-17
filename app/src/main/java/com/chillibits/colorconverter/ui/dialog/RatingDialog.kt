@@ -28,7 +28,7 @@ fun Context.showRatingDialog() {
         .setDescription(R.string.rate_m)
         .setPositiveText(R.string.rate)
         .setNegativeText(R.string.cancel)
-        .onPositive { _, _ ->
+        .onPositive {
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
             } catch (e: android.content.ActivityNotFoundException) {
