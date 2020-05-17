@@ -431,7 +431,7 @@ class MainActivity : AppCompatActivity() {
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
 
         // Update text colors
-        val textColor = ct.getTextColor(android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue))
+        val textColor = ct.getTextColor(this, android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue))
         displayName.setTextColor(textColor)
         displayArgb.setTextColor(textColor)
         displayHex.setTextColor(textColor)

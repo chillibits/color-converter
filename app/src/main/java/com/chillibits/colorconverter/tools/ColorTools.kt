@@ -4,12 +4,15 @@
 
 package com.chillibits.colorconverter.tools
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import com.mrgames13.jimdo.colorconverter.R
+
 
 class ColorTools(private var context: Context) {
     fun getVibrantColor(image: Bitmap): Int {
@@ -42,8 +45,16 @@ class ColorTools(private var context: Context) {
         return palette.getDarkMutedColor(ContextCompat.getColor(context, R.color.gray))
     }
 
-    fun getTextColor(color: Int): Int {
-        val sum = Color.red(color) + Color.green(color) + Color.blue(color)
-        return if (sum > 384) Color.BLACK else Color.WHITE
+    fun getTextColor(activity: Activity, color: Int): Int {
+        return if(Color.alpha(color) > 127) {
+            val sum = Color.red(color) + Color.green(color) + Color.blue(color)
+            if (sum > 384) Color.BLACK else Color.WHITE
+        } else {
+            return when (activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> Color.BLACK
+                Configuration.UI_MODE_NIGHT_YES -> Color.WHITE
+                else -> Color.BLACK
+            }
+        }
     }
 }

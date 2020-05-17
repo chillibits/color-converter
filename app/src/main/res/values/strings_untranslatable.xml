@@ -18,6 +18,6 @@
     <string name="hex_" translatable="false">HEX: #%s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>
-    <string name="color_summary" translatable="false">ARGB: %1$s, %2$s, %3$s, $4$s • HEX: #%4$s • HSV: %5$s, %6$s, %7$s</string>
+    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s)</string>
     <string name="hex_format" translatable="false">#%s</string>
 </resources>

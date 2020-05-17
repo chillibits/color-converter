@@ -23,7 +23,7 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if(oldVersion == 1 && newVersion == 2) {
-            db?.execSQL("ALTER TABLE $TABLE_COLORS ADD COLUMN alpha integer")
+            db?.execSQL("ALTER TABLE $TABLE_COLORS ADD COLUMN alpha integer DEFAULT 255")
         }
     }
 

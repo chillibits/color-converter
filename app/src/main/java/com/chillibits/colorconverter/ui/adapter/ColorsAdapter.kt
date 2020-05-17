@@ -39,7 +39,9 @@ class ColorsAdapter(
 
             itemView.itemColorValues.text = String.format(
                 activity.getString(R.string.color_summary),
-                color.red, color.green,
+                color.alpha,
+                color.red,
+                color.green,
                 color.blue,
                 Integer.toHexString(color.color).toUpperCase(),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
