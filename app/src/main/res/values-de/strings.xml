@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 14:26:29 +0100
+ Exported at: Sun, 17 May 2020 19:49:38 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">schließen</string>
@@ -63,4 +63,6 @@
     <string name="language_not_available">Sprache nicht verfügbar</string>
     <string name="initialization_failed">Initialisierung fehlgeschlagen</string>
     <string name="audio_muted">Bitte Lautstärke erhöhen</string>
+    <string name="transparency_warning_t">Transparenz-Warnung</string>
+    <string name="transparency_warning_m">Sie haben eine transparente oder fast transparente Farbe gewählt. Dies hat den Effekt, dass Farbwechsel nicht mehr sichtbar sind. Um die Kontrolle über die Farbe wiederzuerlangen, bewegen Sie den Transparenz-Regler nach rechts.</string>
 </resources>

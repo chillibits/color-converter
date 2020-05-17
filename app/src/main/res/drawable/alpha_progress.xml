@@ -5,8 +5,8 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:top="7.7dp"
-        android:bottom="7.7dp">
+        android:top="7.5dp"
+        android:bottom="7.5dp">
 
         <shape android:shape="rectangle">
             <gradient

@@ -34,6 +34,7 @@ import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.dialog.showInstantAppInstallDialog
 import com.chillibits.colorconverter.ui.dialog.showRatingDialog
 import com.chillibits.colorconverter.ui.dialog.showRecommendationDialog
+import com.chillibits.colorconverter.ui.dialog.showTransparencyWarning
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     // Variables
     private var initialized = false
+    private var showTransparencyWarning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +97,10 @@ class MainActivity : AppCompatActivity() {
                     val value = progress.toString()
                     displayAlpha.text = value
                     updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorRed.progress, colorGreen.progress, colorBlue.progress, -1))
+                }
+                if((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
+                    showTransparencyWarning = !showTransparencyWarning
+                    invalidateOptionsMenu()
                 }
             }
         })
@@ -144,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
         }
         copyHex.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hex_code), String.format(getString(R.string.hex_format), Integer.toHexString(selectedColor.color).toUpperCase()))
+            copyTextToClipboard(getString(R.string.hex_code), "%08X".format(selectedColor.color).toUpperCase())
         }
         copyHsv.setOnClickListener {
             copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
@@ -169,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
         displayArgb.text = String.format(getString(R.string.argb_), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
-        displayHex.text = String.format(getString(R.string.hex_), Integer.toHexString(selectedColor.color).toUpperCase())
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase())
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
@@ -213,11 +219,13 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         if (InstantApps.isInstantApp(this)) menu?.findItem(R.id.action_install)?.isVisible = true
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) menu?.findItem(R.id.action_done)?.isVisible = true
+        menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            R.id.action_transparency -> showTransparencyWarning()
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
@@ -309,7 +317,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
-        hexValue.setText(String.format(getString(R.string.hex_format), Integer.toHexString(selectedColor.color).toUpperCase()))
+        hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase()))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -424,7 +432,7 @@ class MainActivity : AppCompatActivity() {
         // Update RGB TextView
         displayArgb.text = String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
         // Update HEX TextView
-        displayHex.text = String.format(getString(R.string.hex_), Integer.toHexString(color.color).toUpperCase())
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)

@@ -43,7 +43,7 @@ class ColorsAdapter(
                 color.red,
                 color.green,
                 color.blue,
-                Integer.toHexString(color.color).toUpperCase(),
+                "%08X".format(color.color).toUpperCase(),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[2])

@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 14:26:29 +0100
+ Exported at: Sun, 17 May 2020 19:49:38 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -63,4 +63,6 @@
     <string name="language_not_available">Idioma no disponible</string>
     <string name="initialization_failed">Inicialización falló</string>
     <string name="audio_muted">Por favor aumente el volumen</string>
+    <string name="transparency_warning_t">Advertencia de transparencia</string>
+    <string name="transparency_warning_m">Seleccionó un color transparente o casi transparente. Esto tiene el efecto de que los cambios de color ya no son visibles. Para recuperar el control sobre el color, por favor mueve el deslizador de transparencia a la derecha.</string>
 </resources>
