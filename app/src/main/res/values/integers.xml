@@ -4,6 +4,7 @@
   -->
 
 <resources>
-    <integer name="rgb_max_value">255</integer>
+    <integer name="argb_max_value">255</integer>
     <integer name="default_rgb_value">0</integer>
+    <integer name="default_alpha_value">255</integer>
 </resources>

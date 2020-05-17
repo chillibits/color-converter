@@ -166,8 +166,7 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun applyRotation(source: Bitmap, path: String): Bitmap? {
-        val ei = ExifInterface(path)
-        return when (ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+        return when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
             ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
             ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
@@ -176,9 +175,10 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+        return Matrix().run {
+            postRotate(angle)
+            Bitmap.createBitmap(source, 0, 0, source.width, source.height, this, true)
+        }
     }
 
     private fun applyImage(bitmap: Bitmap) {
@@ -200,15 +200,15 @@ class ImageActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
-            }
-        }
+        if(requestCode == PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            chooseImage()
     }
 
     private fun chooseImage() {
-        Pix.start(this, Options.init().setRequestCode(Constants.REQ_IMAGE_PICKER))
+        val options = Options.init()
+            .setExcludeVideos(true)
+            .setRequestCode(Constants.REQ_IMAGE_PICKER)
+        Pix.start(this, options)
     }
 
     private fun speakColor() {

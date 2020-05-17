@@ -6,16 +6,18 @@
 <resources>
     <string name="app_name" translatable="false">Color Converter</string>
     <string name="title_image" translatable="false">Color Converter Image Picker</string>
+    <string name="a" translatable="false">A</string>
     <string name="r" translatable="false">R</string>
     <string name="g" translatable="false">G</string>
     <string name="b" translatable="false">B</string>
     <string name="h" translatable="false">H</string>
     <string name="s" translatable="false">S</string>
     <string name="v" translatable="false">V</string>
-    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
-    <string name="rgb_clipboard" translatable="false">rgb(%1$s, %2$s, %3$s)</string>
-    <string name="hex_" translatable="false">HEX: %s</string>
+    <string name="argb_" translatable="false">ARGB: %1$s, %2$s, %3$s, %4$s</string>
+    <string name="argb_clipboard" translatable="false">argb(%1$s, %2$s, %3$s, %4$s)</string>
+    <string name="hex_" translatable="false">HEX: #%s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>
-    <string name="color_summary" translatable="false">RGB: %1$s, %2$s, %3$s • HEX: %4$s • HSV: %5$s, %6$s, %7$s</string>
+    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s)</string>
+    <string name="hex_format" translatable="false">#%s</string>
 </resources>

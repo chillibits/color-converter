@@ -23,20 +23,20 @@
         android:orientation="vertical"/>
 
     <TextView
-        android:id="@+id/flagColorRgb"
+        android:id="@+id/flagColorArgb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/flagColor"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/white"
-        tools:text="@string/rgb_"/>
+        tools:text="@string/argb_"/>
 
     <TextView
         android:id="@+id/flagColorHex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/flagColorRgb"
+        app:layout_constraintTop_toBottomOf="@+id/flagColorArgb"
         app:layout_constraintStart_toEndOf="@+id/flagColor"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/white"

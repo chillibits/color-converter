@@ -15,12 +15,12 @@ import kotlinx.android.synthetic.main.flag_layout.view.*
 
 @SuppressLint("ViewConstructor")
 class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
-    override fun onRefresh(colorEnvelope: ColorEnvelope?) {
-        flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colorEnvelope!!.color, BlendModeCompat.SRC_IN)
-        flagColorRgb.text = String.format(context.getString(R.string.rgb_), colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue)
-        flagColorHex.text = String.format(context.getString(R.string.hex_), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and colorEnvelope.color))
+    override fun onRefresh(envelope: ColorEnvelope?) {
+        flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(envelope!!.color, BlendModeCompat.SRC_IN)
+        flagColorArgb.text = String.format(context.getString(R.string.argb_), envelope.color.alpha, envelope.color.red, envelope.color.green, envelope.color.blue)
+        flagColorHex.text = String.format(context.getString(R.string.hex_), "%08X".format(envelope.color).toUpperCase())
         val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(colorEnvelope.color.red, colorEnvelope.color.green, colorEnvelope.color.blue, hsv)
+        android.graphics.Color.RGBToHSV(envelope.color.red, envelope.color.green, envelope.color.blue, hsv)
         flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
     }
 }

@@ -11,10 +11,10 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
-        versionCode 212
-        versionName "2.1.2"
+        versionCode 2200
+        versionName "2.2.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,26 +36,28 @@ android {
 dependencies {
     // base dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
+    implementation 'androidx.core:core-ktx:1.3.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta5'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
     implementation 'com.google.android.play:core:1.7.2'
-    implementation 'androidx.palette:palette:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+    // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.fxn769:pix:1.4.4'
+    implementation 'com.fxn769:pix:1.5.3'
     implementation 'com.github.skydoves:colorpickerview:2.1.6'
-    implementation 'com.mikepenz:iconics-core:5.0.1'
+    implementation 'com.mikepenz:iconics-core:5.0.3'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.6-kotlin@aar'
-    implementation 'com.mikepenz:fastadapter:5.0.0'
-    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    implementation 'com.mikepenz:fastadapter:5.0.2'
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.1'
 
     // dependencies for testing
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-beta01'
 }
 
 // Task for downloading all translation files

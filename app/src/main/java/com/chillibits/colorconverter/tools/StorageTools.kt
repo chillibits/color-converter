@@ -15,14 +15,16 @@ import java.util.*
 // Constants
 const val TABLE_COLORS: String = "Colors"
 
-class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 1) {
+class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 2) {
     override fun onCreate(db: SQLiteDatabase?) {
         // Create tables
-        db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer);")
+        db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer, alpha integer);")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        // Nothing to upgrade
+        if(oldVersion == 1 && newVersion == 2) {
+            db?.execSQL("ALTER TABLE $TABLE_COLORS ADD COLUMN alpha integer DEFAULT 255")
+        }
     }
 
     // ------------------------------------ Shared Preference --------------------------------------
@@ -44,6 +46,7 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
             val values = ContentValues()
             values.put("id", loadColors().size)
             values.put("name", color.name)
+            values.put("alpha", color.alpha)
             values.put("red", color.red)
             values.put("green", color.green)
             values.put("blue", color.blue)
@@ -54,13 +57,11 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
         }
     }
 
-    fun updateColor(id: Int, newName: String) {
+    fun updateColor(id: Int, newName: String) =
         writableDatabase.execSQL("UPDATE $TABLE_COLORS SET name='$newName' WHERE id=$id")
-    }
 
-    fun removeColor(id: Int) {
+    fun removeColor(id: Int) =
         writableDatabase.delete(TABLE_COLORS, "id=?", arrayOf(id.toString()))
-    }
 
     fun loadColors(): ArrayList<Color> {
         try {
@@ -75,6 +76,7 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
                     Color(
                         cursor.getInt(0),
                         cursor.getString(1),
+                        cursor.getInt(6),
                         cursor.getInt(2),
                         cursor.getInt(3),
                         cursor.getInt(4),

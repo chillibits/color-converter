@@ -34,6 +34,7 @@ import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.dialog.showInstantAppInstallDialog
 import com.chillibits.colorconverter.ui.dialog.showRatingDialog
 import com.chillibits.colorconverter.ui.dialog.showRecommendationDialog
+import com.chillibits.colorconverter.ui.dialog.showTransparencyWarning
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,6 +45,7 @@ import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
     // Tools packages
     private val st = StorageTools(this)
     private val ct = ColorTools(this)
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     // Variables
     private var initialized = false
+    private var showTransparencyWarning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Initialize other layout components
+        colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP)
         colorRed.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
         colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
         colorGreen.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP)
@@ -87,12 +91,25 @@ class MainActivity : AppCompatActivity() {
         colorBlue.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
         colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
 
+        colorAlpha.setOnSeekBarChangeListener(object: SimpleOnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val value = progress.toString()
+                    displayAlpha.text = value
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorRed.progress, colorGreen.progress, colorBlue.progress, -1))
+                }
+                if((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
+                    showTransparencyWarning = !showTransparencyWarning
+                    invalidateOptionsMenu()
+                }
+            }
+        })
         colorRed.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val value = progress.toString()
                     displayRed.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorGreen.progress, colorBlue.progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, progress, colorGreen.progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -101,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayGreen.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorRed.progress, progress, colorBlue.progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, colorRed.progress, progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -110,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayBlue.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorRed.progress, colorGreen.progress, progress, -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, colorRed.progress, colorGreen.progress, progress, -1))
                 }
             }
         })
@@ -129,11 +146,11 @@ class MainActivity : AppCompatActivity() {
         copyName.setOnClickListener {
             copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
         }
-        copyRgb.setOnClickListener {
-            copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard), selectedColor.red, selectedColor.green, selectedColor.blue))
+        copyArgb.setOnClickListener {
+            copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
         }
         copyHex.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hex_code), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
+            copyTextToClipboard(getString(R.string.hex_code), "%08X".format(selectedColor.color).toUpperCase())
         }
         copyHsv.setOnClickListener {
             copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
@@ -157,8 +174,8 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize views
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
-        displayRgb.text = String.format(getString(R.string.rgb_), selectedColor.red, selectedColor.green, selectedColor.blue)
-        displayHex.text = String.format(getString(R.string.hex_), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
+        displayArgb.text = String.format(getString(R.string.argb_), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase())
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
@@ -202,11 +219,13 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         if (InstantApps.isInstantApp(this)) menu?.findItem(R.id.action_install)?.isVisible = true
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) menu?.findItem(R.id.action_done)?.isVisible = true
+        menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            R.id.action_transparency -> showTransparencyWarning()
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
@@ -298,7 +317,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
-        hexValue.setText(String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and selectedColor.color))
+        hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase()))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -308,9 +327,10 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(hex.length == 4) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
+                if(hex.length == 5) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
                 val tmp = selectedColor
                 tmp.color = android.graphics.Color.parseColor(hex)
+                tmp.alpha = tmp.color.alpha
                 tmp.red = tmp.color.red
                 tmp.green = tmp.color.green
                 tmp.blue = tmp.color.blue
@@ -326,10 +346,10 @@ class MainActivity : AppCompatActivity() {
                 Selection.setSelection(hexValue.text, hexValue.text.length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 7 || s.toString().length == 4
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 9 || s.toString().length == 5
             }
         }
-        hexValue.setSelection(1, 7)
+        hexValue.setSelection(1, 9)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -357,6 +377,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 val tmp = selectedColor
                 tmp.color = android.graphics.Color.HSVToColor(hsvSelected)
+                tmp.alpha = tmp.color.alpha
                 tmp.red = tmp.color.red
                 tmp.green = tmp.color.green
                 tmp.blue = tmp.color.blue
@@ -381,16 +402,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun randomizeColor() {
         val random = Random(System.currentTimeMillis())
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, random.nextInt(256), random.nextInt(256), random.nextInt(256), -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, random.nextInt(256), random.nextInt(256), random.nextInt(256), -1))
     }
 
     private fun chooseColor() {
-        val colorPicker = ColorPickerDialog(this, android.graphics.Color.parseColor(displayHex.text.toString().substring(5)))
-        colorPicker.alphaSliderVisible = false
+        val colorPicker = ColorPickerDialog(this, selectedColor.color)
+        colorPicker.alphaSliderVisible = true
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
-            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.red(color), android.graphics.Color.green(color), android.graphics.Color.blue(color), 0))
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, 0))
         }
         colorPicker.show()
     }
@@ -403,40 +424,47 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDisplays(color: Color) {
         // Update all views that are not animated
+        displayAlpha.text = color.alpha.toString()
         displayRed.text = color.red.toString()
         displayGreen.text = color.green.toString()
         displayBlue.text = color.blue.toString()
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
         // Update RGB TextView
-        displayRgb.text = String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
+        displayArgb.text = String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
         // Update HEX TextView
-        displayHex.text = String.format(getString(R.string.hex_), String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and color.color))
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
 
         // Update text colors
-        val textColor = ct.getTextColor(android.graphics.Color.rgb(color.red, color.green, color.blue))
+        val textColor = ct.getTextColor(this, android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue))
         displayName.setTextColor(textColor)
-        displayRgb.setTextColor(textColor)
+        displayArgb.setTextColor(textColor)
         displayHex.setTextColor(textColor)
         displayHsv.setTextColor(textColor)
         copyName.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        copyRgb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
+        copyArgb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
         copyHex.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
         copyHsv.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
         saveColor.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
         loadColor.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
 
         // Update animated views
-        ValueAnimator.ofInt(colorRed.progress, color.red).run {
+        ValueAnimator.ofInt(colorAlpha.progress, color.alpha).run {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator ->
-                colorRed.progress = valueAnimator.animatedValue as Int
+                colorAlpha.progress = valueAnimator.animatedValue as Int
                 colorContainer.setBackgroundColor(color.color)
             }
             doOnEnd { selectedColor = color }
+            start()
+        }
+
+        ValueAnimator.ofInt(colorRed.progress, color.red).run {
+            duration = Constants.COLOR_ANIMATION_DURATION
+            addUpdateListener { valueAnimator -> colorRed.progress = valueAnimator.animatedValue as Int }
             start()
         }
 

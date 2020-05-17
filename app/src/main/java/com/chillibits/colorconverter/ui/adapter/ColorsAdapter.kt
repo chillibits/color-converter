@@ -15,10 +15,13 @@ import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
 
-class ColorsAdapter(private val activity: ColorSelectionActivity, private val colors: ArrayList<Color>) : RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
+class ColorsAdapter(
+    private val activity: ColorSelectionActivity,
+    private val colors: ArrayList<Color>
+): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView: View = LayoutInflater.from(activity).inflate(R.layout.item_color, parent, false)
+        val itemView = LayoutInflater.from(activity).inflate(R.layout.item_color, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -36,9 +39,11 @@ class ColorsAdapter(private val activity: ColorSelectionActivity, private val co
 
             itemView.itemColorValues.text = String.format(
                 activity.getString(R.string.color_summary),
-                color.red, color.green,
+                color.alpha,
+                color.red,
+                color.green,
                 color.blue,
-                String.format(Constants.HEX_FORMAT_STRING, 0xFFFFFF and color.color),
+                "%08X".format(color.color).toUpperCase(),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[2])

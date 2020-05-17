@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Tue, 07 Apr 2020 19:09:59 +0100
+ Exported at: Sun, 17 May 2020 19:49:38 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">schließen</string>
@@ -35,7 +35,7 @@
     <string name="press_color_to_apply">Auf Farbe tippen zum Bestätigen</string>
     <string name="rate">Bewerten</string>
     <string name="color_name">Name</string>
-    <string name="rgb_code">RGB-Code</string>
+    <string name="argb_code">ARGB-Code</string>
     <string name="hsv_code">HSV-Code</string>
     <!-- %s is a placeholder -->
     <string name="name_">Name: %s</string>
@@ -63,4 +63,6 @@
     <string name="language_not_available">Sprache nicht verfügbar</string>
     <string name="initialization_failed">Initialisierung fehlgeschlagen</string>
     <string name="audio_muted">Bitte Lautstärke erhöhen</string>
+    <string name="transparency_warning_t">Transparenz-Warnung</string>
+    <string name="transparency_warning_m">Sie haben eine transparente oder fast transparente Farbe gewählt. Dies hat den Effekt, dass Farbwechsel nicht mehr sichtbar sind. Um die Kontrolle über die Farbe wiederzuerlangen, bewegen Sie den Transparenz-Regler nach rechts.</string>
 </resources>

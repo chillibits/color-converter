@@ -16,6 +16,6 @@
         android:layout_marginEnd="20dp"
         android:inputType="textCapCharacters"
         android:hint="@string/hex_code"
-        android:maxLength="7"
+        android:maxLength="9"
         android:importantForAutofill="no"/>
 </FrameLayout>

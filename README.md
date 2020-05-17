@@ -1,6 +1,7 @@
 ## Color Converter
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb98dbe7ca6d46af8b385dadd618c446)](https://app.codacy.com/gh/ChilliBits/color-converter?utm_source=github.com&utm_medium=referral&utm_content=ChilliBits/color-converter&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/ChilliBits/color-converter.svg?branch=master)](https://travis-ci.com/ChilliBits/color-converter)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/chillibits/color-converter?include_prereleases)
 
 Color Converter is an Android app to pick, display and convert colors.
 
@@ -12,7 +13,7 @@ More info on our homepage: [https://chillibits.com/color-converter](https://chil
 
 -   Pick colors
 -   Get name of picked colors
--   Display picked colors in different formats (RGB, HEX, HSV)
+-   Display picked colors in different formats (ARGB, HEX, HSV)
 -   Generate random colors
 -   Pick color from a photo / image
 -   Save / load colors

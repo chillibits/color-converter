@@ -17,6 +17,13 @@
         android:visible="false"/>
 
     <item
+        android:id="@+id/action_transparency"
+        android:title="@string/transparency_warning_t"
+        android:icon="@drawable/warning_white"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
         android:id="@+id/action_rate"
         android:title="@string/rate_app"
         android:icon="@drawable/star_outline"

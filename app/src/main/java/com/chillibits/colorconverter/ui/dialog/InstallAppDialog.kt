@@ -23,6 +23,7 @@ fun Activity.showInstantAppInstallDialog(@StringRes message: Int) {
     MaterialStyledDialog.Builder(this)
         .setStyle(Style.HEADER_WITH_ICON)
         .setHeaderColorInt(ContextCompat.getColor(this, R.color.googlePlayHeaderColor))
+        .withIconAnimation(false)
         .setIcon(IconicsDrawable(this, MaterialDesignIconic.Icon.gmi_google_play).apply {
             colorInt = Color.WHITE
         })
@@ -30,7 +31,7 @@ fun Activity.showInstantAppInstallDialog(@StringRes message: Int) {
         .setDescription(message)
         .setPositiveText(R.string.install_app)
         .setNegativeText(R.string.cancel)
-        .onPositive { _, _ ->
+        .onPositive {
             Intent(this, MainActivity::class.java).run {
                 putExtra(Constants.EXTRA_INSTANT_INSTALLED, true)
                 InstantApps.showInstallPrompt(this@showInstantAppInstallDialog, this, Constants.REQ_INSTANT_INSTALL, "")

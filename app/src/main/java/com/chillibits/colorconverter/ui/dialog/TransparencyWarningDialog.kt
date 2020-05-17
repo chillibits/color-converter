@@ -5,7 +5,6 @@
 package com.chillibits.colorconverter.ui.dialog
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog
@@ -15,23 +14,16 @@ import com.mikepenz.iconics.typeface.library.materialdesigniconic.MaterialDesign
 import com.mikepenz.iconics.utils.colorInt
 import com.mrgames13.jimdo.colorconverter.R
 
-fun Context.showRecommendationDialog() {
+fun Context.showTransparencyWarning() {
     MaterialStyledDialog.Builder(this)
         .setStyle(Style.HEADER_WITH_ICON)
         .setHeaderColorInt(ContextCompat.getColor(this, R.color.colorPrimary))
         .withIconAnimation(false)
-        .setIcon(IconicsDrawable(this, MaterialDesignIconic.Icon.gmi_share).apply {
+        .setIcon(IconicsDrawable(this, MaterialDesignIconic.Icon.gmi_colorize).apply {
             colorInt = Color.WHITE
         })
-        .setTitle(R.string.share)
-        .setDescription(R.string.share_m)
-        .setPositiveText(R.string.share)
-        .setNegativeText(R.string.cancel)
-        .onPositive {
-            startActivity(Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.recommend_string))
-                type = "text/plain"
-            })
-        }
+        .setTitle(R.string.transparency_warning_t)
+        .setDescription(R.string.transparency_warning_m)
+        .setPositiveText(R.string.ok)
         .show()
 }
