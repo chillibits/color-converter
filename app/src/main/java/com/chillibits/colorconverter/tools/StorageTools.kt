@@ -44,7 +44,7 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
     fun addColor(color: Color) {
         try {
             val values = ContentValues()
-            values.put("id", loadColors().size)
+            values.put("id", color.color)
             values.put("name", color.name)
             values.put("alpha", color.alpha)
             values.put("red", color.red)
