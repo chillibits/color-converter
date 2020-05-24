@@ -204,15 +204,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Check if app was installed
-        if (intent.getBooleanExtra(Constants.EXTRA_INSTANT_INSTALLED, false)) {
-            AlertDialog.Builder(this)
-                .setTitle(R.string.instant_installed_t)
-                .setMessage(R.string.instant_installed_m)
-                .setPositiveButton(R.string.ok, null)
-                .show()
-        } else if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/")) {
+        if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
             pickColorFromImage(intent.getParcelableExtra(Intent.EXTRA_STREAM))
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

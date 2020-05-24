@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Sat, 23 May 2020 13:09:43 +0100
+ Exported at: Sun, 24 May 2020 19:35:31 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -55,8 +55,6 @@
     <string name="install_app">Instalar aplicación</string>
     <string name="instant_install_m">Esta característica no es compatible con la versión de la aplicación instantánea. Instala la aplicación para usar esta función.</string>
     <string name="install_app_download">Instale esta aplicación para disfrutar de todas las funciones y también las funciones que no podemos admitir en la versión de la aplicación instantánea.</string>
-    <string name="instant_installed_t">Aplicación instalada</string>
-    <string name="instant_installed_m">Gracias por instalar nuestra aplicación. Toque Aceptar para continuar.</string>
     <string name="approve_permissions">La característica necesita los permisos para funcionar.</string>
     <string name="message_to_drag_up">Arrastra las imágenes hacia arriba para la galería</string>
     <string name="speak_color">Hablar color</string>

@@ -16,7 +16,6 @@ object Constants {
     const val EXTRA_ACTION = "action"
     const val EXTRA_CHOOSE_COLOR = "ChooseColor"
     const val EXTRA_IMAGE_URI = "ImageUri"
-    const val EXTRA_INSTANT_INSTALLED = "InstantInstalled"
     const val EXTRA_COLOR = "Color"
     const val EXTRA_SELECTED_COLOR = "SelectedColor"
 
