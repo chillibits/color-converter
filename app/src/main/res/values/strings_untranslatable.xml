@@ -15,6 +15,9 @@
     <string name="v" translatable="false">V</string>
     <string name="argb_" translatable="false">ARGB: %1$s, %2$s, %3$s, %4$s</string>
     <string name="argb_clipboard" translatable="false">argb(%1$s, %2$s, %3$s, %4$s)</string>
+    <string name="format_argb" translatable="false">argb(0-255, 0-255, 0-255, 0-255)</string>
+    <string name="rgba_clipboard" translatable="false">rgba(%1$s, %2$s, %3$s, %4$s)</string>
+    <string name="format_rgba" translatable="false">rgba(0-255, 0-255, 0-255, 0-1)</string>
     <string name="hex_" translatable="false">HEX: #%s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>

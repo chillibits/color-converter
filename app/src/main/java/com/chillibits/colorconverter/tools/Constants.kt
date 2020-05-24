@@ -23,4 +23,7 @@ object Constants {
     const val COLOR_ANIMATION_DURATION = 500L
     const val NAME_SELECTED_COLOR = "Selection"
     const val HSV_FORMAT_STRING = "%.02f"
+    const val SHARED_PREFERENCES_NAME = "com.mrgames13.jimdo.colorconverter_preferences"
+    const val ARGB_REMEMBER = "ArgbRemember"
+    const val ARGB_REMEMBER_SELECTION = "ArgbRememberSelection"
 }

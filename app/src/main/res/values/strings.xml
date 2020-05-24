@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Sun, 24 May 2020 19:35:30 +0100
+ Exported at: Sun, 24 May 2020 20:37:51 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -63,4 +63,5 @@
     <string name="audio_muted">Please increase volume</string>
     <string name="transparency_warning_t">Transparancy warning</string>
     <string name="transparency_warning_m">You selected a transparent or almost transparent color. This has the effect, that color changes are not visible any more. To regain control over the color, please move the transparency slider to the right.</string>
+    <string name="remember_selection">Remember selection</string>
 </resources>

@@ -30,12 +30,12 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
     // ------------------------------------ Shared Preference --------------------------------------
 
     fun putBoolean(name: String, value: Boolean) {
-        val prefs = context.getSharedPreferences("com.mrgames13.jimdo.colorconverter_preferences", Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         prefs.edit().putBoolean(name, value).apply()
     }
 
     fun getBoolean(name: String, default: Boolean = false): Boolean {
-        val prefs = context.getSharedPreferences("com.mrgames13.jimdo.colorconverter_preferences", Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         return prefs.getBoolean(name, default)
     }
 
