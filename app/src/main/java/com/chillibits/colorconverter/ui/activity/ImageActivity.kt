@@ -91,7 +91,9 @@ class ImageActivity : AppCompatActivity() {
             selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
-        image.flagView = DetailedFlagView(this, R.layout.flag_layout)
+        image.flagView = DetailedFlagView(this, R.layout.flag_layout).apply {
+            isFlipAble = false
+        }
 
         selectedColor.setOnClickListener { finishWithResult(valueSelectedColor) }
         vibrantColor.setOnClickListener { finishWithResult(valueVibrantColor) }

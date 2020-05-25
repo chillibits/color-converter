@@ -6,8 +6,6 @@ package com.chillibits.colorconverter.ui.activity
 
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -31,10 +29,7 @@ import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.*
-import com.chillibits.colorconverter.ui.dialog.showInstantAppInstallDialog
-import com.chillibits.colorconverter.ui.dialog.showRatingDialog
-import com.chillibits.colorconverter.ui.dialog.showRecommendationDialog
-import com.chillibits.colorconverter.ui.dialog.showTransparencyWarning
+import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -147,7 +142,18 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
         }
         copyArgb.setOnClickListener {
-            copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
+            // Show multiple choice dialog
+            if(!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
+                showArgbExportDialog(selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
+            } else {
+                if(st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
+                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard),
+                        selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
+                } else {
+                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard),
+                        selectedColor.red, selectedColor.green, selectedColor.blue, (selectedColor.alpha / 255.0).round(3)))
+                }
+            }
         }
         copyHex.setOnClickListener {
             copyTextToClipboard(getString(R.string.hex_code), "%08X".format(selectedColor.color).toUpperCase())
@@ -204,15 +210,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Check if app was installed
-        if (intent.getBooleanExtra(Constants.EXTRA_INSTANT_INSTALLED, false)) {
-            AlertDialog.Builder(this)
-                .setTitle(R.string.instant_installed_t)
-                .setMessage(R.string.instant_installed_m)
-                .setPositiveButton(R.string.ok, null)
-                .show()
-        } else if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/")) {
+        if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
             pickColorFromImage(intent.getParcelableExtra(Intent.EXTRA_STREAM))
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -414,12 +413,6 @@ class MainActivity : AppCompatActivity() {
             updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, 0))
         }
         colorPicker.show()
-    }
-
-    private fun copyTextToClipboard(key: String, value: String) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.setPrimaryClip(ClipData.newPlainText(key, value))
-        Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
     private fun updateDisplays(color: Color) {

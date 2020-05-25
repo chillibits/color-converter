@@ -33,7 +33,6 @@ fun Activity.showInstantAppInstallDialog(@StringRes message: Int) {
         .setNegativeText(R.string.cancel)
         .onPositive {
             Intent(this, MainActivity::class.java).run {
-                putExtra(Constants.EXTRA_INSTANT_INSTALLED, true)
                 InstantApps.showInstallPrompt(this@showInstantAppInstallDialog, this, Constants.REQ_INSTANT_INSTALL, "")
             }
         }

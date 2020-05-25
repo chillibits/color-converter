@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 19:49:38 +0100
+ Exported at: Mon, 25 May 2020 18:30:24 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">schließen</string>
@@ -55,8 +55,6 @@
     <string name="install_app">App installieren</string>
     <string name="instant_install_m">Diese Funktion wird nicht in der Instant-Version der App unterstützt. Bitte installieren Sie die App, um diese Funktion zu nutzen.</string>
     <string name="install_app_download">Installieren Sie diese App um alle Funktionen zu genießen, auch Funktionen, die wir in der Instant-Version der App nicht unterstützen.</string>
-    <string name="instant_installed_t">App installiert</string>
-    <string name="instant_installed_m">Vielen Dank dass Sie unsere App installiert haben. Tippen Sie auf OK um fortzufahren.</string>
     <string name="approve_permissions">Diese Berechtigungen werden benötigt, damit dieses Feature funktioniert.</string>
     <string name="message_to_drag_up">Für Galerie Bilder hochwischen</string>
     <string name="speak_color">Farbe sprechen</string>
@@ -65,4 +63,5 @@
     <string name="audio_muted">Bitte Lautstärke erhöhen</string>
     <string name="transparency_warning_t">Transparenz-Warnung</string>
     <string name="transparency_warning_m">Sie haben eine transparente oder fast transparente Farbe gewählt. Dies hat den Effekt, dass Farbwechsel nicht mehr sichtbar sind. Um die Kontrolle über die Farbe wiederzuerlangen, bewegen Sie den Transparenz-Regler nach rechts.</string>
+    <string name="remember_selection">Auswahl speichern</string>
 </resources>

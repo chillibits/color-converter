@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 19:49:38 +0100
+ Exported at: Mon, 25 May 2020 18:30:24 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -55,8 +55,6 @@
     <string name="install_app">Instalar aplicación</string>
     <string name="instant_install_m">Esta característica no es compatible con la versión de la aplicación instantánea. Instala la aplicación para usar esta función.</string>
     <string name="install_app_download">Instale esta aplicación para disfrutar de todas las funciones y también las funciones que no podemos admitir en la versión de la aplicación instantánea.</string>
-    <string name="instant_installed_t">Aplicación instalada</string>
-    <string name="instant_installed_m">Gracias por instalar nuestra aplicación. Toque Aceptar para continuar.</string>
     <string name="approve_permissions">La característica necesita los permisos para funcionar.</string>
     <string name="message_to_drag_up">Arrastra las imágenes hacia arriba para la galería</string>
     <string name="speak_color">Hablar color</string>
@@ -65,4 +63,5 @@
     <string name="audio_muted">Por favor aumente el volumen</string>
     <string name="transparency_warning_t">Advertencia de transparencia</string>
     <string name="transparency_warning_m">Seleccionó un color transparente o casi transparente. Esto tiene el efecto de que los cambios de color ya no son visibles. Para recuperar el control sobre el color, por favor mueve el deslizador de transparencia a la derecha.</string>
+    <string name="remember_selection">Recuerde la selección</string>
 </resources>

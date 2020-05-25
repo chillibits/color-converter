@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 19:49:37 +0100
+ Exported at: Mon, 25 May 2020 18:30:24 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -55,8 +55,6 @@
     <string name="install_app">Installer l\'application</string>
     <string name="instant_install_m">Cette fonctionnalité n\'est pas prise en charge dans la version de l\'application instantanée. Installez l\'application pour utiliser cette fonctionnalité, s\'il vous plaît.</string>
     <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
-    <string name="instant_installed_t">Application installée</string>
-    <string name="instant_installed_m">Merci d\'avoir installé notre application. Appuyez sur OK pour continuer.</string>
     <string name="approve_permissions">La fonctionnalité a besoin des autorisations pour fonctionner.</string>
     <string name="message_to_drag_up">Glissez les images en haut pour entrer la galerie</string>
     <string name="speak_color">Parler couleur</string>
@@ -65,4 +63,5 @@
     <string name="audio_muted">Augmentez le volume, s\'il vous plaît</string>
     <string name="transparency_warning_t">Alerte à la transparence</string>
     <string name="transparency_warning_m">Vous avez choisi une couleur transparente ou presque transparente. Cela a pour effet que les changements de couleur ne sont plus visibles. Pour reprendre le contrôle de la couleur, veuillez déplacer le curseur de transparence vers la droite.</string>
+    <string name="remember_selection">Se souvenir de la sélection</string>
 </resources>

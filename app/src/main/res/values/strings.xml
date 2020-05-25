@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Sun, 17 May 2020 19:49:37 +0100
+ Exported at: Mon, 25 May 2020 18:30:24 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -55,8 +55,6 @@
     <string name="install_app">Install app</string>
     <string name="instant_install_m">This feature is not supported in the instant app version. Please install the app to use this feature.</string>
     <string name="install_app_download">Install this app to enjoy all the features and also the features we cannot support in the instant app version.</string>
-    <string name="instant_installed_t">App installed</string>
-    <string name="instant_installed_m">Thank you for installing our app. Tap on OK to continue.</string>
     <string name="approve_permissions">The feature needs the permissions to work.</string>
     <string name="message_to_drag_up">Drag images up for gallery</string>
     <string name="speak_color">Speak color</string>
@@ -65,4 +63,5 @@
     <string name="audio_muted">Please increase volume</string>
     <string name="transparency_warning_t">Transparancy warning</string>
     <string name="transparency_warning_m">You selected a transparent or almost transparent color. This has the effect, that color changes are not visible any more. To regain control over the color, please move the transparency slider to the right.</string>
+    <string name="remember_selection">Remember selection</string>
 </resources>
