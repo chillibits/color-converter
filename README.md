@@ -7,10 +7,9 @@ Color Converter is an Android app to pick, display and convert colors.
 
 Download Color Converter from [Google Play](https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter)!
 
-More info on our homepage: [https://chillibits.com/colorconverter](https://chillibits.com/colorconverter)
+More information on our homepage: [https://chillibits.com/colorconverter](https://chillibits.com/colorconverter)
 
 ## Features
-
 -   Pick colors
 -   Get name of picked colors
 -   Display picked colors in different formats (ARGB, HEX, HSV)
@@ -23,8 +22,7 @@ More info on our homepage: [https://chillibits.com/colorconverter](https://chill
 
 ## Contribute to this project
 You can contribute to this project by doing following things:
-
--   If you want to contribute new features, please fork this repository to your own GitHub account. Then build your awesome feature and post a pull request back to this repo. We will check your changes and merge your contribution asap.
+-   If you want to contribute new features, please fork this repository to your own GitHub account. Then build your awesome feature and open a pull request back to this repo. We will check your changes and merge your contribution asap.
 -   If you want to add a new translation language or improve an existing translation, please write an email to: [contact@chillibits.com](mailto:contact@chillibits.com&subject=Add%20translation)
 -   If you want to submit a request for a new feature, please also write an email to: [contact@chillibits.com](mailto:contact@chillibits.com&subject=Feature%20request)
 
