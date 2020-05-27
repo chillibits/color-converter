@@ -9,14 +9,14 @@ import org.jetbrains.annotations.NotNull
 class Color: Comparable<Color> {
 
     // Attributes
-    var id: Int
+    val id: Int
     var name: String
     var color: Int
     var alpha: Int
     var red: Int
     var green: Int
     var blue: Int
-    var creationTimestamp: Long = System.currentTimeMillis()
+    var creationTimestamp = System.currentTimeMillis()
 
     constructor(id: Int, name: String, color: Int, creationTimestamp: Long) {
         this.id = id
@@ -33,4 +33,5 @@ class Color: Comparable<Color> {
             this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
 
     override fun compareTo(@NotNull other: Color) = other.creationTimestamp.compareTo(creationTimestamp)
+
 }

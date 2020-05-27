@@ -12,7 +12,7 @@ More information on our homepage: [https://chillibits.com/colorconverter](https:
 ## Features
 -   Pick colors
 -   Get name of picked colors
--   Display picked colors in different formats (ARGB, HEX, HSV)
+-   Display picked colors in different formats (ARGB, HEX, HSV, CMYK)
 -   Generate random colors
 -   Pick color from a photo / image
 -   Save / load colors
@@ -28,7 +28,6 @@ You can contribute to this project by doing following things:
 
 ## Used third party libraries
 Thanks to following people:
-
 -   [Glide](https://github.com/bumptech/glide) by Bump Technologies
 -   [ColorPickerPreference](https://github.com/attenzione/android-ColorPickerPreference) by Sergey Margaritov
 -   [PixImagePicker](https://github.com/akshay2211/PixImagePicker) by Akshay Sharma
