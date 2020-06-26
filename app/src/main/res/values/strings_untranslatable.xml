@@ -20,7 +20,8 @@
     <string name="format_rgba" translatable="false">rgba(0-255, 0-255, 0-255, 0-1)</string>
     <string name="hex_" translatable="false">HEX: #%s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
+    <string name="cmyk_" translatable="false">CMYK: %1$s, %2$s, %3$s, %4$s</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>
-    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s)</string>
+    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s) • CMYK(%9$s, %10$s, %11$s, %12$s)</string>
     <string name="hex_format" translatable="false">#%s</string>
 </resources>
