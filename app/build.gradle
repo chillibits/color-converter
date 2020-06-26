@@ -68,7 +68,7 @@ task downloadTranslations {
     ext.apiKey = 'IEKWn_DI-otivDlUWAN-NvNIT3bBWO_h'
     ext.apiKeyColors = 'ReBhdq025DTUFKoKIvmvLLyY6hznXyCg'
 
-    //English
+    // English
     doLast {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values/strings.xml")
@@ -77,7 +77,7 @@ task downloadTranslations {
         f = new File("${project.projectDir}/src/main/res/values/strings_colors.xml")
         new URL("https://localise.biz/api/export/locale/en.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
-    //French
+    // French
     doLast {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values-fr/strings.xml")
@@ -86,7 +86,7 @@ task downloadTranslations {
         f = new File("${project.projectDir}/src/main/res/values-fr/strings_colors.xml")
         new URL("https://localise.biz/api/export/locale/fr.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
-    //German
+    // German
     doLast {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values-de/strings.xml")
@@ -95,7 +95,7 @@ task downloadTranslations {
         f = new File("${project.projectDir}/src/main/res/values-de/strings_colors.xml")
         new URL("https://localise.biz/api/export/locale/de.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
-    //Spanish
+    // Spanish
     doLast {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values-es/strings.xml")
@@ -103,6 +103,15 @@ task downloadTranslations {
         // Color file
         f = new File("${project.projectDir}/src/main/res/values-es/strings_colors.xml")
         new URL("https://localise.biz/api/export/locale/es.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+    // Russian
+    doLast {
+        // Main string file
+        def f = new File("${project.projectDir}/src/main/res/values-ru/strings.xml")
+        new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file (not translated to Russian yet)
+        //f = new File("${project.projectDir}/src/main/res/values-ru/strings_colors.xml")
+        //new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
 }
 
