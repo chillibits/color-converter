@@ -431,7 +431,8 @@ class MainActivity : AppCompatActivity() {
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
         // Update CMYK TextView
-
+        val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
+        displayCmyk.text = String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
 
         // Update text colors
         val textColor = ct.getTextColor(this, android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue))

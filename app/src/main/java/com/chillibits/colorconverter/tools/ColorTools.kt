@@ -12,6 +12,8 @@ import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import com.mrgames13.jimdo.colorconverter.R
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 
 class ColorTools(private var context: Context) {
@@ -56,5 +58,17 @@ class ColorTools(private var context: Context) {
                 else -> Color.BLACK
             }
         }
+    }
+
+    fun getCmykFromRgb(red: Int, green: Int, blue: Int): Array<Int> {
+        if(red == 0 && green == 0 && blue == 0) return arrayOf(0, 0, 0, 100)
+        val redPercentage = red / 255.0 * 100.0
+        val greenPercentage = green / 255.0 * 100.0
+        val bluePercentage = blue / 255.0 * 100.0
+        val k = 100.0 - max(max(redPercentage, greenPercentage), bluePercentage)
+        val c = (100.0 - redPercentage - k) / (100.0 - k) * 100.0
+        val m = (100.0 - greenPercentage - k) / (100.0 - k) * 100.0
+        val y = (100.0 - bluePercentage - k) / (100.0 - k) * 100.0
+        return arrayOf(c.roundToInt(), m.roundToInt(), y.roundToInt(), k.roundToInt())
     }
 }
