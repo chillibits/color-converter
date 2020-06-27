@@ -77,134 +77,14 @@ class MainActivity : AppCompatActivity() {
         // Initialize toolbar
         setSupportActionBar(toolbar)
 
-        // Initialize other layout components
-        colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP)
-        colorRed.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
-        colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP)
-        colorGreen.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP)
-        colorGreen.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP)
-        colorBlue.progressDrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
-        colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP)
+        // Execute initializations
+        initializeSeekBarSection()
+        initializeColorContainerSection()
+        initializeButtonSection()
+        setDefaultComponentValues()
 
-        colorAlpha.setOnSeekBarChangeListener(object: SimpleOnSeekBarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    val value = progress.toString()
-                    displayAlpha.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorRed.progress, colorGreen.progress, colorBlue.progress, -1))
-                }
-                if((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
-                    showTransparencyWarning = !showTransparencyWarning
-                    invalidateOptionsMenu()
-                }
-            }
-        })
-        colorRed.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    val value = progress.toString()
-                    displayRed.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, progress, colorGreen.progress, colorBlue.progress, -1))
-                }
-            }
-        })
-        colorGreen.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    val value = progress.toString()
-                    displayGreen.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, colorRed.progress, progress, colorBlue.progress, -1))
-                }
-            }
-        })
-        colorBlue.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    val value = progress.toString()
-                    displayBlue.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress, colorRed.progress, colorGreen.progress, progress, -1))
-                }
-            }
-        })
-
-        colorContainer.setOnClickListener { chooseColor() }
-
-        // Load color
-        loadColor.setOnClickListener {
-            startActivityForResult(Intent(this, ColorSelectionActivity::class.java), Constants.REQ_LOAD_COLOR)
-        }
-
-        // Save color
-        saveColor.setOnClickListener { saveColor() }
-
-        // Copy color codes
-        copyName.setOnClickListener {
-            copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
-        }
-        copyArgb.setOnClickListener {
-            // Show multiple choice dialog
-            if(!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
-                showArgbExportDialog(selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
-            } else {
-                if(st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
-                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard),
-                        selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
-                } else {
-                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard_css),
-                        selectedColor.red, selectedColor.green, selectedColor.blue, (selectedColor.alpha / 255.0).round(3)))
-                }
-            }
-        }
-        copyHex.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hex_code), "%08X".format(selectedColor.color).toUpperCase())
-        }
-        copyHsv.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
-        }
-        copyCmyk.setOnClickListener {
-            // Show multiple choice dialog
-            val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
-            if(!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
-                showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
-            } else {
-                if(st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
-                    copyTextToClipboard(getString(R.string.cmyk_code), String.format(getString(R.string.cmyk_clipboard),
-                        cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0))
-                } else {
-                    copyTextToClipboard(getString(R.string.cmyk_code), String.format(getString(R.string.cmyk_clipboard_css),
-                        cmyk[0], cmyk[1], cmyk[2], cmyk[3]))
-                }
-            }
-        }
-
-        // Edit codes
-        editHex.setOnClickListener { editHexCode() }
-        editHsv.setOnClickListener { editHSVCode() }
-
-        // Speak color
-        speakColor.setOnClickListener {
-            if(InstantApps.isInstantApp(this)) {
-                // It's not allowed to use tts in an instant app
-                showInstantAppInstallDialog(R.string.instant_install_m)
-            } else speakColor()
-        }
-
-        pick.setOnClickListener { chooseColor() }
-        pick_random_color.setOnClickListener { randomizeColor() }
-        pickFromImage.setOnClickListener { pickColorFromImage() }
-
-        // Initialize views
-        displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
-        displayArgb.text = String.format(getString(R.string.argb_), selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
-        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase())
-        val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
-        displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
-        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
-        displayCmyk.text = String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
-
+        // Initialize tts
         if (!InstantApps.isInstantApp(this@MainActivity)) {
-            // Initialize tts
             tts = TextToSpeech(this) { status ->
                 if(status == TextToSpeech.SUCCESS) {
                     val result = tts.setLanguage(Locale.getDefault())
@@ -221,7 +101,8 @@ class MainActivity : AppCompatActivity() {
         // Set to choose color mode, if required
         if(intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             finishWithColor.setOnClickListener { finishWithSelectedColor() }
-            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR,
+                intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
         } else {
             finishWithColor.visibility = View.GONE
         }
@@ -446,7 +327,8 @@ class MainActivity : AppCompatActivity() {
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
-        displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
+        displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
         // Update CMYK TextView
         val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
         displayCmyk.text = String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
@@ -523,5 +405,271 @@ class MainActivity : AppCompatActivity() {
         putExtra(Constants.EXTRA_CHOOSE_COLOR, selectedColor.color)
         setResult(Activity.RESULT_OK, this)
         finish()
+    }
+
+    private fun setDefaultComponentValues() {
+        // Initialize views
+        displayName.text =
+            String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
+        displayArgb.text = String.format(
+            getString(R.string.argb_),
+            selectedColor.alpha,
+            selectedColor.red,
+            selectedColor.green,
+            selectedColor.blue
+        )
+        displayHex.text = String.format(
+            getString(R.string.hex_),
+            "%08X".format(selectedColor.color).toUpperCase()
+        )
+        val hsv = FloatArray(3)
+        android.graphics.Color.RGBToHSV(
+            selectedColor.red,
+            selectedColor.green,
+            selectedColor.blue,
+            hsv
+        )
+        displayHsv.text = String.format(
+            getString(R.string.hsv_),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+        )
+        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+        displayCmyk.text =
+            String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+    }
+
+    private fun initializeButtonSection() {
+        // Edit codes
+        editHex.setOnClickListener { editHexCode() }
+        editHsv.setOnClickListener { editHSVCode() }
+
+        // Speak color
+        speakColor.setOnClickListener {
+            if (InstantApps.isInstantApp(this)) {
+                // It's not allowed to use tts in an instant app
+                showInstantAppInstallDialog(R.string.instant_install_m)
+            } else speakColor()
+        }
+
+        pick.setOnClickListener { chooseColor() }
+        pick_random_color.setOnClickListener { randomizeColor() }
+        pickFromImage.setOnClickListener { pickColorFromImage() }
+    }
+
+    private fun initializeColorContainerSection() {
+        colorContainer.setOnClickListener { chooseColor() }
+
+        // Load color
+        loadColor.setOnClickListener {
+            startActivityForResult(
+                Intent(this, ColorSelectionActivity::class.java),
+                Constants.REQ_LOAD_COLOR
+            )
+        }
+
+        // Save color
+        saveColor.setOnClickListener { saveColor() }
+
+        // Copy color codes
+        copyName.setOnClickListener {
+            copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
+        }
+        copyArgb.setOnClickListener {
+            // Show multiple choice dialog
+            if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
+                showArgbExportDialog(
+                    selectedColor.alpha,
+                    selectedColor.red,
+                    selectedColor.green,
+                    selectedColor.blue
+                )
+            } else {
+                if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
+                    copyTextToClipboard(
+                        getString(R.string.argb_code), String.format(
+                            getString(R.string.argb_clipboard),
+                            selectedColor.alpha,
+                            selectedColor.red,
+                            selectedColor.green,
+                            selectedColor.blue
+                        )
+                    )
+                } else {
+                    copyTextToClipboard(
+                        getString(R.string.argb_code), String.format(
+                            getString(R.string.rgba_clipboard_css),
+                            selectedColor.red,
+                            selectedColor.green,
+                            selectedColor.blue,
+                            (selectedColor.alpha / 255.0).round(3)
+                        )
+                    )
+                }
+            }
+        }
+        copyHex.setOnClickListener {
+            copyTextToClipboard(
+                getString(R.string.hex_code),
+                "%08X".format(selectedColor.color).toUpperCase()
+            )
+        }
+        copyHsv.setOnClickListener {
+            copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
+        }
+        copyCmyk.setOnClickListener {
+            // Show multiple choice dialog
+            val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+            if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
+                showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+            } else {
+                if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
+                    copyTextToClipboard(
+                        getString(R.string.cmyk_code), String.format(
+                            getString(R.string.cmyk_clipboard),
+                            cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0
+                        )
+                    )
+                } else {
+                    copyTextToClipboard(
+                        getString(R.string.cmyk_code), String.format(
+                            getString(R.string.cmyk_clipboard_css),
+                            cmyk[0], cmyk[1], cmyk[2], cmyk[3]
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initializeSeekBarSection() {
+        // Initialize other layout components
+        colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            ContextCompat.getColor(
+                this,
+                R.color.gray
+            ), BlendModeCompat.SRC_ATOP
+        )
+        colorRed.progressDrawable.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(
+                    this,
+                    R.color.red
+                ), BlendModeCompat.SRC_ATOP
+            )
+        colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            ContextCompat.getColor(
+                this,
+                R.color.red
+            ), BlendModeCompat.SRC_ATOP
+        )
+        colorGreen.progressDrawable.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(
+                    this,
+                    R.color.green
+                ), BlendModeCompat.SRC_ATOP
+            )
+        colorGreen.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            ContextCompat.getColor(
+                this,
+                R.color.green
+            ), BlendModeCompat.SRC_ATOP
+        )
+        colorBlue.progressDrawable.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(
+                    this,
+                    R.color.blue
+                ), BlendModeCompat.SRC_ATOP
+            )
+        colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            ContextCompat.getColor(
+                this,
+                R.color.blue
+            ), BlendModeCompat.SRC_ATOP
+        )
+
+        colorAlpha.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val value = progress.toString()
+                    displayAlpha.text = value
+                    updateDisplays(
+                        Color(
+                            0,
+                            Constants.NAME_SELECTED_COLOR,
+                            progress,
+                            colorRed.progress,
+                            colorGreen.progress,
+                            colorBlue.progress,
+                            -1
+                        )
+                    )
+                }
+                if ((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
+                    showTransparencyWarning = !showTransparencyWarning
+                    invalidateOptionsMenu()
+                }
+            }
+        })
+        colorRed.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val value = progress.toString()
+                    displayRed.text = value
+                    updateDisplays(
+                        Color(
+                            0,
+                            Constants.NAME_SELECTED_COLOR,
+                            colorAlpha.progress,
+                            progress,
+                            colorGreen.progress,
+                            colorBlue.progress,
+                            -1
+                        )
+                    )
+                }
+            }
+        })
+        colorGreen.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val value = progress.toString()
+                    displayGreen.text = value
+                    updateDisplays(
+                        Color(
+                            0,
+                            Constants.NAME_SELECTED_COLOR,
+                            colorAlpha.progress,
+                            colorRed.progress,
+                            progress,
+                            colorBlue.progress,
+                            -1
+                        )
+                    )
+                }
+            }
+        })
+        colorBlue.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val value = progress.toString()
+                    displayBlue.text = value
+                    updateDisplays(
+                        Color(
+                            0,
+                            Constants.NAME_SELECTED_COLOR,
+                            colorAlpha.progress,
+                            colorRed.progress,
+                            colorGreen.progress,
+                            progress,
+                            -1
+                        )
+                    )
+                }
+            }
+        })
     }
 }

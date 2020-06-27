@@ -16,6 +16,7 @@ More information on our homepage: [https://chillibits.com/colorconverter](https:
 -   Generate random colors
 -   Pick color from a photo / image
 -   Save / load colors
+-   Copy colors to clipboard
 
 ## Screenshots (Android 10)
 <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/1.png" width="256" title="Screenshot 1"><img src="https://github.com/chillibits/color-converter/raw/master/screenshots/2.png" width="256" title="Screenshot 2"><img src="https://github.com/chillibits/color-converter/raw/master/screenshots/3.png" width="256" title="Screenshot 3"><img src="https://github.com/chillibits/color-converter/raw/master/screenshots/4.png" width="256" title="Screenshot 4"><img src="https://github.com/chillibits/color-converter/raw/master/screenshots/5.png" width="256" title="Screenshot 5"><img src="https://github.com/chillibits/color-converter/raw/master/screenshots/6.png" width="256" title="Screenshot 6">
