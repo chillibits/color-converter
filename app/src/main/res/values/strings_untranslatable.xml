@@ -14,6 +14,8 @@
     <string name="s" translatable="false">S</string>
     <string name="v" translatable="false">V</string>
     <string name="argb_" translatable="false">ARGB: %1$s, %2$s, %3$s, %4$s</string>
+    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
+    <string name="rgb_clipboard" translatable="false">rgb(%1$s, %2$s, %3$s)</string>
     <string name="argb_clipboard" translatable="false">argb(%1$s, %2$s, %3$s, %4$s)</string>
     <string name="rgba_clipboard_css" translatable="false">rgba(%1$s, %2$s, %3$s, %4$s)</string>
     <string name="format_argb" translatable="false">argb(0-255, 0-255, 0-255, 0-255)</string>

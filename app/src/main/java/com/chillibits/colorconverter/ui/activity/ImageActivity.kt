@@ -127,7 +127,7 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_image, menu)
         speakItem = menu?.getItem(0)
-        speakItem?.isChecked = st.getBoolean("speak_color")
+        speakItem?.isChecked = st.getBoolean(Constants.SPEAK_COLOR)
         return true
     }
 
@@ -136,7 +136,7 @@ class ImageActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.action_speak -> {
                 val newState = !item.isChecked
-                st.putBoolean("speak_color", newState)
+                st.putBoolean(Constants.SPEAK_COLOR, newState)
                 item.isChecked = newState
             }
             R.id.action_new_image -> chooseImage()

@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     // Variables as objects
     private lateinit var tts: TextToSpeech
     private var selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK, -1)
+    private var disableAlpha: MenuItem? = null
 
     // Variables
     private var initialized = false
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         initializeColorContainerSection()
         initializeButtonSection()
         setDefaultComponentValues()
+        enableAlpha(!st.getBoolean(Constants.DISABLE_ALPHA))
 
         // Initialize tts
         if (!InstantApps.isInstantApp(this@MainActivity)) {
@@ -117,6 +119,8 @@ class MainActivity : AppCompatActivity() {
         if (InstantApps.isInstantApp(this)) menu?.findItem(R.id.action_install)?.isVisible = true
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) menu?.findItem(R.id.action_done)?.isVisible = true
         menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
+        disableAlpha = menu?.findItem(R.id.action_disable_alpha)
+        disableAlpha?.isChecked = st.getBoolean(Constants.DISABLE_ALPHA)
         return true
     }
 
@@ -126,6 +130,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
+            R.id.action_disable_alpha -> {
+                val newState = !item.isChecked
+                st.putBoolean(Constants.DISABLE_ALPHA, newState)
+                item.isChecked = newState
+                enableAlpha(!newState)
+            }
             R.id.action_done -> finishWithSelectedColor()
         }
         return super.onOptionsItemSelected(item)
@@ -320,8 +330,12 @@ class MainActivity : AppCompatActivity() {
         displayGreen.text = color.green.toString()
         displayBlue.text = color.blue.toString()
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
-        // Update RGB TextView
-        displayArgb.text = String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
+        // Update ARGB TextView
+        displayArgb.text = if(st.getBoolean(Constants.DISABLE_ALPHA, false)) {
+            String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
+        } else {
+            String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
+        }
         // Update HEX TextView
         displayHex.text = String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
         // Update HSV TextView
@@ -477,35 +491,25 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
         }
         copyArgb.setOnClickListener {
-            // Show multiple choice dialog
-            if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
-                showArgbExportDialog(
-                    selectedColor.alpha,
-                    selectedColor.red,
-                    selectedColor.green,
-                    selectedColor.blue
-                )
+            if(st.getBoolean(Constants.DISABLE_ALPHA, false)) {
+                copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard),
+                    selectedColor.red, selectedColor.green, selectedColor.blue))
             } else {
-                if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
-                    copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
-                            getString(R.string.argb_clipboard),
-                            selectedColor.alpha,
-                            selectedColor.red,
-                            selectedColor.green,
-                            selectedColor.blue
-                        )
-                    )
+                // Show multiple choice dialog
+                if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
+                    showArgbExportDialog(selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
                 } else {
-                    copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
-                            getString(R.string.rgba_clipboard_css),
-                            selectedColor.red,
-                            selectedColor.green,
-                            selectedColor.blue,
-                            (selectedColor.alpha / 255.0).round(3)
+                    if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
+                        copyTextToClipboard(
+                            getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard),
+                                selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
                         )
-                    )
+                    } else {
+                        copyTextToClipboard(
+                            getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard_css),
+                                selectedColor.red, selectedColor.green, selectedColor.blue, (selectedColor.alpha / 255.0).round(3))
+                        )
+                    }
                 }
             }
         }
@@ -546,43 +550,25 @@ class MainActivity : AppCompatActivity() {
     private fun initializeSeekBarSection() {
         // Initialize other layout components
         colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(
-                this,
-                R.color.gray
-            ), BlendModeCompat.SRC_ATOP
+            ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP
         )
         colorRed.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                ContextCompat.getColor(
-                    this,
-                    R.color.red
-                ), BlendModeCompat.SRC_ATOP
+                ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP
             )
         colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(
-                this,
-                R.color.red
-            ), BlendModeCompat.SRC_ATOP
+            ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP
         )
         colorGreen.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                ), BlendModeCompat.SRC_ATOP
+                ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP
             )
         colorGreen.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(
-                this,
-                R.color.green
-            ), BlendModeCompat.SRC_ATOP
+            ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP
         )
         colorBlue.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                ContextCompat.getColor(
-                    this,
-                    R.color.blue
-                ), BlendModeCompat.SRC_ATOP
+                ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
             )
         colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             ContextCompat.getColor(
@@ -596,17 +582,8 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayAlpha.text = value
-                    updateDisplays(
-                        Color(
-                            0,
-                            Constants.NAME_SELECTED_COLOR,
-                            progress,
-                            colorRed.progress,
-                            colorGreen.progress,
-                            colorBlue.progress,
-                            -1
-                        )
-                    )
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorRed.progress,
+                        colorGreen.progress, colorBlue.progress, -1))
                 }
                 if ((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
                     showTransparencyWarning = !showTransparencyWarning
@@ -619,17 +596,8 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayRed.text = value
-                    updateDisplays(
-                        Color(
-                            0,
-                            Constants.NAME_SELECTED_COLOR,
-                            colorAlpha.progress,
-                            progress,
-                            colorGreen.progress,
-                            colorBlue.progress,
-                            -1
-                        )
-                    )
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress,
+                        progress, colorGreen.progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -638,17 +606,8 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayGreen.text = value
-                    updateDisplays(
-                        Color(
-                            0,
-                            Constants.NAME_SELECTED_COLOR,
-                            colorAlpha.progress,
-                            colorRed.progress,
-                            progress,
-                            colorBlue.progress,
-                            -1
-                        )
-                    )
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress,
+                        colorRed.progress, progress, colorBlue.progress, -1))
                 }
             }
         })
@@ -657,19 +616,21 @@ class MainActivity : AppCompatActivity() {
                 if (fromUser) {
                     val value = progress.toString()
                     displayBlue.text = value
-                    updateDisplays(
-                        Color(
-                            0,
-                            Constants.NAME_SELECTED_COLOR,
-                            colorAlpha.progress,
-                            colorRed.progress,
-                            colorGreen.progress,
-                            progress,
-                            -1
-                        )
-                    )
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, colorAlpha.progress,
+                        colorRed.progress, colorGreen.progress, progress, -1))
                 }
             }
         })
+    }
+
+    private fun enableAlpha(enabled: Boolean) {
+        // Set alpha to 100%
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, colorRed.progress,
+            colorGreen.progress, colorBlue.progress, -1))
+        // Show / hide components
+        val visibility = if(enabled) View.VISIBLE else View.GONE
+        colorAlpha.visibility = visibility
+        displayAlpha.visibility = visibility
+        displayAlphaLabel.visibility = visibility
     }
 }

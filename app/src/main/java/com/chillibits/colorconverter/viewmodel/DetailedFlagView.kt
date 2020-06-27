@@ -8,6 +8,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
 import com.chillibits.colorconverter.tools.Constants
+import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.flag.FlagView
@@ -15,9 +16,16 @@ import kotlinx.android.synthetic.main.flag_layout.view.*
 
 @SuppressLint("ViewConstructor")
 class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
+
+    private val st = StorageTools(context)
+
     override fun onRefresh(envelope: ColorEnvelope?) {
         flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(envelope!!.color, BlendModeCompat.SRC_IN)
-        flagColorArgb.text = String.format(context.getString(R.string.argb_), envelope.color.alpha, envelope.color.red, envelope.color.green, envelope.color.blue)
+        flagColorArgb.text = if(st.getBoolean(Constants.DISABLE_ALPHA, false)) {
+            String.format(context.getString(R.string.rgb_), envelope.color.red, envelope.color.green, envelope.color.blue)
+        } else {
+            String.format(context.getString(R.string.argb_), envelope.color.alpha, envelope.color.red, envelope.color.green, envelope.color.blue)
+        }
         flagColorHex.text = String.format(context.getString(R.string.hex_), "%08X".format(envelope.color).toUpperCase())
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(envelope.color.red, envelope.color.green, envelope.color.blue, hsv)

@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Sat, 27 Jun 2020 19:09:58 +0100
+ Exported at: Sat, 27 Jun 2020 21:00:25 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -65,4 +65,6 @@
     <string name="transparency_warning_m">Seleccionó un color transparente o casi transparente. Esto tiene el efecto de que los cambios de color ya no son visibles. Para recuperar el control sobre el color, por favor mueve el deslizador de transparencia a la derecha.</string>
     <string name="remember_selection">Recuerde la selección</string>
     <string name="cmyk_code">Código CMYK</string>
+    <string name="disable_alpha">Desactivar la transparencia</string>
+    <string name="rgb_code">Código RGB</string>
 </resources>

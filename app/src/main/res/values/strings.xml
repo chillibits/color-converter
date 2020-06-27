@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Sat, 27 Jun 2020 19:09:57 +0100
+ Exported at: Sat, 27 Jun 2020 21:00:25 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">close</string>
@@ -65,4 +65,6 @@
     <string name="transparency_warning_m">You selected a transparent or almost transparent color. This has the effect, that color changes are not visible any more. To regain control over the color, please move the transparency slider to the right.</string>
     <string name="remember_selection">Remember selection</string>
     <string name="cmyk_code">CMYK code</string>
+    <string name="disable_alpha">Disable alpha</string>
+    <string name="rgb_code">RGB code</string>
 </resources>
