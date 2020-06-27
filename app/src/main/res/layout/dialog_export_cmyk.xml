@@ -12,7 +12,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/formatArgb"
+        android:id="@+id/formatCmyk"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:clickable="true"
@@ -32,11 +32,11 @@
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:textSize="16sp"
-            android:text="@string/format_argb"/>
+            android:text="@string/format_cmyk"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/formatRgba"
+        android:id="@+id/formatCmykCss"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:clickable="true"
@@ -57,7 +57,7 @@
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:textSize="16sp"
-            android:text="@string/format_rgba_css"/>
+            android:text="@string/format_cmyk_css"/>
     </LinearLayout>
 
     <LinearLayout

@@ -31,7 +31,7 @@ fun Context.showArgbExportDialog(alpha: Int, red: Int, green: Int, blue: Int) {
     view.formatRgba.setOnClickListener {
         if(view.rememberSelection.isChecked) st.putBoolean(Constants.ARGB_REMEMBER_SELECTION, false)
         copyTextToClipboard(getString(R.string.argb_code),
-            String.format(getString(R.string.rgba_clipboard), red, green, blue, (alpha / 255.0).round(3)))
+            String.format(getString(R.string.rgba_clipboard_css), red, green, blue, (alpha / 255.0).round(3)))
         dialog.dismiss()
     }
     view.rememberSelection.setOnCheckedChangeListener { _, isChecked ->

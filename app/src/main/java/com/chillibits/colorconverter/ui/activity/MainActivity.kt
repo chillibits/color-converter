@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                     copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard),
                         selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue))
                 } else {
-                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard),
+                    copyTextToClipboard(getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard_css),
                         selectedColor.red, selectedColor.green, selectedColor.blue, (selectedColor.alpha / 255.0).round(3)))
                 }
             }
@@ -160,6 +160,21 @@ class MainActivity : AppCompatActivity() {
         }
         copyHsv.setOnClickListener {
             copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
+        }
+        copyCmyk.setOnClickListener {
+            // Show multiple choice dialog
+            val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+            if(!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
+                showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+            } else {
+                if(st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
+                    copyTextToClipboard(getString(R.string.cmyk_code), String.format(getString(R.string.cmyk_clipboard),
+                        cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0))
+                } else {
+                    copyTextToClipboard(getString(R.string.cmyk_code), String.format(getString(R.string.cmyk_clipboard_css),
+                        cmyk[0], cmyk[1], cmyk[2], cmyk[3]))
+                }
+            }
         }
 
         // Edit codes
@@ -185,6 +200,8 @@ class MainActivity : AppCompatActivity() {
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
+        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+        displayCmyk.text = String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
 
         if (!InstantApps.isInstantApp(this@MainActivity)) {
             // Initialize tts

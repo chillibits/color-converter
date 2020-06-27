@@ -26,4 +26,6 @@ object Constants {
     const val SHARED_PREFERENCES_NAME = "com.mrgames13.jimdo.colorconverter_preferences"
     const val ARGB_REMEMBER = "ArgbRemember"
     const val ARGB_REMEMBER_SELECTION = "ArgbRememberSelection"
+    const val CMYK_REMEMBER = "CmykRemember"
+    const val CMYK_REMEMBER_SELECTION = "CmykRememberSelection"
 }
