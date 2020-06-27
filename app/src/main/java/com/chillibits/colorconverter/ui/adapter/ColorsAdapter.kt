@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.Constants
 import com.chillibits.colorconverter.tools.setTint
 import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
@@ -19,6 +20,8 @@ class ColorsAdapter(
     private val activity: ColorSelectionActivity,
     private val colors: ArrayList<Color>
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
+
+    private val ct = ColorTools(activity)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(activity).inflate(R.layout.item_color, parent, false)
@@ -36,17 +39,16 @@ class ColorsAdapter(
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
+            val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
 
             itemView.itemColorValues.text = String.format(
                 activity.getString(R.string.color_summary),
-                color.alpha,
-                color.red,
-                color.green,
-                color.blue,
+                color.alpha, color.red, color.green, color.blue,
                 "%08X".format(color.color).toUpperCase(),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                 String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
-                String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+                String.format(Constants.HSV_FORMAT_STRING, hsv[2]),
+                cmyk[0], cmyk[1], cmyk[2], cmyk[3]
             )
             itemView.isSelected = true
 
