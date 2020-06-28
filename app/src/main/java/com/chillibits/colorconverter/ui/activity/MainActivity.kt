@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tts: TextToSpeech
     private var selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK, -1)
     private var disableAlpha: MenuItem? = null
+    private var isAlphaDisabled = false
 
     // Variables
     private var initialized = false
@@ -83,7 +84,8 @@ class MainActivity : AppCompatActivity() {
         initializeColorContainerSection()
         initializeButtonSection()
         setDefaultComponentValues()
-        enableAlpha(!st.getBoolean(Constants.DISABLE_ALPHA))
+        isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
+        enableAlpha(!isAlphaDisabled)
 
         // Initialize tts
         if (!InstantApps.isInstantApp(this@MainActivity)) {
@@ -120,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) menu?.findItem(R.id.action_done)?.isVisible = true
         menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
         disableAlpha = menu?.findItem(R.id.action_disable_alpha)
-        disableAlpha?.isChecked = st.getBoolean(Constants.DISABLE_ALPHA)
+        disableAlpha?.isChecked = isAlphaDisabled
         return true
     }
 
@@ -131,10 +133,10 @@ class MainActivity : AppCompatActivity() {
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
             R.id.action_disable_alpha -> {
-                val newState = !item.isChecked
-                st.putBoolean(Constants.DISABLE_ALPHA, newState)
-                item.isChecked = newState
-                enableAlpha(!newState)
+                isAlphaDisabled = !item.isChecked
+                st.putBoolean(Constants.DISABLE_ALPHA, isAlphaDisabled)
+                item.isChecked = isAlphaDisabled
+                enableAlpha(!isAlphaDisabled)
             }
             R.id.action_done -> finishWithSelectedColor()
         }
@@ -314,7 +316,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun chooseColor() {
         val colorPicker = ColorPickerDialog(this, selectedColor.color)
-        colorPicker.alphaSliderVisible = true
+        if(!isAlphaDisabled) colorPicker.alphaSliderVisible = true
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
@@ -331,7 +333,6 @@ class MainActivity : AppCompatActivity() {
         displayBlue.text = color.blue.toString()
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
 
-        val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
         // Update ARGB TextView
         displayArgb.text = if(isAlphaDisabled) {
             String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
@@ -497,7 +498,7 @@ class MainActivity : AppCompatActivity() {
             copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
         }
         copyArgb.setOnClickListener {
-            if(st.getBoolean(Constants.DISABLE_ALPHA, false)) {
+            if(isAlphaDisabled) {
                 copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard),
                     selectedColor.red, selectedColor.green, selectedColor.blue))
             } else {
@@ -522,7 +523,7 @@ class MainActivity : AppCompatActivity() {
         copyHex.setOnClickListener {
             copyTextToClipboard(
                 getString(R.string.hex_code),
-                if(st.getBoolean(Constants.DISABLE_ALPHA, false))
+                if(isAlphaDisabled)
                     "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase()
                 else
                     "#%08X".format(selectedColor.color).toUpperCase()
