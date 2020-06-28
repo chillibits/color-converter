@@ -330,14 +330,20 @@ class MainActivity : AppCompatActivity() {
         displayGreen.text = color.green.toString()
         displayBlue.text = color.blue.toString()
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
+
+        val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
         // Update ARGB TextView
-        displayArgb.text = if(st.getBoolean(Constants.DISABLE_ALPHA, false)) {
+        displayArgb.text = if(isAlphaDisabled) {
             String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
         } else {
             String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
         }
         // Update HEX TextView
-        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
+        displayHex.text = if(isAlphaDisabled) {
+            String.format(getString(R.string.hex_), "%06X".format((0xFFFFFF and color.color)).toUpperCase())
+        } else {
+            String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
+        }
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
@@ -516,7 +522,10 @@ class MainActivity : AppCompatActivity() {
         copyHex.setOnClickListener {
             copyTextToClipboard(
                 getString(R.string.hex_code),
-                "%08X".format(selectedColor.color).toUpperCase()
+                if(st.getBoolean(Constants.DISABLE_ALPHA, false))
+                    "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase()
+                else
+                    "#%08X".format(selectedColor.color).toUpperCase()
             )
         }
         copyHsv.setOnClickListener {

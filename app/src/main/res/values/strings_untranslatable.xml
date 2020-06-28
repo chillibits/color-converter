@@ -29,5 +29,6 @@
     <string name="cmyk_" translatable="false">CMYK: %1$s%%, %2$s%%, %3$s%%, %4$s%%</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>
     <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s) • CMYK(%9$s%%, %10$s%%, %11$s%%, %12$s%%)</string>
+    <string name="color_summary_alpha_disabled" translatable="false">RGB(%1$s, %2$s, %3$s) • HEX: #%4$s • HSV(%5$s, %6$s, %7$s) • CMYK(%8$s%%, %9$s%%, %10$s%%, %11$s%%)</string>
     <string name="hex_format" translatable="false">#%s</string>
 </resources>
