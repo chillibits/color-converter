@@ -4,6 +4,7 @@
 
 package com.chillibits.colorconverter.ui.dialog
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -31,7 +32,7 @@ fun Context.showRatingDialog() {
         .onPositive {
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
-            } catch (e: android.content.ActivityNotFoundException) {
+            } catch (e: ActivityNotFoundException) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
             }
         }

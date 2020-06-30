@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © Marc Auberer 2020. All rights reserved
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter
+ Release: Working copy
+ Locale: ru, Russian
+ Exported by: ChilliBits
+ Exported at: Tue, 30 Jun 2020 20:30:36 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="close">закрыть</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <!-- MainActivity -->
+    <string name="hex_code">Шестнадцатеричный код</string>
+    <string name="selection_">Выбор:</string>
+    <string name="choose_color">Выбрать цвет</string>
+    <string name="save_color">Сохранить цвет</string>
+    <string name="save">Сохранить</string>
+    <string name="choose_name">Введите название</string>
+    <string name="pick_random_color">Сгенерировать случайный цвет</string>
+    <string name="pick_color_from_image">Выбрать цвет с изображения</string>
+    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
+    <string name="new_image">Выбрать другое изображение</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="rate_m">Если Вам нравится наше приложение, пожалуйста, потратьте минуту и ​​оцените Color Converter на 5 звезд в Google Play!</string>
+    <string name="share_app">Рекомендовать приложение</string>
+    <string name="share">Рекомендовать</string>
+    <string name="share_m">Порекомендовать Color Converter друзьям!</string>
+    <string name="recommend_string">Color Converter: Преобразование цветов, выбор цвета с изображения и многое другое! Легкий инструмент для программистов и дизайнеров.\u0020\u0020Скачать в Google Play: \nhttps://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
+    <string name="press_color_to_apply">Коснитесь цвета, чтобы применить</string>
+    <string name="rate">Оценить</string>
+    <string name="color_name">Название</string>
+    <string name="argb_code">ARGB-код</string>
+    <string name="hsv_code">HSV-код</string>
+    <!-- %s is a placeholder -->
+    <string name="name_">Название: %s</string>
+    <!-- ColorSelectionActivity -->
+    <string name="delete">Удалить</string>
+    <!-- %s is a placeholder -->
+    <string name="delete_m">Вы действительно хотите удалить цвет \'%s\'?</string>
+    <string name="rename">Изменить название</string>
+    <string name="selected">Выбранный</string>
+    <string name="no_colors_saved">Нет сохраненных цветов!\nЧтобы сохранить цвет, коснитесь значка сохранения с левой стороны в окне предварительного просмотра цвета.</string>
+    <!-- Image Chooser -->
+    <string name="done">Готово</string>
+    <!-- Shortcuts -->
+    <string name="shortcut_disabled">Действие отключено</string>
+    <string name="shortcut_photo_long">Выбрать цвет с фото</string>
+    <!-- InstantApp -->
+    <string name="install_app">Установите приложение</string>
+    <string name="instant_install_m">Эта функция не поддерживается в мгновенной версии приложения.\u0020\u0020Пожалуйста, установите приложение, чтобы использовать эту функцию.</string>
+    <string name="install_app_download">Установите это приложение, чтобы использовать все функции, а также функции, которые мы не можем поддерживать в мгновенной версии приложения.</string>
+    <string name="approve_permissions">Для работы функции требуются разрешения.</string>
+    <string name="message_to_drag_up">Потяните вверх для просмотра галереи</string>
+    <string name="speak_color">Произнести название цвета</string>
+    <string name="language_not_available">Язык не доступен</string>
+    <string name="initialization_failed">Ошибка инициализации</string>
+    <string name="audio_muted">Пожалуйста, увеличьте громкость</string>
+    <string name="transparency_warning_t">Предупреждение о прозрачности</string>
+    <string name="transparency_warning_m">Вы выбрали полностью прозрачный или близкий к таковому цвет.\u0020\u0020Это приводит к тому, что изменения цвета больше не видны.\u0020\u0020Чтобы восстановить контроль над цветом, пожалуйста, переместите ползунок прозрачности вправо.</string>
+    <string name="remember_selection">Запомнить выбор</string>
+    <string name="cmyk_code">CMYK-код</string>
+    <string name="disable_alpha">Отключить прозрачность</string>
+    <string name="rgb_code">RGB-код</string>
+    <string name="error">Произошла ошибка</string>
+</resources>

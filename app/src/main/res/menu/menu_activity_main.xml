@@ -36,6 +36,12 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_disable_alpha"
+        android:title="@string/disable_alpha"
+        app:showAsAction="never"
+        android:checkable="true"/>
+
+    <item
         android:id="@+id/action_done"
         android:title="@string/done"
         android:icon="@drawable/done"

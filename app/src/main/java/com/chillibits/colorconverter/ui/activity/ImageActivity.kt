@@ -38,6 +38,7 @@ import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.io.IOException
 import java.util.*
 
 class ImageActivity : AppCompatActivity() {
@@ -127,7 +128,7 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_image, menu)
         speakItem = menu?.getItem(0)
-        speakItem?.isChecked = st.getBoolean("speak_color")
+        speakItem?.isChecked = st.getBoolean(Constants.SPEAK_COLOR)
         return true
     }
 
@@ -136,7 +137,7 @@ class ImageActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.action_speak -> {
                 val newState = !item.isChecked
-                st.putBoolean("speak_color", newState)
+                st.putBoolean(Constants.SPEAK_COLOR, newState)
                 item.isChecked = newState
             }
             R.id.action_new_image -> chooseImage()
@@ -162,25 +163,23 @@ class ImageActivity : AppCompatActivity() {
                 try{
                     imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
                     applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
-                } catch (ignored: Exception) {}
+                } catch (e: IOException) {
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                }
             } else finish()
         }
     }
 
-    private fun applyRotation(source: Bitmap, path: String): Bitmap? {
-        return when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
-            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
-            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
-            else -> source
-        }
+    private fun applyRotation(source: Bitmap, path: String) = when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
+        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
+        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
+        else -> source
     }
 
-    private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        return Matrix().run {
-            postRotate(angle)
-            Bitmap.createBitmap(source, 0, 0, source.width, source.height, this, true)
-        }
+    private fun rotateImage(source: Bitmap, angle: Float) = Matrix().run {
+        postRotate(angle)
+        Bitmap.createBitmap(source, 0, 0, source.width, source.height, this, true)
     }
 
     private fun applyImage(bitmap: Bitmap) {
@@ -231,7 +230,7 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun finishWithResult(color: Int) {
-        Intent().run {
+        Intent().apply {
             putExtra(Constants.EXTRA_COLOR, color)
             setResult(Activity.RESULT_OK, this)
         }

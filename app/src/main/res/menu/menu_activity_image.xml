@@ -10,7 +10,6 @@
     <item
         android:id="@+id/action_speak"
         android:title="@string/speak_color"
-        android:icon="@drawable/volume_up"
         app:showAsAction="never"
         android:checkable="true"/>
 

@@ -9,13 +9,17 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
 import com.chillibits.colorconverter.model.Color
+import com.mrgames13.jimdo.colorconverter.R
+import java.io.IOException
 import java.util.*
 
 // Constants
 const val TABLE_COLORS: String = "Colors"
 
 class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 2) {
+
     override fun onCreate(db: SQLiteDatabase?) {
         // Create tables
         db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer, alpha integer);")
@@ -29,31 +33,31 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
 
     // ------------------------------------ Shared Preference --------------------------------------
 
-    fun putBoolean(name: String, value: Boolean) {
-        val prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        prefs.edit().putBoolean(name, value).apply()
-    }
+    fun putBoolean(name: String, value: Boolean)
+            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .edit().putBoolean(name, value).apply()
 
-    fun getBoolean(name: String, default: Boolean = false): Boolean {
-        val prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        return prefs.getBoolean(name, default)
-    }
+    fun getBoolean(name: String, default: Boolean = false)
+            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .getBoolean(name, default)
 
     // ------------------------------------ Color Management ---------------------------------------
 
     fun addColor(color: Color) {
         try {
-            val values = ContentValues()
-            values.put("id", color.color)
-            values.put("name", color.name)
-            values.put("alpha", color.alpha)
-            values.put("red", color.red)
-            values.put("green", color.green)
-            values.put("blue", color.blue)
-            values.put("creation_timestamp", color.creationTimestamp)
+            val values = ContentValues().apply {
+                put("id", color.color)
+                put("name", color.name)
+                put("alpha", color.alpha)
+                put("red", color.red)
+                put("green", color.green)
+                put("blue", color.blue)
+                put("creation_timestamp", color.creationTimestamp)
+            }
             writableDatabase.insert(TABLE_COLORS, null, values)
-        } catch (e: java.lang.Exception) {
-            Log.e("ColorConverter", "Error storing color", e)
+        } catch (e: IOException) {
+            Log.e("ColorConverter", "Error saving color", e)
+            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -63,33 +67,31 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
     fun removeColor(id: Int) =
         writableDatabase.delete(TABLE_COLORS, "id=?", arrayOf(id.toString()))
 
-    fun loadColors(): ArrayList<Color> {
+    fun loadColors(): List<Color> {
         try {
-            val db = writableDatabase
-            val cursor = db.rawQuery(
+            val cursor = writableDatabase.rawQuery(
                 "SELECT * FROM $TABLE_COLORS",
                 null
             )
             val colors: ArrayList<Color> = ArrayList()
             while (cursor.moveToNext()) {
-                colors.add(
-                    Color(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getInt(6),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4),
-                        cursor.getLong(5)
-                    )
-                )
+                colors.add(Color(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(6),
+                    cursor.getInt(2),
+                    cursor.getInt(3),
+                    cursor.getInt(4),
+                    cursor.getLong(5)
+                ))
             }
             cursor.close()
             colors.sort()
             return colors
-        } catch (e: java.lang.Exception) {
+        } catch (e: IOException) {
             Log.e("ChatLet", "Error loading colors", e)
+            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
         }
-        return ArrayList()
+        return emptyList()
     }
 }

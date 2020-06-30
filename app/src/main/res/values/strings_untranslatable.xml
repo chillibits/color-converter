@@ -14,13 +14,21 @@
     <string name="s" translatable="false">S</string>
     <string name="v" translatable="false">V</string>
     <string name="argb_" translatable="false">ARGB: %1$s, %2$s, %3$s, %4$s</string>
+    <string name="rgb_" translatable="false">RGB: %1$s, %2$s, %3$s</string>
+    <string name="rgb_clipboard" translatable="false">rgb(%1$s, %2$s, %3$s)</string>
     <string name="argb_clipboard" translatable="false">argb(%1$s, %2$s, %3$s, %4$s)</string>
+    <string name="rgba_clipboard_css" translatable="false">rgba(%1$s, %2$s, %3$s, %4$s)</string>
     <string name="format_argb" translatable="false">argb(0-255, 0-255, 0-255, 0-255)</string>
-    <string name="rgba_clipboard" translatable="false">rgba(%1$s, %2$s, %3$s, %4$s)</string>
-    <string name="format_rgba" translatable="false">rgba(0-255, 0-255, 0-255, 0-1)</string>
+    <string name="format_rgba_css" translatable="false">rgba(0-255, 0-255, 0-255, 0-1)</string>
+    <string name="cmyk_clipboard" translatable="false">cmyk(%1$s, %2$s, %3$s, %4$s)</string>
+    <string name="cmyk_clipboard_css" translatable="false">cmyk(%1$s%%, %2$s%%, %3$s%%, %4$s%%)</string>
+    <string name="format_cmyk" translatable="false">cmyk(0-1, 0-1, 0-1, 0-1)</string>
+    <string name="format_cmyk_css" translatable="false">cmyk(0-100%, 0-100%, 0-100%, 0-100%)</string>
     <string name="hex_" translatable="false">HEX: #%s</string>
     <string name="hsv_" translatable="false">HSV: %1$s, %2$s, %3$s</string>
+    <string name="cmyk_" translatable="false">CMYK: %1$s%%, %2$s%%, %3$s%%, %4$s%%</string>
     <string name="hsv_clipboard" translatable="false">hsl(%1$s, %2$s, %3$s)</string>
-    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s)</string>
+    <string name="color_summary" translatable="false">ARGB(%1$s, %2$s, %3$s, %4$s) • HEX: #%5$s • HSV(%6$s, %7$s, %8$s) • CMYK(%9$s%%, %10$s%%, %11$s%%, %12$s%%)</string>
+    <string name="color_summary_alpha_disabled" translatable="false">RGB(%1$s, %2$s, %3$s) • HEX: #%4$s • HSV(%5$s, %6$s, %7$s) • CMYK(%8$s%%, %9$s%%, %10$s%%, %11$s%%)</string>
     <string name="hex_format" translatable="false">#%s</string>
 </resources>
