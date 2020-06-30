@@ -494,65 +494,90 @@ class MainActivity : AppCompatActivity() {
         saveColor.setOnClickListener { saveColor() }
 
         // Copy color codes
-        copyName.setOnClickListener {
-            copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
-        }
-        copyArgb.setOnClickListener {
-            if(isAlphaDisabled) {
-                copyTextToClipboard(getString(R.string.rgb_code), String.format(getString(R.string.rgb_clipboard),
-                    selectedColor.red, selectedColor.green, selectedColor.blue))
+        copyName.setOnClickListener { copyNameToClipboard() }
+        copyArgb.setOnClickListener { copyArgbToClipboard() }
+        copyHex.setOnClickListener { copyHexToClipboard() }
+        copyHsv.setOnClickListener { copyHsvToClipboard() }
+        copyCmyk.setOnClickListener { copyCmykToClipboard() }
+    }
+
+    private fun copyNameToClipboard() = copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
+
+    private fun copyArgbToClipboard() {
+        if (isAlphaDisabled) {
+            copyTextToClipboard(
+                getString(R.string.rgb_code), String.format(
+                    getString(R.string.rgb_clipboard),
+                    selectedColor.red, selectedColor.green, selectedColor.blue
+                )
+            )
+        } else {
+            // Show multiple choice dialog
+            if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
+                showArgbExportDialog(
+                    selectedColor.alpha,
+                    selectedColor.red,
+                    selectedColor.green,
+                    selectedColor.blue
+                )
             } else {
-                // Show multiple choice dialog
-                if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
-                    showArgbExportDialog(selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
+                if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
+                    copyTextToClipboard(
+                        getString(R.string.argb_code), String.format(
+                            getString(R.string.argb_clipboard),
+                            selectedColor.alpha,
+                            selectedColor.red,
+                            selectedColor.green,
+                            selectedColor.blue
+                        )
+                    )
                 } else {
-                    if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
-                        copyTextToClipboard(
-                            getString(R.string.argb_code), String.format(getString(R.string.argb_clipboard),
-                                selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue)
+                    copyTextToClipboard(
+                        getString(R.string.argb_code), String.format(
+                            getString(R.string.rgba_clipboard_css),
+                            selectedColor.red,
+                            selectedColor.green,
+                            selectedColor.blue,
+                            (selectedColor.alpha / 255.0).round(3)
                         )
-                    } else {
-                        copyTextToClipboard(
-                            getString(R.string.argb_code), String.format(getString(R.string.rgba_clipboard_css),
-                                selectedColor.red, selectedColor.green, selectedColor.blue, (selectedColor.alpha / 255.0).round(3))
-                        )
-                    }
+                    )
                 }
             }
         }
-        copyHex.setOnClickListener {
-            copyTextToClipboard(
-                getString(R.string.hex_code),
-                if(isAlphaDisabled)
-                    "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase()
-                else
-                    "#%08X".format(selectedColor.color).toUpperCase()
-            )
-        }
-        copyHsv.setOnClickListener {
-            copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
-        }
-        copyCmyk.setOnClickListener {
-            // Show multiple choice dialog
-            val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
-            if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
-                showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+    }
+
+    private fun copyHexToClipboard() {
+        copyTextToClipboard(
+            getString(R.string.hex_code),
+            if (isAlphaDisabled)
+                "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase()
+            else
+                "#%08X".format(selectedColor.color).toUpperCase()
+        )
+    }
+
+    private fun copyHsvToClipboard() = copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
+
+    private fun copyCmykToClipboard() {
+        // Show multiple choice dialog
+        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+        if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
+            showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+        } else {
+            if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
+                copyTextToClipboard(
+                    getString(R.string.cmyk_code), String.format(
+                        getString(R.string.cmyk_clipboard),
+                        cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0
+                    )
+                )
             } else {
-                if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
-                    copyTextToClipboard(
-                        getString(R.string.cmyk_code), String.format(
-                            getString(R.string.cmyk_clipboard),
-                            cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0
-                        )
+                copyTextToClipboard(
+                    getString(R.string.cmyk_code), String.format(
+                        getString(R.string.cmyk_clipboard_css),
+                        cmyk[0], cmyk[1], cmyk[2], cmyk[3]
                     )
-                } else {
-                    copyTextToClipboard(
-                        getString(R.string.cmyk_code), String.format(
-                            getString(R.string.cmyk_clipboard_css),
-                            cmyk[0], cmyk[1], cmyk[2], cmyk[3]
-                        )
-                    )
-                }
+                )
             }
         }
     }
