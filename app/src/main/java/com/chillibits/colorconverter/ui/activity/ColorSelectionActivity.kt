@@ -31,7 +31,7 @@ class ColorSelectionActivity : AppCompatActivity() {
     private val st = StorageTools(this)
 
     // Variables as objects
-    private lateinit var colors: ArrayList<Color>
+    private lateinit var colors: List<Color>
     private var selectedColor: Color? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class ColorSelectionActivity : AppCompatActivity() {
 
         savedColors.layoutManager = LinearLayoutManager(this)
         savedColors.adapter = ColorsAdapter(this, colors)
-        noItems.visibility = if (colors.size > 0) View.GONE else View.VISIBLE
+        noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

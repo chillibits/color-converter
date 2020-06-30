@@ -370,33 +370,29 @@ class MainActivity : AppCompatActivity() {
         loadColor.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
 
         // Update animated views
-        ValueAnimator.ofInt(colorAlpha.progress, color.alpha).run {
+        ValueAnimator.ofInt(colorAlpha.progress, color.alpha).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator ->
                 colorAlpha.progress = valueAnimator.animatedValue as Int
                 colorContainer.setBackgroundColor(color.color)
             }
             doOnEnd { selectedColor = color }
-            start()
-        }
+        }.start()
 
-        ValueAnimator.ofInt(colorRed.progress, color.red).run {
+        ValueAnimator.ofInt(colorRed.progress, color.red).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator -> colorRed.progress = valueAnimator.animatedValue as Int }
-            start()
-        }
+        }.start()
 
-        ValueAnimator.ofInt(colorGreen.progress, color.green).run {
+        ValueAnimator.ofInt(colorGreen.progress, color.green).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator -> colorGreen.progress = valueAnimator.animatedValue as Int }
-            start()
-        }
+        }.start()
 
-        ValueAnimator.ofInt(colorBlue.progress, color.blue).run {
+        ValueAnimator.ofInt(colorBlue.progress, color.blue).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator -> colorBlue.progress = valueAnimator.animatedValue as Int }
-            start()
-        }
+        }.start()
     }
 
     @Suppress("DEPRECATION")
@@ -422,16 +418,16 @@ class MainActivity : AppCompatActivity() {
         return manager.ringerMode != AudioManager.RINGER_MODE_NORMAL
     }
 
-    private fun finishWithSelectedColor() = Intent().run {
-        putExtra(Constants.EXTRA_CHOOSE_COLOR, selectedColor.color)
-        setResult(Activity.RESULT_OK, this)
+    private fun finishWithSelectedColor() {
+        setResult(Activity.RESULT_OK, Intent().apply {
+            putExtra(Constants.EXTRA_CHOOSE_COLOR, selectedColor.color)
+        })
         finish()
     }
 
     private fun setDefaultComponentValues() {
         // Initialize views
-        displayName.text =
-            String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
+        displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
         displayArgb.text = String.format(
             getString(R.string.argb_),
             selectedColor.alpha,
@@ -439,10 +435,7 @@ class MainActivity : AppCompatActivity() {
             selectedColor.green,
             selectedColor.blue
         )
-        displayHex.text = String.format(
-            getString(R.string.hex_),
-            "%08X".format(selectedColor.color).toUpperCase()
-        )
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase())
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(
             selectedColor.red,

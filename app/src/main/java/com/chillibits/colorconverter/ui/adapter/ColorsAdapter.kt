@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_color.view.*
 
 class ColorsAdapter(
     private val activity: ColorSelectionActivity,
-    private val colors: ArrayList<Color>
+    private val colors: List<Color>
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     private val ct = ColorTools(activity)

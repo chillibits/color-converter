@@ -19,15 +19,17 @@ object Constants {
     const val EXTRA_COLOR = "Color"
     const val EXTRA_SELECTED_COLOR = "SelectedColor"
 
-    // Other constants
-    const val COLOR_ANIMATION_DURATION = 500L
-    const val NAME_SELECTED_COLOR = "Selection"
-    const val HSV_FORMAT_STRING = "%.02f"
-    const val SHARED_PREFERENCES_NAME = "com.mrgames13.jimdo.colorconverter_preferences"
+    // Shared Preferences keys
     const val ARGB_REMEMBER = "ArgbRemember"
     const val ARGB_REMEMBER_SELECTION = "ArgbRememberSelection"
     const val CMYK_REMEMBER = "CmykRemember"
     const val CMYK_REMEMBER_SELECTION = "CmykRememberSelection"
     const val SPEAK_COLOR = "speak_color"
     const val DISABLE_ALPHA = "disable_alpha"
+
+    // Other constants
+    const val COLOR_ANIMATION_DURATION = 500L
+    const val NAME_SELECTED_COLOR = "Selection"
+    const val HSV_FORMAT_STRING = "%.02f"
+    const val SHARED_PREFERENCES_NAME = "com.mrgames13.jimdo.colorconverter_preferences"
 }

@@ -167,20 +167,16 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyRotation(source: Bitmap, path: String): Bitmap? {
-        return when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
-            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
-            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
-            else -> source
-        }
+    private fun applyRotation(source: Bitmap, path: String) = when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
+        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
+        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
+        else -> source
     }
 
-    private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        return Matrix().run {
-            postRotate(angle)
-            Bitmap.createBitmap(source, 0, 0, source.width, source.height, this, true)
-        }
+    private fun rotateImage(source: Bitmap, angle: Float) = Matrix().run {
+        postRotate(angle)
+        Bitmap.createBitmap(source, 0, 0, source.width, source.height, this, true)
     }
 
     private fun applyImage(bitmap: Bitmap) {
@@ -231,7 +227,7 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun finishWithResult(color: Int) {
-        Intent().run {
+        Intent().apply {
             putExtra(Constants.EXTRA_COLOR, color)
             setResult(Activity.RESULT_OK, this)
         }

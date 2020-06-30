@@ -33,5 +33,4 @@ class Color: Comparable<Color> {
             this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
 
     override fun compareTo(@NotNull other: Color) = other.creationTimestamp.compareTo(creationTimestamp)
-
 }
