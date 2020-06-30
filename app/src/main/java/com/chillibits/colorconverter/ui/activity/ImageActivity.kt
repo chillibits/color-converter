@@ -38,6 +38,7 @@ import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.io.IOException
 import java.util.*
 
 class ImageActivity : AppCompatActivity() {
@@ -162,7 +163,9 @@ class ImageActivity : AppCompatActivity() {
                 try{
                     imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
                     applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
-                } catch (ignored: Exception) {}
+                } catch (e: IOException) {
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
+                }
             } else finish()
         }
     }

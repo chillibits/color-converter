@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Tue, 30 Jun 2020 17:58:40 +0100
+ Exported at: Tue, 30 Jun 2020 18:50:23 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">fermer</string>
@@ -67,4 +67,5 @@
     <string name="cmyk_code">Code CMYK</string>
     <string name="disable_alpha">Désactiver la transparence</string>
     <string name="rgb_code">Code RGB</string>
+    <string name="error">Une erreur s\'est produite</string>
 </resources>

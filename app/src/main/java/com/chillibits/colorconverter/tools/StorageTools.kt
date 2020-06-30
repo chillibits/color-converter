@@ -9,7 +9,10 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
 import com.chillibits.colorconverter.model.Color
+import com.mrgames13.jimdo.colorconverter.R
+import java.io.IOException
 import java.util.*
 
 // Constants
@@ -52,8 +55,9 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
                 put("creation_timestamp", color.creationTimestamp)
             }
             writableDatabase.insert(TABLE_COLORS, null, values)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Log.e("ColorConverter", "Error saving color", e)
+            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -71,23 +75,22 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
             )
             val colors: ArrayList<Color> = ArrayList()
             while (cursor.moveToNext()) {
-                colors.add(
-                    Color(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getInt(6),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4),
-                        cursor.getLong(5)
-                    )
-                )
+                colors.add(Color(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(6),
+                    cursor.getInt(2),
+                    cursor.getInt(3),
+                    cursor.getInt(4),
+                    cursor.getLong(5)
+                ))
             }
             cursor.close()
             colors.sort()
             return colors
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Log.e("ChatLet", "Error loading colors", e)
+            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
         }
         return emptyList()
     }

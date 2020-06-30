@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Tue, 30 Jun 2020 17:58:41 +0100
+ Exported at: Tue, 30 Jun 2020 18:50:23 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="close">cerrar</string>
@@ -67,4 +67,5 @@
     <string name="cmyk_code">Código CMYK</string>
     <string name="disable_alpha">Desactivar la transparencia</string>
     <string name="rgb_code">Código RGB</string>
+    <string name="error">Se ha producido un error</string>
 </resources>
