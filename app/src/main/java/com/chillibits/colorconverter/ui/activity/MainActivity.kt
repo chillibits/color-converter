@@ -119,7 +119,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         if (InstantApps.isInstantApp(this)) menu?.findItem(R.id.action_install)?.isVisible = true
-        if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) menu?.findItem(R.id.action_done)?.isVisible = true
+        if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
+            menu?.findItem(R.id.action_done)?.isVisible = true
+            menu?.findItem(R.id.action_disable_alpha)?.isVisible = false
+        }
         menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
         disableAlpha = menu?.findItem(R.id.action_disable_alpha)
         disableAlpha?.isChecked = isAlphaDisabled
