@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © Marc Auberer 2020. All rights reserved
+  -->
+
+<!--
+ Loco xml export: Android string resources
+ Project: Color Converter Colors
+ Release: Working copy
+ Locale: ru, Russian
+ Exported by: ChilliBits
+ Exported at: Mon, 06 Jul 2020 12:07:02 +0100
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="color_alice_blue"></string>
+    <string name="color_antique_white">Античный Белый</string>
+    <string name="color_aqua"></string>
+    <string name="color_aquamarine">Аквамарин</string>
+    <string name="color_azure">Лазурный</string>
+    <string name="color_beige">Бежевый</string>
+    <string name="color_bisque"></string>
+    <string name="color_black">Черный</string>
+    <string name="color_blanched_almond">Миндальный</string>
+    <string name="color_blue">Синий</string>
+    <string name="color_blue_violet">Сине-фиолетовый</string>
+    <string name="color_brown">Коричневый</string>
+    <string name="color_burly_wood"></string>
+    <string name="color_cadet_blue">Кадетский синий</string>
+    <string name="color_chartreuse">Шартрез</string>
+    <string name="color_chocolate">Шоколадный</string>
+    <string name="color_coral">Коралловый</string>
+    <string name="color_cornflower_blue">Васильковый</string>
+    <string name="color_cornsilk">Кукурузный шелк</string>
+    <string name="color_crimson">Малиновый</string>
+    <string name="color_cyan">Зеленовато-синий</string>
+    <string name="color_dark_blue"></string>
+    <string name="color_dark_cyan"></string>
+    <string name="color_dark_golden_rod"></string>
+    <string name="color_dark_gray"></string>
+    <string name="color_dark_green"></string>
+    <string name="color_dark_khaki"></string>
+    <string name="color_dark_magenta"></string>
+    <string name="color_dark_olive_green"></string>
+    <string name="color_dark_orange"></string>
+    <string name="color_dark_orchid"></string>
+    <string name="color_dark_red"></string>
+    <string name="color_dark_salmon"></string>
+    <string name="color_dark_sea_green"></string>
+    <string name="color_dark_slate_blue"></string>
+    <string name="color_dark_late_gray"></string>
+    <string name="color_dark_turquoise"></string>
+    <string name="color_dark_violet"></string>
+    <string name="color_deep_pink"></string>
+    <string name="color_deep_sky_blue"></string>
+    <string name="color_dim_gray"></string>
+    <string name="color_dodger_blue"></string>
+    <string name="color_fire_brick"></string>
+    <string name="color_floral_white"></string>
+    <string name="color_forest_green"></string>
+    <string name="color_fuchsia"></string>
+    <string name="color_gainsboro"></string>
+    <string name="color_ghost_white"></string>
+    <string name="color_gold"></string>
+    <string name="color_golden_rod"></string>
+    <string name="color_gray"></string>
+    <string name="color_green"></string>
+    <string name="color_green_yellow"></string>
+    <string name="color_honey_dew"></string>
+    <string name="color_hot_pink"></string>
+    <string name="color_indian_red"></string>
+    <string name="color_indigo"></string>
+    <string name="color_ivory"></string>
+    <string name="color_khaki"></string>
+    <string name="color_lavender"></string>
+    <string name="color_lavender_blush"></string>
+    <string name="color_lawn_green"></string>
+    <string name="color_lemon_chiffon"></string>
+    <string name="color_light_blue"></string>
+    <string name="color_light_coral"></string>
+    <string name="color_light_cyan"></string>
+    <string name="color_light_golden_rod_yellow"></string>
+    <string name="color_light_gray"></string>
+    <string name="color_light_green"></string>
+    <string name="color_light_pink"></string>
+    <string name="color_light_salmon"></string>
+    <string name="color_light_sea_green"></string>
+    <string name="color_light_sky_blue"></string>
+    <string name="color_light_slate_gray"></string>
+    <string name="color_light_steel_blue"></string>
+    <string name="color_light_yellow"></string>
+    <string name="color_lime"></string>
+    <string name="color_lime_green"></string>
+    <string name="color_linen"></string>
+    <string name="color_magenta"></string>
+    <string name="color_maroon"></string>
+    <string name="color_medium_aqua_marine"></string>
+    <string name="color_medium_blue"></string>
+    <string name="color_medium_orchid"></string>
+    <string name="color_medium_purple"></string>
+    <string name="color_medium_sea_green"></string>
+    <string name="color_medium_slate_blue"></string>
+    <string name="color_medium_spring_green"></string>
+    <string name="color_medium_turquoise"></string>
+    <string name="color_medium_violet_red"></string>
+    <string name="color_midnight_blue"></string>
+    <string name="color_mint_cream"></string>
+    <string name="color_misty_rose"></string>
+    <string name="color_moccasin"></string>
+    <string name="color_navajo_white"></string>
+    <string name="color_navy"></string>
+    <string name="color_old_lace"></string>
+    <string name="color_olive"></string>
+    <string name="color_olive_drab"></string>
+    <string name="color_orange"></string>
+    <string name="color_orange_red"></string>
+    <string name="color_orchid"></string>
+    <string name="color_pale_golden_rod"></string>
+    <string name="color_pale_green"></string>
+    <string name="color_pale_turquoise"></string>
+    <string name="color_pale_violet_red"></string>
+    <string name="color_papaya_whip"></string>
+    <string name="color_peach_puff"></string>
+    <string name="color_peru"></string>
+    <string name="color_pink"></string>
+    <string name="color_plum"></string>
+    <string name="color_powder_blue"></string>
+    <string name="color_purple"></string>
+    <string name="color_red"></string>
+    <string name="color_rosy_brown"></string>
+    <string name="color_royal_blue"></string>
+    <string name="color_saddle_brown"></string>
+    <string name="color_salmon"></string>
+    <string name="color_sandy_brown"></string>
+    <string name="color_sea_green"></string>
+    <string name="color_sea_shell"></string>
+    <string name="color_sienna"></string>
+    <string name="color_silver"></string>
+    <string name="color_sky_blue"></string>
+    <string name="color_slate_blue"></string>
+    <string name="color_slate_gray"></string>
+    <string name="color_snow"></string>
+    <string name="color_spring_green"></string>
+    <string name="color_steel_blue"></string>
+    <string name="color_tan"></string>
+    <string name="color_teal"></string>
+    <string name="color_thistle"></string>
+    <string name="color_tomato"></string>
+    <string name="color_turquoise"></string>
+    <string name="color_violet"></string>
+    <string name="color_wheat"></string>
+    <string name="color_white"></string>
+    <string name="color_white_smoke"></string>
+    <string name="color_yellow"></string>
+    <string name="color_yellow_green"></string>
+</resources>

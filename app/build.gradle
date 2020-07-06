@@ -109,9 +109,9 @@ task downloadTranslations {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values-ru/strings.xml")
         new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
-        // Color file (not translated to Russian yet)
-        //f = new File("${project.projectDir}/src/main/res/values-ru/strings_colors.xml")
-        //new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file
+        f = new File("${project.projectDir}/src/main/res/values-ru/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
 }
 
