@@ -116,7 +116,7 @@ class ImageActivity : AppCompatActivity() {
 
         if(intent.hasExtra(Constants.EXTRA_IMAGE_URI)) {
             // Load default image
-            val defaultImageUri = intent.getParcelableExtra(Constants.EXTRA_IMAGE_URI) as Uri
+            val defaultImageUri = intent.getParcelableExtra<Uri>(Constants.EXTRA_IMAGE_URI)
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, defaultImageUri)
             applyImage(bitmap)
         } else if(savedInstanceState == null) {
