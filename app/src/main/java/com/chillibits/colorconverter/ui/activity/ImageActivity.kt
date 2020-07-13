@@ -68,19 +68,7 @@ class ImageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_image)
 
         // Apply window insets
-        window.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
-                    insets
-                }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-            }
-        }
+        applyWindowInsets()
 
         // Initialize toolbar
         setSupportActionBar(toolbar)
@@ -170,6 +158,27 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
+    private fun applyWindowInsets() {
+        window.run {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                    decorView.systemUiVisibility =
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
+                        insets
+                    }
+                }
+                else -> {
+                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                }
+            }
+        }
+    }
+
     private fun applyRotation(source: Bitmap, path: String) = when (ExifInterface(path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
@@ -218,11 +227,7 @@ class ImageActivity : AppCompatActivity() {
         } else {
             if(initialized) {
                 val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", valueSelectedColor, 0))
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
-                } else {
-                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
-                }
+                tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
             } else {
                 Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }

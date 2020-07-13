@@ -61,20 +61,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Apply window insets
-        window.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                    finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                    insets
-                }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-            }
-        }
+        applyWindowInsets()
 
         // Initialize toolbar
         setSupportActionBar(toolbar)
@@ -176,6 +163,28 @@ class MainActivity : AppCompatActivity() {
                 pickColorFromImage()
             } else {
                 Toast.makeText(this, R.string.approve_permissions, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun applyWindowInsets() {
+        window.run {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                    decorView.systemUiVisibility =
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                        scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                        finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                        insets
+                    }
+                }
+                else -> {
+                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                }
             }
         }
     }
@@ -364,13 +373,14 @@ class MainActivity : AppCompatActivity() {
         displayHex.setTextColor(textColor)
         displayHsv.setTextColor(textColor)
         displayCmyk.setTextColor(textColor)
-        copyName.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        copyArgb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        copyHex.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        copyHsv.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        copyCmyk.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        saveColor.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
-        loadColor.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
+        val colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
+        copyName.colorFilter = colorFilter
+        copyArgb.colorFilter = colorFilter
+        copyHex.colorFilter = colorFilter
+        copyHsv.colorFilter = colorFilter
+        copyCmyk.colorFilter = colorFilter
+        saveColor.colorFilter = colorFilter
+        loadColor.colorFilter = colorFilter
 
         // Update animated views
         ValueAnimator.ofInt(colorAlpha.progress, color.alpha).apply {
@@ -405,11 +415,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             if(initialized) {
                 val colorName = cnt.getColorNameFromColor(selectedColor)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
-                } else {
-                    tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null)
-                }
+                tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
             } else {
                 Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }

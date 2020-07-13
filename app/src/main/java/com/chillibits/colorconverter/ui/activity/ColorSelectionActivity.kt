@@ -39,16 +39,20 @@ class ColorSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_color_selection)
 
         window.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    savedColors.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                    insets
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                        savedColors.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                        insets
+                    }
                 }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                else -> {
+                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                }
             }
         }
 
@@ -137,19 +141,14 @@ class ColorSelectionActivity : AppCompatActivity() {
     }
 
     private fun animateAppAndStatusBar(toColor: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val animator = ViewAnimationUtils.createCircularReveal(reveal, toolbar.width / 2, toolbar.height / 2, 0f, toolbar.width / 2.0f + 50)
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator) { reveal.setBackgroundColor(toColor) }
-                override fun onAnimationEnd(animation: Animator) { revealBackground.setBackgroundColor(toColor) }
-            })
+        val animator = ViewAnimationUtils.createCircularReveal(reveal, toolbar.width / 2, toolbar.height / 2, 0f, toolbar.width / 2.0f + 50)
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator) { reveal.setBackgroundColor(toColor) }
+            override fun onAnimationEnd(animation: Animator) { revealBackground.setBackgroundColor(toColor) }
+        })
 
-            animator.duration = 480
-            animator.start()
-            reveal.visibility = View.VISIBLE
-        } else {
-            reveal.setBackgroundColor(toColor)
-            revealBackground.setBackgroundColor(toColor)
-        }
+        animator.duration = 480
+        animator.start()
+        reveal.visibility = View.VISIBLE
     }
 }
