@@ -238,7 +238,10 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
-        hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase()))
+        if(isAlphaDisabled)
+            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and selectedColor.color)).toUpperCase())))
+        else
+            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase()))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -248,7 +251,8 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(hex.length == 5) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
+                if(isAlphaDisabled && hex.length == 4) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
+                if(!isAlphaDisabled && hex.length == 5) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
                 val tmp = selectedColor
                 tmp.color = android.graphics.Color.parseColor(hex)
                 tmp.alpha = tmp.color.alpha
@@ -267,10 +271,14 @@ class MainActivity : AppCompatActivity() {
                 Selection.setSelection(hexValue.text, hexValue.text.length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().length == 9 || s.toString().length == 5
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaDisabled) {
+                    s.toString().length == 7 || s.toString().length == 4
+                } else {
+                    s.toString().length == 9 || s.toString().length == 5
+                }
             }
         }
-        hexValue.setSelection(1, 9)
+        hexValue.setSelection(1, if(isAlphaDisabled) 7 else 9)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
