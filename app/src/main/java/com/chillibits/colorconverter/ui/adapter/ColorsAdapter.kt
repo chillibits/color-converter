@@ -16,6 +16,7 @@ import com.chillibits.colorconverter.tools.setTint
 import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
+import java.util.*
 
 class ColorsAdapter(
     private val activity: ColorSelectionActivity,
@@ -48,7 +49,7 @@ class ColorsAdapter(
                 String.format(
                     activity.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,
-                    "%06X".format(0xFFFFFF and color.color).toUpperCase(),
+                    "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[2]),
@@ -58,7 +59,7 @@ class ColorsAdapter(
                 String.format(
                     activity.getString(R.string.color_summary),
                     color.alpha, color.red, color.green, color.blue,
-                    "%08X".format(color.color).toUpperCase(),
+                    "%08X".format(color.color).toUpperCase(Locale.getDefault()),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[2]),

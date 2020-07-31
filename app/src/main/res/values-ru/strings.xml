@@ -9,10 +9,9 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Thu, 30 Jul 2020 14:47:30 +0100
+ Exported at: Fri, 31 Jul 2020 21:23:20 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="close">закрыть</string>
     <string name="ok">ОК</string>
     <string name="cancel">Отмена</string>
     <!-- MainActivity -->
@@ -56,7 +55,7 @@
     <string name="instant_install_m">Эта функция не поддерживается в мгновенной версии приложения.\u0020\u0020Пожалуйста, установите приложение, чтобы использовать эту функцию.</string>
     <string name="install_app_download">Установите это приложение, чтобы использовать все функции, а также функции, которые мы не можем поддерживать в мгновенной версии приложения.</string>
     <string name="approve_permissions">Для работы функции требуются разрешения.</string>
-    <string name="message_to_drag_up">Потяните вверх для просмотра галереи</string>
+    <string name="pix_bottom_message_without_video">Потяните вверх для просмотра галереи</string>
     <string name="speak_color">Произнести название цвета</string>
     <string name="language_not_available">Язык не доступен</string>
     <string name="initialization_failed">Ошибка инициализации</string>

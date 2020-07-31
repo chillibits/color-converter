@@ -239,9 +239,9 @@ class MainActivity : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
         if(isAlphaDisabled)
-            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and selectedColor.color)).toUpperCase())))
+            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and selectedColor.color)).toUpperCase(Locale.getDefault()))))
         else
-            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase()))
+            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase(Locale.getDefault())))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -361,9 +361,9 @@ class MainActivity : AppCompatActivity() {
         }
         // Update HEX TextView
         displayHex.text = if(isAlphaDisabled) {
-            String.format(getString(R.string.hex_), "%06X".format((0xFFFFFF and color.color)).toUpperCase())
+            String.format(getString(R.string.hex_), "%06X".format((0xFFFFFF and color.color)).toUpperCase(Locale.getDefault()))
         } else {
-            String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase())
+            String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase(Locale.getDefault()))
         }
         // Update HSV TextView
         val hsv = FloatArray(3)
@@ -452,7 +452,8 @@ class MainActivity : AppCompatActivity() {
             selectedColor.green,
             selectedColor.blue
         )
-        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase())
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase(
+            Locale.getDefault()))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(
             selectedColor.red,
@@ -560,13 +561,13 @@ class MainActivity : AppCompatActivity() {
         copyTextToClipboard(
             getString(R.string.hex_code),
             if (isAlphaDisabled)
-                "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase()
+                "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase(Locale.getDefault())
             else
-                "#%08X".format(selectedColor.color).toUpperCase()
+                "#%08X".format(selectedColor.color).toUpperCase(Locale.getDefault())
         )
     }
 
-    private fun copyHsvToClipboard() = copyTextToClipboard(getString(R.string.hsv_code), displayHsv.text.toString())
+    private fun copyHsvToClipboard() = copyTextToClipboard(getString(R.string.hsv_clipboard), displayHsv.text.toString())
 
     private fun copyCmykToClipboard() {
         // Show multiple choice dialog

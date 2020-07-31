@@ -9,10 +9,9 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Thu, 30 Jul 2020 14:47:30 +0100
+ Exported at: Fri, 31 Jul 2020 21:23:19 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="close">fermer</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <!-- MainActivity -->
@@ -56,7 +55,7 @@
     <string name="instant_install_m">Cette fonctionnalité n\'est pas prise en charge dans la version de l\'application instantanée. Installez l\'application pour utiliser cette fonctionnalité, s\'il vous plaît.</string>
     <string name="install_app_download">Installez cette application pour profiter de toutes les fonctionnalités et des fonctionnalités que nous ne pouvons pas prendre en charge dans la version de l\'application instantanée.</string>
     <string name="approve_permissions">La fonctionnalité a besoin des autorisations pour fonctionner.</string>
-    <string name="message_to_drag_up">Glissez les images en haut pour entrer la galerie</string>
+    <string name="pix_bottom_message_without_video">Glissez les images en haut pour entrer la galerie</string>
     <string name="speak_color">Parler couleur</string>
     <string name="language_not_available">Langue n\'est pas disponible</string>
     <string name="initialization_failed">Initialisation échouée</string>
