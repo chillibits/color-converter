@@ -7,14 +7,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 2300
-        versionName "2.3.0"
+        targetSdkVersion 30
+        versionCode 2301
+        versionName "2.3.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,11 +38,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
     implementation 'androidx.core:core-ktx:1.5.0-alpha01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
-    implementation 'com.google.android.play:core:1.7.3'
+    implementation 'com.google.android.play:core:1.8.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
 
     // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
@@ -51,13 +51,13 @@ dependencies {
     implementation 'com.github.skydoves:colorpickerview:2.1.6'
     implementation 'com.mikepenz:iconics-core:5.0.3'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.6-kotlin@aar'
-    implementation 'com.mikepenz:fastadapter:5.1.0'
-    implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.1'
+    implementation 'com.mikepenz:fastadapter:5.2.2'
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
     // dependencies for testing
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2-rc01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc01'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2-rc02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc02'
 }
 
 // Task for downloading all translation files
@@ -109,7 +109,7 @@ task downloadTranslations {
         // Main string file
         def f = new File("${project.projectDir}/src/main/res/values-ru/strings.xml")
         new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
-        // Color file (not translated to Russian yet)
+        // Color file (will be added again, when the translation is complete)
         //f = new File("${project.projectDir}/src/main/res/values-ru/strings_colors.xml")
         //new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }

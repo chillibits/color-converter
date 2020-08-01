@@ -9,10 +9,9 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Tue, 30 Jun 2020 20:30:36 +0100
+ Exported at: Sun, 02 Aug 2020 00:22:26 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="close">закрыть</string>
     <string name="ok">ОК</string>
     <string name="cancel">Отмена</string>
     <!-- MainActivity -->
@@ -30,7 +29,7 @@
     <string name="rate_m">Если Вам нравится наше приложение, пожалуйста, потратьте минуту и ​​оцените Color Converter на 5 звезд в Google Play!</string>
     <string name="share_app">Рекомендовать приложение</string>
     <string name="share">Рекомендовать</string>
-    <string name="share_m">Порекомендовать Color Converter друзьям!</string>
+    <string name="share_m">Порекомендуйте Color Converter друзьям!</string>
     <string name="recommend_string">Color Converter: Преобразование цветов, выбор цвета с изображения и многое другое! Легкий инструмент для программистов и дизайнеров.\u0020\u0020Скачать в Google Play: \nhttps://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
     <string name="press_color_to_apply">Коснитесь цвета, чтобы применить</string>
     <string name="rate">Оценить</string>
@@ -52,11 +51,11 @@
     <string name="shortcut_disabled">Действие отключено</string>
     <string name="shortcut_photo_long">Выбрать цвет с фото</string>
     <!-- InstantApp -->
-    <string name="install_app">Установите приложение</string>
+    <string name="install_app">Установить приложение</string>
     <string name="instant_install_m">Эта функция не поддерживается в мгновенной версии приложения.\u0020\u0020Пожалуйста, установите приложение, чтобы использовать эту функцию.</string>
     <string name="install_app_download">Установите это приложение, чтобы использовать все функции, а также функции, которые мы не можем поддерживать в мгновенной версии приложения.</string>
     <string name="approve_permissions">Для работы функции требуются разрешения.</string>
-    <string name="message_to_drag_up">Потяните вверх для просмотра галереи</string>
+    <string name="pix_bottom_message_without_video">Потяните вверх для просмотра галереи</string>
     <string name="speak_color">Произнести название цвета</string>
     <string name="language_not_available">Язык не доступен</string>
     <string name="initialization_failed">Ошибка инициализации</string>

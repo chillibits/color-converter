@@ -2,7 +2,7 @@
   ~ Copyright © Marc Auberer 2020. All rights reserved
   -->
 
-<vector android:height="212dp" android:viewportHeight="1024"
+<vector android:height="200dp" android:viewportHeight="1024"
     android:viewportWidth="726" android:width="150.30469dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#000000"
         android:pathData="M170,69l0,69 55.5,-0 55.5,-0 0,-23 0,-23 -32,-0 -32,-0 0,-23 0,-23 32,-0 32,-0 0,-23 0,-23 -55.5,-0 -55.5,-0 0,69z" android:strokeColor="#00000000"/>
