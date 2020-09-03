@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.setTint
 import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.Constants
 import com.chillibits.colorconverter.tools.StorageTools
-import com.chillibits.colorconverter.tools.setTint
 import com.chillibits.colorconverter.ui.activity.ColorSelectionActivity
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*

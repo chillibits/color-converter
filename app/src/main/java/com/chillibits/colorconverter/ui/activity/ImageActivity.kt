@@ -29,7 +29,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.exifinterface.media.ExifInterface
-import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.dpToPx
+import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.viewmodel.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix

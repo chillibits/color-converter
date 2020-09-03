@@ -28,7 +28,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
-import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.copyTextToClipboard
+import com.chillibits.colorconverter.shared.round
+import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.SimpleOnSeekBarChangeListener
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -148,11 +154,13 @@ class MainActivity : AppCompatActivity() {
         when(requestCode) {
             Constants.REQ_PICK_COLOR_FROM_IMAGE -> {
                 if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                        Constants.EXTRA_COLOR, 0), -1))
             }
             Constants.REQ_LOAD_COLOR -> {
                 if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                        Constants.EXTRA_COLOR, 0), -1))
             }
         }
     }
