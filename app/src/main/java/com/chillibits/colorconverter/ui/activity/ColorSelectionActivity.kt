@@ -40,7 +40,15 @@ class ColorSelectionActivity : AppCompatActivity() {
 
         window.run {
             when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        savedColors.setPadding(0, 0, 0, systemInsets.bottom)
+                        insets
+                    }
+                    setDecorFitsSystemWindows(false)
+                }
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                     decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                     decorView.setOnApplyWindowInsetsListener { _, insets ->

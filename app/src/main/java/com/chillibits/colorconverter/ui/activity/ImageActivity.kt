@@ -19,10 +19,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -165,7 +162,15 @@ class ImageActivity : AppCompatActivity() {
     private fun applyWindowInsets() {
         window.run {
             when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
+                        insets
+                    }
+                    setDecorFitsSystemWindows(false)
+                }
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                     decorView.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
