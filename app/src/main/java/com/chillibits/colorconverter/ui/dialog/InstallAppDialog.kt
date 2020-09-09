@@ -9,7 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.chillibits.colorconverter.tools.Constants
+import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.ui.activity.MainActivity
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog
 import com.github.javiersantos.materialstyleddialogs.enums.Style

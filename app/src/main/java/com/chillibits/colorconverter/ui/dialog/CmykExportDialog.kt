@@ -7,9 +7,9 @@ package com.chillibits.colorconverter.ui.dialog
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
-import com.chillibits.colorconverter.tools.Constants
+import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.copyTextToClipboard
 import com.chillibits.colorconverter.tools.StorageTools
-import com.chillibits.colorconverter.tools.copyTextToClipboard
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.dialog_export_cmyk.view.*
 

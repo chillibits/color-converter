@@ -7,7 +7,7 @@ package com.chillibits.colorconverter.viewmodel
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
-import com.chillibits.colorconverter.tools.Constants
+import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
@@ -34,6 +34,7 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
             String.format(context.getString(R.string.hex_), "%08X".format(envelope.color).toUpperCase(Locale.getDefault()))
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(envelope.color.red, envelope.color.green, envelope.color.blue, hsv)
-        flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
+        flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(
+            Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
     }
 }

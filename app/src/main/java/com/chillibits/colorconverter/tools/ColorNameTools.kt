@@ -165,7 +165,7 @@ class ColorNameTools(private val c: Context) {
                 closestMatch = color
             }
         }
-        return closestMatch?.getName() ?: "No color"
+        return closestMatch?.name ?: "No color"
     }
 
     fun getColorNameFromColor(color: Color) = getColorNameFromRgb(color.red, color.green, color.blue)

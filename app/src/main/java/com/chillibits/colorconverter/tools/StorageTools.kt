@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.shared.Constants
 import com.mrgames13.jimdo.colorconverter.R
 import java.io.IOException
 import java.util.*

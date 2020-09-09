@@ -28,7 +28,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
-import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.copyTextToClipboard
+import com.chillibits.colorconverter.shared.round
+import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.SimpleOnSeekBarChangeListener
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -148,16 +154,19 @@ class MainActivity : AppCompatActivity() {
         when(requestCode) {
             Constants.REQ_PICK_COLOR_FROM_IMAGE -> {
                 if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                        Constants.EXTRA_COLOR, 0), -1))
             }
             Constants.REQ_LOAD_COLOR -> {
                 if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(Constants.EXTRA_COLOR, 0), -1))
+                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                        Constants.EXTRA_COLOR, 0), -1))
             }
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == Constants.REQ_PERMISSIONS) {
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 pickColorFromImage()
@@ -170,7 +179,17 @@ class MainActivity : AppCompatActivity() {
     private fun applyWindowInsets() {
         window.run {
             when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> setDecorFitsSystemWindows(false)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                    decorView.setOnApplyWindowInsetsListener { _, insets ->
+                        val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
+                        finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
+                        insets
+                    }
+                    setDecorFitsSystemWindows(false)
+                    isNavigationBarContrastEnforced = true
+                }
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                     decorView.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
