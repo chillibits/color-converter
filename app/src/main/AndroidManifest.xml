@@ -3,7 +3,8 @@
   ~ Copyright © Marc Auberer 2020. All rights reserved
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mrgames13.jimdo.colorconverter"
@@ -20,7 +21,7 @@
 
     <application
         android:allowBackup="false"
-        android:label="@string/app_name"
+        android:label="@string/app_name_cc"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:requestLegacyExternalStorage="true"

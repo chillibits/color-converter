@@ -4,7 +4,7 @@
   -->
 
 <resources>
-    <string name="app_name" translatable="false">Color Converter</string>
+    <string name="app_name_cc" translatable="false">Color Converter</string>
     <string name="a" translatable="false">A</string>
     <string name="r" translatable="false">R</string>
     <string name="g" translatable="false">G</string>
