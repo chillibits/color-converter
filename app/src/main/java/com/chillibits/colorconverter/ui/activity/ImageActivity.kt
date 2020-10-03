@@ -141,8 +141,10 @@ class ImageActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        imageUri = savedInstanceState.getString("ImageUri")
-        applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
+        try {
+            imageUri = savedInstanceState.getString("ImageUri")
+            applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
+        } catch (e: Exception) {}
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -159,31 +161,29 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyWindowInsets() {
-        window.run {
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
-                    decorView.setOnApplyWindowInsetsListener { _, insets ->
-                        val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
-                        insets
-                    }
-                    setDecorFitsSystemWindows(false)
+    private fun applyWindowInsets() = window.run {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                    toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
+                    insets
                 }
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
-                    decorView.systemUiVisibility =
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                    decorView.setOnApplyWindowInsetsListener { _, insets ->
-                        toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
-                        insets
-                    }
+                setDecorFitsSystemWindows(false)
+            }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
+                    insets
                 }
-                else -> {
-                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-                }
+            }
+            else -> {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
         }
     }

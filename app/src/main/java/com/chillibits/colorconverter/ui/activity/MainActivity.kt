@@ -176,34 +176,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyWindowInsets() {
-        window.run {
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
-                    decorView.setOnApplyWindowInsetsListener { _, insets ->
-                        val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                        scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
-                        finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
-                        insets
-                    }
-                    setDecorFitsSystemWindows(false)
-                    isNavigationBarContrastEnforced = true
+    private fun applyWindowInsets() = window.run {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                    toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                    scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
+                    finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
+                    insets
                 }
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
-                    decorView.systemUiVisibility =
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                    decorView.setOnApplyWindowInsetsListener { _, insets ->
-                        toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                        scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                        finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                        insets
-                    }
+                setDecorFitsSystemWindows(false)
+                isNavigationBarContrastEnforced = true
+            }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                decorView.setOnApplyWindowInsetsListener { _, insets ->
+                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                    finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                    insets
                 }
-                else -> {
-                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-                }
+            }
+            else -> {
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
         }
     }
