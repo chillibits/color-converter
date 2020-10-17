@@ -174,13 +174,14 @@ class MainActivity : AppCompatActivity() {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                    toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                    scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
-                    finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
+                    if(systemInsets.top > 0) {
+                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
+                        finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
+                    }
                     insets
                 }
                 setDecorFitsSystemWindows(false)
-                isNavigationBarContrastEnforced = true
             }
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or

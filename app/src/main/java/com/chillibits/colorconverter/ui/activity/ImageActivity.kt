@@ -166,8 +166,10 @@ class ImageActivity : AppCompatActivity() {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                    toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
+                    if(systemInsets.top > 0) {
+                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
+                    }
                     insets
                 }
                 setDecorFitsSystemWindows(false)
