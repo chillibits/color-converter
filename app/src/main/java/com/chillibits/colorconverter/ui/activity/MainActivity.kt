@@ -14,11 +14,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.text.InputType
 import android.text.Selection
 import android.view.*
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -29,12 +26,7 @@ import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
-import com.chillibits.colorconverter.shared.copyTextToClipboard
-import com.chillibits.colorconverter.shared.round
-import com.chillibits.colorconverter.tools.ColorNameTools
-import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.SimpleOnSeekBarChangeListener
-import com.chillibits.colorconverter.tools.StorageTools
+import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -51,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private val st = StorageTools(this)
     private val ct = ColorTools(this)
     private val cnt = ColorNameTools(this)
+    private val cbt = ClipboardTools(this, st, ct)
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
@@ -217,40 +210,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveColor() {
-        // Initialize views
-        val editTextName = EditText(this)
-        editTextName.hint = getString(R.string.choose_name)
-        editTextName.setText(cnt.getColorNameFromColor(selectedColor))
-        editTextName.inputType = InputType.TYPE_TEXT_VARIATION_URI
-        val container = FrameLayout(this)
-        val containerParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-        containerParams.marginStart = resources.getDimensionPixelSize(R.dimen.dialog_margin)
-        containerParams.marginEnd = resources.getDimensionPixelSize(R.dimen.dialog_margin)
-        editTextName.layoutParams = containerParams
-        container.addView(editTextName)
-
-        // Create dialog
-        val dialog = AlertDialog.Builder(this)
-            .setTitle(R.string.save_color)
-            .setView(container)
-            .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(R.string.save) { _, _ ->
-                selectedColor.name = editTextName.text.toString().trim()
-                st.addColor(selectedColor)
-            }
-            .show()
-
-        // Prepare views
-        editTextName.doAfterTextChanged {s ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
-        }
-        editTextName.selectAll()
-        editTextName.requestFocus()
-        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-    }
-
     private fun editHexCode() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
@@ -271,11 +230,13 @@ class MainActivity : AppCompatActivity() {
                 if(isAlphaDisabled && hex.length == 4) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
                 if(!isAlphaDisabled && hex.length == 5) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
                 val tmp = selectedColor
-                tmp.color = android.graphics.Color.parseColor(hex)
-                tmp.alpha = tmp.color.alpha
-                tmp.red = tmp.color.red
-                tmp.green = tmp.color.green
-                tmp.blue = tmp.color.blue
+                tmp.apply {
+                    color = android.graphics.Color.parseColor(hex)
+                    alpha = color.alpha
+                    red = color.red
+                    green = color.green
+                    blue = color.blue
+                }
                 updateDisplays(tmp)
             }
             .show()
@@ -322,23 +283,28 @@ class MainActivity : AppCompatActivity() {
                     container.dialogV.text.toString().toFloat()
                 )
                 val tmp = selectedColor
-                tmp.color = android.graphics.Color.HSVToColor(hsvSelected)
-                tmp.alpha = tmp.color.alpha
-                tmp.red = tmp.color.red
-                tmp.green = tmp.color.green
-                tmp.blue = tmp.color.blue
+                tmp.apply {
+                    color = android.graphics.Color.HSVToColor(hsvSelected)
+                    alpha = color.alpha
+                    red = color.red
+                    green = color.green
+                    blue = color.blue
+                }
                 updateDisplays(tmp)
             }
             .show()
 
         container.dialogH.doAfterTextChanged { s ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty() && container.dialogS.text.isNotEmpty() && container.dialogV.text.isNotEmpty()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
+                s.toString().isNotEmpty() && container.dialogS.text.isNotEmpty() && container.dialogV.text.isNotEmpty()
         }
         container.dialogS.doAfterTextChanged { s ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialogH.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialogV.text.isNotEmpty()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
+                container.dialogH.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialogV.text.isNotEmpty()
         }
         container.dialogV.doAfterTextChanged { s ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = container.dialogH.text.isNotEmpty() && container.dialogS.text.isNotEmpty() && s.toString().isNotEmpty()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
+                container.dialogH.text.isNotEmpty() && container.dialogS.text.isNotEmpty() && s.toString().isNotEmpty()
         }
 
         container.dialogH.requestFocus()
@@ -348,7 +314,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun randomizeColor() {
         val random = Random(System.currentTimeMillis())
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, random.nextInt(256), random.nextInt(256), random.nextInt(256), -1))
+        val red = random.nextInt(256)
+        val green = random.nextInt(256)
+        val blue = random.nextInt(256)
+        val randomColor = Color(0, Constants.NAME_SELECTED_COLOR, 255, red, green, blue, -1)
+        updateDisplays(randomColor)
     }
 
     private fun chooseColor() {
@@ -435,15 +405,13 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun speakColor() {
-        if(isAudioMuted()) {
-            Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
-        } else {
-            if(initialized) {
+        when {
+            isAudioMuted() -> Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
+            initialized -> {
                 val colorName = cnt.getColorNameFromColor(selectedColor)
                 tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
-            } else {
-                Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }
+            else -> Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -464,20 +432,12 @@ class MainActivity : AppCompatActivity() {
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
         displayArgb.text = String.format(
             getString(R.string.argb_),
-            selectedColor.alpha,
-            selectedColor.red,
-            selectedColor.green,
-            selectedColor.blue
+            selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue
         )
         displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase(
             Locale.getDefault()))
         val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(
-            selectedColor.red,
-            selectedColor.green,
-            selectedColor.blue,
-            hsv
-        )
+        android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
         displayHsv.text = String.format(
             getString(R.string.hsv_),
             String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
@@ -519,95 +479,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Save color
-        saveColor.setOnClickListener { saveColor() }
+        saveColor.setOnClickListener { showSaveColorDialog(cnt, st, selectedColor) }
 
         // Copy color codes
-        copyName.setOnClickListener { copyNameToClipboard() }
-        copyArgb.setOnClickListener { copyArgbToClipboard() }
-        copyHex.setOnClickListener { copyHexToClipboard() }
-        copyHsv.setOnClickListener { copyHsvToClipboard() }
-        copyCmyk.setOnClickListener { copyCmykToClipboard() }
-    }
-
-    private fun copyNameToClipboard() = copyTextToClipboard(getString(R.string.color_name), displayName.text.toString())
-
-    private fun copyArgbToClipboard() {
-        if (isAlphaDisabled) {
-            copyTextToClipboard(
-                getString(R.string.rgb_code), String.format(
-                    getString(R.string.rgb_clipboard),
-                    selectedColor.red, selectedColor.green, selectedColor.blue
-                )
-            )
-        } else {
-            // Show multiple choice dialog
-            if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
-                showArgbExportDialog(
-                    selectedColor.alpha,
-                    selectedColor.red,
-                    selectedColor.green,
-                    selectedColor.blue
-                )
-            } else {
-                if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
-                    copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
-                            getString(R.string.argb_clipboard),
-                            selectedColor.alpha,
-                            selectedColor.red,
-                            selectedColor.green,
-                            selectedColor.blue
-                        )
-                    )
-                } else {
-                    copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
-                            getString(R.string.rgba_clipboard_css),
-                            selectedColor.red,
-                            selectedColor.green,
-                            selectedColor.blue,
-                            (selectedColor.alpha / 255.0).round(3)
-                        )
-                    )
-                }
-            }
-        }
-    }
-
-    private fun copyHexToClipboard() {
-        copyTextToClipboard(
-            getString(R.string.hex_code),
-            if (isAlphaDisabled)
-                "#%06X".format(0xFFFFFF and selectedColor.color).toUpperCase(Locale.getDefault())
-            else
-                "#%08X".format(selectedColor.color).toUpperCase(Locale.getDefault())
-        )
-    }
-
-    private fun copyHsvToClipboard() = copyTextToClipboard(getString(R.string.hsv_clipboard), displayHsv.text.toString())
-
-    private fun copyCmykToClipboard() {
-        // Show multiple choice dialog
-        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
-        if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
-            showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
-        } else {
-            if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
-                copyTextToClipboard(
-                    getString(R.string.cmyk_code), String.format(
-                        getString(R.string.cmyk_clipboard),
-                        cmyk[0] / 100.0, cmyk[1] / 100.0, cmyk[2] / 100.0, cmyk[3] / 100.0
-                    )
-                )
-            } else {
-                copyTextToClipboard(
-                    getString(R.string.cmyk_code), String.format(
-                        getString(R.string.cmyk_clipboard_css),
-                        cmyk[0], cmyk[1], cmyk[2], cmyk[3]
-                    )
-                )
-            }
-        }
+        copyName.setOnClickListener { cbt.copyNameToClipboard(cnt.getColorNameFromColor(selectedColor)) }
+        copyArgb.setOnClickListener { cbt.copyArgbToClipboard(selectedColor) }
+        copyHex.setOnClickListener { cbt.copyHexToClipboard(selectedColor) }
+        copyHsv.setOnClickListener { cbt.copyHsvToClipboard(selectedColor) }
+        copyCmyk.setOnClickListener { cbt.copyCmykToClipboard(selectedColor) }
     }
 
     private fun initializeSeekBarSection() {
@@ -634,10 +513,7 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
             )
         colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(
-                this,
-                R.color.blue
-            ), BlendModeCompat.SRC_ATOP
+            ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
         )
 
         colorAlpha.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
