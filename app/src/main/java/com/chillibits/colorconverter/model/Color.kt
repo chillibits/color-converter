@@ -4,30 +4,23 @@
 
 package com.chillibits.colorconverter.model
 
+import androidx.core.graphics.alpha
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import org.jetbrains.annotations.NotNull
 
-class Color: Comparable<Color> {
+class Color(
+    var id: Int,
+    var name: String,
+    var color: Int,
+    var creationTimestamp: Long = System.currentTimeMillis()
+): Comparable<Color> {
 
-    // Attributes
-    val id: Int
-    var name: String
-    var color: Int
-    var alpha: Int
-    var red: Int
-    var green: Int
-    var blue: Int
-    var creationTimestamp = System.currentTimeMillis()
-
-    constructor(id: Int, name: String, color: Int, creationTimestamp: Long) {
-        this.id = id
-        this.name = name
-        this.color = color
-        this.alpha = android.graphics.Color.alpha(color)
-        this.red = android.graphics.Color.red(color)
-        this.green = android.graphics.Color.green(color)
-        this.blue = android.graphics.Color.blue(color)
-        if(creationTimestamp != -1L) this.creationTimestamp = creationTimestamp
-    }
+    var alpha = color.alpha
+    var red = color.red
+    var green = color.green
+    var blue = color.blue
 
     constructor(id: Int, name: String, alpha: Int, red: Int, green: Int, blue: Int, creationTimestamp: Long):
             this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
