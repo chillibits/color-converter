@@ -433,6 +433,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/speakColor"
                 android:text="@string/choose_color"
                 android:layout_margin="8dp"
+                app:drawableStartCompat="@drawable/palette"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:background="@drawable/button_outline_rounded"
                 android:textColor="@drawable/button_outline_text"/>
 
@@ -443,6 +447,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/pick"
                 android:text="@string/pick_random_color"
                 android:layout_margin="8dp"
+                app:drawableStartCompat="@drawable/autorenew"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:background="@drawable/button_outline_rounded"
                 android:textColor="@drawable/button_outline_text"/>
 
@@ -453,6 +461,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/pick_random_color"
                 android:text="@string/pick_color_from_image"
                 android:layout_margin="8dp"
+                app:drawableStartCompat="@drawable/image_primary"
+                app:drawableTint="@drawable/button_outline_text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:background="@drawable/button_outline_rounded"
                 android:textColor="@drawable/button_outline_text"/>
 
