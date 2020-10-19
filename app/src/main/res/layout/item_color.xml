@@ -18,7 +18,10 @@
         android:layout_width="55dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/simple_circle" />
+        android:src="@drawable/simple_circle"
+        android:padding="0.7dp"
+        android:background="@drawable/simple_circle"
+        android:backgroundTint="@color/grayLight"/>
 
     <TextView
         android:id="@+id/itemColorName"
