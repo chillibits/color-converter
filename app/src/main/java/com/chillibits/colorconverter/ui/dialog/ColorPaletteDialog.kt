@@ -19,6 +19,7 @@ fun Context.showColorPaletteDialog(listener: ColorsAdapter.ColorSelectionListene
     val timestamp = System.currentTimeMillis()
     val colors = ColorNameTools(this).getColorList()
         .map { Color(-1, it.name, 255, it.r, it.g, it.b, timestamp) }
+        .sortedBy { it.name }
 
     // Show dialog
     val view = LayoutInflater.from(this).inflate(R.layout.dialog_color_palette, null)

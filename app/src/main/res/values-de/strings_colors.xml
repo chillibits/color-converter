@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Sat, 24 Oct 2020 21:08:24 +0100
+ Exported at: Sun, 25 Oct 2020 12:19:40 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="color_alice_blue">Aliceblau</string>
@@ -42,7 +42,7 @@
     <string name="color_dark_magenta">Dunkles Magentarot</string>
     <string name="color_dark_olive_green">Dunkles Olivgrün</string>
     <string name="color_dark_orange">Dunkles Orange</string>
-    <string name="color_dark_orchid">\tDunkle Orchideenfarbe</string>
+    <string name="color_dark_orchid">Dunkle Orchideenfarbe</string>
     <string name="color_dark_red">Dunkelrot</string>
     <string name="color_dark_salmon">Dunkle Lachsfarbe</string>
     <string name="color_dark_sea_green">Dunkles Seegrün</string>
