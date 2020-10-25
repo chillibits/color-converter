@@ -22,13 +22,21 @@ fun Context.showColorPaletteDialog(listener: ColorsAdapter.ColorSelectionListene
 
     // Show dialog
     val view = LayoutInflater.from(this).inflate(R.layout.dialog_color_palette, null)
+    val d = AlertDialog.Builder(this)
+        .setTitle(R.string.color_palette)
+        .setView(view)
+        .setNegativeButton(R.string.cancel, null)
+        .show()
+
+    // Fill dialog with data
     view.palette.apply {
-        adapter = ColorsAdapter(this@showColorPaletteDialog, colors, listener)
+        adapter = ColorsAdapter(this@showColorPaletteDialog, colors, object : ColorsAdapter.ColorSelectionListener{
+            override fun onColorSelected(color: Color) {
+                listener.onColorSelected(color)
+                d.dismiss()
+            }
+        })
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }
-
-    AlertDialog.Builder(this)
-        .setView(view)
-        .show()
 }

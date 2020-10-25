@@ -576,7 +576,5 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         displayAlphaLabel.visibility = visibility
     }
 
-    override fun onColorSelected(color: Color) {
-        updateDisplays(color)
-    }
+    override fun onColorSelected(color: Color) = updateDisplays(color)
 }
