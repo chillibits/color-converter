@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Mon, 19 Oct 2020 21:43:53 +0100
+ Exported at: Sun, 25 Oct 2020 10:49:33 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -67,4 +67,6 @@
     <string name="disable_alpha">Отключить прозрачность</string>
     <string name="rgb_code">RGB-код</string>
     <string name="error">Произошла ошибка</string>
+    <string name="saved_colors"></string>
+    <string name="color_palette"></string>
 </resources>

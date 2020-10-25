@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Mon, 19 Oct 2020 21:43:52 +0100
+ Exported at: Sun, 25 Oct 2020 10:49:33 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -67,4 +67,6 @@
     <string name="disable_alpha">Transparenz deaktivieren</string>
     <string name="rgb_code">RGB-Code</string>
     <string name="error">Ein Fehler ist aufgetreten</string>
+    <string name="saved_colors">Gespeicherte Farben</string>
+    <string name="color_palette">Farb-Palette</string>
 </resources>

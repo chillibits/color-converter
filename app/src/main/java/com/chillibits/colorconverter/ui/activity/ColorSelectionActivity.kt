@@ -25,7 +25,7 @@ import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
 
-class ColorSelectionActivity : AppCompatActivity() {
+class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
     private val st = StorageTools(this)
@@ -41,6 +41,7 @@ class ColorSelectionActivity : AppCompatActivity() {
         applyWindowInsets()
 
         toolbar.layoutTransition = LayoutTransition()
+        toolbar.setTitle(R.string.saved_colors)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -48,7 +49,7 @@ class ColorSelectionActivity : AppCompatActivity() {
         colors = st.loadColors()
 
         savedColors.layoutManager = LinearLayoutManager(this)
-        savedColors.adapter = ColorsAdapter(this, colors)
+        savedColors.adapter = ColorsAdapter(this, colors, this)
         noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
     }
 
@@ -137,18 +138,11 @@ class ColorSelectionActivity : AppCompatActivity() {
                 st.removeColor(selectedColor!!.id)
                 // Refresh adapters
                 colors = st.loadColors()
-                savedColors.adapter = ColorsAdapter(this, colors)
+                savedColors.adapter = ColorsAdapter(this, colors, this)
                 noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
-    }
-
-    fun selectedColor(color: Color) {
-        selectedColor = color
-        invalidateOptionsMenu()
-        supportActionBar?.subtitle = "${getString(R.string.selected)}: ${color.name}"
-        animateAppAndStatusBar(color.color)
     }
 
     private fun animateAppAndStatusBar(toColor: Int) {
@@ -161,5 +155,12 @@ class ColorSelectionActivity : AppCompatActivity() {
         animator.duration = 480
         animator.start()
         reveal.visibility = View.VISIBLE
+    }
+
+    override fun onColorSelected(color: Color) {
+        selectedColor = color
+        invalidateOptionsMenu()
+        supportActionBar?.subtitle = "${getString(R.string.selected)}: ${color.name}"
+        animateAppAndStatusBar(color.color)
     }
 }

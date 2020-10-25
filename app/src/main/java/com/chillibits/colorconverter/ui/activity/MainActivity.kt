@@ -27,6 +27,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -37,7 +38,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
     private val st = StorageTools(this)
@@ -118,6 +119,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
+            R.id.action_palette -> showColorPaletteDialog(this)
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
@@ -572,5 +574,9 @@ class MainActivity : AppCompatActivity() {
         colorAlpha.visibility = visibility
         displayAlpha.visibility = visibility
         displayAlphaLabel.visibility = visibility
+    }
+
+    override fun onColorSelected(color: Color) {
+        updateDisplays(color)
     }
 }
