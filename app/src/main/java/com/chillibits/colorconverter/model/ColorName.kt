@@ -2,7 +2,7 @@
  * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.chillibits.colorconverter.tools
+package com.chillibits.colorconverter.model
 
 class ColorName(
     var name: String,

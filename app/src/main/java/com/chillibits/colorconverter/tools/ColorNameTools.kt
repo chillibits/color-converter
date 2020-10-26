@@ -6,6 +6,7 @@ package com.chillibits.colorconverter.tools
 
 import android.content.Context
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.model.ColorName
 import com.mrgames13.jimdo.colorconverter.R
 
 class ColorNameTools(private val c: Context) {
