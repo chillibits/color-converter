@@ -113,6 +113,15 @@ task downloadTranslations {
         //f = new File("${project.projectDir}/src/main/res/values-ru/strings_colors.xml")
         //new URL("https://localise.biz/api/export/locale/ru.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
+    // Portuguese
+    doLast {
+        // Main string file
+        //def f = new File("${project.projectDir}/src/main/res/values-pt/strings.xml")
+        //new URL("https://localise.biz/api/export/locale/pt.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        // Color file (will be added again, when the translation is complete)
+        def f = new File("${project.projectDir}/src/main/res/values-pt/strings_colors.xml")
+        new URL("https://localise.biz/api/export/locale/pt.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
 }
 
 preBuild.dependsOn downloadTranslations
