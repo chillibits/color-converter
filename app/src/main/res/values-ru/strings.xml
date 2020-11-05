@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Wed, 28 Oct 2020 03:05:21 +0000
+ Exported at: Thu, 05 Nov 2020 08:40:14 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -69,4 +69,6 @@
     <string name="error">Произошла ошибка</string>
     <string name="saved_colors"></string>
     <string name="color_palette"></string>
+    <string name="import_color_palette"></string>
+    <string name="export_color_palette"></string>
 </resources>
