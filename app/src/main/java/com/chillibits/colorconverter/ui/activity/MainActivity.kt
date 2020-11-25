@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         initializeButtonSection()
         setDefaultComponentValues()
         isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
-        enableAlpha(!isAlphaDisabled)
 
         // Initialize tts, if the app does not run in instant mode
         if (!InstantApps.isInstantApp(this)) initializeTTS()
@@ -87,11 +86,16 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         // Set to choose color mode, if required
         if(intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             finishWithColor.setOnClickListener { finishWithSelectedColor() }
-            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR,
-                intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
+            val color = intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK)
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, -1))
         } else {
             finishWithColor.visibility = View.GONE
+            val color = st.getInt(Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK)
+            selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, color, -1)
+            updateDisplays(selectedColor)
         }
+
+        enableAlpha(!isAlphaDisabled)
 
         // Check if app was installed
         if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
@@ -410,6 +414,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator -> colorBlue.progress = valueAnimator.animatedValue as Int }
         }.start()
+
+        // Save color to shared preferences for restoring on the next app start
+        st.putInt(Constants.NAME_SELECTED_COLOR, color.color)
     }
 
     @Suppress("DEPRECATION")
@@ -573,8 +580,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     private fun enableAlpha(enabled: Boolean) {
         // Set alpha to 100%
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, colorRed.progress,
-            colorGreen.progress, colorBlue.progress, -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, selectedColor.red,
+            selectedColor.green, selectedColor.blue, -1))
         // Show / hide components
         val visibility = if(enabled) View.VISIBLE else View.GONE
         colorAlpha.visibility = visibility

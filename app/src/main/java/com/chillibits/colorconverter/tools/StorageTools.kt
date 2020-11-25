@@ -37,13 +37,21 @@ class StorageTools @Inject constructor(val context: Context):
 
     // ------------------------------------ Shared Preference --------------------------------------
 
-    fun putBoolean(name: String, value: Boolean)
-            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun putBoolean(name: String, value: Boolean) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         .edit().putBoolean(name, value).apply()
 
-    fun getBoolean(name: String, default: Boolean = false)
-            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun getBoolean(name: String, default: Boolean = false) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         .getBoolean(name, default)
+
+    fun putInt(name: String, value: Int) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .edit().putInt(name, value).apply()
+
+    fun getInt(name: String, default: Int = 0) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .getInt(name, default)
 
     // ------------------------------------ Color Management ---------------------------------------
 
