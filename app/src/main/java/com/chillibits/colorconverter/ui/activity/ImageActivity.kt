@@ -37,17 +37,20 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.listeners.ColorListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ImageActivity : AppCompatActivity() {
 
     // Tools packages
-    private val ct = ColorTools(this)
-    private val cnt = ColorNameTools(this)
-    private val st = StorageTools(this)
+    @Inject lateinit var ct: ColorTools
+    @Inject lateinit var cnt: ColorNameTools
+    @Inject lateinit var st: StorageTools
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
@@ -81,7 +84,7 @@ class ImageActivity : AppCompatActivity() {
             selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
-        image.flagView = DetailedFlagView(this, R.layout.flag_layout).apply {
+        image.flagView = DetailedFlagView(this, R.layout.flag_layout, st).apply {
             isFlipAble = false
         }
 

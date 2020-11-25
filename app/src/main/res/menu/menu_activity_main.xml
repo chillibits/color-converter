@@ -24,6 +24,12 @@
         android:visible="false"/>
 
     <item
+        android:id="@+id/action_palette"
+        android:title="@string/color_palette"
+        android:icon="@drawable/palette"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_rate"
         android:title="@string/rate_app"
         android:icon="@drawable/star_outline"

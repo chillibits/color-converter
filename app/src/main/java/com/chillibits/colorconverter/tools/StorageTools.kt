@@ -6,6 +6,7 @@ package com.chillibits.colorconverter.tools
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -15,11 +16,13 @@ import com.chillibits.colorconverter.shared.Constants
 import com.mrgames13.jimdo.colorconverter.R
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
 // Constants
 const val TABLE_COLORS: String = "Colors"
 
-class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db", null, 2) {
+class StorageTools @Inject constructor(val context: Context):
+    SQLiteOpenHelper(context, "database.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase?) {
         // Create tables
@@ -34,13 +37,21 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
 
     // ------------------------------------ Shared Preference --------------------------------------
 
-    fun putBoolean(name: String, value: Boolean)
-            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun putBoolean(name: String, value: Boolean) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         .edit().putBoolean(name, value).apply()
 
-    fun getBoolean(name: String, default: Boolean = false)
-            = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun getBoolean(name: String, default: Boolean = false) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         .getBoolean(name, default)
+
+    fun putInt(name: String, value: Int) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .edit().putInt(name, value).apply()
+
+    fun getInt(name: String, default: Int = 0) = context
+        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        .getInt(name, default)
 
     // ------------------------------------ Color Management ---------------------------------------
 
@@ -56,6 +67,8 @@ class StorageTools(val context: Context): SQLiteOpenHelper(context, "database.db
                 put("creation_timestamp", color.creationTimestamp)
             }
             writableDatabase.insert(TABLE_COLORS, null, values)
+        } catch (e: SQLiteConstraintException) {
+            Toast.makeText(context, R.string.color_already_saved, Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             Log.e("ColorConverter", "Error saving color", e)
             Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()

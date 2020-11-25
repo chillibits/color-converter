@@ -19,16 +19,21 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
+import javax.inject.Inject
 
-class ColorSelectionActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    private val st = StorageTools(this)
+    @Inject lateinit var st: StorageTools
+    @Inject lateinit var ct: ColorTools
 
     // Variables as objects
     private lateinit var colors: List<Color>
@@ -41,6 +46,7 @@ class ColorSelectionActivity : AppCompatActivity() {
         applyWindowInsets()
 
         toolbar.layoutTransition = LayoutTransition()
+        toolbar.setTitle(R.string.saved_colors)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -48,17 +54,27 @@ class ColorSelectionActivity : AppCompatActivity() {
         colors = st.loadColors()
 
         savedColors.layoutManager = LinearLayoutManager(this)
-        savedColors.adapter = ColorsAdapter(this, colors)
+        savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
         noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (selectedColor != null) menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
+        menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
+        val isColorSelected = selectedColor != null
+        menu?.apply {
+            //findItem(R.id.action_import)?.isVisible = !isColorSelected
+            //findItem(R.id.action_export)?.isVisible = !isColorSelected
+            findItem(R.id.action_edit)?.isVisible = isColorSelected
+            findItem(R.id.action_delete)?.isVisible = isColorSelected
+            findItem(R.id.action_done)?.isVisible = isColorSelected
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            //R.id.action_import ->importColorPalette()
+            //R.id.action_export -> exportColorPalette()
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()
@@ -103,7 +119,11 @@ class ColorSelectionActivity : AppCompatActivity() {
 
     private fun showRenameColorDialog() {
         // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
+        val dialogView = LayoutInflater.from(this).inflate(
+            R.layout.dialog_color_rename,
+            container,
+            false
+        )
         val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
@@ -119,7 +139,7 @@ class ColorSelectionActivity : AppCompatActivity() {
             .show()
 
         // Prepare views
-        newName.doAfterTextChanged {s ->
+        newName.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
         }
         newName.selectAll()
@@ -137,29 +157,50 @@ class ColorSelectionActivity : AppCompatActivity() {
                 st.removeColor(selectedColor!!.id)
                 // Refresh adapters
                 colors = st.loadColors()
-                savedColors.adapter = ColorsAdapter(this, colors)
+                savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
                 noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
     }
 
-    fun selectedColor(color: Color) {
+    private fun animateAppAndStatusBar(toColor: Int) {
+        val animator = ViewAnimationUtils.createCircularReveal(
+            reveal,
+            toolbar.width / 2,
+            toolbar.height / 2,
+            0f,
+            toolbar.width / 2.0f + 50
+        )
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator) {
+                reveal.setBackgroundColor(toColor)
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                revealBackground.setBackgroundColor(
+                    toColor
+                )
+            }
+        })
+
+        animator.duration = 480
+        animator.start()
+        reveal.visibility = View.VISIBLE
+    }
+
+    override fun onColorSelected(color: Color) {
         selectedColor = color
         invalidateOptionsMenu()
         supportActionBar?.subtitle = "${getString(R.string.selected)}: ${color.name}"
         animateAppAndStatusBar(color.color)
     }
 
-    private fun animateAppAndStatusBar(toColor: Int) {
-        val animator = ViewAnimationUtils.createCircularReveal(reveal, toolbar.width / 2, toolbar.height / 2, 0f, toolbar.width / 2.0f + 50)
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator) { reveal.setBackgroundColor(toColor) }
-            override fun onAnimationEnd(animation: Animator) { revealBackground.setBackgroundColor(toColor) }
-        })
+    private fun exportColorPalette() {
 
-        animator.duration = 480
-        animator.start()
-        reveal.visibility = View.VISIBLE
+    }
+
+    private fun importColorPalette() {
+
     }
 }

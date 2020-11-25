@@ -26,24 +26,29 @@ import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
 import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    private val st = StorageTools(this)
-    private val ct = ColorTools(this)
-    private val cnt = ColorNameTools(this)
-    private val cbt = ClipboardTools(this, st, ct)
+    @Inject lateinit var st: StorageTools
+    @Inject lateinit var ct: ColorTools
+    @Inject lateinit var cnt: ColorNameTools
+    @Inject lateinit var cbt: ClipboardTools
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
@@ -71,19 +76,9 @@ class MainActivity : AppCompatActivity() {
         initializeButtonSection()
         setDefaultComponentValues()
         isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
-        enableAlpha(!isAlphaDisabled)
 
-        // Initialize tts
-        if (!InstantApps.isInstantApp(this@MainActivity)) {
-            tts = TextToSpeech(this) { status ->
-                if(status == TextToSpeech.SUCCESS) {
-                    val result = tts.setLanguage(Locale.getDefault())
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                    } else initialized = true
-                } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-            }
-        }
+        // Initialize tts, if the app does not run in instant mode
+        if (!InstantApps.isInstantApp(this)) initializeTTS()
 
         // Redirect to ImageActivity, if needed
         if (intent.hasExtra(Constants.EXTRA_ACTION) && intent.getStringExtra(Constants.EXTRA_ACTION) == "image") pickColorFromImage()
@@ -91,11 +86,16 @@ class MainActivity : AppCompatActivity() {
         // Set to choose color mode, if required
         if(intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             finishWithColor.setOnClickListener { finishWithSelectedColor() }
-            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR,
-                intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK), -1))
+            val color = intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK)
+            updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, -1))
         } else {
             finishWithColor.visibility = View.GONE
+            val color = st.getInt(Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK)
+            selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, color, -1)
+            updateDisplays(selectedColor)
         }
+
+        enableAlpha(!isAlphaDisabled)
 
         // Check if app was installed
         if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
+            R.id.action_palette -> showColorPaletteDialog(this, cnt, st, ct)
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
@@ -197,6 +198,17 @@ class MainActivity : AppCompatActivity() {
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
+        }
+    }
+
+    private fun initializeTTS() {
+        tts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val result = tts.setLanguage(Locale.getDefault())
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                } else initialized = true
+            } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -402,6 +414,9 @@ class MainActivity : AppCompatActivity() {
             duration = Constants.COLOR_ANIMATION_DURATION
             addUpdateListener { valueAnimator -> colorBlue.progress = valueAnimator.animatedValue as Int }
         }.start()
+
+        // Save color to shared preferences for restoring on the next app start
+        st.putInt(Constants.NAME_SELECTED_COLOR, color.color)
     }
 
     @Suppress("DEPRECATION")
@@ -565,12 +580,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun enableAlpha(enabled: Boolean) {
         // Set alpha to 100%
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, colorRed.progress,
-            colorGreen.progress, colorBlue.progress, -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, selectedColor.red,
+            selectedColor.green, selectedColor.blue, -1))
         // Show / hide components
         val visibility = if(enabled) View.VISIBLE else View.GONE
         colorAlpha.visibility = visibility
         displayAlpha.visibility = visibility
         displayAlphaLabel.visibility = visibility
     }
+
+    override fun onColorSelected(color: Color) = updateDisplays(color)
 }

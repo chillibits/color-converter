@@ -16,9 +16,8 @@ import kotlinx.android.synthetic.main.flag_layout.view.*
 import java.util.*
 
 @SuppressLint("ViewConstructor")
-class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
+class DetailedFlagView(context: Context, layout: Int, st: StorageTools) : FlagView(context, layout) {
 
-    private val st = StorageTools(context)
     private val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
 
     override fun onRefresh(envelope: ColorEnvelope?) {
