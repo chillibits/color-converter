@@ -73,8 +73,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import -> {}
-            R.id.action_export -> {}
+            R.id.action_import ->importColorPalette()
+            R.id.action_export -> exportColorPalette()
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()
@@ -119,7 +119,11 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     private fun showRenameColorDialog() {
         // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
+        val dialogView = LayoutInflater.from(this).inflate(
+            R.layout.dialog_color_rename,
+            container,
+            false
+        )
         val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
@@ -135,7 +139,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .show()
 
         // Prepare views
-        newName.doAfterTextChanged {s ->
+        newName.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
         }
         newName.selectAll()
@@ -161,10 +165,23 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     }
 
     private fun animateAppAndStatusBar(toColor: Int) {
-        val animator = ViewAnimationUtils.createCircularReveal(reveal, toolbar.width / 2, toolbar.height / 2, 0f, toolbar.width / 2.0f + 50)
+        val animator = ViewAnimationUtils.createCircularReveal(
+            reveal,
+            toolbar.width / 2,
+            toolbar.height / 2,
+            0f,
+            toolbar.width / 2.0f + 50
+        )
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator) { reveal.setBackgroundColor(toColor) }
-            override fun onAnimationEnd(animation: Animator) { revealBackground.setBackgroundColor(toColor) }
+            override fun onAnimationStart(animation: Animator) {
+                reveal.setBackgroundColor(toColor)
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                revealBackground.setBackgroundColor(
+                    toColor
+                )
+            }
         })
 
         animator.duration = 480
@@ -177,5 +194,13 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         invalidateOptionsMenu()
         supportActionBar?.subtitle = "${getString(R.string.selected)}: ${color.name}"
         animateAppAndStatusBar(color.color)
+    }
+
+    private fun exportColorPalette() {
+
+    }
+
+    private fun importColorPalette() {
+
     }
 }
