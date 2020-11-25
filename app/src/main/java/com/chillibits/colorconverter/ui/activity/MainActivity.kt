@@ -74,17 +74,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
         enableAlpha(!isAlphaDisabled)
 
-        // Initialize tts
-        if (!InstantApps.isInstantApp(this@MainActivity)) {
-            tts = TextToSpeech(this) { status ->
-                if(status == TextToSpeech.SUCCESS) {
-                    val result = tts.setLanguage(Locale.getDefault())
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                    } else initialized = true
-                } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-            }
-        }
+        // Initialize tts, if the app does not run in instant mode
+        if (!InstantApps.isInstantApp(this)) initializeTTS()
 
         // Redirect to ImageActivity, if needed
         if (intent.hasExtra(Constants.EXTRA_ACTION) && intent.getStringExtra(Constants.EXTRA_ACTION) == "image") pickColorFromImage()
@@ -199,6 +190,17 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
             }
+        }
+    }
+
+    private fun initializeTTS() {
+        tts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val result = tts.setLanguage(Locale.getDefault())
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                } else initialized = true
+            } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
