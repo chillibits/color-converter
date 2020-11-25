@@ -14,8 +14,7 @@ import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.dialog_export_argb.view.*
 
-fun Context.showArgbExportDialog(alpha: Int, red: Int, green: Int, blue: Int) {
-    val st = StorageTools(this)
+fun Context.showArgbExportDialog(st: StorageTools, alpha: Int, red: Int, green: Int, blue: Int) {
     val view = LayoutInflater.from(this).inflate(R.layout.dialog_export_argb, null)
 
     val dialog = AlertDialog.Builder(this)

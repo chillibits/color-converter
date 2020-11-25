@@ -13,8 +13,7 @@ import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.dialog_export_cmyk.view.*
 
-fun Context.showCmykExportDialog(cyan: Int, magenta: Int, yellow: Int, key: Int) {
-    val st = StorageTools(this)
+fun Context.showCmykExportDialog(st: StorageTools, cyan: Int, magenta: Int, yellow: Int, key: Int) {
     val view = LayoutInflater.from(this).inflate(R.layout.dialog_export_cmyk, null)
 
     val dialog = AlertDialog.Builder(this)

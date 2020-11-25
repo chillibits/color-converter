@@ -19,16 +19,21 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    private val st = StorageTools(this)
+    @Inject lateinit var st: StorageTools
+    @Inject lateinit var ct: ColorTools
 
     // Variables as objects
     private lateinit var colors: List<Color>
@@ -49,7 +54,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         colors = st.loadColors()
 
         savedColors.layoutManager = LinearLayoutManager(this)
-        savedColors.adapter = ColorsAdapter(this, colors, this)
+        savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
         noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
     }
 
@@ -148,7 +153,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
                 st.removeColor(selectedColor!!.id)
                 // Refresh adapters
                 colors = st.loadColors()
-                savedColors.adapter = ColorsAdapter(this, colors, this)
+                savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
                 noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
             }
             .setNegativeButton(R.string.cancel, null)
