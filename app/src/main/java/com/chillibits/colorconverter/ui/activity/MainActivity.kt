@@ -31,20 +31,27 @@ import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import net.margaritov.preference.colorpicker.ColorPickerDialog
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    private val st = StorageTools(this)
-    private val ct = ColorTools(this)
-    private val cnt = ColorNameTools(this)
-    private val cbt = ClipboardTools(this, st, ct)
+    @Inject lateinit var st: StorageTools
+    @Inject lateinit var ct: ColorTools
+    @Inject lateinit var cnt: ColorNameTools
+    @Inject lateinit var cbt: ClipboardTools
+    //private val st = StorageTools(this)
+    //private val ct = ColorTools(this)
+    //private val cnt = ColorNameTools(this)
+    //private val cbt = ClipboardTools(this, st, ct)
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
@@ -110,7 +117,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
-            R.id.action_palette -> showColorPaletteDialog(this)
+            R.id.action_palette -> showColorPaletteDialog(this, cnt, st, ct)
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)

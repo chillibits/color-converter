@@ -10,14 +10,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.dialog_color_palette.view.*
 
-fun Context.showColorPaletteDialog(listener: ColorsAdapter.ColorSelectionListener) {
+fun Context.showColorPaletteDialog(
+    listener: ColorsAdapter.ColorSelectionListener,
+    cnt: ColorNameTools,
+    st: StorageTools,
+    ct: ColorTools
+) {
     // Get color list
     val timestamp = System.currentTimeMillis()
-    val colors = ColorNameTools(this).getColorList()
+    val colors = cnt.getColorList()
         .map { Color(-1, it.name, 255, it.r, it.g, it.b, timestamp) }
         .sortedBy { it.name }
 
@@ -36,7 +43,7 @@ fun Context.showColorPaletteDialog(listener: ColorsAdapter.ColorSelectionListene
                 listener.onColorSelected(color)
                 d.dismiss()
             }
-        })
+        }, ct, st)
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }

@@ -33,7 +33,7 @@ class ClipboardTools(
         } else {
             // Show multiple choice dialog
             if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
-                showArgbExportDialog(color.alpha, color.red, color.green, color.blue)
+                showArgbExportDialog(st, color.alpha, color.red, color.green, color.blue)
             } else if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
                 copyTextToClipboard(
                     getString(R.string.argb_code), String.format(
@@ -76,7 +76,7 @@ class ClipboardTools(
         // Show multiple choice dialog
         val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
         if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
-            showCmykExportDialog(cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+            showCmykExportDialog(st, cmyk[0], cmyk[1], cmyk[2], cmyk[3])
         } else if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
             copyTextToClipboard(
                 getString(R.string.cmyk_code), String.format(

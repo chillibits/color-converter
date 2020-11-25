@@ -18,15 +18,13 @@ import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
 import java.util.*
 
-class ColorsAdapter(
+class ColorsAdapter constructor(
     private val context: Context,
     private val colors: List<Color>,
-    private val listener: ColorSelectionListener
+    private val listener: ColorSelectionListener,
+    private val ct: ColorTools,
+    st: StorageTools
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
-
-    // Variables as objects
-    private val ct = ColorTools(context)
-    private val st = StorageTools(context)
 
     // Variables
     private val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
