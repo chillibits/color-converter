@@ -26,6 +26,7 @@ import androidx.core.graphics.*
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
 import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
@@ -48,10 +49,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
     @Inject lateinit var ct: ColorTools
     @Inject lateinit var cnt: ColorNameTools
     @Inject lateinit var cbt: ClipboardTools
-    //private val st = StorageTools(this)
-    //private val ct = ColorTools(this)
-    //private val cnt = ColorNameTools(this)
-    //private val cbt = ClipboardTools(this, st, ct)
 
     // Variables as objects
     private lateinit var tts: TextToSpeech
