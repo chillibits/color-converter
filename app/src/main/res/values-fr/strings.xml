@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Wed, 25 Nov 2020 13:21:05 +0000
+ Exported at: Wed, 25 Nov 2020 21:50:04 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -69,7 +69,7 @@
     <string name="error">Une erreur s\'est produite</string>
     <string name="saved_colors">Couleurs enregistrées</string>
     <string name="color_palette">Palette de couleurs</string>
-    <string name="import_color_palette"></string>
-    <string name="export_color_palette"></string>
-    <string name="color_already_saved"></string>
+    <string name="import_color_palette">Importer une palette de couleurs</string>
+    <string name="export_color_palette">Exporter la palette de couleurs</string>
+    <string name="color_already_saved">Cette couleur a déjà été sauvegardée</string>
 </resources>

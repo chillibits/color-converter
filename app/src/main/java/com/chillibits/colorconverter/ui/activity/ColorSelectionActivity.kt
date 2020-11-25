@@ -62,8 +62,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
         val isColorSelected = selectedColor != null
         menu?.apply {
-            findItem(R.id.action_import)?.isVisible = !isColorSelected
-            findItem(R.id.action_export)?.isVisible = !isColorSelected
+            //findItem(R.id.action_import)?.isVisible = !isColorSelected
+            //findItem(R.id.action_export)?.isVisible = !isColorSelected
             findItem(R.id.action_edit)?.isVisible = isColorSelected
             findItem(R.id.action_delete)?.isVisible = isColorSelected
             findItem(R.id.action_done)?.isVisible = isColorSelected
@@ -73,8 +73,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import ->importColorPalette()
-            R.id.action_export -> exportColorPalette()
+            //R.id.action_import ->importColorPalette()
+            //R.id.action_export -> exportColorPalette()
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()

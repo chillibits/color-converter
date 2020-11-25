@@ -15,8 +15,8 @@ android {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 2304
-        versionName "2.3.4"
+        versionCode 2400
+        versionName "2.4,0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -125,8 +125,8 @@ task downloadTranslations {
         //def f = new File("${project.projectDir}/src/main/res/values-pt/strings.xml")
         //new URL("https://localise.biz/api/export/locale/pt.xml?format=android&key=${apiKey}").withInputStream{ i -> f.withOutputStream{ it << i }}
         // Color file (will be added again, when the translation is complete)
-        def f = new File("${project.projectDir}/src/main/res/values-pt/strings_colors.xml")
-        new URL("https://localise.biz/api/export/locale/pt.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
+        //def f = new File("${project.projectDir}/src/main/res/values-pt/strings_colors.xml")
+        //new URL("https://localise.biz/api/export/locale/pt.xml?format=android&key=${apiKeyColors}").withInputStream{ i -> f.withOutputStream{ it << i }}
     }
 }
 
