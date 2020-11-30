@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.fxn769:pix:1.5.4'
     implementation 'com.github.skydoves:colorpickerview:2.1.6'
-    implementation 'com.mikepenz:iconics-core:5.1.1'
+    implementation 'com.mikepenz:iconics-core:5.2.0'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.mikepenz:fastadapter:5.3.1'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
