@@ -12,6 +12,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -73,7 +74,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import ->importColorPalette()
+            R.id.action_import -> importColorPalette()
             R.id.action_export -> exportColorPalette()
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
@@ -133,7 +134,15 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .setView(dialogView)
             .setPositiveButton(R.string.rename) { _, _ ->
                 val name = newName.text.toString().trim()
-                if (name.isNotEmpty()) st.updateColor(selectedColor!!.id, name)
+                if (name.isNotEmpty()) {
+                    // Update color
+                    st.updateColor(selectedColor!!.id, name)
+                    selectedColor?.name = name
+                    // Refresh adapters
+                    colors = st.loadColors()
+                    savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
+                    changeSubtitle("${getString(R.string.selected)}: $name")
+                }
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
@@ -159,6 +168,12 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
                 colors = st.loadColors()
                 savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
                 noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
+                // Reset toolbar
+                selectedColor = null
+                changeSubtitle(null)
+                invalidateOptionsMenu()
+                reveal.setBackgroundResource(R.color.colorPrimary)
+                revealBackground.setBackgroundResource(R.color.colorPrimary)
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
@@ -178,9 +193,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                revealBackground.setBackgroundColor(
-                    toColor
-                )
+                revealBackground.setBackgroundColor(toColor)
             }
         })
 
@@ -192,8 +205,18 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     override fun onColorSelected(color: Color) {
         selectedColor = color
         invalidateOptionsMenu()
-        supportActionBar?.subtitle = "${getString(R.string.selected)}: ${color.name}"
+        changeSubtitle("${getString(R.string.selected)}: ${color.name}")
         animateAppAndStatusBar(color.color)
+    }
+
+    private fun changeSubtitle(@Nullable subtitle: String?) {
+        if (subtitle == null) {
+            toolbar.layoutTransition = null
+            supportActionBar?.subtitle = null
+        } else {
+            toolbar.layoutTransition = LayoutTransition()
+            supportActionBar?.subtitle = subtitle
+        }
     }
 
     private fun exportColorPalette() {

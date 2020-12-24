@@ -13,6 +13,7 @@
     <color name="green">#0F0</color>
     <color name="blue">#00F</color>
     <color name="gray">#989898</color>
+    <color name="white">#FFF</color>
     <color name="whiteTransparent">#80FFFFFF</color>
     <color name="grayLight">#BBB</color>
     <color name="windowBackgroundColor">#FAFAFA</color>
