@@ -12,11 +12,15 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.shared.toDbo
+import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.ColorNameTools
-import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-fun Context.showSaveColorDialog(cnt: ColorNameTools, st: StorageTools, selectedColor: Color) {
+fun Context.showSaveColorDialog(cnt: ColorNameTools, db: AppDatabase, selectedColor: Color) {
     // Initialize views
     val editTextName = EditText(this)
     editTextName.hint = getString(R.string.choose_name)
@@ -36,7 +40,10 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, st: StorageTools, selectedC
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.save) { _, _ ->
             selectedColor.name = editTextName.text.toString().trim()
-            st.addColor(selectedColor)
+            selectedColor.creationTimestamp = System.currentTimeMillis()
+            CoroutineScope(Dispatchers.IO).launch {
+                db.colorDao().insert(selectedColor.toDbo())
+            }
         }
         .show()
 

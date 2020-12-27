@@ -27,6 +27,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
+import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
@@ -45,6 +46,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
+    @Inject lateinit var db: AppDatabase
     @Inject lateinit var st: StorageTools
     @Inject lateinit var ct: ColorTools
     @Inject lateinit var cnt: ColorNameTools
@@ -497,7 +499,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         }
 
         // Save color
-        saveColor.setOnClickListener { showSaveColorDialog(cnt, st, selectedColor) }
+        saveColor.setOnClickListener { showSaveColorDialog(cnt, db, selectedColor) }
 
         // Copy color codes
         copyName.setOnClickListener { cbt.copyNameToClipboard(cnt.getColorNameFromColor(selectedColor)) }

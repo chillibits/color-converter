@@ -17,5 +17,5 @@ interface ColorDao {
     fun getAll(): LiveData<List<ColorDbo>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(records: List<ColorDbo>)
+    fun insert(record: ColorDbo)
 }
