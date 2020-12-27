@@ -8,9 +8,6 @@ import android.content.Context
 import com.chillibits.colorconverter.shared.Constants
 import javax.inject.Inject
 
-// Constants
-const val TABLE_COLORS: String = "Colors"
-
 class StorageTools @Inject constructor(val context: Context) {
 
     // Variables as objects
