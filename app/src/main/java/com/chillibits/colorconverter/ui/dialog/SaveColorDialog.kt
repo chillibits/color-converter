@@ -11,16 +11,14 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
-import com.chillibits.colorconverter.model.Color
-import com.chillibits.colorconverter.shared.toDbo
-import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.viewmodel.MainViewModel
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-fun Context.showSaveColorDialog(cnt: ColorNameTools, db: AppDatabase, selectedColor: Color) {
+fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
     // Initialize views
     val container = FrameLayout(this)
     val containerParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply {
@@ -29,7 +27,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, db: AppDatabase, selectedCo
     }
     val editTextName = EditText(this).apply {
         hint = getString(R.string.choose_name)
-        setText(cnt.getColorNameFromColor(selectedColor))
+        setText(cnt.getColorNameFromColor(vm.selectedColor))
         inputType = InputType.TYPE_TEXT_VARIATION_URI
         layoutParams = containerParams
     }
@@ -41,12 +39,10 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, db: AppDatabase, selectedCo
         .setView(container)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.save) { _, _ ->
-            selectedColor.name = editTextName.text.toString().trim()
-            selectedColor.creationTimestamp = System.currentTimeMillis()
+            vm.selectedColor.name = editTextName.text.toString().trim()
+            vm.selectedColor.creationTimestamp = System.currentTimeMillis()
             // Insert color into local db
-            CoroutineScope(Dispatchers.IO).launch {
-                db.colorDao().insert(selectedColor.toDbo())
-            }
+            CoroutineScope(Dispatchers.IO).launch { vm.insert() }
         }
         .show()
 

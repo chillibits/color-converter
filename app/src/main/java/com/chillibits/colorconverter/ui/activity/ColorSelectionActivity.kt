@@ -12,6 +12,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.activity.viewModels
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +21,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
-import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.shared.toObj
 import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
+import com.chillibits.colorconverter.viewmodel.ColorSelectionViewModel
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_color_selection.*
@@ -44,8 +45,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     @Inject lateinit var ct: ColorTools
 
     // Variables as objects
+    private val vm by viewModels<ColorSelectionViewModel>()
     private lateinit var adapter: ColorsAdapter
-    private var selectedColor: Color? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +64,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         savedColors.layoutManager = LinearLayoutManager(this)
         savedColors.adapter = adapter
 
-        // Load colors
-        db.colorDao().getAll().observe(this, { data ->
+        // Setup data observer
+        vm.colors.observe(this, { data ->
             adapter.updateData(data.map { it.toObj() })
             noItems.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
             loading.visibility = View.GONE
@@ -73,7 +74,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
-        val isColorSelected = selectedColor != null
+        val isColorSelected = vm.selectedColor != null
         menu?.apply {
             findItem(R.id.action_import)?.isVisible = !isColorSelected
             findItem(R.id.action_export)?.isVisible = !isColorSelected
@@ -125,7 +126,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     private fun done() {
         setResult(Activity.RESULT_OK, Intent().apply {
-            putExtra(Constants.EXTRA_COLOR, selectedColor!!.color)
+            putExtra(Constants.EXTRA_COLOR, vm.selectedColor!!.color)
         })
         finish()
     }
@@ -134,7 +135,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
         val newName = dialogView.dialogName
-        newName.setText(selectedColor?.name)
+        newName.setText(vm.selectedColor?.name)
 
         // Create dialog
         val dialog = AlertDialog.Builder(this)
@@ -143,10 +144,10 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .setPositiveButton(R.string.rename) { _, _ ->
                 val name = newName.text.toString().trim()
                 if (name.isNotEmpty()) {
-                    selectedColor?.name = name
+                    vm.selectedColor?.name = name
                     // Update color
                     CoroutineScope(Dispatchers.IO).launch {
-                        db.colorDao().update(selectedColor!!.toDbo())
+                        vm.update()
                         // Refresh subtitle
                         CoroutineScope(Dispatchers.Main).launch {
                             changeSubtitle("${getString(R.string.selected)}: $name")
@@ -170,15 +171,14 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     private fun showDeleteColorDialog() {
         AlertDialog.Builder(this)
             .setTitle(R.string.delete)
-            .setMessage(String.format(getString(R.string.delete_m), selectedColor?.name))
+            .setMessage(String.format(getString(R.string.delete_m), vm.selectedColor?.name))
             .setIcon(R.drawable.delete_forever)
             .setPositiveButton(R.string.delete) { _, _ ->
                 // Delete color in local db
                 CoroutineScope(Dispatchers.IO).launch {
-                    db.colorDao().delete(selectedColor!!.toDbo())
+                    vm.delete()
                     // Reset toolbar
                     CoroutineScope(Dispatchers.Main).launch {
-                        selectedColor = null
                         changeSubtitle(null)
                         invalidateOptionsMenu()
                         reveal.setBackgroundResource(R.color.colorPrimary)
@@ -214,7 +214,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     }
 
     override fun onColorSelected(color: Color) {
-        selectedColor = color
+        vm.selectedColor = color
         invalidateOptionsMenu()
         changeSubtitle("${getString(R.string.selected)}: ${color.name}")
         animateAppAndStatusBar(color.color)

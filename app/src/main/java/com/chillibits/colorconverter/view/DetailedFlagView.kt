@@ -2,7 +2,7 @@
  * Copyright © Marc Auberer 2020. All rights reserved
  */
 
-package com.chillibits.colorconverter.viewmodel
+package com.chillibits.colorconverter.view
 
 import android.annotation.SuppressLint
 import android.content.Context
