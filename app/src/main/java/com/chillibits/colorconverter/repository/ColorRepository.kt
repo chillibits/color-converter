@@ -14,6 +14,7 @@ class ColorRepository @Inject constructor(db: AppDatabase) {
     private val colorDao = db.colorDao()
     val colors = colorDao.getAll()
 
+    fun getAll() = colorDao.getAll()
     fun insert(color: ColorDbo) = colorDao.insert(color)
     fun update(color: ColorDbo) = colorDao.update(color)
     fun delete(color: ColorDbo) = colorDao.delete(color)
