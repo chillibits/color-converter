@@ -12,6 +12,8 @@ import android.content.res.Resources
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.widget.ImageViewCompat
+import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.storage.dbo.ColorDbo
 import com.mrgames13.jimdo.colorconverter.R
 
 fun ImageView.setTint(color: Int) =
@@ -30,3 +32,6 @@ fun Double.round(decimals: Int): Double {
     repeat(decimals) { multiplier *= 10 }
     return kotlin.math.round(this * multiplier) / multiplier
 }
+
+fun Color.toDbo() = ColorDbo(id, name, alpha, red, green, blue, creationTimestamp)
+fun ColorDbo.toObj() = Color(id, name, alpha, red, green, blue, creationTimestamp)
