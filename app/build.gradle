@@ -56,11 +56,6 @@ dependencies {
     implementation 'com.mikepenz:fastadapter:5.3.2'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
-    // Room dependencies
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"

@@ -4,6 +4,7 @@ name: Android CI
 
 on:
   push:
+    branches: [ master, beta ]
   pull_request:
     branches: [ master, beta ]
 

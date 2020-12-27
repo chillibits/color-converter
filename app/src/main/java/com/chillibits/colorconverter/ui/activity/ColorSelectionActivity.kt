@@ -20,9 +20,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
-import com.chillibits.colorconverter.shared.toDbo
-import com.chillibits.colorconverter.shared.toObj
-import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
@@ -30,45 +27,36 @@ import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.android.synthetic.main.dialog_color_rename.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    @Inject lateinit var db: AppDatabase
     @Inject lateinit var st: StorageTools
     @Inject lateinit var ct: ColorTools
 
     // Variables as objects
-    private lateinit var adapter: ColorsAdapter
+    private lateinit var colors: List<Color>
     private var selectedColor: Color? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_color_selection)
+
         applyWindowInsets()
 
-        // Initialize toolbar
         toolbar.layoutTransition = LayoutTransition()
         toolbar.setTitle(R.string.saved_colors)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Initialize RecyclerView
-        adapter = ColorsAdapter(this, this, st, ct)
-        savedColors.layoutManager = LinearLayoutManager(this)
-        savedColors.adapter = adapter
-
         // Load colors
-        db.colorDao().getAll().observe(this, { data ->
-            adapter.updateData(data.map { it.toObj() })
-            noItems.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
-            loading.visibility = View.GONE
-        })
+        colors = st.loadColors()
+
+        savedColors.layoutManager = LinearLayoutManager(this)
+        savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
+        noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -132,7 +120,11 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     private fun showRenameColorDialog() {
         // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
+        val dialogView = LayoutInflater.from(this).inflate(
+            R.layout.dialog_color_rename,
+            container,
+            false
+        )
         val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
@@ -143,23 +135,21 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .setPositiveButton(R.string.rename) { _, _ ->
                 val name = newName.text.toString().trim()
                 if (name.isNotEmpty()) {
-                    selectedColor?.name = name
                     // Update color
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.colorDao().update(selectedColor!!.toDbo())
-                        // Refresh subtitle
-                        CoroutineScope(Dispatchers.Main).launch {
-                            changeSubtitle("${getString(R.string.selected)}: $name")
-                        }
-                    }
+                    st.updateColor(selectedColor!!.id, name)
+                    selectedColor?.name = name
+                    // Refresh adapters
+                    colors = st.loadColors()
+                    savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
+                    changeSubtitle("${getString(R.string.selected)}: $name")
                 }
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
 
         // Prepare views
-        newName.doAfterTextChanged {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = it.toString().isNotEmpty()
+        newName.doAfterTextChanged { s ->
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
         }
         newName.selectAll()
         newName.requestFocus()
@@ -173,18 +163,17 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .setMessage(String.format(getString(R.string.delete_m), selectedColor?.name))
             .setIcon(R.drawable.delete_forever)
             .setPositiveButton(R.string.delete) { _, _ ->
-                // Delete color in local db
-                CoroutineScope(Dispatchers.IO).launch {
-                    db.colorDao().delete(selectedColor!!.toDbo())
-                    // Reset toolbar
-                    CoroutineScope(Dispatchers.Main).launch {
-                        selectedColor = null
-                        changeSubtitle(null)
-                        invalidateOptionsMenu()
-                        reveal.setBackgroundResource(R.color.colorPrimary)
-                        revealBackground.setBackgroundResource(R.color.colorPrimary)
-                    }
-                }
+                st.removeColor(selectedColor!!.id)
+                // Refresh adapters
+                colors = st.loadColors()
+                savedColors.adapter = ColorsAdapter(this, colors, this, ct, st)
+                noItems.visibility = if (colors.isNotEmpty()) View.GONE else View.VISIBLE
+                // Reset toolbar
+                selectedColor = null
+                changeSubtitle(null)
+                invalidateOptionsMenu()
+                reveal.setBackgroundResource(R.color.colorPrimary)
+                revealBackground.setBackgroundResource(R.color.colorPrimary)
             }
             .setNegativeButton(R.string.cancel, null)
             .show()

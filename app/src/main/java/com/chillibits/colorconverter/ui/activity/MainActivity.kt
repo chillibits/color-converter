@@ -27,7 +27,6 @@ import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
-import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
@@ -46,7 +45,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    @Inject lateinit var db: AppDatabase
     @Inject lateinit var st: StorageTools
     @Inject lateinit var ct: ColorTools
     @Inject lateinit var cnt: ColorNameTools
@@ -242,10 +240,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(isAlphaDisabled && hex.length == 4)
-                    hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
-                if(!isAlphaDisabled && hex.length == 5)
-                    hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
+                if(isAlphaDisabled && hex.length == 4) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
+                if(!isAlphaDisabled && hex.length == 5) hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
                 val tmp = selectedColor
                 tmp.apply {
                     color = android.graphics.Color.parseColor(hex)
@@ -269,7 +265,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaDisabled) {
                     s.toString().length == 7 || s.toString().length == 4
                 } else {
-                    s.toString().length == 9 || s.toString().length == 5 || s.toString().length == 7
+                    s.toString().length == 9 || s.toString().length == 5
                 }
             }
         }
@@ -499,7 +495,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         }
 
         // Save color
-        saveColor.setOnClickListener { showSaveColorDialog(cnt, db, selectedColor) }
+        saveColor.setOnClickListener { showSaveColorDialog(cnt, st, selectedColor) }
 
         // Copy color codes
         copyName.setOnClickListener { cbt.copyNameToClipboard(cnt.getColorNameFromColor(selectedColor)) }

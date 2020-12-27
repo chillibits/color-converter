@@ -17,14 +17,13 @@ import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
 import java.util.*
-import javax.inject.Inject
 
-class ColorsAdapter @Inject constructor(
+class ColorsAdapter constructor(
     private val context: Context,
+    private val colors: List<Color>,
     private val listener: ColorSelectionListener,
-    st: StorageTools,
     private val ct: ColorTools,
-    private var colors: List<Color> = emptyList()
+    st: StorageTools
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     // Variables
@@ -33,11 +32,6 @@ class ColorsAdapter @Inject constructor(
     // Interfaces
     interface ColorSelectionListener {
         fun onColorSelected(color: Color)
-    }
-
-    fun updateData(data: List<Color>) {
-        this.colors = data
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
