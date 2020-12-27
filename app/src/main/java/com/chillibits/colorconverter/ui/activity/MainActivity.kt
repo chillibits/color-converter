@@ -18,6 +18,7 @@ import android.text.Selection
 import android.view.*
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
@@ -31,6 +32,7 @@ import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
+import com.chillibits.colorconverter.viewmodel.MainViewModel
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,14 +55,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
     @Inject lateinit var cbt: ClipboardTools
 
     // Variables as objects
-    private lateinit var tts: TextToSpeech
-    private var selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK, -1)
+    private val viewModel by viewModels<MainViewModel>()
     private var disableAlpha: MenuItem? = null
-    private var isAlphaDisabled = false
-
-    // Variables
-    private var initialized = false
-    private var showTransparencyWarning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,10 +73,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         initializeColorContainerSection()
         initializeButtonSection()
         setDefaultComponentValues()
-        isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
-
-        // Initialize tts, if the app does not run in instant mode
-        if (!InstantApps.isInstantApp(this)) initializeTTS()
 
         // Redirect to ImageActivity, if needed
         if (intent.hasExtra(Constants.EXTRA_ACTION) && intent.getStringExtra(Constants.EXTRA_ACTION) == "image") pickColorFromImage()
@@ -93,11 +85,11 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         } else {
             finishWithColor.visibility = View.GONE
             val color = st.getInt(Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK)
-            selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, color, -1)
-            updateDisplays(selectedColor)
+            viewModel.selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, color, -1)
+            updateDisplays(viewModel.selectedColor)
         }
 
-        enableAlpha(!isAlphaDisabled)
+        enableAlpha(!viewModel.isAlphaDisabled)
 
         // Check if app was installed
         if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
@@ -111,9 +103,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             menu?.findItem(R.id.action_done)?.isVisible = true
             menu?.findItem(R.id.action_disable_alpha)?.isVisible = false
         }
-        menu?.findItem(R.id.action_transparency)?.isVisible = showTransparencyWarning
+        menu?.findItem(R.id.action_transparency)?.isVisible = viewModel.showTransparencyWarning
         disableAlpha = menu?.findItem(R.id.action_disable_alpha)
-        disableAlpha?.isChecked = isAlphaDisabled
+        disableAlpha?.isChecked = viewModel.isAlphaDisabled
         return true
     }
 
@@ -125,10 +117,10 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
             R.id.action_disable_alpha -> {
-                isAlphaDisabled = !item.isChecked
-                st.putBoolean(Constants.DISABLE_ALPHA, isAlphaDisabled)
-                item.isChecked = isAlphaDisabled
-                enableAlpha(!isAlphaDisabled)
+                viewModel.isAlphaDisabled = !item.isChecked
+                st.putBoolean(Constants.DISABLE_ALPHA, viewModel.isAlphaDisabled)
+                item.isChecked = viewModel.isAlphaDisabled
+                enableAlpha(!viewModel.isAlphaDisabled)
             }
             R.id.action_done -> finishWithSelectedColor()
         }
@@ -137,7 +129,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(Constants.EXTRA_SELECTED_COLOR, selectedColor.color)
+        outState.putInt(Constants.EXTRA_SELECTED_COLOR, viewModel.selectedColor.color)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -203,17 +195,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         }
     }
 
-    private fun initializeTTS() {
-        tts = TextToSpeech(this) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                val result = tts.setLanguage(Locale.getDefault())
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                } else initialized = true
-            } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun pickColorFromImage(defaultImageUri: Uri? = null) {
         if (InstantApps.isInstantApp(this@MainActivity)) {
             showInstantAppInstallDialog(R.string.instant_install_m)
@@ -229,10 +210,10 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
-        if(isAlphaDisabled)
-            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and selectedColor.color)).toUpperCase(Locale.getDefault()))))
+        if(viewModel.isAlphaDisabled)
+            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and viewModel.selectedColor.color)).toUpperCase(Locale.getDefault()))))
         else
-            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(selectedColor.color).toUpperCase(Locale.getDefault())))
+            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(viewModel.selectedColor.color).toUpperCase(Locale.getDefault())))
         Selection.setSelection(hexValue.text, hexValue.text.length)
 
         // Create dialog
@@ -242,11 +223,11 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(isAlphaDisabled && hex.length == 4)
+                if(viewModel.isAlphaDisabled && hex.length == 4)
                     hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
-                if(!isAlphaDisabled && hex.length == 5)
+                if(!viewModel.isAlphaDisabled && hex.length == 5)
                     hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
-                val tmp = selectedColor
+                val tmp = viewModel.selectedColor
                 tmp.apply {
                     color = android.graphics.Color.parseColor(hex)
                     alpha = color.alpha
@@ -266,14 +247,14 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                 Selection.setSelection(hexValue.text, hexValue.text.length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaDisabled) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(viewModel.isAlphaDisabled) {
                     s.toString().length == 7 || s.toString().length == 4
                 } else {
                     s.toString().length == 9 || s.toString().length == 5 || s.toString().length == 7
                 }
             }
         }
-        hexValue.setSelection(1, if(isAlphaDisabled) 7 else 9)
+        hexValue.setSelection(1, if(viewModel.isAlphaDisabled) 7 else 9)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -283,7 +264,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         // Initialize views
         val container = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hsv, container, false)
         val hsv = FloatArray(3)
-        android.graphics.Color.colorToHSV(selectedColor.color, hsv)
+        android.graphics.Color.colorToHSV(viewModel.selectedColor.color, hsv)
         container.dialogH.setText(hsv[0].toString())
         container.dialogS.setText(hsv[1].toString())
         container.dialogV.setText(hsv[2].toString())
@@ -299,7 +280,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                     container.dialogS.text.toString().toFloat(),
                     container.dialogV.text.toString().toFloat()
                 )
-                val tmp = selectedColor
+                val tmp = viewModel.selectedColor
                 tmp.apply {
                     color = android.graphics.Color.HSVToColor(hsvSelected)
                     alpha = color.alpha
@@ -339,8 +320,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
     }
 
     private fun chooseColor() {
-        val colorPicker = ColorPickerDialog(this, selectedColor.color)
-        if(!isAlphaDisabled) colorPicker.alphaSliderVisible = true
+        val colorPicker = ColorPickerDialog(this, viewModel.selectedColor.color)
+        if(!viewModel.isAlphaDisabled) colorPicker.alphaSliderVisible = true
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
@@ -358,13 +339,13 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
 
         // Update ARGB TextView
-        displayArgb.text = if(isAlphaDisabled) {
+        displayArgb.text = if(viewModel.isAlphaDisabled) {
             String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
         } else {
             String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
         }
         // Update HEX TextView
-        displayHex.text = if(isAlphaDisabled) {
+        displayHex.text = if(viewModel.isAlphaDisabled) {
             String.format(getString(R.string.hex_), "%06X".format((0xFFFFFF and color.color)).toUpperCase(Locale.getDefault()))
         } else {
             String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase(Locale.getDefault()))
@@ -401,7 +382,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                 colorAlpha.progress = valueAnimator.animatedValue as Int
                 colorContainer.setBackgroundColor(color.color)
             }
-            doOnEnd { selectedColor = color }
+            doOnEnd { viewModel.selectedColor = color }
         }.start()
 
         ValueAnimator.ofInt(colorRed.progress, color.red).apply {
@@ -427,9 +408,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
     private fun speakColor() {
         when {
             isAudioMuted() -> Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
-            initialized -> {
-                val colorName = cnt.getColorNameFromColor(selectedColor)
-                tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
+            viewModel.initialized -> {
+                val colorName = cnt.getColorNameFromColor(viewModel.selectedColor)
+                viewModel.tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
             }
             else -> Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
         }
@@ -442,29 +423,29 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     private fun finishWithSelectedColor() {
         setResult(Activity.RESULT_OK, Intent().apply {
-            putExtra(Constants.EXTRA_CHOOSE_COLOR, selectedColor.color)
+            putExtra(Constants.EXTRA_CHOOSE_COLOR, viewModel.selectedColor.color)
         })
         finish()
     }
 
     private fun setDefaultComponentValues() {
         // Initialize views
-        displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(selectedColor))
+        displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(viewModel.selectedColor))
         displayArgb.text = String.format(
             getString(R.string.argb_),
-            selectedColor.alpha, selectedColor.red, selectedColor.green, selectedColor.blue
+            viewModel.selectedColor.alpha, viewModel.selectedColor.red, viewModel.selectedColor.green, viewModel.selectedColor.blue
         )
-        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(selectedColor.color).toUpperCase(
+        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(viewModel.selectedColor.color).toUpperCase(
             Locale.getDefault()))
         val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(selectedColor.red, selectedColor.green, selectedColor.blue, hsv)
+        android.graphics.Color.RGBToHSV(viewModel.selectedColor.red, viewModel.selectedColor.green, viewModel.selectedColor.blue, hsv)
         displayHsv.text = String.format(
             getString(R.string.hsv_),
             String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
             String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
             String.format(Constants.HSV_FORMAT_STRING, hsv[2])
         )
-        val cmyk = ct.getCmykFromRgb(selectedColor.red, selectedColor.green, selectedColor.blue)
+        val cmyk = ct.getCmykFromRgb(viewModel.selectedColor.red, viewModel.selectedColor.green, viewModel.selectedColor.blue)
         displayCmyk.text =
             String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
     }
@@ -499,14 +480,14 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         }
 
         // Save color
-        saveColor.setOnClickListener { showSaveColorDialog(cnt, db, selectedColor) }
+        saveColor.setOnClickListener { showSaveColorDialog(cnt, db, viewModel.selectedColor) }
 
         // Copy color codes
-        copyName.setOnClickListener { cbt.copyNameToClipboard(cnt.getColorNameFromColor(selectedColor)) }
-        copyArgb.setOnClickListener { cbt.copyArgbToClipboard(selectedColor) }
-        copyHex.setOnClickListener { cbt.copyHexToClipboard(selectedColor) }
-        copyHsv.setOnClickListener { cbt.copyHsvToClipboard(selectedColor) }
-        copyCmyk.setOnClickListener { cbt.copyCmykToClipboard(selectedColor) }
+        copyName.setOnClickListener { cbt.copyNameToClipboard(cnt.getColorNameFromColor(viewModel.selectedColor)) }
+        copyArgb.setOnClickListener { cbt.copyArgbToClipboard(viewModel.selectedColor) }
+        copyHex.setOnClickListener { cbt.copyHexToClipboard(viewModel.selectedColor) }
+        copyHsv.setOnClickListener { cbt.copyHsvToClipboard(viewModel.selectedColor) }
+        copyCmyk.setOnClickListener { cbt.copyCmykToClipboard(viewModel.selectedColor) }
     }
 
     private fun initializeSeekBarSection() {
@@ -544,8 +525,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                     updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, colorRed.progress,
                         colorGreen.progress, colorBlue.progress, -1))
                 }
-                if ((showTransparencyWarning && progress > 20) || (!showTransparencyWarning && progress <= 20)) {
-                    showTransparencyWarning = !showTransparencyWarning
+                if ((viewModel.showTransparencyWarning && progress > 20) || (!viewModel.showTransparencyWarning && progress <= 20)) {
+                    viewModel.showTransparencyWarning = !viewModel.showTransparencyWarning
                     invalidateOptionsMenu()
                 }
             }
@@ -584,8 +565,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     private fun enableAlpha(enabled: Boolean) {
         // Set alpha to 100%
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, selectedColor.red,
-            selectedColor.green, selectedColor.blue, -1))
+        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, viewModel.selectedColor.red,
+            viewModel.selectedColor.green, viewModel.selectedColor.blue, -1))
         // Show / hide components
         val visibility = if(enabled) View.VISIBLE else View.GONE
         colorAlpha.visibility = visibility
