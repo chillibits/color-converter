@@ -5,10 +5,7 @@
 package com.chillibits.colorconverter.storage.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.chillibits.colorconverter.storage.dbo.ColorDbo
 
 @Dao
@@ -17,5 +14,11 @@ interface ColorDao {
     fun getAll(): LiveData<List<ColorDbo>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(record: ColorDbo)
+    fun insert(color: ColorDbo)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(color: ColorDbo)
+
+    @Delete
+    fun delete(color: ColorDbo)
 }

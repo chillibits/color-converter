@@ -38,12 +38,12 @@ fun Context.showColorPaletteDialog(
 
     // Fill dialog with data
     view.palette.apply {
-        adapter = ColorsAdapter(this@showColorPaletteDialog, colors, object : ColorsAdapter.ColorSelectionListener{
+        adapter = ColorsAdapter(this@showColorPaletteDialog, object: ColorsAdapter.ColorSelectionListener {
             override fun onColorSelected(color: Color) {
                 listener.onColorSelected(color)
                 d.dismiss()
             }
-        }, ct, st)
+        }, st, ct, colors)
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }

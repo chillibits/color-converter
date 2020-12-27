@@ -4,108 +4,20 @@
 
 package com.chillibits.colorconverter.tools
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
-import android.widget.Toast
-import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
-import com.mrgames13.jimdo.colorconverter.R
-import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 
 // Constants
 const val TABLE_COLORS: String = "Colors"
 
-class StorageTools @Inject constructor(val context: Context):
-    SQLiteOpenHelper(context, "database.db", null, 2) {
+class StorageTools @Inject constructor(val context: Context) {
 
-    override fun onCreate(db: SQLiteDatabase?) {
-        // Create tables
-        db?.execSQL("CREATE TABLE IF NOT EXISTS $TABLE_COLORS (id integer PRIMARY KEY, name text, red integer, green integer, blue integer, creation_timestamp integer, alpha integer);")
-    }
+    // Variables as objects
+    private val prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        if(oldVersion == 1 && newVersion == 2) {
-            db?.execSQL("ALTER TABLE $TABLE_COLORS ADD COLUMN alpha integer DEFAULT 255")
-        }
-    }
-
-    // ------------------------------------ Shared Preference --------------------------------------
-
-    fun putBoolean(name: String, value: Boolean) = context
-        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .edit().putBoolean(name, value).apply()
-
-    fun getBoolean(name: String, default: Boolean = false) = context
-        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .getBoolean(name, default)
-
-    fun putInt(name: String, value: Int) = context
-        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .edit().putInt(name, value).apply()
-
-    fun getInt(name: String, default: Int = 0) = context
-        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .getInt(name, default)
-
-    // ------------------------------------ Color Management ---------------------------------------
-
-    fun addColor(color: Color) {
-        try {
-            val values = ContentValues().apply {
-                put("id", color.color)
-                put("name", color.name)
-                put("alpha", color.alpha)
-                put("red", color.red)
-                put("green", color.green)
-                put("blue", color.blue)
-                put("creation_timestamp", color.creationTimestamp)
-            }
-            writableDatabase.insert(TABLE_COLORS, null, values)
-        } catch (e: SQLiteConstraintException) {
-            Toast.makeText(context, R.string.color_already_saved, Toast.LENGTH_SHORT).show()
-        } catch (e: IOException) {
-            Log.e("ColorConverter", "Error saving color", e)
-            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun updateColor(id: Int, newName: String) =
-        writableDatabase.execSQL("UPDATE $TABLE_COLORS SET name='$newName' WHERE id=$id")
-
-    fun removeColor(id: Int) =
-        writableDatabase.delete(TABLE_COLORS, "id=?", arrayOf(id.toString()))
-
-    fun loadColors(): List<Color> {
-        try {
-            val cursor = writableDatabase.rawQuery(
-                "SELECT * FROM $TABLE_COLORS",
-                null
-            )
-            val colors: ArrayList<Color> = ArrayList()
-            while (cursor.moveToNext()) {
-                colors.add(Color(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getInt(6),
-                    cursor.getInt(2),
-                    cursor.getInt(3),
-                    cursor.getInt(4),
-                    cursor.getLong(5)
-                ))
-            }
-            cursor.close()
-            colors.sort()
-            return colors
-        } catch (e: IOException) {
-            Log.e("ChatLet", "Error loading colors", e)
-            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
-        }
-        return emptyList()
-    }
+    fun putBoolean(name: String, value: Boolean) = prefs.edit().putBoolean(name, value).apply()
+    fun getBoolean(name: String, default: Boolean = false) = prefs.getBoolean(name, default)
+    fun putInt(name: String, value: Int) = prefs.edit().putInt(name, value).apply()
+    fun getInt(name: String, default: Int = 0) = prefs.getInt(name, default)
 }
