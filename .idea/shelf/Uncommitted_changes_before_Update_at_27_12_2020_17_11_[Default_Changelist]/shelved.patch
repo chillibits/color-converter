@@ -1,0 +1,59 @@
+Index: .idea/markdown-navigator.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"FlexmarkProjectSettings\">\r\n    <FlexmarkHtmlSettings flexmarkSpecExampleRendering=\"0\" flexmarkSpecExampleRenderHtml=\"false\">\r\n      <flexmarkSectionLanguages>\r\n        <option name=\"1\" value=\"Markdown\" />\r\n        <option name=\"2\" value=\"HTML\" />\r\n        <option name=\"3\" value=\"flexmark-ast:1\" />\r\n      </flexmarkSectionLanguages>\r\n    </FlexmarkHtmlSettings>\r\n  </component>\r\n  <component name=\"MarkdownProjectSettings\">\r\n    <PreviewSettings splitEditorLayout=\"SPLIT\" splitEditorPreview=\"PREVIEW\" useGrayscaleRendering=\"false\" zoomFactor=\"1.0\" maxImageWidth=\"0\" synchronizePreviewPosition=\"true\" highlightPreviewType=\"LINE\" highlightFadeOut=\"5\" highlightOnTyping=\"true\" synchronizeSourcePosition=\"true\" verticallyAlignSourceAndPreviewSyncPosition=\"true\" showSearchHighlightsInPreview=\"true\" showSelectionInPreview=\"true\" lastLayoutSetsDefault=\"false\">\r\n      <PanelProvider>\r\n        <provider providerId=\"com.vladsch.md.nav.editor.swing.html.panel\" providerName=\"Default - Swing\" />\r\n      </PanelProvider>\r\n    </PreviewSettings>\r\n    <ParserSettings gitHubSyntaxChange=\"false\" correctedInvalidSettings=\"false\" emojiShortcuts=\"1\" emojiImages=\"0\">\r\n      <PegdownExtensions>\r\n        <option name=\"ANCHORLINKS\" value=\"true\" />\r\n        <option name=\"ATXHEADERSPACE\" value=\"true\" />\r\n        <option name=\"FENCED_CODE_BLOCKS\" value=\"true\" />\r\n        <option name=\"INTELLIJ_DUMMY_IDENTIFIER\" value=\"true\" />\r\n        <option name=\"RELAXEDHRULES\" value=\"true\" />\r\n        <option name=\"STRIKETHROUGH\" value=\"true\" />\r\n        <option name=\"TABLES\" value=\"true\" />\r\n        <option name=\"TASKLISTITEMS\" value=\"true\" />\r\n      </PegdownExtensions>\r\n      <ParserOptions>\r\n        <option name=\"COMMONMARK_LISTS\" value=\"true\" />\r\n        <option name=\"EMOJI_SHORTCUTS\" value=\"true\" />\r\n        <option name=\"GFM_TABLE_RENDERING\" value=\"true\" />\r\n        <option name=\"PRODUCTION_SPEC_PARSER\" value=\"true\" />\r\n        <option name=\"SIM_TOC_BLANK_LINE_SPACER\" value=\"true\" />\r\n      </ParserOptions>\r\n    </ParserSettings>\r\n    <HtmlSettings headerTopEnabled=\"false\" headerBottomEnabled=\"false\" bodyTopEnabled=\"false\" bodyBottomEnabled=\"false\" addPageHeader=\"false\" imageUriSerials=\"false\" addDocTypeHtml=\"true\" noParaTags=\"false\" plantUmlConversion=\"0\">\r\n      <GeneratorProvider>\r\n        <provider providerId=\"com.vladsch.md.nav.editor.text.html.generator\" providerName=\"Unmodified HTML Generator\" />\r\n      </GeneratorProvider>\r\n      <headerTop />\r\n      <headerBottom />\r\n      <bodyTop />\r\n      <bodyBottom />\r\n    </HtmlSettings>\r\n    <CssSettings previewScheme=\"UI_SCHEME\" cssUri=\"\" isCssUriEnabled=\"false\" isCssUriSerial=\"true\" isCssTextEnabled=\"false\" isDynamicPageWidth=\"true\">\r\n      <StylesheetProvider>\r\n        <provider providerId=\"com.vladsch.md.nav.editor.text.html.css\" providerName=\"No Stylesheet\" />\r\n      </StylesheetProvider>\r\n      <ScriptProviders />\r\n      <cssText />\r\n      <cssUriHistory />\r\n    </CssSettings>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/markdown-navigator.xml	(revision 12f85a5e29b0e7e69d8d2656a2cbdb1c7d145625)
++++ .idea/markdown-navigator.xml	(date 1609085473628)
+@@ -34,7 +34,7 @@
+         <option name="SIM_TOC_BLANK_LINE_SPACER" value="true" />
+       </ParserOptions>
+     </ParserSettings>
+-    <HtmlSettings headerTopEnabled="false" headerBottomEnabled="false" bodyTopEnabled="false" bodyBottomEnabled="false" addPageHeader="false" imageUriSerials="false" addDocTypeHtml="true" noParaTags="false" plantUmlConversion="0">
++    <HtmlSettings headerTopEnabled="false" headerBottomEnabled="false" bodyTopEnabled="false" bodyBottomEnabled="false" addPageHeader="false" addAnchorLinks="true" anchorLinksWrapText="false" imageUriSerials="false" addDocTypeHtml="true" noParaTags="false" defaultUrlTitle="false" migratedPlantUml="true" migratedAnchorLinks="true" plantUmlConversion="0">
+       <GeneratorProvider>
+         <provider providerId="com.vladsch.md.nav.editor.text.html.generator" providerName="Unmodified HTML Generator" />
+       </GeneratorProvider>
+@@ -42,6 +42,23 @@
+       <headerBottom />
+       <bodyTop />
+       <bodyBottom />
++      <fencedCodeConversions>
++        <option name="c4plantuml" value="NONE" />
++        <option name="ditaa" value="NONE" />
++        <option name="erd" value="NONE" />
++        <option name="graphviz" value="NONE" />
++        <option name="latex" value="KATEX" />
++        <option name="math" value="KATEX" />
++        <option name="mermaid" value="NONE" />
++        <option name="nomnoml" value="NONE" />
++        <option name="plantuml" value="NONE" />
++        <option name="puml" value="NONE" />
++        <option name="svgbob" value="NONE" />
++        <option name="umlet" value="NONE" />
++        <option name="vega" value="NONE" />
++        <option name="vegalite" value="NONE" />
++        <option name="wavedrom" value="NONE" />
++      </fencedCodeConversions>
+     </HtmlSettings>
+     <CssSettings previewScheme="UI_SCHEME" cssUri="" isCssUriEnabled="false" isCssUriSerial="true" isCssTextEnabled="false" isDynamicPageWidth="true">
+       <StylesheetProvider>
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"delegatedBuild\" value=\"false\" />\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 12f85a5e29b0e7e69d8d2656a2cbdb1c7d145625)
++++ .idea/gradle.xml	(date 1609085473618)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>

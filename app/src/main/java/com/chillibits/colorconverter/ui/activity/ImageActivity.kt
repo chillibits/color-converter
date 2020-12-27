@@ -31,7 +31,7 @@ import com.chillibits.colorconverter.shared.dpToPx
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
-import com.chillibits.colorconverter.viewmodel.DetailedFlagView
+import com.chillibits.colorconverter.view.DetailedFlagView
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
