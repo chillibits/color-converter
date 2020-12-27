@@ -132,11 +132,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     private fun showRenameColorDialog() {
         // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(
-            R.layout.dialog_color_rename,
-            container,
-            false
-        )
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
         val newName = dialogView.dialogName
         newName.setText(selectedColor?.name)
 
@@ -147,10 +143,10 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .setPositiveButton(R.string.rename) { _, _ ->
                 val name = newName.text.toString().trim()
                 if (name.isNotEmpty()) {
+                    selectedColor?.name = name
                     // Update color
                     CoroutineScope(Dispatchers.IO).launch {
                         db.colorDao().update(selectedColor!!.toDbo())
-                        selectedColor?.name = name
                         // Refresh subtitle
                         CoroutineScope(Dispatchers.Main).launch {
                             changeSubtitle("${getString(R.string.selected)}: $name")
@@ -162,8 +158,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             .show()
 
         // Prepare views
-        newName.doAfterTextChanged { s ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.toString().isNotEmpty()
+        newName.doAfterTextChanged {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = it.toString().isNotEmpty()
         }
         newName.selectAll()
         newName.requestFocus()
