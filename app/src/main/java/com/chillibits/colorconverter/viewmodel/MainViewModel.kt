@@ -12,7 +12,9 @@ import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import com.chillibits.colorconverter.model.Color
+import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.Constants
+import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
@@ -21,6 +23,7 @@ import java.util.*
 
 class MainViewModel @ViewModelInject constructor(
     application: Application,
+    private val repository: ColorRepository,
     st: StorageTools,
     private val cnt: ColorNameTools
 ): AndroidViewModel(application) {
@@ -40,6 +43,8 @@ class MainViewModel @ViewModelInject constructor(
         // Initialize tts, if the app does not run in instant mode
         if (!isInstant) initializeTTS()
     }
+
+    fun insert() = repository.insert(selectedColor.toDbo())
 
     private fun initializeTTS() {
         tts = TextToSpeech(context) { status ->

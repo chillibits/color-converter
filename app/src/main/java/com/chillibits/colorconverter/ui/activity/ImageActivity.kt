@@ -10,7 +10,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.media.AudioManager
@@ -21,6 +20,7 @@ import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.view.*
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -29,9 +29,9 @@ import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.dpToPx
 import com.chillibits.colorconverter.tools.ColorNameTools
-import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.view.DetailedFlagView
+import com.chillibits.colorconverter.viewmodel.ImageViewModel
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
@@ -41,31 +41,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ImageActivity : AppCompatActivity() {
 
     // Tools packages
-    @Inject lateinit var ct: ColorTools
     @Inject lateinit var cnt: ColorNameTools
     @Inject lateinit var st: StorageTools
 
     // Variables as objects
-    private lateinit var tts: TextToSpeech
+    private val vm by viewModels<ImageViewModel>()
     private var speakItem: MenuItem? = null
-    private var valueSelectedColor: Int = Color.BLACK
-    private var valueVibrantColor: Int = Color.BLACK
-    private var valueVibrantColorLight: Int = Color.BLACK
-    private var valueVibrantColorDark: Int = Color.BLACK
-    private var valueMutedColor: Int = Color.BLACK
-    private var valueMutedColorLight: Int = Color.BLACK
-    private var valueMutedColorDark: Int = Color.BLACK
-    private var imageUri: String? = null
-
-    // Variables
-    private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +67,7 @@ class ImageActivity : AppCompatActivity() {
 
         // Initialize other layout components
         image.colorListener = ColorListener { color, _ ->
-            valueSelectedColor = color
+            vm.valueSelectedColor = color
             selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
@@ -88,23 +75,13 @@ class ImageActivity : AppCompatActivity() {
             isFlipAble = false
         }
 
-        selectedColor.setOnClickListener { finishWithResult(valueSelectedColor) }
-        vibrantColor.setOnClickListener { finishWithResult(valueVibrantColor) }
-        lightVibrantColor.setOnClickListener { finishWithResult(valueVibrantColorLight) }
-        darkVibrantColor.setOnClickListener { finishWithResult(valueVibrantColorDark) }
-        mutedColor.setOnClickListener { finishWithResult(valueMutedColor) }
-        lightMutedColor.setOnClickListener { finishWithResult(valueMutedColorLight) }
-        darkMutedColor.setOnClickListener { finishWithResult(valueMutedColorDark) }
-
-        // Initialize tts
-        tts = TextToSpeech(this) { status ->
-            if(status == TextToSpeech.SUCCESS) {
-                val result = tts.setLanguage(Locale.getDefault())
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(this, R.string.language_not_available, Toast.LENGTH_SHORT).show()
-                } else initialized = true
-            } else Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
-        }
+        selectedColor.setOnClickListener { finishWithResult(vm.valueSelectedColor) }
+        vibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColor) }
+        lightVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorLight) }
+        darkVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorDark) }
+        mutedColor.setOnClickListener { finishWithResult(vm.valueMutedColor) }
+        lightMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorLight) }
+        darkMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorDark) }
 
         if(intent.hasExtra(Constants.EXTRA_IMAGE_URI)) {
             // Load default image
@@ -115,6 +92,8 @@ class ImageActivity : AppCompatActivity() {
             // Launch image picker
             chooseImage()
         }
+
+        vm.imageUri?.run { applyImage(applyRotation(BitmapFactory.decodeFile(this), this)) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -137,26 +116,13 @@ class ImageActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("ImageUri", imageUri.toString())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        try {
-            imageUri = savedInstanceState.getString("ImageUri")
-            applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
-        } catch (e: Exception) {}
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == Constants.REQ_IMAGE_PICKER) {
             if(resultCode == Activity.RESULT_OK) {
                 try{
-                    imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
-                    applyImage(applyRotation(BitmapFactory.decodeFile(imageUri), imageUri!!)!!)
+                    vm.imageUri = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)?.get(0).toString()
+                    applyImage(applyRotation(BitmapFactory.decodeFile(vm.imageUri), vm.imageUri!!)!!)
                 } catch (e: IOException) {
                     Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()
                 }
@@ -206,19 +172,14 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun applyImage(bitmap: Bitmap) {
+        vm.computeVibrantColors(bitmap)
         image.setPaletteDrawable(BitmapDrawable(resources, bitmap))
-        valueVibrantColor = ct.getVibrantColor(bitmap)
-        vibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColor, BlendModeCompat.SRC_IN)
-        valueVibrantColorLight = ct.getLightVibrantColor(bitmap)
-        lightVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColorLight, BlendModeCompat.SRC_IN)
-        valueVibrantColorDark = ct.getDarkVibrantColor(bitmap)
-        darkVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueVibrantColorDark, BlendModeCompat.SRC_IN)
-        valueMutedColor = ct.getMutedColor(bitmap)
-        mutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColor, BlendModeCompat.SRC_IN)
-        valueMutedColorLight = ct.getLightMutedColor(bitmap)
-        lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorLight, BlendModeCompat.SRC_IN)
-        valueMutedColorDark = ct.getDarkMutedColor(bitmap)
-        darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(valueMutedColorDark, BlendModeCompat.SRC_IN)
+        vibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColor, BlendModeCompat.SRC_IN)
+        lightVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorLight, BlendModeCompat.SRC_IN)
+        darkVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorDark, BlendModeCompat.SRC_IN)
+        mutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColor, BlendModeCompat.SRC_IN)
+        lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorLight, BlendModeCompat.SRC_IN)
+        darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorDark, BlendModeCompat.SRC_IN)
         image.visibility = View.VISIBLE
     }
 
@@ -244,9 +205,9 @@ class ImageActivity : AppCompatActivity() {
         if(isAudioMuted()) {
             Toast.makeText(this, R.string.audio_muted, Toast.LENGTH_SHORT).show()
         } else {
-            if(initialized) {
-                val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", valueSelectedColor, 0))
-                tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
+            if(vm.initialized) {
+                val colorName = cnt.getColorNameFromColor(com.chillibits.colorconverter.model.Color(0, "", vm.valueSelectedColor, 0))
+                vm.tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
             } else {
                 Toast.makeText(this, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
             }
