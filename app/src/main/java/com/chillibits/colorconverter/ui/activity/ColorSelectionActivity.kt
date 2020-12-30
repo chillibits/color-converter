@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chillibits.adobecolor.core.AdobeColorExporter
+import com.chillibits.adobecolor.model.AdobeColor
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.toObj
@@ -76,8 +78,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
         val isColorSelected = vm.selectedColor != null
         menu?.apply {
-            findItem(R.id.action_import)?.isVisible = !isColorSelected
-            findItem(R.id.action_export)?.isVisible = !isColorSelected
+            findItem(R.id.action_import_export)?.isVisible = !isColorSelected
             findItem(R.id.action_edit)?.isVisible = isColorSelected
             findItem(R.id.action_delete)?.isVisible = isColorSelected
             findItem(R.id.action_done)?.isVisible = isColorSelected
@@ -87,8 +88,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import -> importColorPalette()
-            R.id.action_export -> exportColorPalette()
+            R.id.action_import_export -> importExportColorPalette()
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()
@@ -230,11 +230,11 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         }
     }
 
-    private fun exportColorPalette() {
-
-    }
-
-    private fun importColorPalette() {
-
+    private fun importExportColorPalette() {
+        vm.colors.value?.map {
+            AdobeColor(it.name, android.graphics.Color.rgb(it.red, it.green, it.blue))
+        }?.let {
+            AdobeColorExporter(this@ColorSelectionActivity).exportColorListAsASE(it, "My palette")
+        }
     }
 }

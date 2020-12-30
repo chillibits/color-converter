@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Sun, 27 Dec 2020 10:15:05 +0000
+ Exported at: Wed, 30 Dec 2020 03:11:14 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -72,4 +72,5 @@
     <string name="import_color_palette">Импортная цветовая палитра</string>
     <string name="export_color_palette">Экспортная цветовая палитра</string>
     <string name="color_already_saved">Этот цвет уже был сохранен</string>
+    <string name="import_export_palette"></string>
 </resources>
