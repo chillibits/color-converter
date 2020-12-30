@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Wed, 30 Dec 2020 03:11:13 +0000
+ Exported at: Wed, 30 Dec 2020 11:12:09 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -73,4 +73,9 @@
     <string name="export_color_palette">Exporter la palette de couleurs</string>
     <string name="color_already_saved">Cette couleur a déjà été sauvegardée</string>
     <string name="import_export_palette"></string>
+    <string name="export_to_aco"></string>
+    <string name="export_to_ase"></string>
+    <string name="import_from_aco"></string>
+    <string name="import_from_ase"></string>
+    <string name="export"></string>
 </resources>
