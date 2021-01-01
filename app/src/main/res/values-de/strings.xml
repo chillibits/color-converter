@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
+  ~ Copyright © Marc Auberer 2021. All rights reserved
   -->
 
 <!--
@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Wed, 30 Dec 2020 11:12:10 +0000
+ Exported at: Fri, 01 Jan 2021 14:52:30 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -20,7 +20,7 @@
     <string name="choose_color">Farbe wählen</string>
     <string name="save_color">Farbe speichern</string>
     <string name="save">Speichern</string>
-    <string name="choose_name">Namen wählen</string>
+    <string name="choose_name">Name wählen</string>
     <string name="pick_random_color">Zufällige Farbe generieren</string>
     <string name="pick_color_from_image">Farbe von Bild wählen</string>
     <string name="copied_to_clipboard">In Zwischenablage kopiert</string>

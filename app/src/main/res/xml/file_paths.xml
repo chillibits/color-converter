@@ -3,6 +3,6 @@
   ~ Copyright © Marc Auberer 2021. All rights reserved
   -->
 
-<resources>
-    <dimen name="dialog_margin">20dp</dimen>
-</resources>
+<paths>
+    <files-path path="/" name="allfiles" />
+</paths>

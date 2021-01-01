@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
+  ~ Copyright © Marc Auberer 2021. All rights reserved
   -->
 
 <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="10dp"
-            app:srcCompat="@drawable/aco_file"/>
+            app:srcCompat="@drawable/mime_aco"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:layout_height="60dp"
             android:padding="10dp"
             android:tint="@color/buttonColor"
-            app:srcCompat="@drawable/ase_file"/>
+            app:srcCompat="@drawable/mime_ase"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="10dp"
-            app:srcCompat="@drawable/aco_file"/>
+            app:srcCompat="@drawable/mime_aco"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
             android:layout_height="60dp"
             android:padding="10dp"
             android:tint="@color/buttonColor"
-            app:srcCompat="@drawable/ase_file"/>
+            app:srcCompat="@drawable/mime_ase"/>
 
         <TextView
             android:layout_width="match_parent"

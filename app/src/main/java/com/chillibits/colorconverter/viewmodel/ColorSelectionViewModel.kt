@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.viewmodel
@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.toDbo
+import com.chillibits.colorconverter.storage.dbo.ColorDbo
 import com.chillibits.colorconverter.tools.ColorNameTools
 
 class ColorSelectionViewModel@ViewModelInject constructor(
@@ -22,6 +23,9 @@ class ColorSelectionViewModel@ViewModelInject constructor(
     val colors = repository.getAll()
     var selectedColor: Color? = null
 
+    fun insert(colors: List<Color>) = repository.insert(colors.map {
+        ColorDbo(it.id, it.name, it.alpha, it.red, it.green, it.blue, it.creationTimestamp)
+    })
     fun update() = selectedColor?.run { repository.update(this.toDbo()) }
     fun delete() {
         selectedColor?.run { repository.delete(this.toDbo()) }
