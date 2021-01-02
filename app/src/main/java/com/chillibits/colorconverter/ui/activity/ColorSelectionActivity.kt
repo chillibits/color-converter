@@ -27,7 +27,7 @@ import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.OnRenameListener
 import com.chillibits.colorconverter.ui.dialog.RenameDialogMode
-import com.chillibits.colorconverter.ui.dialog.showPaletteExportDialog
+import com.chillibits.colorconverter.ui.dialog.showPaletteImportExportDialog
 import com.chillibits.colorconverter.ui.dialog.showRenameDialog
 import com.chillibits.colorconverter.viewmodel.ColorSelectionViewModel
 import com.mrgames13.jimdo.colorconverter.R
@@ -88,7 +88,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import_export -> vm.colors.value?.let { showPaletteExportDialog(this, vm, it) }
+            R.id.action_import_export -> vm.colors.value?.let { showPaletteImportExportDialog(this, vm, it) }
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()

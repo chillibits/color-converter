@@ -5,10 +5,14 @@
 package com.chillibits.colorconverter.ui.dialog
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import com.chillibits.adobecolor.core.AdobeColorTool
 import com.chillibits.adobecolor.model.AdobeColor
 import com.chillibits.colorconverter.model.Color
@@ -20,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-fun Context.showPaletteExportDialog(
+fun Context.showPaletteImportExportDialog(
     activity: AppCompatActivity,
     vm: ColorSelectionViewModel,
     colors: List<ColorDbo>
@@ -33,6 +37,9 @@ fun Context.showPaletteExportDialog(
             CoroutineScope(Dispatchers.IO).launch {
                 for (group in colors) {
                     importedColors.addAll(group.value.map {
+                        Log.d("CC", it.color.red.toString())
+                        Log.d("CC", it.color.green.toString())
+                        Log.d("CC", it.color.blue.toString())
                         Color(0, it.name, it.color, importTimestamp)
                     })
                 }
