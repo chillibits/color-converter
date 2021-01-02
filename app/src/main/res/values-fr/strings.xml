@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
+  ~ Copyright © Marc Auberer 2021. All rights reserved
   -->
 
 <!--
@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Sun, 27 Dec 2020 10:15:05 +0000
+ Exported at: Sat, 02 Jan 2021 15:24:11 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -72,4 +72,10 @@
     <string name="import_color_palette">Importer une palette de couleurs</string>
     <string name="export_color_palette">Exporter la palette de couleurs</string>
     <string name="color_already_saved">Cette couleur a déjà été sauvegardée</string>
+    <string name="import_export_palette">Importer / Exporter palette</string>
+    <string name="export_to_aco">Exporter comme un fichier ACO</string>
+    <string name="export_to_ase">Exporter comme un fichier ASE</string>
+    <string name="import_from_aco">Importer depuis un fichier ACO</string>
+    <string name="import_from_ase">Importer depuis un fichier ASE</string>
+    <string name="export">Exporter</string>
 </resources>

@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 apply plugin: 'com.android.application'
@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.mikepenz:fastadapter:5.3.2'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
+    implementation 'com.chillibits:adobecolortool:1.0.0-alpha05'
 
     // Room dependencies
     implementation "androidx.room:room-runtime:$room_version"

@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -17,7 +17,6 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
@@ -26,11 +25,14 @@ import com.chillibits.colorconverter.storage.AppDatabase
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
+import com.chillibits.colorconverter.ui.dialog.OnRenameListener
+import com.chillibits.colorconverter.ui.dialog.RenameDialogMode
+import com.chillibits.colorconverter.ui.dialog.showPaletteImportExportDialog
+import com.chillibits.colorconverter.ui.dialog.showRenameDialog
 import com.chillibits.colorconverter.viewmodel.ColorSelectionViewModel
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_color_selection.*
-import kotlinx.android.synthetic.main.dialog_color_rename.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -76,8 +78,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         menuInflater.inflate(R.menu.menu_activity_color_selection, menu)
         val isColorSelected = vm.selectedColor != null
         menu?.apply {
-            findItem(R.id.action_import)?.isVisible = !isColorSelected
-            findItem(R.id.action_export)?.isVisible = !isColorSelected
+            findItem(R.id.action_import_export)?.isVisible = !isColorSelected
             findItem(R.id.action_edit)?.isVisible = isColorSelected
             findItem(R.id.action_delete)?.isVisible = isColorSelected
             findItem(R.id.action_done)?.isVisible = isColorSelected
@@ -87,8 +88,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_import -> importColorPalette()
-            R.id.action_export -> exportColorPalette()
+            R.id.action_import_export -> vm.colors.value?.let { showPaletteImportExportDialog(this, vm, it) }
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()
@@ -132,40 +132,19 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     }
 
     private fun showRenameColorDialog() {
-        // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_color_rename, container, false)
-        val newName = dialogView.dialogName
-        newName.setText(vm.selectedColor?.name)
-
-        // Create dialog
-        val dialog = AlertDialog.Builder(this)
-            .setTitle(R.string.rename)
-            .setView(dialogView)
-            .setPositiveButton(R.string.rename) { _, _ ->
-                val name = newName.text.toString().trim()
-                if (name.isNotEmpty()) {
-                    vm.selectedColor?.name = name
-                    // Update color
-                    CoroutineScope(Dispatchers.IO).launch {
-                        vm.update()
-                        // Refresh subtitle
-                        CoroutineScope(Dispatchers.Main).launch {
-                            changeSubtitle("${getString(R.string.selected)}: $name")
-                        }
+        showRenameDialog(RenameDialogMode.RENAME, object: OnRenameListener {
+            override fun onRenameComplete(newName: String) {
+                vm.selectedColor?.name = newName
+                // Update color
+                CoroutineScope(Dispatchers.IO).launch {
+                    vm.update()
+                    // Refresh subtitle
+                    CoroutineScope(Dispatchers.Main).launch {
+                        changeSubtitle("${getString(R.string.selected)}: $newName")
                     }
                 }
             }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
-
-        // Prepare views
-        newName.doAfterTextChanged {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = it.toString().isNotEmpty()
-        }
-        newName.selectAll()
-        newName.requestFocus()
-        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        }, vm.selectedColor!!.name)
     }
 
     private fun showDeleteColorDialog() {
@@ -228,13 +207,5 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             toolbar.layoutTransition = LayoutTransition()
             supportActionBar?.subtitle = subtitle
         }
-    }
-
-    private fun exportColorPalette() {
-
-    }
-
-    private fun importColorPalette() {
-
     }
 }

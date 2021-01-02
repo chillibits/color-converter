@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.storage.dao
@@ -15,6 +15,9 @@ interface ColorDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(color: ColorDbo)
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insert(colors: List<ColorDbo>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(color: ColorDbo)
