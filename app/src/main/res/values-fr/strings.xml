@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Fri, 01 Jan 2021 14:52:30 +0000
+ Exported at: Sat, 02 Jan 2021 15:24:11 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -72,10 +72,10 @@
     <string name="import_color_palette">Importer une palette de couleurs</string>
     <string name="export_color_palette">Exporter la palette de couleurs</string>
     <string name="color_already_saved">Cette couleur a déjà été sauvegardée</string>
-    <string name="import_export_palette"></string>
-    <string name="export_to_aco"></string>
-    <string name="export_to_ase"></string>
-    <string name="import_from_aco"></string>
-    <string name="import_from_ase"></string>
-    <string name="export"></string>
+    <string name="import_export_palette">Importer / Exporter palette</string>
+    <string name="export_to_aco">Exporter comme un fichier ACO</string>
+    <string name="export_to_ase">Exporter comme un fichier ASE</string>
+    <string name="import_from_aco">Importer depuis un fichier ACO</string>
+    <string name="import_from_ase">Importer depuis un fichier ASE</string>
+    <string name="export">Exporter</string>
 </resources>
