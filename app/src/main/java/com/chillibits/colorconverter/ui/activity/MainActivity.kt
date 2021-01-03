@@ -323,7 +323,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         }
         // Update HEX TextView
         displayHex.text = if(vm.isAlphaDisabled) {
-            String.format(getString(R.string.hex_), "%06X".format((0xFFFFFF and color.color)).toUpperCase(Locale.getDefault()))
+            String.format(getString(R.string.hex_), "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()))
         } else {
             String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase(Locale.getDefault()))
         }
