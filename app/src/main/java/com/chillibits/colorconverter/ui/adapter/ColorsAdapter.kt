@@ -48,17 +48,17 @@ class ColorsAdapter @Inject constructor(
     override fun getItemCount() = colors.size
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
-        holder.run {
+        holder.itemView.run {
             val color = colors[pos]
 
-            itemView.itemColor.setTint(color.color)
-            itemView.itemColorName.text = color.name
+            itemColor.setTint(color.color)
+            itemColorName.text = color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
             val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
 
-            itemView.itemColorValues.text = if(isAlphaDisabled)
+            itemColorValues.text = if(isAlphaDisabled)
                 String.format(
                     context.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,
@@ -79,9 +79,9 @@ class ColorsAdapter @Inject constructor(
                     cmyk[0], cmyk[1], cmyk[2], cmyk[3]
                 )
 
-            itemView.isSelected = true
+            isSelected = true
 
-            itemView.setOnClickListener { listener.onColorSelected(color) }
+            setOnClickListener { listener.onColorSelected(color) }
         }
     }
 
