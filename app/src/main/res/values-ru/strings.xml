@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Thu, 24 Dec 2020 16:31:17 +0000
+ Exported at: Mon, 04 Jan 2021 10:56:59 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -72,4 +68,10 @@
     <string name="import_color_palette">Импортная цветовая палитра</string>
     <string name="export_color_palette">Экспортная цветовая палитра</string>
     <string name="color_already_saved">Этот цвет уже был сохранен</string>
+    <string name="import_export_palette">Импорт / экспорт палитры</string>
+    <string name="export_to_aco">Экспорт в ACO-файл</string>
+    <string name="export_to_ase">Экспорт в ASE-файл</string>
+    <string name="import_from_aco">Импорт из файла ACO</string>
+    <string name="import_from_ase">Импорт из файла ASE</string>
+    <string name="export">Экспорт</string>
 </resources>

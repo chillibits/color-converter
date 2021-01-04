@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
+  ~ Copyright © Marc Auberer 2021. All rights reserved
   -->
 
 <manifest
@@ -80,11 +80,13 @@
             <!-- Default url -->
             <meta-data android:name="default-url" android:value="https://chillibits.com/instant/colorconverter" />
         </activity>
+
         <activity
             android:name="com.chillibits.colorconverter.ui.activity.ColorSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name="com.chillibits.colorconverter.ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -94,5 +96,15 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mrgames13.jimdo.colorconverter"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

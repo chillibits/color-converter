@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Thu, 24 Dec 2020 16:31:16 +0000
+ Exported at: Mon, 04 Jan 2021 10:56:58 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">Aceptar</string>
@@ -72,4 +68,10 @@
     <string name="import_color_palette">Importar la paleta de colores</string>
     <string name="export_color_palette">Exportar la paleta de colores</string>
     <string name="color_already_saved">Este color ya fue guardado</string>
+    <string name="import_export_palette">Importar / Exportar la paleta</string>
+    <string name="export_to_aco">Exportar a un archivo ACO</string>
+    <string name="export_to_ase">Exportar a un archivo ASE</string>
+    <string name="import_from_aco">Exportar desde el archivo ACO</string>
+    <string name="import_from_ase">Exportar desde el archivo ASE</string>
+    <string name="export">Exportar</string>
 </resources>

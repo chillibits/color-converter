@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.adapter
@@ -17,13 +17,14 @@ import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
 import java.util.*
+import javax.inject.Inject
 
-class ColorsAdapter constructor(
+class ColorsAdapter @Inject constructor(
     private val context: Context,
-    private val colors: List<Color>,
     private val listener: ColorSelectionListener,
+    st: StorageTools,
     private val ct: ColorTools,
-    st: StorageTools
+    private var colors: List<Color> = emptyList()
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     // Variables
@@ -34,6 +35,11 @@ class ColorsAdapter constructor(
         fun onColorSelected(color: Color)
     }
 
+    fun updateData(data: List<Color>) {
+        this.colors = data
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.item_color, parent, false)
         return ViewHolder(itemView)
@@ -42,17 +48,17 @@ class ColorsAdapter constructor(
     override fun getItemCount() = colors.size
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
-        holder.run {
+        holder.itemView.run {
             val color = colors[pos]
 
-            itemView.itemColor.setTint(color.color)
-            itemView.itemColorName.text = color.name
+            itemColor.setTint(color.color)
+            itemColorName.text = color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
             val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
 
-            itemView.itemColorValues.text = if(isAlphaDisabled)
+            itemColorValues.text = if(isAlphaDisabled)
                 String.format(
                     context.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,
@@ -73,9 +79,9 @@ class ColorsAdapter constructor(
                     cmyk[0], cmyk[1], cmyk[2], cmyk[3]
                 )
 
-            itemView.isSelected = true
+            isSelected = true
 
-            itemView.setOnClickListener { listener.onColorSelected(color) }
+            setOnClickListener { listener.onColorSelected(color) }
         }
     }
 

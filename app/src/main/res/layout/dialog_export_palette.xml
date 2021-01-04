@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © Marc Auberer 2021. All rights reserved
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/exportACO"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:background="?selectableItemBackground">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/mime_aco"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:text="@string/export_to_aco"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/exportASE"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:background="?selectableItemBackground">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:tint="@color/buttonColor"
+            app:srcCompat="@drawable/mime_ase"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:text="@string/export_to_ase"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/importACO"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:background="?selectableItemBackground">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/mime_aco"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:text="@string/import_from_aco"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/importASE"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:background="?selectableItemBackground">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:tint="@color/buttonColor"
+            app:srcCompat="@drawable/mime_ase"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:text="@string/import_from_ase"/>
+    </LinearLayout>
+</LinearLayout>

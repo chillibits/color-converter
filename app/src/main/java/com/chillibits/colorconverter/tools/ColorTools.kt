@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.tools
@@ -11,7 +11,9 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
+import com.chillibits.colorconverter.shared.Constants
 import com.mrgames13.jimdo.colorconverter.R
+import java.util.*
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -55,5 +57,13 @@ class ColorTools(private var context: Context) {
         val m = (100.0 - greenPercentage - k) / (100.0 - k) * 100.0
         val y = (100.0 - bluePercentage - k) / (100.0 - k) * 100.0
         return arrayOf(c.roundToInt(), m.roundToInt(), y.roundToInt(), k.roundToInt())
+    }
+
+    fun getRandomColor(): com.chillibits.colorconverter.model.Color {
+        val random = Random(System.currentTimeMillis())
+        val red = random.nextInt(256)
+        val green = random.nextInt(256)
+        val blue = random.nextInt(256)
+        return com.chillibits.colorconverter.model.Color(0, Constants.NAME_SELECTED_COLOR, 255, red, green, blue, -1)
     }
 }

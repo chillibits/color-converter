@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © Marc Auberer 2020. All rights reserved
-  -->
-
-<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Thu, 24 Dec 2020 16:31:15 +0000
+ Exported at: Mon, 04 Jan 2021 10:56:58 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -20,7 +16,7 @@
     <string name="choose_color">Farbe wählen</string>
     <string name="save_color">Farbe speichern</string>
     <string name="save">Speichern</string>
-    <string name="choose_name">Namen wählen</string>
+    <string name="choose_name">Name wählen</string>
     <string name="pick_random_color">Zufällige Farbe generieren</string>
     <string name="pick_color_from_image">Farbe von Bild wählen</string>
     <string name="copied_to_clipboard">In Zwischenablage kopiert</string>
@@ -72,4 +68,10 @@
     <string name="import_color_palette">Farbpalette importieren</string>
     <string name="export_color_palette">Farbpalette exportieren</string>
     <string name="color_already_saved">Diese Farbe ist bereits gespeichert</string>
+    <string name="import_export_palette">Palette importieren / exportieren</string>
+    <string name="export_to_aco">ACO-Datei exportieren</string>
+    <string name="export_to_ase">ASE-Datei exportieren</string>
+    <string name="import_from_aco">ACO-Datei importieren</string>
+    <string name="import_from_ase">ASE-Datei importieren</string>
+    <string name="export">Exportieren</string>
 </resources>

@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2020. All rights reserved
+ * Copyright © Marc Auberer 2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.shared
@@ -28,6 +28,7 @@ object Constants {
     const val DISABLE_ALPHA = "disable_alpha"
 
     // Other constants
+    const val DB_NAME = "database.db"
     const val COLOR_ANIMATION_DURATION = 500L
     const val NAME_SELECTED_COLOR = "Selection"
     const val HSV_FORMAT_STRING = "%.02f"
