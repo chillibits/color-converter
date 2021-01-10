@@ -15,8 +15,8 @@ android {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2500
-        versionName "2.5.0"
+        versionCode 2501
+        versionName "2.5.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
