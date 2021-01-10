@@ -29,10 +29,12 @@ You can contribute to this project by doing following things:
 
 ## Used third party libraries
 Thanks to following people:
--   [Glide](https://github.com/bumptech/glide) by Bump Technologies
 -   [ColorPickerPreference](https://github.com/attenzione/android-ColorPickerPreference) by Sergey Margaritov
 -   [PixImagePicker](https://github.com/akshay2211/PixImagePicker) by Akshay Sharma
 -   [ColorPickerView](https://github.com/skydoves/ColorPickerView) by Jaewoong Eum
+-   [AndroidIconics](https://github.com/mikepenz/Android-Iconics) by Mike Penz
+-   [MaterialStyledDialogs](https://github.com/javiersantos/MaterialStyledDialogs) by Javier Santos
+-   [AdobeColorTool](https://github.com/marcauberer/adobe-color-tool) by Marc Auberer
 
 Thanks to all contributors and translators!
 

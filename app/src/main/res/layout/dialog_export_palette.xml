@@ -48,7 +48,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="10dp"
-            android:tint="@color/buttonColor"
             app:srcCompat="@drawable/mime_ase"/>
 
         <TextView
@@ -97,7 +96,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="10dp"
-            android:tint="@color/buttonColor"
             app:srcCompat="@drawable/mime_ase"/>
 
         <TextView
