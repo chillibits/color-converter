@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.setTint
+import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
@@ -24,6 +25,7 @@ class ColorsAdapter @Inject constructor(
     private val listener: ColorSelectionListener,
     st: StorageTools,
     private val ct: ColorTools,
+    private val cnt: ColorNameTools,
     private var colors: List<Color> = emptyList()
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
@@ -52,7 +54,7 @@ class ColorsAdapter @Inject constructor(
             val color = colors[pos]
 
             itemColor.setTint(color.color)
-            itemColorName.text = color.name
+            itemColorName.text = if (color.name.isEmpty()) cnt.getColorNameFromColor(color) else color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)

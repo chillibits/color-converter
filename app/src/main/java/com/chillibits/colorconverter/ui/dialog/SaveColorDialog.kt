@@ -19,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
+    val defaultName = cnt.getColorNameFromColor(vm.selectedColor)
+
     // Initialize views
     val container = FrameLayout(this)
     val containerParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply {
@@ -27,7 +29,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
     }
     val editTextName = EditText(this).apply {
         hint = getString(R.string.choose_name)
-        setText(cnt.getColorNameFromColor(vm.selectedColor))
+        setText(defaultName)
         inputType = InputType.TYPE_TEXT_VARIATION_URI
         layoutParams = containerParams
     }
@@ -40,6 +42,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.save) { _, _ ->
             vm.selectedColor.name = editTextName.text.toString().trim()
+            if (vm.selectedColor.name == defaultName) vm.selectedColor.name = ""
             vm.selectedColor.creationTimestamp = System.currentTimeMillis()
             // Insert color into local db
             CoroutineScope(Dispatchers.IO).launch { vm.insert() }

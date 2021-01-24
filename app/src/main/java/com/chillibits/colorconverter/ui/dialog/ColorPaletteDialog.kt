@@ -43,7 +43,7 @@ fun Context.showColorPaletteDialog(
                 listener.onColorSelected(color)
                 d.dismiss()
             }
-        }, st, ct, colors)
+        }, st, ct, cnt, colors)
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }

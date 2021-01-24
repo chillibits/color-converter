@@ -22,6 +22,7 @@ import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.toObj
 import com.chillibits.colorconverter.storage.AppDatabase
+import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
@@ -45,6 +46,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     @Inject lateinit var db: AppDatabase
     @Inject lateinit var st: StorageTools
     @Inject lateinit var ct: ColorTools
+    @Inject lateinit var cnt: ColorNameTools
 
     // Variables as objects
     private val vm by viewModels<ColorSelectionViewModel>()
@@ -62,7 +64,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Initialize RecyclerView
-        adapter = ColorsAdapter(this, this, st, ct)
+        adapter = ColorsAdapter(this, this, st, ct, cnt)
         savedColors.layoutManager = LinearLayoutManager(this)
         savedColors.adapter = adapter
 
