@@ -14,12 +14,15 @@ More information on our homepage: [https://chillibits.com/colorconverter](https:
 -   Get name of picked colors
 -   Display picked colors in different formats (ARGB, HEX, HSV, CMYK)
 -   Generate random colors
+-   Pick colors from a predefined color palette
 -   Pick color from a photo / image
 -   Save / load colors
+-   Export saved colors to Adobe color exchange formats (ACO / ASE)
 -   Copy colors to clipboard
 
-## Screenshots (Android 10)
-<img src="https://github.com/chillibits/color-converter/raw/master/screenshots/1.png" width="275" title="Screenshot 1"> <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/2.png" width="275" title="Screenshot 2"> <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/3.png" width="275" title="Screenshot 3"> <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/4.png" width="275" title="Screenshot 4"> <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/5.png" width="275" title="Screenshot 5"> <img src="https://github.com/chillibits/color-converter/raw/master/screenshots/6.png" width="275" title="Screenshot 6">
+## Screenshots (Android 11)
+<img src="media/1.png" width="275" title="Screenshot 1"> <img src="media/2.png" width="275" title="Screenshot 2"> <img src="media/3.png" width="275" title="Screenshot 3">
+<img src="media/4.png" width="275" title="Screenshot 4"> <img src="media/5.png" width="275" title="Screenshot 5"> <img src="media/6.png" width="275" title="Screenshot 6">
 
 ## Contribute to this project
 You can contribute to this project by doing following things:

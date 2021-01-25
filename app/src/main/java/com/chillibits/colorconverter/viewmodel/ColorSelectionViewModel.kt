@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.viewmodel
@@ -11,12 +11,10 @@ import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.storage.dbo.ColorDbo
-import com.chillibits.colorconverter.tools.ColorNameTools
 
 class ColorSelectionViewModel@ViewModelInject constructor(
     application: Application,
-    private val repository: ColorRepository,
-    private val cnt: ColorNameTools
+    private val repository: ColorRepository
 ): AndroidViewModel(application) {
 
     // Variables as objects

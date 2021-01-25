@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2021. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -43,7 +43,7 @@ fun Context.showColorPaletteDialog(
                 listener.onColorSelected(color)
                 d.dismiss()
             }
-        }, st, ct, colors)
+        }, st, ct, cnt, colors)
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }
