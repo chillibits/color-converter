@@ -15,8 +15,8 @@ android {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2502
-        versionName "2.5.2"
+        versionCode 2503
+        versionName "2.5.3"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,23 +42,24 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.5.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
-    implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.google.android.material:material:1.3.0-rc01'
-    implementation 'androidx.fragment:fragment-ktx:1.3.0-rc01'
+    implementation 'androidx.fragment:fragment-ktx:1.3.0-rc02'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
-    implementation 'com.fxn769:pix:1.5.4'
+    //implementation 'com.fxn769:pix:1.5.4'
+    implementation 'com.github.akshaaatt:PixImagePicker:dev-SNAPSHOT' // Temporary, due to delayed issue triage of the owner of the library above
     implementation 'com.github.skydoves:colorpickerview:2.2.2'
     implementation 'com.mikepenz:iconics-core:5.2.4'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
     // ChilliBits dependencies
-    implementation 'com.chillibits:adobecolortool:1.0.0-alpha06'
+    implementation 'com.chillibits:adobecolortool:1.0.0'
 
     // Room dependencies
     implementation "androidx.room:room-runtime:$room_version"
