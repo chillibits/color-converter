@@ -51,8 +51,7 @@ dependencies {
 
     // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
-    //implementation 'com.fxn769:pix:1.5.4'
-    implementation 'com.github.akshaaatt:PixImagePicker:dev-SNAPSHOT' // Temporary, due to delayed issue triage of the owner of the library above
+    implementation 'com.fxn769:pix:1.5.6'
     implementation 'com.github.skydoves:colorpickerview:2.2.2'
     implementation 'com.mikepenz:iconics-core:5.2.4'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
