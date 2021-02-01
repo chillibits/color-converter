@@ -208,6 +208,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:background="@android:color/black"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="10dp">
 
                     <!-- Load and save buttons -->
