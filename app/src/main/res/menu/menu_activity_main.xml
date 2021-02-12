@@ -30,6 +30,12 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/settings"
+        app:showAsAction="always"/>
+
+    <!--<item
         android:id="@+id/action_rate"
         android:title="@string/rate_app"
         android:icon="@drawable/star_outline"
@@ -45,7 +51,7 @@
         android:id="@+id/action_disable_alpha"
         android:title="@string/disable_alpha"
         app:showAsAction="never"
-        android:checkable="true"/>
+        android:checkable="true"/>-->
 
     <item
         android:id="@+id/action_done"

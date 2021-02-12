@@ -97,6 +97,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.chillibits.simplesettings.ui.SimpleSettingsActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            tools:replace="android:theme"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.mrgames13.jimdo.colorconverter"

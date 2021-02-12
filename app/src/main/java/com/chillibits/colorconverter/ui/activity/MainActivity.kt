@@ -29,6 +29,8 @@ import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.chillibits.colorconverter.viewmodel.MainViewModel
+import com.chillibits.simplesettings.core.SimpleSettings
+import com.chillibits.simplesettings.core.SimpleSettingsConfig
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,11 +99,11 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         if (InstantApps.isInstantApp(this)) menu?.findItem(R.id.action_install)?.isVisible = true
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             menu?.findItem(R.id.action_done)?.isVisible = true
-            menu?.findItem(R.id.action_disable_alpha)?.isVisible = false
+            menu?.findItem(R.id.action_settings)?.isVisible = false
         }
         menu?.findItem(R.id.action_transparency)?.isVisible = vm.showTransparencyWarning
-        disableAlpha = menu?.findItem(R.id.action_disable_alpha)
-        disableAlpha?.isChecked = vm.isAlphaDisabled
+        /*disableAlpha = menu?.findItem(R.id.action_disable_alpha)
+        disableAlpha?.isChecked = vm.isAlphaDisabled*/
         return true
     }
 
@@ -109,15 +111,16 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         when(item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
             R.id.action_palette -> showColorPaletteDialog(this, cnt, st, ct)
-            R.id.action_rate -> showRatingDialog()
-            R.id.action_share -> showRecommendationDialog()
+            R.id.action_settings -> showSettings()
+            /*R.id.action_rate -> showRatingDialog()
+            R.id.action_share -> showRecommendationDialog()*/
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
-            R.id.action_disable_alpha -> {
+            /*R.id.action_disable_alpha -> {
                 vm.isAlphaDisabled = !item.isChecked
                 st.putBoolean(Constants.DISABLE_ALPHA, vm.isAlphaDisabled)
                 item.isChecked = vm.isAlphaDisabled
                 enableAlpha(!vm.isAlphaDisabled)
-            }
+            }*/
             R.id.action_done -> finishWithSelectedColor()
         }
         return super.onOptionsItemSelected(item)
@@ -521,6 +524,19 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
                 }
             }
         })
+    }
+
+    private fun showSettings() {
+        val config = SimpleSettingsConfig().apply {
+            showResetOption = true
+        }
+        SimpleSettings(this, config).show {
+            Section {
+                TextPref {
+                    title = getString(R.string.colorconverter_on_github)
+                }
+            }
+        }
     }
 
     private fun enableAlpha(enabled: Boolean) {

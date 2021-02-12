@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 21:48:31 +0000
+ Exported at: Fri, 12 Feb 2021 22:44:22 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -78,4 +78,11 @@
     <string name="import_from_aco">Importer depuis un fichier ACO</string>
     <string name="import_from_ase">Importer depuis un fichier ASE</string>
     <string name="export">Exporter</string>
+    <string name="colorconverter_on_github"></string>
+    <string name="tap_to_visit_us_on_github"></string>
+    <string name="app_version"></string>
+    <string name="the_developers"></string>
+    <string name="more_apps_from_us"></string>
+    <string name="open_source_licenses"></string>
+    <string name="tap_here_to_view_all_used_libraries"></string>
 </resources>
