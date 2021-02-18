@@ -32,10 +32,10 @@ fun Context.showPaletteImportExportDialog(
     val colorTool = AdobeColorTool(activity)
     val importTimestamp = System.currentTimeMillis()
     val importListener = object: AdobeColorTool.AdobeImportListener {
-        override fun onComplete(colors: Map<String, List<AdobeColor>>) {
+        override fun onComplete(groups: Map<String, List<AdobeColor>>) {
             val importedColors = ArrayList<Color>()
             CoroutineScope(Dispatchers.IO).launch {
-                for (group in colors) {
+                for (group in groups) {
                     importedColors.addAll(group.value.map {
                         Log.d("CC", it.color.red.toString())
                         Log.d("CC", it.color.green.toString())

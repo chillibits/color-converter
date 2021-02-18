@@ -29,7 +29,6 @@ import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.chillibits.colorconverter.viewmodel.MainViewModel
-import com.chillibits.simplesettings.core.SimpleSettings
 import com.chillibits.simplesettings.core.SimpleSettingsConfig
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
@@ -44,7 +43,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
+class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, SimpleSettingsConfig.OptionsItemSelectedCallback {
 
     // Tools packages
     @Inject lateinit var st: StorageTools
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Variables as objects
     private val vm by viewModels<MainViewModel>()
-    private var disableAlpha: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,8 +110,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
             R.id.action_transparency -> showTransparencyWarning()
             R.id.action_palette -> showColorPaletteDialog(this, cnt, st, ct)
             R.id.action_settings -> showSettings()
-            /*R.id.action_rate -> showRatingDialog()
-            R.id.action_share -> showRecommendationDialog()*/
+            R.id.action_rate -> showRatingDialog()
+            R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
             /*R.id.action_disable_alpha -> {
                 vm.isAlphaDisabled = !item.isChecked
@@ -526,16 +524,10 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
         })
     }
 
-    private fun showSettings() {
-        val config = SimpleSettingsConfig().apply {
-            showResetOption = true
-        }
-        SimpleSettings(this, config).show {
-            Section {
-                TextPref {
-                    title = getString(R.string.colorconverter_on_github)
-                }
-            }
+    override fun onSettingsOptionsItemSelected(itemId: Int) {
+        when(itemId) {
+            R.id.action_rate -> showRatingDialog()
+            R.id.action_share-> showRecommendationDialog()
         }
     }
 

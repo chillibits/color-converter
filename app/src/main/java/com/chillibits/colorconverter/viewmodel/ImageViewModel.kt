@@ -11,17 +11,13 @@ import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
-import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.StorageTools
 import com.mrgames13.jimdo.colorconverter.R
 import java.util.*
 
 class ImageViewModel @ViewModelInject constructor(
     application: Application,
-    st: StorageTools,
-    private val ct: ColorTools,
-    private val cnt: ColorNameTools
+    private val ct: ColorTools
 ): AndroidViewModel(application) {
 
     // Variables as objects

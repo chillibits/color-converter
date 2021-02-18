@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 22:44:22 +0000
+ Exported at: Thu, 18 Feb 2021 20:39:27 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -85,4 +85,7 @@
     <string name="more_apps_from_us"></string>
     <string name="open_source_licenses"></string>
     <string name="tap_here_to_view_all_used_libraries"></string>
+    <string name="general"></string>
+    <string name="about"></string>
+    <string name="our_playstore_page"></string>
 </resources>

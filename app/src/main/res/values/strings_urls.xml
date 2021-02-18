@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © Marc Auberer 2017-2021. All rights reserved
+  -->
+
+<resources>
+    <string name="url_github" translatable="false">https://github.com/chillibits/color-converter</string>
+    <string name="url_homepage" translatable="false">https://www.chillibits.com</string>
+    <string name="url_play_developers_page" translatable="false">https://play.google.com/store/apps/dev?id=5593276126732355283</string>
+</resources>

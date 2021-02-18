@@ -30,12 +30,6 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:icon="@drawable/settings"
-        app:showAsAction="always"/>
-
-    <!--<item
         android:id="@+id/action_rate"
         android:title="@string/rate_app"
         android:icon="@drawable/star_outline"
@@ -48,6 +42,11 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
+
+    <!--<item
         android:id="@+id/action_disable_alpha"
         android:title="@string/disable_alpha"
         app:showAsAction="never"
