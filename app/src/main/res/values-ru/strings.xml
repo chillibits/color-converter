@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Thu, 18 Feb 2021 20:39:27 +0000
+ Exported at: Fri, 19 Feb 2021 17:47:07 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Вы выбрали полностью прозрачный или близкий к таковому цвет.\u0020\u0020Это приводит к тому, что изменения цвета больше не видны.\u0020\u0020Чтобы восстановить контроль над цветом, пожалуйста, переместите ползунок прозрачности вправо.</string>
     <string name="remember_selection">Запомнить выбор</string>
     <string name="cmyk_code">CMYK-код</string>
-    <string name="disable_alpha">Отключить прозрачность</string>
+    <string name="enable_alpha">Отключить прозрачность</string>
     <string name="rgb_code">RGB-код</string>
     <string name="error">Произошла ошибка</string>
     <string name="saved_colors">Сохраненные цвета</string>
@@ -88,4 +88,6 @@
     <string name="general"></string>
     <string name="about"></string>
     <string name="our_playstore_page"></string>
+    <string name="enabled"></string>
+    <string name="disabled"></string>
 </resources>

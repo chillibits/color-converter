@@ -28,7 +28,7 @@ More information on our homepage: [https://chillibits.com/colorconverter](https:
 You can contribute to this project by doing following things:
 -   If you want to contribute new features, please fork this repository to your own GitHub account. Then build your awesome feature and open a pull request back to this repo. We will check your changes and merge your contribution asap.
 -   If you want to add a new translation language or improve an existing translation, please write an email to: [contact@chillibits.com](mailto:contact@chillibits.com&subject=Add%20translation)
--   If you want to submit a request for a new feature, please also write an email to: [contact@chillibits.com](mailto:contact@chillibits.com&subject=Feature%20request)
+-   If you want to submit a request for a new feature, please [open an issue on GitHub](https://github.com/ChilliBits/color-converter/issues/new).
 
 ## Used third party libraries
 Thanks to following people:
@@ -37,6 +37,7 @@ Thanks to following people:
 -   [ColorPickerView](https://github.com/skydoves/ColorPickerView) by Jaewoong Eum
 -   [AndroidIconics](https://github.com/mikepenz/Android-Iconics) by Mike Penz
 -   [MaterialStyledDialogs](https://github.com/javiersantos/MaterialStyledDialogs) by Javier Santos
+-   [SimpleSettings](https://github.com/marcauberer/simple-settings) by Marc Auberer
 -   [AdobeColorTool](https://github.com/marcauberer/adobe-color-tool) by Marc Auberer
 
 Thanks to all contributors and translators!

@@ -32,6 +32,7 @@ import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.view.DetailedFlagView
 import com.chillibits.colorconverter.viewmodel.ImageViewModel
+import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
@@ -71,7 +72,7 @@ class ImageActivity : AppCompatActivity() {
             selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
-        image.flagView = DetailedFlagView(this, R.layout.flag_layout, st).apply {
+        image.flagView = DetailedFlagView(this, R.layout.flag_layout).apply {
             isFlipAble = false
         }
 
@@ -99,7 +100,7 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_image, menu)
         speakItem = menu?.getItem(0)
-        speakItem?.isChecked = st.getBoolean(Constants.SPEAK_COLOR)
+        speakItem?.isChecked = getPrefBooleanValue(Constants.SPEAK_COLOR)
         return true
     }
 

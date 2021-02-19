@@ -8,7 +8,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.graphics.*
 import com.chillibits.colorconverter.shared.Constants
-import com.chillibits.colorconverter.tools.StorageTools
+import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.mrgames13.jimdo.colorconverter.R
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.flag.FlagView
@@ -16,9 +16,9 @@ import kotlinx.android.synthetic.main.flag_layout.view.*
 import java.util.*
 
 @SuppressLint("ViewConstructor")
-class DetailedFlagView(context: Context, layout: Int, st: StorageTools) : FlagView(context, layout) {
+class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout) {
 
-    private val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
+    private val isAlphaDisabled = context.getPrefBooleanValue(Constants.ENABLE_ALPHA, true)
 
     override fun onRefresh(envelope: ColorEnvelope?) {
         flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(envelope!!.color, BlendModeCompat.SRC_IN)

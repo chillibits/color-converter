@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Thu, 18 Feb 2021 20:39:27 +0000
+ Exported at: Fri, 19 Feb 2021 17:47:07 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Vous avez choisi une couleur transparente ou presque transparente. Cela a pour effet que les changements de couleur ne sont plus visibles. Pour reprendre le contrôle de la couleur, veuillez déplacer le curseur de transparence vers la droite.</string>
     <string name="remember_selection">Se souvenir de la sélection</string>
     <string name="cmyk_code">Code CMYK</string>
-    <string name="disable_alpha">Désactiver la transparence</string>
+    <string name="enable_alpha">Activer la transparence</string>
     <string name="rgb_code">Code RGB</string>
     <string name="error">Une erreur s\'est produite</string>
     <string name="saved_colors">Couleurs enregistrées</string>
@@ -88,4 +88,6 @@
     <string name="general"></string>
     <string name="about"></string>
     <string name="our_playstore_page"></string>
+    <string name="enabled"></string>
+    <string name="disabled"></string>
 </resources>

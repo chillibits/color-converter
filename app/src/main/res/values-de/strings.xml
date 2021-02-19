@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Thu, 18 Feb 2021 20:39:27 +0000
+ Exported at: Fri, 19 Feb 2021 17:47:07 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Sie haben eine transparente oder fast transparente Farbe gewählt. Dies hat den Effekt, dass Farbwechsel nicht mehr sichtbar sind. Um die Kontrolle über die Farbe wiederzuerlangen, bewegen Sie den Transparenz-Regler nach rechts.</string>
     <string name="remember_selection">Auswahl speichern</string>
     <string name="cmyk_code">CMYK-Code</string>
-    <string name="disable_alpha">Transparenz deaktivieren</string>
+    <string name="enable_alpha">Transparenz aktivieren</string>
     <string name="rgb_code">RGB-Code</string>
     <string name="error">Ein Fehler ist aufgetreten</string>
     <string name="saved_colors">Gespeicherte Farben</string>
@@ -78,14 +78,16 @@
     <string name="import_from_aco">ACO-Datei importieren</string>
     <string name="import_from_ase">ASE-Datei importieren</string>
     <string name="export">Exportieren</string>
-    <string name="colorconverter_on_github"></string>
-    <string name="tap_to_visit_us_on_github"></string>
-    <string name="app_version"></string>
-    <string name="the_developers"></string>
-    <string name="more_apps_from_us"></string>
-    <string name="open_source_licenses"></string>
-    <string name="tap_here_to_view_all_used_libraries"></string>
-    <string name="general"></string>
-    <string name="about"></string>
-    <string name="our_playstore_page"></string>
+    <string name="colorconverter_on_github">Color Converter auf GitHub</string>
+    <string name="tap_to_visit_us_on_github">Tippen, um uns auf GitHub zu besuchen</string>
+    <string name="app_version">App-Version</string>
+    <string name="the_developers">Die Entwickler</string>
+    <string name="more_apps_from_us">Mehr Apps von uns</string>
+    <string name="open_source_licenses">Open-Source Lizenzen</string>
+    <string name="tap_here_to_view_all_used_libraries">Hier tippen um alle verwendeten Abhängigkeiten anzuzeigen</string>
+    <string name="general">Allgemein</string>
+    <string name="about">Über Color Converter</string>
+    <string name="our_playstore_page">Unsere PlayStore-Seite</string>
+    <string name="enabled">Aktiviert</string>
+    <string name="disabled">Deaktiviert</string>
 </resources>

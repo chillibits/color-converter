@@ -30,6 +30,8 @@ import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.chillibits.colorconverter.viewmodel.MainViewModel
 import com.chillibits.simplesettings.core.SimpleSettingsConfig
+import com.chillibits.simplesettings.tool.getPrefIntValue
+import com.chillibits.simplesettings.tool.getPrefObserver
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,6 +55,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     // Variables as objects
     private val vm by viewModels<MainViewModel>()
+
+    // Variables
+    private var isAlphaEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,12 +85,12 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, -1))
         } else {
             finishWithColor.visibility = View.GONE
-            val color = st.getInt(Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK)
+            val color = getPrefIntValue(Constants.NAME_SELECTED_COLOR, android.graphics.Color.BLACK)
             vm.selectedColor = Color(0, Constants.NAME_SELECTED_COLOR, color, -1)
             updateDisplays(vm.selectedColor)
         }
 
-        enableAlpha(!vm.isAlphaDisabled)
+        subscribeToPreferenceValues()
 
         // Check if app was installed
         if (Intent.ACTION_SEND == intent.action && intent.type != null && intent.type!!.startsWith("image/"))
@@ -100,25 +105,17 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             menu?.findItem(R.id.action_settings)?.isVisible = false
         }
         menu?.findItem(R.id.action_transparency)?.isVisible = vm.showTransparencyWarning
-        /*disableAlpha = menu?.findItem(R.id.action_disable_alpha)
-        disableAlpha?.isChecked = vm.isAlphaDisabled*/
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
-            R.id.action_palette -> showColorPaletteDialog(this, cnt, st, ct)
+            R.id.action_palette -> showColorPaletteDialog(this, cnt, ct)
             R.id.action_settings -> showSettings()
             R.id.action_rate -> showRatingDialog()
             R.id.action_share -> showRecommendationDialog()
             R.id.action_install -> showInstantAppInstallDialog(R.string.install_app_download)
-            /*R.id.action_disable_alpha -> {
-                vm.isAlphaDisabled = !item.isChecked
-                st.putBoolean(Constants.DISABLE_ALPHA, vm.isAlphaDisabled)
-                item.isChecked = vm.isAlphaDisabled
-                enableAlpha(!vm.isAlphaDisabled)
-            }*/
             R.id.action_done -> finishWithSelectedColor()
         }
         return super.onOptionsItemSelected(item)
@@ -197,7 +194,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
-        if(vm.isAlphaDisabled)
+        if(!isAlphaEnabled)
             hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and vm.selectedColor.color)).toUpperCase(Locale.getDefault()))))
         else
             hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(vm.selectedColor.color).toUpperCase(Locale.getDefault())))
@@ -210,9 +207,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(vm.isAlphaDisabled && hex.length == 4)
+                if(!isAlphaEnabled && hex.length == 4)
                     hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
-                if(!vm.isAlphaDisabled && hex.length == 5)
+                if(isAlphaEnabled && hex.length == 5)
                     hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
                 val tmp = vm.selectedColor
                 tmp.apply {
@@ -234,14 +231,14 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 Selection.setSelection(hexValue.text, hexValue.text.length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(vm.isAlphaDisabled) {
-                    s.toString().length == 7 || s.toString().length == 4
-                } else {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaEnabled) {
                     s.toString().length == 9 || s.toString().length == 5 || s.toString().length == 7
+                } else {
+                    s.toString().length == 7 || s.toString().length == 4
                 }
             }
         }
-        hexValue.setSelection(1, if(vm.isAlphaDisabled) 7 else 9)
+        hexValue.setSelection(1, if(isAlphaEnabled) 9 else 7)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -299,7 +296,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun chooseColor() {
         val colorPicker = ColorPickerDialog(this, vm.selectedColor.color)
-        if(!vm.isAlphaDisabled) colorPicker.alphaSliderVisible = true
+        if(isAlphaEnabled) colorPicker.alphaSliderVisible = true
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
@@ -317,16 +314,16 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
 
         // Update ARGB TextView
-        displayArgb.text = if(vm.isAlphaDisabled) {
-            String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
-        } else {
+        displayArgb.text = if(isAlphaEnabled) {
             String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
+        } else {
+            String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
         }
         // Update HEX TextView
-        displayHex.text = if(vm.isAlphaDisabled) {
-            String.format(getString(R.string.hex_), "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()))
-        } else {
+        displayHex.text = if(isAlphaEnabled) {
             String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase(Locale.getDefault()))
+        } else {
+            String.format(getString(R.string.hex_), "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()))
         }
         // Update HSV TextView
         val hsv = FloatArray(3)
@@ -448,7 +445,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         copyArgb.setOnClickListener { cbt.copyArgbToClipboard(vm.selectedColor) }
         copyHex.setOnClickListener { cbt.copyHexToClipboard(vm.selectedColor) }
         copyHsv.setOnClickListener { cbt.copyHsvToClipboard(vm.selectedColor) }
-        copyCmyk.setOnClickListener { cbt.copyCmykToClipboard(vm.selectedColor) }
+        copyCmyk.setOnClickListener { cbt.copyCMYKToClipboard(vm.selectedColor) }
     }
 
     private fun initializeSeekBarSection() {
@@ -543,4 +540,11 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
     }
 
     override fun onColorSelected(color: Color) = updateDisplays(color)
+
+    private fun subscribeToPreferenceValues() {
+        getPrefObserver(this@MainActivity, Constants.ENABLE_ALPHA, androidx.lifecycle.Observer<Boolean> {
+            isAlphaEnabled = it
+            enableAlpha(isAlphaEnabled)
+        })
+    }
 }

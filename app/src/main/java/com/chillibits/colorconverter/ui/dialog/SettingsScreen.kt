@@ -6,7 +6,7 @@ package com.chillibits.colorconverter.ui.dialog
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
+import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.simplesettings.clicklistener.PlayStoreClickListener
 import com.chillibits.simplesettings.clicklistener.WebsiteClickListener
 import com.chillibits.simplesettings.core.SimpleSettings
@@ -16,29 +16,27 @@ import com.mrgames13.jimdo.colorconverter.R
 fun Context.showSettings() {
     val config = SimpleSettingsConfig().apply {
         showResetOption = true
+        iconSpaceReservedByDefault = false
     }
-
-    val about = getString(R.string.about)
-    Log.d("CC", about)
 
     SimpleSettings(this, config).show {
         Section {
             titleRes = R.string.general
-            /*
-            - Disable alpha
-            - Speak colors
-            - Rate
-            - Recommend
-            - GH
-            - Libraries
-            - Version
-            - More apps
-            - Developers
-             */
-
+            SwitchPref {
+                key = Constants.ENABLE_ALPHA
+                titleRes = R.string.enable_alpha
+                summaryOnRes = R.string.enabled
+                summaryOffRes = R.string.disabled
+            }
+            SwitchPref {
+                key = Constants.SPEAK_COLOR
+                titleRes = R.string.speak_color
+                summaryOnRes = R.string.enabled
+                summaryOffRes = R.string.disabled
+            }
         }
         Section {
-            title = about
+            titleRes = R.string.about
             TextPref {
                 titleRes = R.string.colorconverter_on_github
                 summaryRes = R.string.tap_to_visit_us_on_github
