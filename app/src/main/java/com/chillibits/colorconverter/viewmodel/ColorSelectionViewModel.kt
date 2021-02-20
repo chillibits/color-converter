@@ -7,18 +7,31 @@ package com.chillibits.colorconverter.viewmodel
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.toDbo
+import com.chillibits.colorconverter.shared.toObj
 import com.chillibits.colorconverter.storage.dbo.ColorDbo
+import com.chillibits.colorconverter.tools.ColorNameTools
 
 class ColorSelectionViewModel@ViewModelInject constructor(
     application: Application,
+    private val cnt: ColorNameTools,
     private val repository: ColorRepository
 ): AndroidViewModel(application) {
 
     // Variables as objects
-    val colors = repository.getAll()
+    val colors: LiveData<List<ColorDbo>> = Transformations.map(repository.getAll()) { colors ->
+        colors.forEach { color ->
+            color.name = if (color.name.isEmpty())
+                cnt.getColorNameFromColor(color.toObj())
+            else
+                color.name
+        }
+        colors
+    }
     var selectedColor: Color? = null
 
     fun insert(colors: List<Color>) = repository.insert(colors.map {

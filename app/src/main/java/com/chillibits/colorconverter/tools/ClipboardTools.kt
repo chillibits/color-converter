@@ -32,23 +32,20 @@ class ClipboardTools(
                 copyTextToClipboard(
                         getString(R.string.argb_code), String.format(
                         getString(R.string.argb_clipboard),
-                        color.alpha, color.red, color.green, color.blue
-                )
+                        color.alpha, color.red, color.green, color.blue)
                 )
             } else {
                 copyTextToClipboard(
                         getString(R.string.argb_code), String.format(
                         getString(R.string.rgba_clipboard_css),
-                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3)
-                )
+                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3))
                 )
             }
         } else {
             copyTextToClipboard(
                     getString(R.string.rgb_code), String.format(
                     getString(R.string.rgb_clipboard),
-                    color.red, color.green, color.blue
-            )
+                    color.red, color.green, color.blue)
             )
         }
     }

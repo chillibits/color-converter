@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "colors")
 data class ColorDbo(
-    @PrimaryKey(autoGenerate = true)
+        @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "alpha") val alpha: Int,
-    @ColumnInfo(name = "red") val red: Int,
-    @ColumnInfo(name = "green") val green: Int,
-    @ColumnInfo(name = "blue") val blue: Int,
-    @ColumnInfo(name = "creation_timestamp") val creationTimestamp: Long
+        @ColumnInfo(name = "name") var name: String,
+        @ColumnInfo(name = "alpha") val alpha: Int,
+        @ColumnInfo(name = "red") val red: Int,
+        @ColumnInfo(name = "green") val green: Int,
+        @ColumnInfo(name = "blue") val blue: Int,
+        @ColumnInfo(name = "creation_timestamp") val creationTimestamp: Long
 )

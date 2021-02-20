@@ -205,7 +205,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             .setTitle(R.string.hex_code)
             .setView(dialogView)
             .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(R.string.choose_color) { _, _ ->
+            .setPositiveButton( R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
                 if(!isAlphaEnabled && hex.length == 4)
                     hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")

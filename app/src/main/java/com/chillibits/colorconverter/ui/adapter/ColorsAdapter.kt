@@ -53,7 +53,7 @@ class ColorsAdapter @Inject constructor(
             val color = colors[pos]
 
             itemColor.setTint(color.color)
-            itemColorName.text = if (color.name.isEmpty()) cnt.getColorNameFromColor(color) else color.name
+            itemColorName.text = color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)

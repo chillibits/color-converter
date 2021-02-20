@@ -12,7 +12,6 @@ class ColorRepository @Inject constructor(db: AppDatabase) {
 
     // Variables as objects
     private val colorDao = db.colorDao()
-    val colors = colorDao.getAll()
 
     fun getAll() = colorDao.getAll()
     fun insert(color: ColorDbo) = colorDao.insert(color)
