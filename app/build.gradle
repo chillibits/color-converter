@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
     // ChilliBits dependencies
-    implementation 'com.chillibits:simplesettings:1.1.2'
+    implementation 'com.chillibits:simplesettings:1.2.0'
     implementation 'com.chillibits:adobecolortool:1.0.0'
 
     // Room dependencies
