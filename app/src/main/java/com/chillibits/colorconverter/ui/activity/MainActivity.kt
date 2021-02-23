@@ -28,6 +28,7 @@ import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
 import com.chillibits.colorconverter.tools.*
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
+import com.chillibits.colorconverter.ui.templates.showSettings
 import com.chillibits.colorconverter.viewmodel.MainViewModel
 import com.chillibits.simplesettings.core.SimpleSettingsConfig
 import com.chillibits.simplesettings.tool.getPrefIntValue
@@ -545,6 +546,6 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         getPrefObserver(this@MainActivity, Constants.ENABLE_ALPHA, androidx.lifecycle.Observer<Boolean> {
             isAlphaEnabled = it
             enableAlpha(isAlphaEnabled)
-        })
+        }, true)
     }
 }

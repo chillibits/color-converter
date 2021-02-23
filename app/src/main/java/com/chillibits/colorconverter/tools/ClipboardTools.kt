@@ -24,7 +24,7 @@ class ClipboardTools(
     fun copyNameToClipboard(name: String) = context.copyTextToClipboard(context.getString(R.string.color_name), name)
 
     fun copyArgbToClipboard(color: Color) = context.run {
-        if (getPrefBooleanValue(Constants.ENABLE_ALPHA)) {
+        if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true)) {
             // Show multiple choice dialog
             if (!getPrefBooleanValue(Constants.ARGB_REMEMBER, false)) {
                 showArgbExportDialog(st, color.alpha, color.red, color.green, color.blue)
@@ -53,7 +53,7 @@ class ClipboardTools(
     fun copyHexToClipboard(color: Color) = context.run {
         copyTextToClipboard(
             getString(R.string.hex_code),
-            if (getPrefBooleanValue(Constants.ENABLE_ALPHA))
+            if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true))
                 "#%08X".format(color.color).toUpperCase(Locale.getDefault())
             else
                 "#%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault())

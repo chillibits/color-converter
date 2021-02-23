@@ -2,7 +2,7 @@
  * Copyright © Marc Auberer 2017-2021. All rights reserved
  */
 
-package com.chillibits.colorconverter.ui.dialog
+package com.chillibits.colorconverter.ui.templates
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -27,6 +27,7 @@ fun Context.showSettings() {
                 titleRes = R.string.enable_alpha
                 summaryOnRes = R.string.enabled
                 summaryOffRes = R.string.disabled
+                defaultValue = true
             }
             SwitchPref {
                 key = Constants.SPEAK_COLOR
