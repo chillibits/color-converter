@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 21:48:31 +0000
+ Exported at: Tue, 23 Feb 2021 18:38:24 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Vous avez choisi une couleur transparente ou presque transparente. Cela a pour effet que les changements de couleur ne sont plus visibles. Pour reprendre le contrôle de la couleur, veuillez déplacer le curseur de transparence vers la droite.</string>
     <string name="remember_selection">Se souvenir de la sélection</string>
     <string name="cmyk_code">Code CMYK</string>
-    <string name="disable_alpha">Désactiver la transparence</string>
+    <string name="enable_alpha">Activer la transparence</string>
     <string name="rgb_code">Code RGB</string>
     <string name="error">Une erreur s\'est produite</string>
     <string name="saved_colors">Couleurs enregistrées</string>
@@ -78,4 +78,16 @@
     <string name="import_from_aco">Importer depuis un fichier ACO</string>
     <string name="import_from_ase">Importer depuis un fichier ASE</string>
     <string name="export">Exporter</string>
+    <string name="colorconverter_on_github">Color Converter sur GitHub</string>
+    <string name="tap_to_visit_us_on_github">Appuyez pour nous rendre visite sur GitHub</string>
+    <string name="app_version">Version de l\'application</string>
+    <string name="the_developers">Les développeurs</string>
+    <string name="more_apps_from_us">Plus d\'applications de notre part</string>
+    <string name="open_source_licenses">Licences OpenSource</string>
+    <string name="tap_here_to_view_all_used_libraries">Appuyez ici pour voir toutes les bibliothèques utilisées</string>
+    <string name="general">Général</string>
+    <string name="about">À propos de Color Converter</string>
+    <string name="our_playstore_page">Notre page sur PlayStore</string>
+    <string name="enabled">Activé</string>
+    <string name="disabled">Désactivé</string>
 </resources>

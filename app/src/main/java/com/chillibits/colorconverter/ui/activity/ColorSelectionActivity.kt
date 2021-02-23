@@ -64,7 +64,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Initialize RecyclerView
-        adapter = ColorsAdapter(this, this, st, ct, cnt)
+        adapter = ColorsAdapter(this, this, ct, cnt)
         savedColors.layoutManager = LinearLayoutManager(this)
         savedColors.adapter = adapter
 

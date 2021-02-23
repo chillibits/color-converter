@@ -14,7 +14,7 @@ import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.setTint
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.StorageTools
+import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.item_color.view.*
 import java.util.*
@@ -23,14 +23,13 @@ import javax.inject.Inject
 class ColorsAdapter @Inject constructor(
     private val context: Context,
     private val listener: ColorSelectionListener,
-    st: StorageTools,
     private val ct: ColorTools,
     private val cnt: ColorNameTools,
     private var colors: List<Color> = emptyList()
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     // Variables
-    private val isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA, false)
+    private val isAlphaDisabled = context.getPrefBooleanValue(Constants.ENABLE_ALPHA, true)
 
     // Interfaces
     interface ColorSelectionListener {
@@ -54,7 +53,7 @@ class ColorsAdapter @Inject constructor(
             val color = colors[pos]
 
             itemColor.setTint(color.color)
-            itemColorName.text = if (color.name.isEmpty()) cnt.getColorNameFromColor(color) else color.name
+            itemColorName.text = color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
-import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
 import kotlinx.android.synthetic.main.dialog_color_palette.view.*
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.dialog_color_palette.view.*
 fun Context.showColorPaletteDialog(
     listener: ColorsAdapter.ColorSelectionListener,
     cnt: ColorNameTools,
-    st: StorageTools,
     ct: ColorTools
 ) {
     // Get color list
@@ -43,7 +41,7 @@ fun Context.showColorPaletteDialog(
                 listener.onColorSelected(color)
                 d.dismiss()
             }
-        }, st, ct, cnt, colors)
+        }, ct, cnt, colors)
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }

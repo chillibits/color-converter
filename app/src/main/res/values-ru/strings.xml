@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: ru, Russian
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 21:48:32 +0000
+ Exported at: Tue, 23 Feb 2021 18:38:25 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">ОК</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Вы выбрали полностью прозрачный или близкий к таковому цвет.\u0020\u0020Это приводит к тому, что изменения цвета больше не видны.\u0020\u0020Чтобы восстановить контроль над цветом, пожалуйста, переместите ползунок прозрачности вправо.</string>
     <string name="remember_selection">Запомнить выбор</string>
     <string name="cmyk_code">CMYK-код</string>
-    <string name="disable_alpha">Отключить прозрачность</string>
+    <string name="enable_alpha">Активировать альфа</string>
     <string name="rgb_code">RGB-код</string>
     <string name="error">Произошла ошибка</string>
     <string name="saved_colors">Сохраненные цвета</string>
@@ -78,4 +78,16 @@
     <string name="import_from_aco">Импорт из файла ACO</string>
     <string name="import_from_ase">Импорт из файла ASE</string>
     <string name="export">Экспорт</string>
+    <string name="colorconverter_on_github">Цветной конвертер на GitHub</string>
+    <string name="tap_to_visit_us_on_github">Нажмите, чтобы посетить нас на GitHub.</string>
+    <string name="app_version">Версия приложения</string>
+    <string name="the_developers">Разработчики</string>
+    <string name="more_apps_from_us">Больше приложений от нас</string>
+    <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
+    <string name="tap_here_to_view_all_used_libraries">Нажмите здесь, чтобы просмотреть все используемые библиотеки</string>
+    <string name="general">Общие сведения</string>
+    <string name="about">О Color Converter</string>
+    <string name="our_playstore_page">Наша страница PlayStore</string>
+    <string name="enabled">Включен</string>
+    <string name="disabled">Инвалид</string>
 </resources>

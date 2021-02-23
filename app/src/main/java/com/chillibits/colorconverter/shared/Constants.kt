@@ -25,7 +25,7 @@ object Constants {
     const val CMYK_REMEMBER = "CmykRemember"
     const val CMYK_REMEMBER_SELECTION = "CmykRememberSelection"
     const val SPEAK_COLOR = "speak_color"
-    const val DISABLE_ALPHA = "disable_alpha"
+    const val ENABLE_ALPHA = "enable_alpha"
 
     // Other constants
     const val DB_NAME = "database.db"

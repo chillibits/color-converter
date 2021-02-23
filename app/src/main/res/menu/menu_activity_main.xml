@@ -42,10 +42,15 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
+
+    <!--<item
         android:id="@+id/action_disable_alpha"
         android:title="@string/disable_alpha"
         app:showAsAction="never"
-        android:checkable="true"/>
+        android:checkable="true"/>-->
 
     <item
         android:id="@+id/action_done"

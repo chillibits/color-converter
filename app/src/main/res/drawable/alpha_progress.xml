@@ -4,15 +4,14 @@
   -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:top="7.5dp"
-        android:bottom="7.5dp">
-
+    <item android:gravity="center">
         <shape android:shape="rectangle">
+            <size android:height="2.5dp" />
             <gradient
-                android:startColor="#00000000"
-                android:endColor="#000000"
+                android:startColor="@android:color/transparent"
+                android:endColor="@android:color/black"
                 android:angle="0"/>
+            <corners android:radius="1.75dp" />
         </shape>
     </item>
 </layer-list>

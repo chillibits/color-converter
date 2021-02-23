@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: en, English
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 21:48:31 +0000
+ Exported at: Tue, 23 Feb 2021 18:38:24 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">You selected a transparent or almost transparent color. This has the effect, that color changes are not visible any more. To regain control over the color, please move the transparency slider to the right.</string>
     <string name="remember_selection">Remember selection</string>
     <string name="cmyk_code">CMYK code</string>
-    <string name="disable_alpha">Disable alpha</string>
+    <string name="enable_alpha">Enable alpha</string>
     <string name="rgb_code">RGB code</string>
     <string name="error">An error occurred</string>
     <string name="saved_colors">Saved colors</string>
@@ -78,4 +78,16 @@
     <string name="import_from_aco">Import from ACO file</string>
     <string name="import_from_ase">Import from ASE file</string>
     <string name="export">Export</string>
+    <string name="colorconverter_on_github">Color Converter on GitHub</string>
+    <string name="tap_to_visit_us_on_github">Tap to visit us on GitHub</string>
+    <string name="app_version">App version</string>
+    <string name="the_developers">The developers</string>
+    <string name="more_apps_from_us">More apps from us</string>
+    <string name="open_source_licenses">OpenSource licenses</string>
+    <string name="tap_here_to_view_all_used_libraries">Tap here to view all used libraries</string>
+    <string name="general">General</string>
+    <string name="about">About Color Converter</string>
+    <string name="our_playstore_page">Our PlayStore page</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
 </resources>

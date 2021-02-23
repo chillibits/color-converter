@@ -16,7 +16,6 @@ import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.tools.ColorNameTools
-import com.chillibits.colorconverter.tools.StorageTools
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import java.util.*
@@ -24,7 +23,6 @@ import java.util.*
 class MainViewModel @ViewModelInject constructor(
     application: Application,
     private val repository: ColorRepository,
-    st: StorageTools,
     private val cnt: ColorNameTools
 ): AndroidViewModel(application) {
 
@@ -37,7 +35,6 @@ class MainViewModel @ViewModelInject constructor(
     val isInstant = InstantApps.isInstantApp(context)
     var initialized = false
     var showTransparencyWarning = false
-    var isAlphaDisabled = st.getBoolean(Constants.DISABLE_ALPHA)
 
     init {
         // Initialize tts, if the app does not run in instant mode

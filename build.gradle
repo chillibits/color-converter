@@ -4,7 +4,7 @@
 
 buildscript {
     ext.kotlin_version = '1.4.30'
-    ext.room_version = '2.3.0-beta01'
+    ext.room_version = '2.3.0-beta02'
     ext.hilt_version = '2.32-alpha'
     ext.hilt_viewmodel_version = '1.0.0-alpha03'
     repositories {
@@ -23,6 +23,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url "https://repo.chillibits.com/artifactory/android" }
     }
 }
 

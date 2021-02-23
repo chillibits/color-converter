@@ -15,14 +15,15 @@ android {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2504
-        versionName "2.5.4"
+        versionCode 2600
+        versionName "2.6.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,6 +33,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    packagingOptions {
+        pickFirst '**/META-INFMANIFEST.MF'
+        pickFirst 'META-INF/library_release.kotlin_module'
     }
 }
 
@@ -58,6 +63,7 @@ dependencies {
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
     // ChilliBits dependencies
+    implementation 'com.chillibits:simplesettings:1.2.0'
     implementation 'com.chillibits:adobecolortool:1.0.0'
 
     // Room dependencies
@@ -72,7 +78,7 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hilt_viewmodel_version"
 
     // dependencies for testing
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

@@ -17,6 +17,4 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Android Build
-      uses: vgaidarji/android-github-actions-build@v1.0.1
-      with:
-        args: "./gradlew assembleDebug"
+      run: ./gradlew assembleDebug

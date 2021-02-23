@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Fri, 12 Feb 2021 21:48:31 +0000
+ Exported at: Tue, 23 Feb 2021 18:38:25 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">Aceptar</string>
@@ -48,7 +48,7 @@
     <!-- Image Chooser -->
     <string name="done">Hecho</string>
     <!-- Shortcuts -->
-    <string name="shortcut_disabled">Acción deshabilitada</string>
+    <string name="shortcut_disabled">Acción desactivada</string>
     <string name="shortcut_photo_long">Elegir el color de la imagen</string>
     <!-- InstantApp -->
     <string name="install_app">Instalar aplicación</string>
@@ -64,7 +64,7 @@
     <string name="transparency_warning_m">Seleccionó un color transparente o casi transparente. Esto tiene el efecto de que los cambios de color ya no son visibles. Para recuperar el control sobre el color, por favor mueve el deslizador de transparencia a la derecha.</string>
     <string name="remember_selection">Recuerde la selección</string>
     <string name="cmyk_code">Código CMYK</string>
-    <string name="disable_alpha">Desactivar la transparencia</string>
+    <string name="enable_alpha">Activar la transparencia</string>
     <string name="rgb_code">Código RGB</string>
     <string name="error">Se ha producido un error</string>
     <string name="saved_colors">Colores guardados</string>
@@ -78,4 +78,16 @@
     <string name="import_from_aco">Exportar desde el archivo ACO</string>
     <string name="import_from_ase">Exportar desde el archivo ASE</string>
     <string name="export">Exportar</string>
+    <string name="colorconverter_on_github">Color Converter en GitHub</string>
+    <string name="tap_to_visit_us_on_github">Pulse para visitarnos en GitHub</string>
+    <string name="app_version">Versión de la aplicación</string>
+    <string name="the_developers">Los desarrolladores</string>
+    <string name="more_apps_from_us">Más aplicaciones nuestras</string>
+    <string name="open_source_licenses">Licencias OpenSource</string>
+    <string name="tap_here_to_view_all_used_libraries">Pulse aquí para ver todas las dependencias utilizadas</string>
+    <string name="general">General</string>
+    <string name="about">Sobre Color Converter</string>
+    <string name="our_playstore_page">Nuestra página de PlayStore</string>
+    <string name="enabled">Activado</string>
+    <string name="disabled">Deactivado</string>
 </resources>

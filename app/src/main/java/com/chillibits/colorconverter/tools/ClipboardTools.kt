@@ -11,6 +11,7 @@ import com.chillibits.colorconverter.shared.copyTextToClipboard
 import com.chillibits.colorconverter.shared.round
 import com.chillibits.colorconverter.ui.dialog.showArgbExportDialog
 import com.chillibits.colorconverter.ui.dialog.showCmykExportDialog
+import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.mrgames13.jimdo.colorconverter.R
 import java.util.*
 
@@ -23,42 +24,39 @@ class ClipboardTools(
     fun copyNameToClipboard(name: String) = context.copyTextToClipboard(context.getString(R.string.color_name), name)
 
     fun copyArgbToClipboard(color: Color) = context.run {
-        if (st.getBoolean(Constants.DISABLE_ALPHA)) {
-            copyTextToClipboard(
-                getString(R.string.rgb_code), String.format(
-                    getString(R.string.rgb_clipboard),
-                    color.red, color.green, color.blue
-                )
-            )
-        } else {
+        if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true)) {
             // Show multiple choice dialog
-            if (!st.getBoolean(Constants.ARGB_REMEMBER, false)) {
+            if (!getPrefBooleanValue(Constants.ARGB_REMEMBER, false)) {
                 showArgbExportDialog(st, color.alpha, color.red, color.green, color.blue)
-            } else if (st.getBoolean(Constants.ARGB_REMEMBER_SELECTION, false)) {
+            } else if (getPrefBooleanValue(Constants.ARGB_REMEMBER_SELECTION, false)) {
                 copyTextToClipboard(
-                    getString(R.string.argb_code), String.format(
+                        getString(R.string.argb_code), String.format(
                         getString(R.string.argb_clipboard),
-                        color.alpha, color.red, color.green, color.blue
-                    )
+                        color.alpha, color.red, color.green, color.blue)
                 )
             } else {
                 copyTextToClipboard(
-                    getString(R.string.argb_code), String.format(
+                        getString(R.string.argb_code), String.format(
                         getString(R.string.rgba_clipboard_css),
-                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3)
-                    )
+                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3))
                 )
             }
+        } else {
+            copyTextToClipboard(
+                    getString(R.string.rgb_code), String.format(
+                    getString(R.string.rgb_clipboard),
+                    color.red, color.green, color.blue)
+            )
         }
     }
 
     fun copyHexToClipboard(color: Color) = context.run {
         copyTextToClipboard(
             getString(R.string.hex_code),
-            if (st.getBoolean(Constants.DISABLE_ALPHA))
-                "#%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault())
-            else
+            if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true))
                 "#%08X".format(color.color).toUpperCase(Locale.getDefault())
+            else
+                "#%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault())
         )
     }
 
@@ -72,12 +70,12 @@ class ClipboardTools(
         copyTextToClipboard(getString(R.string.hsv_clipboard), hsvString)
     }
 
-    fun copyCmykToClipboard(color: Color) = context.run {
+    fun copyCMYKToClipboard(color: Color) = context.run {
         // Show multiple choice dialog
         val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
-        if (!st.getBoolean(Constants.CMYK_REMEMBER, false)) {
+        if (!getPrefBooleanValue(Constants.CMYK_REMEMBER, false)) {
             showCmykExportDialog(st, cmyk[0], cmyk[1], cmyk[2], cmyk[3])
-        } else if (st.getBoolean(Constants.CMYK_REMEMBER_SELECTION, false)) {
+        } else if (getPrefBooleanValue(Constants.CMYK_REMEMBER_SELECTION, false)) {
             copyTextToClipboard(
                 getString(R.string.cmyk_code), String.format(
                     getString(R.string.cmyk_clipboard),
