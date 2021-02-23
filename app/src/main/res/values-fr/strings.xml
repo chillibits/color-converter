@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Tue, 23 Feb 2021 03:47:20 +0000
+ Exported at: Tue, 23 Feb 2021 18:38:24 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -78,16 +78,16 @@
     <string name="import_from_aco">Importer depuis un fichier ACO</string>
     <string name="import_from_ase">Importer depuis un fichier ASE</string>
     <string name="export">Exporter</string>
-    <string name="colorconverter_on_github"></string>
-    <string name="tap_to_visit_us_on_github"></string>
-    <string name="app_version"></string>
-    <string name="the_developers"></string>
-    <string name="more_apps_from_us"></string>
-    <string name="open_source_licenses"></string>
-    <string name="tap_here_to_view_all_used_libraries"></string>
-    <string name="general"></string>
-    <string name="about"></string>
-    <string name="our_playstore_page"></string>
-    <string name="enabled"></string>
-    <string name="disabled"></string>
+    <string name="colorconverter_on_github">Color Converter sur GitHub</string>
+    <string name="tap_to_visit_us_on_github">Appuyez pour nous rendre visite sur GitHub</string>
+    <string name="app_version">Version de l\'application</string>
+    <string name="the_developers">Les développeurs</string>
+    <string name="more_apps_from_us">Plus d\'applications de notre part</string>
+    <string name="open_source_licenses">Licences OpenSource</string>
+    <string name="tap_here_to_view_all_used_libraries">Appuyez ici pour voir toutes les bibliothèques utilisées</string>
+    <string name="general">Général</string>
+    <string name="about">À propos de Color Converter</string>
+    <string name="our_playstore_page">Notre page sur PlayStore</string>
+    <string name="enabled">Activé</string>
+    <string name="disabled">Désactivé</string>
 </resources>
