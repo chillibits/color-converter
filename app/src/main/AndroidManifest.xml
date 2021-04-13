@@ -92,6 +92,7 @@
             android:name="com.chillibits.colorconverter.ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
