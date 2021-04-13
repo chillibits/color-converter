@@ -63,6 +63,7 @@ class ImageActivity : AppCompatActivity() {
         applyWindowInsets()
 
         // Initialize toolbar
+        toolbar.setTitle(R.string.pick_color_from_image)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -197,7 +198,7 @@ class ImageActivity : AppCompatActivity() {
 
     private fun chooseImage() {
         val options = Options.init()
-            .setExcludeVideos(true)
+            .setMode(Options.Mode.Picture)
             .setRequestCode(Constants.REQ_IMAGE_PICKER)
         Pix.start(this, options)
     }

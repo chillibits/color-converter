@@ -5,7 +5,6 @@
 package com.chillibits.colorconverter.viewmodel
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -15,8 +14,11 @@ import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.shared.toObj
 import com.chillibits.colorconverter.storage.dbo.ColorDbo
 import com.chillibits.colorconverter.tools.ColorNameTools
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ColorSelectionViewModel@ViewModelInject constructor(
+@HiltViewModel
+class ColorSelectionViewModel @Inject constructor(
     application: Application,
     private val cnt: ColorNameTools,
     private val repository: ColorRepository
