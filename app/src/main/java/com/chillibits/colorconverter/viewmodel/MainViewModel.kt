@@ -9,7 +9,6 @@ import android.content.Context
 import android.media.AudioManager
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.repository.ColorRepository
@@ -18,9 +17,12 @@ import com.chillibits.colorconverter.shared.toDbo
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     application: Application,
     private val repository: ColorRepository,
     private val cnt: ColorNameTools

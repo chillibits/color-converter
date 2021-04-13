@@ -16,11 +16,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @InstallIn(ActivityComponent::class)
 @Module
-class HiltInstanceProviders {
+object HiltInstanceProvidersActivity {
     @Provides
     fun provideDatabase(@ActivityContext context: Context) =
         Room.databaseBuilder(context, AppDatabase::class.java, Constants.DB_NAME)
@@ -38,4 +40,19 @@ class HiltInstanceProviders {
     @Provides
     fun provideClipboardTools(@ActivityContext context: Context, st: StorageTools, ct: ColorTools) =
         ClipboardTools(context, st, ct)
+}
+
+@InstallIn(ViewModelComponent::class)
+@Module
+object HiltInstanceProvidersViewModel {
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, AppDatabase::class.java, Constants.DB_NAME)
+            .addMigrations(MIGRATION_2_3).build()
+
+    @Provides
+    fun provideColorTools(@ApplicationContext context: Context) = ColorTools(context)
+
+    @Provides
+    fun provideColorNameTools(@ApplicationContext context: Context) = ColorNameTools(context)
 }

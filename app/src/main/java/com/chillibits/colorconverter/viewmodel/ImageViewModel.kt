@@ -9,13 +9,15 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import com.chillibits.colorconverter.tools.ColorTools
 import com.mrgames13.jimdo.colorconverter.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
+import javax.inject.Inject
 
-class ImageViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ImageViewModel @Inject constructor(
     application: Application,
     private val ct: ColorTools
 ): AndroidViewModel(application) {
