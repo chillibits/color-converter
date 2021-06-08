@@ -8,6 +8,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.mikepenz.aboutlibraries.plugin'
 }
 
 android {
@@ -44,28 +45,28 @@ android {
 
 dependencies {
     // base dependencies
-    implementation 'androidx.appcompat:appcompat:1.3.0-rc01'
-    implementation 'androidx.core:core-ktx:1.5.0-beta03'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.core:core-ktx:1.6.0-beta02'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
     implementation 'com.google.android.play:core:1.10.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.fragment:fragment-ktx:1.3.2'
+    implementation 'androidx.fragment:fragment-ktx:1.3.4'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.fxn769:pix:1.5.6'
-    implementation 'com.github.skydoves:colorpickerview:2.2.2'
+    implementation 'com.github.skydoves:colorpickerview:2.2.3'
     implementation 'com.mikepenz:iconics-core:5.2.8'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
 
     // ChilliBits dependencies
-    implementation 'com.chillibits:simplesettings:1.2.0'
-    implementation 'com.chillibits:adobecolortool:1.0.0'
+    implementation 'com.chillibits:simplesettings:1.3.0'
+    implementation 'com.chillibits:adobecolortool:1.0.1'
 
     // Room dependencies
     implementation "androidx.room:room-runtime:$room_version"
