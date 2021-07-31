@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             hexValue.setText(String.format(getString(R.string.hex_format),
                 "%08X".format(vm.selectedColor.color).uppercase(Locale.getDefault())
             ))
-        Selection.setSelection(hexValue.text, hexValue.text.length)
+        Selection.setSelection(hexValue.text, hexValue.text.toString().length)
 
         // Create dialog
         val dialog = AlertDialog.Builder(this)
@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             val value = s.toString()
             if(!value.startsWith("#")) {
                 hexValue.setText("#")
-                Selection.setSelection(hexValue.text, hexValue.text.length)
+                Selection.setSelection(hexValue.text, hexValue.text.toString().length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaEnabled) {
@@ -296,15 +296,18 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
         container.dialogH.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                s.toString().isNotEmpty() && container.dialogS.text.isNotEmpty() && container.dialogV.text.isNotEmpty()
+                s.toString().isNotEmpty() && container.dialogS.text.toString().isNotEmpty() &&
+                        container.dialogV.text.toString().isNotEmpty()
         }
         container.dialogS.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                container.dialogH.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialogV.text.isNotEmpty()
+                container.dialogH.text.toString().isNotEmpty() && s.toString().isNotEmpty() &&
+                        container.dialogV.text.toString().isNotEmpty()
         }
         container.dialogV.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                container.dialogH.text.isNotEmpty() && container.dialogS.text.isNotEmpty() && s.toString().isNotEmpty()
+                container.dialogH.text.toString().isNotEmpty() &&
+                        container.dialogS.text.toString().isNotEmpty() && s.toString().isNotEmpty()
         }
 
         container.dialogH.requestFocus()

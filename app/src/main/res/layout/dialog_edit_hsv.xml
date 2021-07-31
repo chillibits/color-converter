@@ -7,43 +7,63 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:paddingHorizontal="20dp"
     android:weightSum="3">
 
-    <EditText
-        android:id="@+id/dialogH"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogHContainer"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:hint="@string/h"
-        android:inputType="numberDecimal"
-        android:selectAllOnFocus="true"
-        android:imeOptions="actionNext"
-        android:maxLength="6"
-        android:importantForAutofill="no" />
+        android:layout_weight="1"
+        android:hint="@string/h">
 
-    <EditText
-        android:id="@+id/dialogS"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:hint="@string/s"
-        android:inputType="numberDecimal"
-        android:selectAllOnFocus="true"
-        android:imeOptions="actionNext"
-        android:maxLength="4"
-        android:importantForAutofill="no" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:maxLength="6"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionNext"
+            android:selectAllOnFocus="true"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/dialogV"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogSContainer"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:hint="@string/v"
-        android:inputType="numberDecimal"
-        android:selectAllOnFocus="true"
-        android:imeOptions="actionDone"
-        android:maxLength="4"
-        android:importantForAutofill="no" />
+        android:layout_weight="1"
+        android:hint="@string/s">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:maxLength="4"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionNext"
+            android:selectAllOnFocus="true"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogVContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/v">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:maxLength="4"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionNext"
+            android:selectAllOnFocus="true"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

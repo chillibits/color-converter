@@ -5,15 +5,14 @@
 package com.chillibits.colorconverter.ui.dialog
 
 import android.content.Context
-import android.text.InputType
+import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.viewmodel.MainViewModel
 import com.mrgames13.jimdo.colorconverter.R
+import kotlinx.android.synthetic.main.dialog_rename.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,26 +21,16 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
     val defaultName = cnt.getColorNameFromColor(vm.selectedColor)
 
     // Initialize views
-    val container = FrameLayout(this)
-    val containerParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply {
-        marginStart = resources.getDimensionPixelSize(R.dimen.dialog_margin)
-        marginEnd = resources.getDimensionPixelSize(R.dimen.dialog_margin)
-    }
-    val editTextName = EditText(this).apply {
-        hint = getString(R.string.choose_name)
-        setText(defaultName)
-        inputType = InputType.TYPE_TEXT_VARIATION_URI
-        layoutParams = containerParams
-    }
-    container.addView(editTextName)
+    val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rename, null)
+    dialogView.dialogName.setText(defaultName)
 
     // Create dialog
     val dialog = AlertDialog.Builder(this)
         .setTitle(R.string.save_color)
-        .setView(container)
+        .setView(dialogView)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.save) { _, _ ->
-            vm.selectedColor.name = editTextName.text.toString().trim()
+            vm.selectedColor.name = dialogView.dialogName.text.toString().trim()
             if (vm.selectedColor.name == defaultName) vm.selectedColor.name = ""
             vm.selectedColor.creationTimestamp = System.currentTimeMillis()
             // Insert color into local db
@@ -50,7 +39,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
         .show()
 
     // Prepare views
-    editTextName.run {
+    dialogView.dialogName.run {
         doAfterTextChanged {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = it.toString().isNotEmpty()
         }

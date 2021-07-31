@@ -8,13 +8,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/dialogName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogNameContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="@string/choose_name"
-        android:importantForAutofill="no"
-        android:inputType="textCapWords" />
+        android:layout_marginHorizontal="20dp"
+        android:hint="@string/name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:maxLength="4"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
+            android:selectAllOnFocus="true"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </FrameLayout>
