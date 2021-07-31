@@ -38,6 +38,7 @@ Thanks to following people:
 -   [ColorPickerView](https://github.com/skydoves/ColorPickerView) by Jaewoong Eum
 -   [AndroidIconics](https://github.com/mikepenz/Android-Iconics) by Mike Penz
 -   [MaterialStyledDialogs](https://github.com/javiersantos/MaterialStyledDialogs) by Javier Santos
+-   [FiveStarMe](https://github.com/numerative/Five-Star-Me) by Michael Hathi
 -   [SimpleSettings](https://github.com/marcauberer/simple-settings) by Marc Auberer
 -   [AdobeColorTool](https://github.com/marcauberer/adobe-color-tool) by Marc Auberer
 
