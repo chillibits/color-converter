@@ -9,7 +9,7 @@
  Release: Working copy
  Locale: de, German
  Exported by: ChilliBits
- Exported at: Tue, 08 Jun 2021 08:14:01 +0100
+ Exported at: Sat, 31 Jul 2021 13:44:20 +0100
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>
@@ -20,7 +20,6 @@
     <string name="choose_color">Farbe wählen</string>
     <string name="save_color">Farbe speichern</string>
     <string name="save">Speichern</string>
-    <string name="choose_name">Name wählen</string>
     <string name="pick_random_color">Zufällige Farbe generieren</string>
     <string name="pick_color_from_image">Farbe von Bild wählen</string>
     <string name="copied_to_clipboard">In Zwischenablage kopiert</string>
@@ -33,7 +32,7 @@
     <string name="recommend_string">Color Converter: Farben konvertieren, Farben aus Bildern wählen und vieles mehr! Ein einfaches Werkzeug für Programmierer und Grafikdesigner. Von Google Play herunterladen: https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.colorconverter</string>
     <string name="press_color_to_apply">Auf Farbe tippen zum Bestätigen</string>
     <string name="rate">Bewerten</string>
-    <string name="color_name">Name</string>
+    <string name="name">Name</string>
     <string name="argb_code">ARGB-Code</string>
     <string name="hsv_code">HSV-Code</string>
     <!-- %s is a placeholder -->

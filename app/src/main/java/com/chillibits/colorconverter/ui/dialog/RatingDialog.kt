@@ -4,12 +4,10 @@
 
 package com.chillibits.colorconverter.ui.dialog
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.chillibits.simplesettings.tool.openGooglePlayAppSite
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog
 import com.github.javiersantos.materialstyleddialogs.enums.Style
 import com.mikepenz.iconics.IconicsDrawable
@@ -17,7 +15,7 @@ import com.mikepenz.iconics.typeface.library.materialdesigniconic.MaterialDesign
 import com.mikepenz.iconics.utils.colorInt
 import com.mrgames13.jimdo.colorconverter.R
 
-fun Context.showRatingDialog() {
+fun AppCompatActivity.showRatingDialog() {
     MaterialStyledDialog.Builder(this)
         .setStyle(Style.HEADER_WITH_ICON)
         .setHeaderColorInt(ContextCompat.getColor(this, R.color.googlePlayHeaderColor))
@@ -29,12 +27,6 @@ fun Context.showRatingDialog() {
         .setDescription(R.string.rate_m)
         .setPositiveText(R.string.rate)
         .setNegativeText(R.string.cancel)
-        .onPositive {
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
-            } catch (e: ActivityNotFoundException) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
-            }
-        }
+        .onPositive { openGooglePlayAppSite() }
         .show()
 }

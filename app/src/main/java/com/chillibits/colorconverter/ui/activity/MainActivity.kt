@@ -36,6 +36,7 @@ import com.chillibits.simplesettings.tool.getPrefObserver
 import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
+import five.star.me.FiveStarMe
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
@@ -76,11 +77,23 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         initializeButtonSection()
         setDefaultComponentValues()
 
+        // Check if the in-app rating dialog can be displayed
+        FiveStarMe.with(this)
+            .setInstallDays(7)
+            .setLaunchTimes(10)
+            .monitor()
+
         // Redirect to ImageActivity, if needed
-        if (intent.hasExtra(Constants.EXTRA_ACTION) && intent.getStringExtra(Constants.EXTRA_ACTION) == "image") pickColorFromImage()
+        if (intent.hasExtra(Constants.EXTRA_ACTION) &&
+            intent.getStringExtra(Constants.EXTRA_ACTION) == "image") {
+            pickColorFromImage()
+        } else {
+            // Show in-app rating dialog
+            FiveStarMe.showRateDialogIfMeetsConditions(this)
+        }
 
         // Set to choose color mode, if required
-        if(intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
+        if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             finishWithColor.setOnClickListener { finishWithSelectedColor() }
             val color = intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK)
             updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, -1))
@@ -196,10 +209,14 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, container, false)
         val hexValue = dialogView.dialogHex
         if(!isAlphaEnabled)
-            hexValue.setText(String.format(getString(R.string.hex_format, "%06X".format((0xFFFFFF and vm.selectedColor.color)).toUpperCase(Locale.getDefault()))))
+            hexValue.setText(String.format(getString(R.string.hex_format,
+                "%06X".format((0xFFFFFF and vm.selectedColor.color)).uppercase(Locale.getDefault())
+            )))
         else
-            hexValue.setText(String.format(getString(R.string.hex_format), "%08X".format(vm.selectedColor.color).toUpperCase(Locale.getDefault())))
-        Selection.setSelection(hexValue.text, hexValue.text.length)
+            hexValue.setText(String.format(getString(R.string.hex_format),
+                "%08X".format(vm.selectedColor.color).uppercase(Locale.getDefault())
+            ))
+        Selection.setSelection(hexValue.text, hexValue.text.toString().length)
 
         // Create dialog
         val dialog = AlertDialog.Builder(this)
@@ -229,7 +246,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             val value = s.toString()
             if(!value.startsWith("#")) {
                 hexValue.setText("#")
-                Selection.setSelection(hexValue.text, hexValue.text.length)
+                Selection.setSelection(hexValue.text, hexValue.text.toString().length)
             } else {
                 if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaEnabled) {
@@ -279,15 +296,18 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
         container.dialogH.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                s.toString().isNotEmpty() && container.dialogS.text.isNotEmpty() && container.dialogV.text.isNotEmpty()
+                s.toString().isNotEmpty() && container.dialogS.text.toString().isNotEmpty() &&
+                        container.dialogV.text.toString().isNotEmpty()
         }
         container.dialogS.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                container.dialogH.text.isNotEmpty() && s.toString().isNotEmpty() && container.dialogV.text.isNotEmpty()
+                container.dialogH.text.toString().isNotEmpty() && s.toString().isNotEmpty() &&
+                        container.dialogV.text.toString().isNotEmpty()
         }
         container.dialogV.doAfterTextChanged { s ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
-                container.dialogH.text.isNotEmpty() && container.dialogS.text.isNotEmpty() && s.toString().isNotEmpty()
+                container.dialogH.text.toString().isNotEmpty() &&
+                        container.dialogS.text.toString().isNotEmpty() && s.toString().isNotEmpty()
         }
 
         container.dialogH.requestFocus()
@@ -322,9 +342,13 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         }
         // Update HEX TextView
         displayHex.text = if(isAlphaEnabled) {
-            String.format(getString(R.string.hex_), "%08X".format(color.color).toUpperCase(Locale.getDefault()))
+            String.format(getString(R.string.hex_),
+                "%08X".format(color.color).uppercase(Locale.getDefault())
+            )
         } else {
-            String.format(getString(R.string.hex_), "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()))
+            String.format(getString(R.string.hex_),
+                "%06X".format(0xFFFFFF and color.color).uppercase(Locale.getDefault())
+            )
         }
         // Update HSV TextView
         val hsv = FloatArray(3)
@@ -394,8 +418,11 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             getString(R.string.argb_),
             vm.selectedColor.alpha, vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue
         )
-        displayHex.text = String.format(getString(R.string.hex_), "%08X".format(vm.selectedColor.color).toUpperCase(
-            Locale.getDefault()))
+        displayHex.text = String.format(getString(R.string.hex_),
+            "%08X".format(vm.selectedColor.color).uppercase(
+                Locale.getDefault()
+            )
+        )
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue, hsv)
         displayHsv.text = String.format(

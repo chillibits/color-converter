@@ -21,7 +21,7 @@ class ClipboardTools(
     private val ct: ColorTools
 ) {
 
-    fun copyNameToClipboard(name: String) = context.copyTextToClipboard(context.getString(R.string.color_name), name)
+    fun copyNameToClipboard(name: String) = context.copyTextToClipboard(context.getString(R.string.name), name)
 
     fun copyArgbToClipboard(color: Color) = context.run {
         if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true)) {
@@ -54,9 +54,9 @@ class ClipboardTools(
         copyTextToClipboard(
             getString(R.string.hex_code),
             if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true))
-                "#%08X".format(color.color).toUpperCase(Locale.getDefault())
+                "#%08X".format(color.color).uppercase(Locale.getDefault())
             else
-                "#%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault())
+                "#%06X".format(0xFFFFFF and color.color).uppercase(Locale.getDefault())
         )
     }
 
