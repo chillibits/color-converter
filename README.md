@@ -19,6 +19,7 @@ More information on the projects website: [https://chillibits.com/colorconverter
 -   Save / load colors
 -   Export saved colors to Adobe color exchange formats (ACO / ASE)
 -   Copy colors to clipboard
+-   Dark mode
 
 ## Screenshots (Android 11)
 <img src="media/1.png" width="275" title="Screenshot 1"> <img src="media/2.png" width="275" title="Screenshot 2"> <img src="media/3.png" width="275" title="Screenshot 3">
