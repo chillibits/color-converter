@@ -7,9 +7,9 @@ package com.chillibits.colorconverter.ui.dialog
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.chillibits.simplesettings.tool.openGooglePlayAppSite
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog
 import com.github.javiersantos.materialstyleddialogs.enums.Style
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.materialdesigniconic.MaterialDesignIconic
 import com.mikepenz.iconics.utils.colorInt
@@ -27,12 +27,6 @@ fun AppCompatActivity.showRatingDialog() {
         .setDescription(R.string.rate_m)
         .setPositiveText(R.string.rate)
         .setNegativeText(R.string.cancel)
-        .onPositive {
-            val manager = ReviewManagerFactory.create(this)
-            manager.requestReviewFlow()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) manager.launchReviewFlow(this, task.result)
-                }
-        }
+        .onPositive { openGooglePlayAppSite() }
         .show()
 }
