@@ -60,7 +60,7 @@ dependencies {
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.fxn769:pix:1.5.6'
     implementation 'com.github.skydoves:colorpickerview:2.2.3'
-    implementation 'com.mikepenz:iconics-core:5.3.0'
+    implementation 'com.mikepenz:iconics-core:5.3.1'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
     implementation 'com.github.numerative:Five-Star-Me:2.1.1'
