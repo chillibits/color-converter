@@ -22,8 +22,8 @@ More information on the projects website: [https://chillibits.com/colorconverter
 -   Dark mode
 
 ## Screenshots (Android 11)
-<img src="media/1.png" width="275" title="Screenshot 1"> <img src="media/2.png" width="275" title="Screenshot 2"> <img src="media/3.png" width="275" title="Screenshot 3">
-<img src="media/4.png" width="275" title="Screenshot 4"> <img src="media/5.png" width="275" title="Screenshot 5"> <img src="media/6.png" width="275" title="Screenshot 6">
+<img src="media/1.png" width="265" title="Screenshot 1"> <img src="media/2.png" width="265" title="Screenshot 2"> <img src="media/3.png" width="265" title="Screenshot 3">
+<img src="media/4.png" width="265" title="Screenshot 4"> <img src="media/5.png" width="265" title="Screenshot 5"> <img src="media/6.png" width="265" title="Screenshot 6">
 
 ## Contribute to this project
 You can contribute to this project by doing following things:

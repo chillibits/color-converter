@@ -12,14 +12,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 2701
-        versionName "2.7.1"
+        targetSdkVersion 31
+        versionCode 2702
+        versionName "2.7.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
