@@ -41,7 +41,8 @@
             android:name="com.chillibits.colorconverter.ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
 
             <!-- Intent filters -->
             <intent-filter>
@@ -86,14 +87,16 @@
             android:name="com.chillibits.colorconverter.ui.activity.ColorSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true"/>
 
         <activity
             android:name="com.chillibits.colorconverter.ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="false"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

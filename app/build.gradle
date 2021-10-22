@@ -12,14 +12,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 2701
-        versionName "2.7.1"
+        targetSdkVersion 31
+        versionCode 2702
+        versionName "2.7.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,9 +47,9 @@ dependencies {
     // base dependencies
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
-    implementation 'com.google.android.play:core:1.10.0'
+    implementation 'com.google.android.play:core:1.10.2'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.3.6'
@@ -60,14 +60,14 @@ dependencies {
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.fxn769:pix:1.5.6'
     implementation 'com.github.skydoves:colorpickerview:2.2.3'
-    implementation 'com.mikepenz:iconics-core:5.3.0'
+    implementation 'com.mikepenz:iconics-core:5.3.2'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
     implementation 'com.github.numerative:Five-Star-Me:2.1.1'
 
     // ChilliBits dependencies
-    implementation 'com.chillibits:simplesettings:1.3.1'
-    implementation 'com.chillibits:adobecolortool:1.0.1'
+    implementation 'com.chillibits:simplesettings:1.3.2'
+    implementation 'com.chillibits:adobecolortool:1.0.3'
 
     // Room dependencies
     implementation "androidx.room:room-runtime:$room_version"
