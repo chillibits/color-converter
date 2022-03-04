@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2022. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -25,7 +25,10 @@ import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.SimpleOnSeekBarChangeListener
-import com.chillibits.colorconverter.tools.*
+import com.chillibits.colorconverter.tools.ClipboardTools
+import com.chillibits.colorconverter.tools.ColorNameTools
+import com.chillibits.colorconverter.tools.ColorTools
+import com.chillibits.colorconverter.tools.StorageTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.chillibits.colorconverter.ui.dialog.*
 import com.chillibits.colorconverter.ui.templates.showSettings
@@ -37,7 +40,6 @@ import com.google.android.instantapps.InstantApps
 import com.mrgames13.jimdo.colorconverter.R
 import dagger.hilt.android.AndroidEntryPoint
 import five.star.me.FiveStarMe
-import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_edit_hex.view.*
 import kotlinx.android.synthetic.main.dialog_edit_hsv.view.*

@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+#
+# Copyright © Marc Auberer 2017-2022. All rights reserved
+#
+
 ##############################################################################
 ##
 ##  Gradle start up script for UN*X

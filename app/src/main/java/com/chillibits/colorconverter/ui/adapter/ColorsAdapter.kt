@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2022. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.adapter
@@ -63,7 +63,7 @@ class ColorsAdapter @Inject constructor(
                 String.format(
                     context.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,
-                    "%06X".format(0xFFFFFF and color.color).toUpperCase(Locale.getDefault()),
+                    "%06X".format(0xFFFFFF and color.color).uppercase(Locale.getDefault()),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[2]),
@@ -73,7 +73,7 @@ class ColorsAdapter @Inject constructor(
                 String.format(
                     context.getString(R.string.color_summary),
                     color.alpha, color.red, color.green, color.blue,
-                    "%08X".format(color.color).toUpperCase(Locale.getDefault()),
+                    "%08X".format(color.color).uppercase(Locale.getDefault()),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
                     String.format(Constants.HSV_FORMAT_STRING, hsv[2]),

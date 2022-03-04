@@ -1,17 +1,17 @@
 /*
- * Copyright © Marc Auberer 2017-2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2022. All rights reserved
  */
 
 buildscript {
-    ext.kotlin_version = '1.5.31'
-    ext.room_version = '2.3.0'
-    ext.hilt_version = '2.39.1'
+    ext.kotlin_version = '1.6.10'
+    ext.room_version = '2.4.2'
+    ext.hilt_version = '2.41'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath 'com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:8.3.1'

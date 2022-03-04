@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2022. All rights reserved
  */
 
 package com.chillibits.colorconverter.view
@@ -28,9 +28,13 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
             String.format(context.getString(R.string.argb_), envelope.color.alpha, envelope.color.red, envelope.color.green, envelope.color.blue)
         }
         flagColorHex.text = if(isAlphaDisabled)
-            String.format(context.getString(R.string.hex_), "%06X".format(0xFFFFFF and envelope.color).toUpperCase(Locale.getDefault()))
+            String.format(context.getString(R.string.hex_),
+                "%06X".format(0xFFFFFF and envelope.color).uppercase(Locale.getDefault())
+            )
         else
-            String.format(context.getString(R.string.hex_), "%08X".format(envelope.color).toUpperCase(Locale.getDefault()))
+            String.format(context.getString(R.string.hex_),
+                "%08X".format(envelope.color).uppercase(Locale.getDefault())
+            )
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(envelope.color.red, envelope.color.green, envelope.color.blue, hsv)
         flagColorHsv.text = String.format(context.getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]), String.format(
