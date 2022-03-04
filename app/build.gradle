@@ -38,8 +38,9 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     packagingOptions {
-        pickFirst '**/META-INFMANIFEST.MF'
-        pickFirst 'META-INF/library_release.kotlin_module'
+        resources {
+            pickFirsts += ['**/META-INFMANIFEST.MF', 'META-INF/library_release.kotlin_module']
+        }
     }
 }
 
