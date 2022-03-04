@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2021. All rights reserved
+ * Copyright © Marc Auberer 2017-2022. All rights reserved
  */
 
 package com.chillibits.colorconverter.shared
