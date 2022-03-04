@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.media.AudioManager
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
-import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.dpToPx
 import com.chillibits.colorconverter.tools.ColorNameTools
