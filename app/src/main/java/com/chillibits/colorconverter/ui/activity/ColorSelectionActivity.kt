@@ -69,11 +69,11 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         savedColors.adapter = adapter
 
         // Setup data observer
-        vm.colors.observe(this, { data ->
+        vm.colors.observe(this) { data ->
             adapter.updateData(data.map { it.toObj() })
             noItems.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
             loading.visibility = View.GONE
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
