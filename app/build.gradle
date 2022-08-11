@@ -17,9 +17,9 @@ android {
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 2703
-        versionName "2.7.3"
+        targetSdkVersion 32
+        versionCode 2704
+        versionName "2.7.4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     packagingOptions {
         resources {
@@ -46,29 +46,29 @@ android {
 
 dependencies {
     // base dependencies
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
     implementation 'com.google.android.play:core:1.10.3'
     implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // External dependencies
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.fxn769:pix:1.5.6'
     implementation 'com.github.skydoves:colorpickerview:2.2.4'
-    implementation 'com.mikepenz:iconics-core:5.3.3'
+    implementation 'com.mikepenz:iconics-core:5.3.4'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
     implementation 'com.github.numerative:Five-Star-Me:2.1.2'
 
     // ChilliBits dependencies
-    implementation 'com.chillibits:simplesettings:1.3.2'
-    implementation 'com.chillibits:adobecolortool:1.0.3'
+    implementation 'com.chillibits:simplesettings:1.3.4'
+    implementation 'com.chillibits:adobecolortool:1.0.4'
 
     // Room dependencies
     implementation "androidx.room:room-runtime:$room_version"
