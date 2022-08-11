@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 2703
         versionName "2.7.3"
         vectorDrawables.useSupportLibrary = true
