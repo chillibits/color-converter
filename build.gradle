@@ -5,7 +5,7 @@
 buildscript {
     ext.kotlin_version = '1.7.21'
     ext.room_version = '2.4.3'
-    ext.hilt_version = '2.44'
+    ext.hilt_version = '2.44.1'
     repositories {
         google()
         mavenCentral()
