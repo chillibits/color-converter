@@ -13,7 +13,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.activity.viewModels
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -32,8 +31,8 @@ import com.chillibits.colorconverter.ui.dialog.showPaletteImportExportDialog
 import com.chillibits.colorconverter.ui.dialog.showRenameDialog
 import com.chillibits.colorconverter.viewmodel.ColorSelectionViewModel
 import com.mrgames13.jimdo.colorconverter.R
+import com.mrgames13.jimdo.colorconverter.databinding.ActivityColorSelectionBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_color_selection.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,30 +48,32 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     @Inject lateinit var cnt: ColorNameTools
 
     // Variables as objects
+    private lateinit var binding: ActivityColorSelectionBinding
     private val vm by viewModels<ColorSelectionViewModel>()
     private lateinit var adapter: ColorsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_color_selection)
+        binding = ActivityColorSelectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         applyWindowInsets()
 
         // Initialize toolbar
-        toolbar.layoutTransition = LayoutTransition()
-        toolbar.setTitle(R.string.saved_colors)
-        setSupportActionBar(toolbar)
+        binding.toolbar.layoutTransition = LayoutTransition()
+        binding.toolbar.setTitle(R.string.saved_colors)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Initialize RecyclerView
-        adapter = ColorsAdapter(this, this, ct, cnt)
-        savedColors.layoutManager = LinearLayoutManager(this)
-        savedColors.adapter = adapter
+        adapter = ColorsAdapter(this, this, ct)
+        binding.savedColors.layoutManager = LinearLayoutManager(this)
+        binding.savedColors.adapter = adapter
 
         // Setup data observer
         vm.colors.observe(this) { data ->
             adapter.updateData(data.map { it.toObj() })
-            noItems.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
-            loading.visibility = View.GONE
+            binding.noItems.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
+            binding.loading.visibility = View.GONE
         }
     }
 
@@ -104,8 +105,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                    toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                    savedColors.setPadding(0, 0, 0, systemInsets.bottom)
+                    binding.toolbar.setPadding(0, systemInsets.top, 0, 0)
+                    binding.savedColors.setPadding(0, 0, 0, systemInsets.bottom)
                     insets
                 }
                 setDecorFitsSystemWindows(false)
@@ -114,8 +115,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    savedColors.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                    binding.toolbar.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    binding.savedColors.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
                     insets
                 }
             }
@@ -162,8 +163,8 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
                     CoroutineScope(Dispatchers.Main).launch {
                         changeSubtitle(null)
                         invalidateOptionsMenu()
-                        reveal.setBackgroundResource(R.color.colorPrimary)
-                        revealBackground.setBackgroundResource(R.color.colorPrimary)
+                        binding.reveal.setBackgroundResource(R.color.colorPrimary)
+                        binding.revealBackground.setBackgroundResource(R.color.colorPrimary)
                     }
                 }
             }
@@ -173,25 +174,25 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
 
     private fun animateAppAndStatusBar(toColor: Int) {
         val animator = ViewAnimationUtils.createCircularReveal(
-            reveal,
-            toolbar.width / 2,
-            toolbar.height / 2,
+            binding.reveal,
+            binding.toolbar.width / 2,
+            binding.toolbar.height / 2,
             0f,
-            toolbar.width / 2.0f + 50
+            binding.toolbar.width / 2.0f + 50
         )
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                reveal.setBackgroundColor(toColor)
+                binding.reveal.setBackgroundColor(toColor)
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                revealBackground.setBackgroundColor(toColor)
+                binding.revealBackground.setBackgroundColor(toColor)
             }
         })
 
         animator.duration = 480
         animator.start()
-        reveal.visibility = View.VISIBLE
+        binding.reveal.visibility = View.VISIBLE
     }
 
     override fun onColorSelected(color: Color) {
@@ -201,12 +202,12 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
         animateAppAndStatusBar(color.color)
     }
 
-    private fun changeSubtitle(@Nullable subtitle: String?) {
+    private fun changeSubtitle(subtitle: String?) {
         if (subtitle == null) {
-            toolbar.layoutTransition = null
+            binding.toolbar.layoutTransition = null
             supportActionBar?.subtitle = null
         } else {
-            toolbar.layoutTransition = LayoutTransition()
+            binding.toolbar.layoutTransition = LayoutTransition()
             supportActionBar?.subtitle = subtitle
         }
     }

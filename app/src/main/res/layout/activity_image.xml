@@ -11,7 +11,13 @@
     tools:ignore="HardcodedText"
     tools:context="com.chillibits.colorconverter.ui.activity.ImageActivity">
 
-    <include layout="@layout/toolbar"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -19,8 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@android:color/transparent"
         android:theme="@style/toolbarStyle"
-        android:elevation="1dp"
-        tools:targetApi="lollipop" />
+        android:elevation="1dp" />
 
     <View
         android:id="@+id/revealBackground"
@@ -69,4 +68,5 @@
         android:visibility="gone"
         android:textStyle="bold"
         android:textSize="17sp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

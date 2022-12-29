@@ -7,6 +7,7 @@ package com.chillibits.colorconverter.ui.dialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,6 @@ import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.storage.dbo.ColorDbo
 import com.chillibits.colorconverter.viewmodel.ColorSelectionViewModel
 import com.mrgames13.jimdo.colorconverter.R
-import kotlinx.android.synthetic.main.dialog_export_palette.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ fun Context.showPaletteImportExportDialog(
         .setView(view)
         .show()
 
-    view.exportACO.setOnClickListener {
+    view.findViewById<LinearLayout>(R.id.exportACO).setOnClickListener {
         showRenameDialog(RenameDialogMode.EXPORT, object: OnRenameListener {
             override fun onRenameComplete(newName: String) {
                 colorTool.exportColorListAsACO(adobeColors, newName)
@@ -68,7 +68,7 @@ fun Context.showPaletteImportExportDialog(
         })
         dialog.dismiss()
     }
-    view.exportASE.setOnClickListener {
+    view.findViewById<LinearLayout>(R.id.exportASE).setOnClickListener {
         showRenameDialog(RenameDialogMode.EXPORT, object: OnRenameListener {
             override fun onRenameComplete(newName: String) {
                 colorTool.exportColorListAsASE(adobeColors, newName)
@@ -76,11 +76,11 @@ fun Context.showPaletteImportExportDialog(
         })
         dialog.dismiss()
     }
-    view.importACO.setOnClickListener {
+    view.findViewById<LinearLayout>(R.id.importACO).setOnClickListener {
         colorTool.importColorList(activity, importListener)
         dialog.dismiss()
     }
-    view.importASE.setOnClickListener {
+    view.findViewById<LinearLayout>(R.id.importASE).setOnClickListener {
         colorTool.importColorList(activity, importListener)
         dialog.dismiss()
     }

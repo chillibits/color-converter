@@ -5,21 +5,20 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.mikepenz.aboutlibraries.plugin'
 }
 
 android {
-    compileSdkVersion 32
-    buildToolsVersion "32.0.0"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.1"
     defaultConfig {
         applicationId "com.mrgames13.jimdo.colorconverter"
         minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 2704
-        versionName "2.7.4"
+        targetSdkVersion 33
+        versionCode 2800
+        versionName "2.8.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,18 +41,23 @@ android {
             pickFirsts += ['**/META-INFMANIFEST.MF', 'META-INF/library_release.kotlin_module']
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'com.mrgames13.jimdo.colorconverter'
 }
 
 dependencies {
     // base dependencies
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.instantapps:instantapps:1.1.0'
     implementation 'com.google.android.play:core:1.10.3'
     implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.fragment:fragment-ktx:1.5.2'
+    implementation 'androidx.exifinterface:exifinterface:1.3.5'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
@@ -61,7 +65,7 @@ dependencies {
     implementation 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
     implementation 'com.fxn769:pix:1.5.6'
     implementation 'com.github.skydoves:colorpickerview:2.2.4'
-    implementation 'com.mikepenz:iconics-core:5.3.4'
+    implementation 'com.mikepenz:iconics-core:5.4.0'
     implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:3.0.2'
     implementation 'com.github.numerative:Five-Star-Me:2.1.2'
@@ -81,8 +85,8 @@ dependencies {
 
     // dependencies for testing
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }
 
 // Task for downloading all translation files

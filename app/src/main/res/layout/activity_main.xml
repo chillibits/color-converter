@@ -13,7 +13,13 @@
     tools:context="com.chillibits.colorconverter.ui.activity.MainActivity"
     android:background="@color/windowBackgroundColor">
 
-    <include layout="@layout/toolbar" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -199,8 +205,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:elevation="5dp"
-                tools:targetApi="lollipop">
+                android:elevation="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/colorContainer"
@@ -444,7 +449,7 @@
                 android:textColor="@drawable/button_outline_text"/>
 
             <Button
-                android:id="@+id/pick_random_color"
+                android:id="@+id/pickRandomColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/pick"
@@ -461,7 +466,7 @@
                 android:id="@+id/pickFromImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/pick_random_color"
+                app:layout_constraintTop_toBottomOf="@+id/pickRandomColor"
                 android:text="@string/pick_color_from_image"
                 android:layout_margin="8dp"
                 app:drawableStartCompat="@drawable/image_primary"

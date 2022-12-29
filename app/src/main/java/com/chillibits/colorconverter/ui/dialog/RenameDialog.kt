@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.textfield.TextInputEditText
 import com.mrgames13.jimdo.colorconverter.R
-import kotlinx.android.synthetic.main.dialog_rename.view.*
 
 interface OnRenameListener {
     fun onRenameComplete(newName: String)
@@ -24,7 +24,7 @@ enum class RenameDialogMode {
 
 fun Context.showRenameDialog(mode: RenameDialogMode, listener: OnRenameListener, oldName: String = "") {
     val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rename, null)
-    val newName = dialogView.dialogName
+    val newName = dialogView.findViewById<TextInputEditText>(R.id.dialogName)
     newName.setText(oldName)
 
     val dialogTitle = if (mode == RenameDialogMode.RENAME) R.string.rename else R.string.export

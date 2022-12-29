@@ -13,7 +13,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.media.AudioManager
-import android.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -37,10 +37,9 @@ import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.mrgames13.jimdo.colorconverter.R
+import com.mrgames13.jimdo.colorconverter.databinding.ActivityImageBinding
 import com.skydoves.colorpickerview.listeners.ColorListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_image.*
-import kotlinx.android.synthetic.main.toolbar.*
 import java.io.IOException
 import javax.inject.Inject
 
@@ -52,38 +51,40 @@ class ImageActivity : AppCompatActivity() {
     @Inject lateinit var st: StorageTools
 
     // Variables as objects
+    private lateinit var binding: ActivityImageBinding
     private val vm by viewModels<ImageViewModel>()
     private var speakItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image)
+        binding = ActivityImageBinding.inflate(layoutInflater);
+        setContentView(binding.root)
 
         // Apply window insets
         applyWindowInsets()
 
         // Initialize toolbar
-        toolbar.setTitle(R.string.pick_color_from_image)
-        setSupportActionBar(toolbar)
+        binding.toolbar.setTitle(R.string.pick_color_from_image)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Initialize other layout components
-        image.colorListener = ColorListener { color, _ ->
+        binding.image.colorListener = ColorListener { color, _ ->
             vm.valueSelectedColor = color
-            selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
+            binding.selectedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             if(speakItem != null && speakItem!!.isChecked) speakColor()
         }
-        image.flagView = DetailedFlagView(this, R.layout.flag_layout).apply {
+        binding.image.flagView = DetailedFlagView(this, R.layout.flag_layout).apply {
             isFlipAble = false
         }
 
-        selectedColor.setOnClickListener { finishWithResult(vm.valueSelectedColor) }
-        vibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColor) }
-        lightVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorLight) }
-        darkVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorDark) }
-        mutedColor.setOnClickListener { finishWithResult(vm.valueMutedColor) }
-        lightMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorLight) }
-        darkMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorDark) }
+        binding.selectedColor.setOnClickListener { finishWithResult(vm.valueSelectedColor) }
+        binding.vibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColor) }
+        binding.lightVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorLight) }
+        binding.darkVibrantColor.setOnClickListener { finishWithResult(vm.valueVibrantColorDark) }
+        binding.mutedColor.setOnClickListener { finishWithResult(vm.valueMutedColor) }
+        binding.lightMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorLight) }
+        binding.darkMutedColor.setOnClickListener { finishWithResult(vm.valueMutedColorDark) }
 
         if(intent.hasExtra(Constants.EXTRA_IMAGE_URI)) {
             // Load default image
@@ -139,8 +140,8 @@ class ImageActivity : AppCompatActivity() {
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
                     if(systemInsets.top > 0) {
-                        toolbar?.setPadding(0, systemInsets.top, 0, 0)
-                        colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
+                        binding.toolbar.setPadding(0, systemInsets.top, 0, 0)
+                        binding.colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), systemInsets.bottom + dpToPx(3))
                     }
                     insets
                 }
@@ -150,8 +151,8 @@ class ImageActivity : AppCompatActivity() {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-                    colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
+                    binding.toolbar.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    binding.colorButtonContainer.setPadding(dpToPx(3), dpToPx(3), dpToPx(3), insets.systemWindowInsetBottom + dpToPx(3))
                     insets
                 }
             }
@@ -176,14 +177,14 @@ class ImageActivity : AppCompatActivity() {
 
     private fun applyImage(bitmap: Bitmap) {
         vm.computeVibrantColors(bitmap)
-        image.setPaletteDrawable(BitmapDrawable(resources, bitmap))
-        vibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColor, BlendModeCompat.SRC_IN)
-        lightVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorLight, BlendModeCompat.SRC_IN)
-        darkVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorDark, BlendModeCompat.SRC_IN)
-        mutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColor, BlendModeCompat.SRC_IN)
-        lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorLight, BlendModeCompat.SRC_IN)
-        darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorDark, BlendModeCompat.SRC_IN)
-        image.visibility = View.VISIBLE
+        binding.image.setPaletteDrawable(BitmapDrawable(resources, bitmap))
+        binding.vibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColor, BlendModeCompat.SRC_IN)
+        binding.lightVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorLight, BlendModeCompat.SRC_IN)
+        binding.darkVibrantColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueVibrantColorDark, BlendModeCompat.SRC_IN)
+        binding.mutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColor, BlendModeCompat.SRC_IN)
+        binding.lightMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorLight, BlendModeCompat.SRC_IN)
+        binding.darkMutedColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(vm.valueMutedColorDark, BlendModeCompat.SRC_IN)
+        binding.image.visibility = View.VISIBLE
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
