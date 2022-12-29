@@ -8,12 +8,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.colorconverter.ui.adapter.ColorsAdapter
 import com.mrgames13.jimdo.colorconverter.R
-import kotlinx.android.synthetic.main.dialog_color_palette.view.*
 
 fun Context.showColorPaletteDialog(
     listener: ColorsAdapter.ColorSelectionListener,
@@ -35,13 +35,18 @@ fun Context.showColorPaletteDialog(
         .show()
 
     // Fill dialog with data
-    view.palette.apply {
-        adapter = ColorsAdapter(this@showColorPaletteDialog, object: ColorsAdapter.ColorSelectionListener {
-            override fun onColorSelected(color: Color) {
-                listener.onColorSelected(color)
-                d.dismiss()
-            }
-        }, ct, cnt, colors)
+    view.findViewById<RecyclerView>(R.id.palette).apply {
+        adapter = ColorsAdapter(
+            this@showColorPaletteDialog,
+            object : ColorsAdapter.ColorSelectionListener {
+                override fun onColorSelected(color: Color) {
+                    listener.onColorSelected(color)
+                    d.dismiss()
+                }
+            },
+            ct,
+            colors
+        )
         layoutManager = LinearLayoutManager(this@showColorPaletteDialog)
         setHasFixedSize(true)
     }

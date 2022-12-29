@@ -8,15 +8,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.setTint
-import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.tools.ColorTools
 import com.chillibits.simplesettings.tool.getPrefBooleanValue
 import com.mrgames13.jimdo.colorconverter.R
-import kotlinx.android.synthetic.main.item_color.view.*
 import java.util.*
 import javax.inject.Inject
 
@@ -24,7 +24,6 @@ class ColorsAdapter @Inject constructor(
     private val context: Context,
     private val listener: ColorSelectionListener,
     private val ct: ColorTools,
-    private val cnt: ColorNameTools,
     private var colors: List<Color> = emptyList()
 ): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
@@ -52,14 +51,14 @@ class ColorsAdapter @Inject constructor(
         holder.itemView.run {
             val color = colors[pos]
 
-            itemColor.setTint(color.color)
-            itemColorName.text = color.name
+            findViewById<AppCompatImageView>(R.id.itemColor).setTint(color.color)
+            findViewById<TextView>(R.id.itemColorName).text = color.name
 
             val hsv = FloatArray(3)
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
             val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
 
-            itemColorValues.text = if(isAlphaDisabled)
+            findViewById<TextView>(R.id.itemColorValues).text = if(isAlphaDisabled)
                 String.format(
                     context.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,

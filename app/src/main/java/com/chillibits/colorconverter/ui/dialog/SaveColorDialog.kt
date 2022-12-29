@@ -11,8 +11,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import com.chillibits.colorconverter.tools.ColorNameTools
 import com.chillibits.colorconverter.viewmodel.MainViewModel
+import com.google.android.material.textfield.TextInputEditText
 import com.mrgames13.jimdo.colorconverter.R
-import kotlinx.android.synthetic.main.dialog_rename.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +22,8 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
 
     // Initialize views
     val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rename, null)
-    dialogView.dialogName.setText(defaultName)
+    val dialogName = dialogView.findViewById<TextInputEditText>(R.id.dialogName);
+    dialogName.setText(defaultName)
 
     // Create dialog
     val dialog = AlertDialog.Builder(this)
@@ -30,7 +31,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
         .setView(dialogView)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.save) { _, _ ->
-            vm.selectedColor.name = dialogView.dialogName.text.toString().trim()
+            vm.selectedColor.name = dialogName.text.toString().trim()
             if (vm.selectedColor.name == defaultName) vm.selectedColor.name = ""
             vm.selectedColor.creationTimestamp = System.currentTimeMillis()
             // Insert color into local db
@@ -39,7 +40,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
         .show()
 
     // Prepare views
-    dialogView.dialogName.run {
+    dialogName.run {
         doAfterTextChanged {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = it.toString().isNotEmpty()
         }
