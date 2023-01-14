@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  ~ Copyright © Marc Auberer 2017-2023. All rights reserved
+  -->
+
+<!--
  Loco xml export: Android string resources
  Project: Color Converter Colors
  Release: Working copy
  Locale: es, Spanish
  Exported by: ChilliBits
- Exported at: Thu, 29 Dec 2022 14:36:34 +0000
+ Exported at: Sat, 14 Jan 2023 18:50:50 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="color_alice_blue">Azul Alicia</string>
