@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater);
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Apply window insets
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
                     if(systemInsets.top > 0) {
-                        binding.toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                        binding.toolbar.setPadding(0, systemInsets.top, 0, 0)
                         binding.scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
                         binding.finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
                     }
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    binding.toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    binding.toolbar.setPadding(0, insets.systemWindowInsetTop, 0, 0)
                     binding.scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
                     binding.finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
                     insets
@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
     private fun editHexCode() {
         // Initialize views
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, binding.container, false)
-        val hexValue = dialogView.findViewById<TextInputEditText>(R.id.dialogHex);
+        val hexValue = dialogView.findViewById<TextInputEditText>(R.id.dialogHex)
         if(!isAlphaEnabled)
             hexValue.setText(String.format(getString(R.string.hex_format,
                 "%06X".format((0xFFFFFF and vm.selectedColor.color)).uppercase(Locale.getDefault())

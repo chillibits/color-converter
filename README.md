@@ -44,4 +44,4 @@ Thanks to following people:
 
 Thanks to all contributors and translators!
 
-© ChilliBits 2017-2022 (Designed and developed by Marc Auberer)
+© ChilliBits 2017-2023 (Designed and developed by Marc Auberer)

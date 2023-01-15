@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -13,7 +13,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.media.AudioManager
-import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.exifinterface.media.ExifInterface
 import com.chillibits.colorconverter.shared.Constants
 import com.chillibits.colorconverter.shared.dpToPx
 import com.chillibits.colorconverter.tools.ColorNameTools
@@ -57,7 +57,7 @@ class ImageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityImageBinding.inflate(layoutInflater);
+        binding = ActivityImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Apply window insets

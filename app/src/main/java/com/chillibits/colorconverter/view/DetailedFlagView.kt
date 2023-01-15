@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.view
@@ -22,10 +22,10 @@ class DetailedFlagView(context: Context, layout: Int) : FlagView(context, layout
     private val isAlphaDisabled = context.getPrefBooleanValue(Constants.ENABLE_ALPHA, true)
 
     override fun onRefresh(envelope: ColorEnvelope?) {
-        val flagColor = findViewById<AppCompatImageView>(R.id.flagColor);
-        val flagColorArgb = findViewById<TextView>(R.id.flagColorArgb);
-        val flagColorHex = findViewById<TextView>(R.id.flagColorHex);
-        val flagColorHsv = findViewById<TextView>(R.id.flagColorHsv);
+        val flagColor = findViewById<AppCompatImageView>(R.id.flagColor)
+        val flagColorArgb = findViewById<TextView>(R.id.flagColorArgb)
+        val flagColorHex = findViewById<TextView>(R.id.flagColorHex)
+        val flagColorHsv = findViewById<TextView>(R.id.flagColorHsv)
 
         flagColor.background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(envelope!!.color, BlendModeCompat.SRC_IN)
         flagColorArgb.text = if(isAlphaDisabled) {
