@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.viewmodel
@@ -7,7 +7,7 @@ package com.chillibits.colorconverter.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.chillibits.colorconverter.model.Color
 import com.chillibits.colorconverter.repository.ColorRepository
 import com.chillibits.colorconverter.shared.toDbo
@@ -25,12 +25,9 @@ class ColorSelectionViewModel @Inject constructor(
 ): AndroidViewModel(application) {
 
     // Variables as objects
-    val colors: LiveData<List<ColorDbo>> = Transformations.map(repository.getAll()) { colors ->
+    val colors: LiveData<List<ColorDbo>> = repository.getAll().map { colors ->
         colors.forEach { color ->
-            color.name = if (color.name.isEmpty())
-                cnt.getColorNameFromColor(color.toObj())
-            else
-                color.name
+            color.name = color.name.ifEmpty { cnt.getColorNameFromColor(color.toObj()) }
         }
         colors
     }

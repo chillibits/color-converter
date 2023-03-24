@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -22,7 +22,7 @@ fun Context.showArgbExportDialog(st: StorageTools, alpha: Int, red: Int, green: 
             .setView(this)
             .show()
 
-        val rememberSelection = findViewById<SwitchCompat>(R.id.rememberSelection);
+        val rememberSelection = findViewById<SwitchCompat>(R.id.rememberSelection)
         findViewById<LinearLayout>(R.id.formatArgb).setOnClickListener {
             if (rememberSelection.isChecked) st.putBoolean(Constants.ARGB_REMEMBER_SELECTION, true)
             copyTextToClipboard(

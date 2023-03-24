@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -31,7 +31,7 @@ fun Context.showPaletteImportExportDialog(
 ) {
     val colorTool = AdobeColorTool(activity)
     val importTimestamp = System.currentTimeMillis()
-    val importListener = object: AdobeColorTool.AdobeImportListener {
+    val importListener = object : AdobeColorTool.AdobeImportListener {
         override fun onComplete(groups: Map<String, List<AdobeColor>>) {
             val importedColors = ArrayList<Color>()
             CoroutineScope(Dispatchers.IO).launch {
@@ -53,7 +53,8 @@ fun Context.showPaletteImportExportDialog(
         }
     }
 
-    val adobeColors = colors.map { AdobeColor(android.graphics.Color.rgb(it.red, it.green, it.blue), it.name) }
+    val adobeColors =
+        colors.map { AdobeColor(android.graphics.Color.rgb(it.red, it.green, it.blue), it.name) }
     val view = LayoutInflater.from(this).inflate(R.layout.dialog_export_palette, null)
 
     val dialog = AlertDialog.Builder(this)
@@ -61,7 +62,7 @@ fun Context.showPaletteImportExportDialog(
         .show()
 
     view.findViewById<LinearLayout>(R.id.exportACO).setOnClickListener {
-        showRenameDialog(RenameDialogMode.EXPORT, object: OnRenameListener {
+        showRenameDialog(RenameDialogMode.EXPORT, object : OnRenameListener {
             override fun onRenameComplete(newName: String) {
                 colorTool.exportColorListAsACO(adobeColors, newName)
             }
@@ -69,7 +70,7 @@ fun Context.showPaletteImportExportDialog(
         dialog.dismiss()
     }
     view.findViewById<LinearLayout>(R.id.exportASE).setOnClickListener {
-        showRenameDialog(RenameDialogMode.EXPORT, object: OnRenameListener {
+        showRenameDialog(RenameDialogMode.EXPORT, object : OnRenameListener {
             override fun onRenameComplete(newName: String) {
                 colorTool.exportColorListAsASE(adobeColors, newName)
             }

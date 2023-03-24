@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -22,7 +22,11 @@ enum class RenameDialogMode {
     EXPORT
 }
 
-fun Context.showRenameDialog(mode: RenameDialogMode, listener: OnRenameListener, oldName: String = "") {
+fun Context.showRenameDialog(
+    mode: RenameDialogMode,
+    listener: OnRenameListener,
+    oldName: String = ""
+) {
     val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rename, null)
     val newName = dialogView.findViewById<TextInputEditText>(R.id.dialogName)
     newName.setText(oldName)
@@ -37,7 +41,7 @@ fun Context.showRenameDialog(mode: RenameDialogMode, listener: OnRenameListener,
             val name = newName.text.toString().trim()
             if (name.isNotEmpty()) listener.onRenameComplete(name)
         }
-        .setNegativeButton(R.string.cancel) { _, _ -> listener.onRenameCancel()}
+        .setNegativeButton(R.string.cancel) { _, _ -> listener.onRenameCancel() }
         .show()
 
     // Prepare views

@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -42,10 +42,14 @@ import javax.inject.Inject
 class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener {
 
     // Tools packages
-    @Inject lateinit var db: AppDatabase
-    @Inject lateinit var st: StorageTools
-    @Inject lateinit var ct: ColorTools
-    @Inject lateinit var cnt: ColorNameTools
+    @Inject
+    lateinit var db: AppDatabase
+    @Inject
+    lateinit var st: StorageTools
+    @Inject
+    lateinit var ct: ColorTools
+    @Inject
+    lateinit var cnt: ColorNameTools
 
     // Variables as objects
     private lateinit var binding: ActivityColorSelectionBinding
@@ -90,8 +94,14 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.action_import_export -> vm.colors.value?.let { showPaletteImportExportDialog(this, vm, it) }
+        when (item.itemId) {
+            R.id.action_import_export -> vm.colors.value?.let {
+                showPaletteImportExportDialog(
+                    this,
+                    vm,
+                    it
+                )
+            }
             R.id.action_edit -> showRenameColorDialog()
             R.id.action_delete -> showDeleteColorDialog()
             R.id.action_done -> done()
@@ -135,7 +145,7 @@ class ColorSelectionActivity : AppCompatActivity(), ColorsAdapter.ColorSelection
     }
 
     private fun showRenameColorDialog() {
-        showRenameDialog(RenameDialogMode.RENAME, object: OnRenameListener {
+        showRenameDialog(RenameDialogMode.RENAME, object : OnRenameListener {
             override fun onRenameComplete(newName: String) {
                 vm.selectedColor?.name = newName
                 // Update color

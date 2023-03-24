@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  ~ Copyright © Marc Auberer 2017-2023. All rights reserved
+  -->
+
+<!--
  Loco xml export: Android string resources
  Project: Color Converter
  Release: Working copy
  Locale: fr, French
  Exported by: ChilliBits
- Exported at: Thu, 29 Dec 2022 14:36:33 +0000
+ Exported at: Fri, 24 Mar 2023 16:40:52 +0000
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ok">OK</string>

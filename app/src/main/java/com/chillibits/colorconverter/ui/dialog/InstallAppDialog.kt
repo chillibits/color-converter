@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -33,7 +33,12 @@ fun Activity.showInstantAppInstallDialog(@StringRes message: Int) {
         .setNegativeText(R.string.cancel)
         .onPositive {
             Intent(this, MainActivity::class.java).run {
-                InstantApps.showInstallPrompt(this@showInstantAppInstallDialog, this, Constants.REQ_INSTANT_INSTALL, "")
+                InstantApps.showInstallPrompt(
+                    this@showInstantAppInstallDialog,
+                    this,
+                    Constants.REQ_INSTANT_INSTALL,
+                    ""
+                )
             }
         }
         .show()

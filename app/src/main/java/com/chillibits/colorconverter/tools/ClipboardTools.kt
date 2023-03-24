@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.tools
@@ -21,7 +21,8 @@ class ClipboardTools(
     private val ct: ColorTools
 ) {
 
-    fun copyNameToClipboard(name: String) = context.copyTextToClipboard(context.getString(R.string.name), name)
+    fun copyNameToClipboard(name: String) =
+        context.copyTextToClipboard(context.getString(R.string.name), name)
 
     fun copyArgbToClipboard(color: Color) = context.run {
         if (getPrefBooleanValue(Constants.ENABLE_ALPHA, true)) {
@@ -30,22 +31,25 @@ class ClipboardTools(
                 showArgbExportDialog(st, color.alpha, color.red, color.green, color.blue)
             } else if (getPrefBooleanValue(Constants.ARGB_REMEMBER_SELECTION, false)) {
                 copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
+                    getString(R.string.argb_code), String.format(
                         getString(R.string.argb_clipboard),
-                        color.alpha, color.red, color.green, color.blue)
+                        color.alpha, color.red, color.green, color.blue
+                    )
                 )
             } else {
                 copyTextToClipboard(
-                        getString(R.string.argb_code), String.format(
+                    getString(R.string.argb_code), String.format(
                         getString(R.string.rgba_clipboard_css),
-                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3))
+                        color.red, color.green, color.blue, (color.alpha / 255.0).round(3)
+                    )
                 )
             }
         } else {
             copyTextToClipboard(
-                    getString(R.string.rgb_code), String.format(
+                getString(R.string.rgb_code), String.format(
                     getString(R.string.rgb_clipboard),
-                    color.red, color.green, color.blue)
+                    color.red, color.green, color.blue
+                )
             )
         }
     }
@@ -63,10 +67,12 @@ class ClipboardTools(
     fun copyHsvToClipboard(color: Color) = context.run {
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
-        val hsvString = String.format(getString(R.string.hsv_),
+        val hsvString = String.format(
+            getString(R.string.hsv_),
             String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
             String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
+            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+        )
         copyTextToClipboard(getString(R.string.hsv_clipboard), hsvString)
     }
 

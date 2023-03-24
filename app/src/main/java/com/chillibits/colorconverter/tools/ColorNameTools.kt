@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.tools
@@ -169,5 +169,6 @@ class ColorNameTools(private val c: Context) {
         return closestMatch?.name ?: "No color"
     }
 
-    fun getColorNameFromColor(color: Color) = getColorNameFromRgb(color.red, color.green, color.blue)
+    fun getColorNameFromColor(color: Color) =
+        getColorNameFromRgb(color.red, color.green, color.blue)
 }

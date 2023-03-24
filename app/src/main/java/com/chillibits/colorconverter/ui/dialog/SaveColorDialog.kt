@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.dialog
@@ -22,7 +22,7 @@ fun Context.showSaveColorDialog(cnt: ColorNameTools, vm: MainViewModel) {
 
     // Initialize views
     val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rename, null)
-    val dialogName = dialogView.findViewById<TextInputEditText>(R.id.dialogName);
+    val dialogName = dialogView.findViewById<TextInputEditText>(R.id.dialogName)
     dialogName.setText(defaultName)
 
     // Create dialog

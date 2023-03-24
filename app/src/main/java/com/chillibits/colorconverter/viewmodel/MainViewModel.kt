@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.viewmodel
@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
     application: Application,
     private val repository: ColorRepository,
     private val cnt: ColorNameTools
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     // Variables as objects
     private val context = application
@@ -50,21 +50,25 @@ class MainViewModel @Inject constructor(
             if (status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.getDefault())
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(context, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.language_not_available, Toast.LENGTH_SHORT)
+                        .show()
                 } else initialized = true
-            } else Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     @Suppress("DEPRECATION")
     fun speakColor() {
         when {
-            isAudioMuted() -> Toast.makeText(context, R.string.audio_muted, Toast.LENGTH_SHORT).show()
+            isAudioMuted() -> Toast.makeText(context, R.string.audio_muted, Toast.LENGTH_SHORT)
+                .show()
             initialized -> {
                 val colorName = cnt.getColorNameFromColor(selectedColor)
                 tts.speak(colorName, TextToSpeech.QUEUE_FLUSH, null, null)
             }
-            else -> Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            else -> Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.activity
@@ -47,13 +47,18 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, SimpleSettingsConfig.OptionsItemSelectedCallback {
+class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
+    SimpleSettingsConfig.OptionsItemSelectedCallback {
 
     // Tools packages
-    @Inject lateinit var st: StorageTools
-    @Inject lateinit var ct: ColorTools
-    @Inject lateinit var cnt: ColorNameTools
-    @Inject lateinit var cbt: ClipboardTools
+    @Inject
+    lateinit var st: StorageTools
+    @Inject
+    lateinit var ct: ColorTools
+    @Inject
+    lateinit var cnt: ColorNameTools
+    @Inject
+    lateinit var cbt: ClipboardTools
 
     // Variables as objects
     private lateinit var binding: ActivityMainBinding
@@ -64,7 +69,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater);
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Apply window insets
@@ -87,7 +92,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
         // Redirect to ImageActivity, if needed
         if (intent.hasExtra(Constants.EXTRA_ACTION) &&
-            intent.getStringExtra(Constants.EXTRA_ACTION) == "image") {
+            intent.getStringExtra(Constants.EXTRA_ACTION) == "image"
+        ) {
             pickColorFromImage()
         } else {
             // Show in-app rating dialog
@@ -97,7 +103,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         // Set to choose color mode, if required
         if (intent.hasExtra(Constants.EXTRA_CHOOSE_COLOR)) {
             binding.finishWithColor.setOnClickListener { finishWithSelectedColor() }
-            val color = intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK)
+            val color =
+                intent.getIntExtra(Constants.EXTRA_CHOOSE_COLOR, android.graphics.Color.BLACK)
             updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, color, -1))
         } else {
             binding.finishWithColor.visibility = View.GONE
@@ -125,7 +132,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_transparency -> showTransparencyWarning()
             R.id.action_palette -> showColorPaletteDialog(this, cnt, ct)
             R.id.action_settings -> showSettings()
@@ -140,24 +147,38 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
+        when (requestCode) {
             Constants.REQ_PICK_COLOR_FROM_IMAGE -> {
-                if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
-                        Constants.EXTRA_COLOR, 0), -1))
+                if (resultCode == Activity.RESULT_OK)
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                                Constants.EXTRA_COLOR, 0
+                            ), -1
+                        )
+                    )
             }
             Constants.REQ_LOAD_COLOR -> {
-                if(resultCode == Activity.RESULT_OK)
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
-                        Constants.EXTRA_COLOR, 0), -1))
+                if (resultCode == Activity.RESULT_OK)
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, data!!.getIntExtra(
+                                Constants.EXTRA_COLOR, 0
+                            ), -1
+                        )
+                    )
             }
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == Constants.REQ_PERMISSIONS) {
-            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == Constants.REQ_PERMISSIONS) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 pickColorFromImage()
             } else {
                 Toast.makeText(this, R.string.approve_permissions, Toast.LENGTH_SHORT).show()
@@ -170,8 +191,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
                     val systemInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                    if(systemInsets.top > 0) {
-                        binding.toolbar?.setPadding(0, systemInsets.top, 0, 0)
+                    if (systemInsets.top > 0) {
+                        binding.toolbar.setPadding(0, systemInsets.top, 0, 0)
                         binding.scrollContainer.setPadding(0, 0, 0, systemInsets.bottom)
                         binding.finishWithColorWrapper.setPadding(0, 0, 0, systemInsets.bottom)
                     }
@@ -183,9 +204,14 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 decorView.setOnApplyWindowInsetsListener { _, insets ->
-                    binding.toolbar?.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+                    binding.toolbar.setPadding(0, insets.systemWindowInsetTop, 0, 0)
                     binding.scrollContainer.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
-                    binding.finishWithColorWrapper.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
+                    binding.finishWithColorWrapper.setPadding(
+                        0,
+                        0,
+                        0,
+                        insets.systemWindowInsetBottom
+                    )
                     insets
                 }
             }
@@ -201,7 +227,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             showInstantAppInstallDialog(R.string.instant_install_m)
         } else {
             Intent(this, ImageActivity::class.java).run {
-                if(defaultImageUri != null) putExtra("ImageUri", defaultImageUri)
+                if (defaultImageUri != null) putExtra("ImageUri", defaultImageUri)
                 startActivityForResult(this, Constants.REQ_PICK_COLOR_FROM_IMAGE)
             }
         }
@@ -209,16 +235,26 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun editHexCode() {
         // Initialize views
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, binding.container, false)
-        val hexValue = dialogView.findViewById<TextInputEditText>(R.id.dialogHex);
-        if(!isAlphaEnabled)
-            hexValue.setText(String.format(getString(R.string.hex_format,
-                "%06X".format((0xFFFFFF and vm.selectedColor.color)).uppercase(Locale.getDefault())
-            )))
+        val dialogView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_edit_hex, binding.container, false)
+        val hexValue = dialogView.findViewById<TextInputEditText>(R.id.dialogHex)
+        if (!isAlphaEnabled)
+            hexValue.setText(
+                String.format(
+                    getString(
+                        R.string.hex_format,
+                        "%06X".format((0xFFFFFF and vm.selectedColor.color))
+                            .uppercase(Locale.getDefault())
+                    )
+                )
+            )
         else
-            hexValue.setText(String.format(getString(R.string.hex_format),
-                "%08X".format(vm.selectedColor.color).uppercase(Locale.getDefault())
-            ))
+            hexValue.setText(
+                String.format(
+                    getString(R.string.hex_format),
+                    "%08X".format(vm.selectedColor.color).uppercase(Locale.getDefault())
+                )
+            )
         Selection.setSelection(hexValue.text, hexValue.text.toString().length)
 
         // Create dialog
@@ -226,12 +262,18 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
             .setTitle(R.string.hex_code)
             .setView(dialogView)
             .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton( R.string.choose_color) { _, _ ->
+            .setPositiveButton(R.string.choose_color) { _, _ ->
                 var hex = hexValue.text.toString()
-                if(!isAlphaEnabled && hex.length == 4)
-                    hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3")
-                if(isAlphaEnabled && hex.length == 5)
-                    hex = hex.replace(Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"), "#$1$1$2$2$3$3$4$4")
+                if (!isAlphaEnabled && hex.length == 4)
+                    hex = hex.replace(
+                        Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"),
+                        "#$1$1$2$2$3$3"
+                    )
+                if (isAlphaEnabled && hex.length == 5)
+                    hex = hex.replace(
+                        Regex("#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])"),
+                        "#$1$1$2$2$3$3$4$4"
+                    )
                 val tmp = vm.selectedColor
                 tmp.apply {
                     color = android.graphics.Color.parseColor(hex)
@@ -247,19 +289,22 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         // Prepare views
         hexValue.doAfterTextChanged { s ->
             val value = s.toString()
-            if(!value.startsWith("#")) {
+            if (!value.startsWith("#")) {
                 hexValue.setText("#")
                 Selection.setSelection(hexValue.text, hexValue.text.toString().length)
             } else {
-                if(value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(value.length -1, value.length)
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if(isAlphaEnabled) {
+                if (value.length > 1 && !value.matches("#[a-fA-F0-9]+".toRegex())) s?.delete(
+                    value.length - 1,
+                    value.length
+                )
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = if (isAlphaEnabled) {
                     s.toString().length == 9 || s.toString().length == 5 || s.toString().length == 7
                 } else {
                     s.toString().length == 7 || s.toString().length == 4
                 }
             }
         }
-        hexValue.setSelection(1, if(isAlphaEnabled) 9 else 7)
+        hexValue.setSelection(1, if (isAlphaEnabled) 9 else 7)
         hexValue.requestFocus()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -267,7 +312,8 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun editHSVCode() {
         // Initialize views
-        val container = LayoutInflater.from(this).inflate(R.layout.dialog_edit_hsv, binding.container, false)
+        val container =
+            LayoutInflater.from(this).inflate(R.layout.dialog_edit_hsv, binding.container, false)
         val dialogH = container.findViewById<TextInputEditText>(R.id.dialogH)
         val dialogS = container.findViewById<TextInputEditText>(R.id.dialogS)
         val dialogV = container.findViewById<TextInputEditText>(R.id.dialogV)
@@ -324,7 +370,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun chooseColor() {
         val colorPicker = ColorPickerDialog(this, vm.selectedColor.color)
-        if(isAlphaEnabled) colorPicker.alphaSliderVisible = true
+        if (isAlphaEnabled) colorPicker.alphaSliderVisible = true
         colorPicker.hexValueEnabled = true
         colorPicker.setTitle(R.string.choose_color)
         colorPicker.setOnColorChangedListener { color ->
@@ -339,41 +385,61 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
         binding.displayRed.text = color.red.toString()
         binding.displayGreen.text = color.green.toString()
         binding.displayBlue.text = color.blue.toString()
-        binding.displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
+        binding.displayName.text =
+            String.format(getString(R.string.name_), cnt.getColorNameFromColor(color))
 
         // Update ARGB TextView
-        binding.displayArgb.text = if(isAlphaEnabled) {
-            String.format(getString(R.string.argb_), color.alpha, color.red, color.green, color.blue)
+        binding.displayArgb.text = if (isAlphaEnabled) {
+            String.format(
+                getString(R.string.argb_),
+                color.alpha,
+                color.red,
+                color.green,
+                color.blue
+            )
         } else {
             String.format(getString(R.string.rgb_), color.red, color.green, color.blue)
         }
         // Update HEX TextView
-        binding.displayHex.text = if(isAlphaEnabled) {
-            String.format(getString(R.string.hex_),
+        binding.displayHex.text = if (isAlphaEnabled) {
+            String.format(
+                getString(R.string.hex_),
                 "%08X".format(color.color).uppercase(Locale.getDefault())
             )
         } else {
-            String.format(getString(R.string.hex_),
+            String.format(
+                getString(R.string.hex_),
                 "%06X".format(0xFFFFFF and color.color).uppercase(Locale.getDefault())
             )
         }
         // Update HSV TextView
         val hsv = FloatArray(3)
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
-        binding.displayHsv.text = String.format(getString(R.string.hsv_), String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[1]), String.format(Constants.HSV_FORMAT_STRING, hsv[2]))
+        binding.displayHsv.text = String.format(
+            getString(R.string.hsv_),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
+            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+        )
         // Update CMYK TextView
         val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
-        binding.displayCmyk.text = String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
+        binding.displayCmyk.text =
+            String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
 
         // Update text colors
-        val textColor = ct.getTextColor(this, android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue))
+        val textColor = ct.getTextColor(
+            this,
+            android.graphics.Color.argb(color.alpha, color.red, color.green, color.blue)
+        )
         binding.displayName.setTextColor(textColor)
         binding.displayArgb.setTextColor(textColor)
         binding.displayHex.setTextColor(textColor)
         binding.displayHsv.setTextColor(textColor)
         binding.displayCmyk.setTextColor(textColor)
-        val colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(textColor, BlendModeCompat.SRC_ATOP)
+        val colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            textColor,
+            BlendModeCompat.SRC_ATOP
+        )
         binding.copyName.colorFilter = colorFilter
         binding.copyArgb.colorFilter = colorFilter
         binding.copyHex.colorFilter = colorFilter
@@ -394,17 +460,23 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
         ValueAnimator.ofInt(binding.colorRed.progress, color.red).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
-            addUpdateListener { valueAnimator -> binding.colorRed.progress = valueAnimator.animatedValue as Int }
+            addUpdateListener { valueAnimator ->
+                binding.colorRed.progress = valueAnimator.animatedValue as Int
+            }
         }.start()
 
         ValueAnimator.ofInt(binding.colorGreen.progress, color.green).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
-            addUpdateListener { valueAnimator -> binding.colorGreen.progress = valueAnimator.animatedValue as Int }
+            addUpdateListener { valueAnimator ->
+                binding.colorGreen.progress = valueAnimator.animatedValue as Int
+            }
         }.start()
 
         ValueAnimator.ofInt(binding.colorBlue.progress, color.blue).apply {
             duration = Constants.COLOR_ANIMATION_DURATION
-            addUpdateListener { valueAnimator -> binding.colorBlue.progress = valueAnimator.animatedValue as Int }
+            addUpdateListener { valueAnimator ->
+                binding.colorBlue.progress = valueAnimator.animatedValue as Int
+            }
         }.start()
 
         // Save color to shared preferences for restoring on the next app start
@@ -420,25 +492,36 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun setDefaultComponentValues() {
         // Initialize views
-        binding.displayName.text = String.format(getString(R.string.name_), cnt.getColorNameFromColor(vm.selectedColor))
+        binding.displayName.text =
+            String.format(getString(R.string.name_), cnt.getColorNameFromColor(vm.selectedColor))
         binding.displayArgb.text = String.format(
             getString(R.string.argb_),
-            vm.selectedColor.alpha, vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue
+            vm.selectedColor.alpha,
+            vm.selectedColor.red,
+            vm.selectedColor.green,
+            vm.selectedColor.blue
         )
-        binding.displayHex.text = String.format(getString(R.string.hex_),
+        binding.displayHex.text = String.format(
+            getString(R.string.hex_),
             "%08X".format(vm.selectedColor.color).uppercase(
                 Locale.getDefault()
             )
         )
         val hsv = FloatArray(3)
-        android.graphics.Color.RGBToHSV(vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue, hsv)
+        android.graphics.Color.RGBToHSV(
+            vm.selectedColor.red,
+            vm.selectedColor.green,
+            vm.selectedColor.blue,
+            hsv
+        )
         binding.displayHsv.text = String.format(
             getString(R.string.hsv_),
             String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
             String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
             String.format(Constants.HSV_FORMAT_STRING, hsv[2])
         )
-        val cmyk = ct.getCmykFromRgb(vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue)
+        val cmyk =
+            ct.getCmykFromRgb(vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue)
         binding.displayCmyk.text =
             String.format(getString(R.string.cmyk_), cmyk[0], cmyk[1], cmyk[2], cmyk[3])
     }
@@ -485,38 +568,46 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
 
     private fun initializeSeekBarSection() {
         // Initialize other layout components
-        binding.colorAlpha.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP
-        )
+        binding.colorAlpha.thumb.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(this, R.color.gray), BlendModeCompat.SRC_ATOP
+            )
         binding.colorRed.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                 ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP
             )
-        binding.colorRed.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP
-        )
+        binding.colorRed.thumb.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(this, R.color.red), BlendModeCompat.SRC_ATOP
+            )
         binding.colorGreen.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                 ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP
             )
-        binding.colorGreen.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP
-        )
+        binding.colorGreen.thumb.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(this, R.color.green), BlendModeCompat.SRC_ATOP
+            )
         binding.colorBlue.progressDrawable.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                 ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
             )
-        binding.colorBlue.thumb.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-            ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
-        )
+        binding.colorBlue.thumb.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                ContextCompat.getColor(this, R.color.blue), BlendModeCompat.SRC_ATOP
+            )
 
         binding.colorAlpha.setOnSeekBarChangeListener(object : SimpleOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val value = progress.toString()
                     binding.displayAlpha.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, progress, binding.colorRed.progress,
-                        binding.colorGreen.progress, binding.colorBlue.progress, -1))
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, progress, binding.colorRed.progress,
+                            binding.colorGreen.progress, binding.colorBlue.progress, -1
+                        )
+                    )
                 }
                 if ((vm.showTransparencyWarning && progress > 20) || (!vm.showTransparencyWarning && progress <= 20)) {
                     vm.showTransparencyWarning = !vm.showTransparencyWarning
@@ -529,8 +620,12 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 if (fromUser) {
                     val value = progress.toString()
                     binding.displayRed.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
-                        progress, binding.colorGreen.progress, binding.colorBlue.progress, -1))
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
+                            progress, binding.colorGreen.progress, binding.colorBlue.progress, -1
+                        )
+                    )
                 }
             }
         })
@@ -539,8 +634,12 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 if (fromUser) {
                     val value = progress.toString()
                     binding.displayGreen.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
-                        binding.colorRed.progress, progress, binding.colorBlue.progress, -1))
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
+                            binding.colorRed.progress, progress, binding.colorBlue.progress, -1
+                        )
+                    )
                 }
             }
         })
@@ -549,26 +648,34 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener, 
                 if (fromUser) {
                     val value = progress.toString()
                     binding.displayBlue.text = value
-                    updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
-                        binding.colorRed.progress, binding.colorGreen.progress, progress, -1))
+                    updateDisplays(
+                        Color(
+                            0, Constants.NAME_SELECTED_COLOR, binding.colorAlpha.progress,
+                            binding.colorRed.progress, binding.colorGreen.progress, progress, -1
+                        )
+                    )
                 }
             }
         })
     }
 
     override fun onSettingsOptionsItemSelected(itemId: Int) {
-        when(itemId) {
+        when (itemId) {
             R.id.action_rate -> showRatingDialog()
-            R.id.action_share-> showRecommendationDialog()
+            R.id.action_share -> showRecommendationDialog()
         }
     }
 
     private fun enableAlpha(enabled: Boolean) {
         // Set alpha to 100%
-        updateDisplays(Color(0, Constants.NAME_SELECTED_COLOR, 255, vm.selectedColor.red,
-            vm.selectedColor.green, vm.selectedColor.blue, -1))
+        updateDisplays(
+            Color(
+                0, Constants.NAME_SELECTED_COLOR, 255, vm.selectedColor.red,
+                vm.selectedColor.green, vm.selectedColor.blue, -1
+            )
+        )
         // Show / hide components
-        val visibility = if(enabled) View.VISIBLE else View.GONE
+        val visibility = if (enabled) View.VISIBLE else View.GONE
         binding.colorAlpha.visibility = visibility
         binding.displayAlpha.visibility = visibility
         binding.displayAlphaLabel.visibility = visibility

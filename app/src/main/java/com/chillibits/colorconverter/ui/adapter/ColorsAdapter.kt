@@ -1,9 +1,10 @@
 /*
- * Copyright © Marc Auberer 2017-2022. All rights reserved
+ * Copyright © Marc Auberer 2017-2023. All rights reserved
  */
 
 package com.chillibits.colorconverter.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,7 @@ class ColorsAdapter @Inject constructor(
     private val listener: ColorSelectionListener,
     private val ct: ColorTools,
     private var colors: List<Color> = emptyList()
-): RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ColorsAdapter.ViewHolder>() {
 
     // Variables
     private val isAlphaDisabled = context.getPrefBooleanValue(Constants.ENABLE_ALPHA, true)
@@ -35,6 +36,7 @@ class ColorsAdapter @Inject constructor(
         fun onColorSelected(color: Color)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(data: List<Color>) {
         this.colors = data
         notifyDataSetChanged()
@@ -58,7 +60,7 @@ class ColorsAdapter @Inject constructor(
             android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
             val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
 
-            findViewById<TextView>(R.id.itemColorValues).text = if(isAlphaDisabled)
+            findViewById<TextView>(R.id.itemColorValues).text = if (isAlphaDisabled)
                 String.format(
                     context.getString(R.string.color_summary_alpha_disabled),
                     color.red, color.green, color.blue,
