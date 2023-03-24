@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ImageViewModel @Inject constructor(
     application: Application,
     private val ct: ColorTools
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     // Variables as objects
     private val context = application
@@ -54,12 +54,14 @@ class ImageViewModel @Inject constructor(
     private fun initializeTTS() {
         // Initialize tts
         tts = TextToSpeech(context) { status ->
-            if(status == TextToSpeech.SUCCESS) {
+            if (status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.getDefault())
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(context, R.string.language_not_available, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.language_not_available, Toast.LENGTH_SHORT)
+                        .show()
                 } else initialized = true
-            } else Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(context, R.string.initialization_failed, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

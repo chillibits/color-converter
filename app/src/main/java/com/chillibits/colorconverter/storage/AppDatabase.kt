@@ -11,6 +11,6 @@ import com.chillibits.colorconverter.storage.dbo.ColorDbo
 
 // Increase version whenever the structure of the local db changes
 @Database(entities = [ColorDbo::class], exportSchema = false, version = 3)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun colorDao(): ColorDao
 }

@@ -41,7 +41,10 @@ fun Context.showSettings() {
             TextPref {
                 titleRes = R.string.colorconverter_on_github
                 summaryRes = R.string.tap_to_visit_us_on_github
-                onClick = WebsiteClickListener(this@showSettings, this@showSettings.getString(R.string.url_github))
+                onClick = WebsiteClickListener(
+                    this@showSettings,
+                    this@showSettings.getString(R.string.url_github)
+                )
             }
             LibsPref {
                 title = context.resources.getText(R.string.open_source_licenses).toString()
@@ -49,18 +52,27 @@ fun Context.showSettings() {
             }
             TextPref {
                 titleRes = R.string.app_version
-                summary = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES).versionName
+                summary = packageManager.getPackageInfo(
+                    packageName,
+                    PackageManager.GET_ACTIVITIES
+                ).versionName
                 onClick = PlayStoreClickListener(this@showSettings)
             }
             TextPref {
                 titleRes = R.string.the_developers
                 summaryRes = R.string.developers
-                onClick = WebsiteClickListener(this@showSettings, this@showSettings.getString(R.string.url_homepage))
+                onClick = WebsiteClickListener(
+                    this@showSettings,
+                    this@showSettings.getString(R.string.url_homepage)
+                )
             }
             TextPref {
                 titleRes = R.string.more_apps_from_us
                 summaryRes = R.string.our_playstore_page
-                onClick = WebsiteClickListener(this@showSettings, this@showSettings.getString(R.string.url_play_developers_page))
+                onClick = WebsiteClickListener(
+                    this@showSettings,
+                    this@showSettings.getString(R.string.url_play_developers_page)
+                )
             }
         }
     }

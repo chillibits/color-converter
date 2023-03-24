@@ -17,7 +17,6 @@ object Constants {
     const val EXTRA_CHOOSE_COLOR = "ChooseColor"
     const val EXTRA_IMAGE_URI = "ImageUri"
     const val EXTRA_COLOR = "Color"
-    const val EXTRA_SELECTED_COLOR = "SelectedColor"
 
     // Shared Preferences keys
     const val ARGB_REMEMBER = "ArgbRemember"
@@ -32,5 +31,4 @@ object Constants {
     const val COLOR_ANIMATION_DURATION = 500L
     const val NAME_SELECTED_COLOR = "Selection"
     const val HSV_FORMAT_STRING = "%.02f"
-    const val SHARED_PREFERENCES_NAME = "com.mrgames13.jimdo.colorconverter_preferences"
 }

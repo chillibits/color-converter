@@ -23,15 +23,21 @@ fun Context.showCmykExportDialog(st: StorageTools, cyan: Int, magenta: Int, yell
 
         val rememberSelection = findViewById<SwitchCompat>(R.id.rememberSelection)
         findViewById<LinearLayout>(R.id.formatCmyk).setOnClickListener {
-            if(rememberSelection.isChecked) st.putBoolean(Constants.CMYK_REMEMBER_SELECTION, true)
-            copyTextToClipboard(getString(R.string.cmyk_code), String.format(getString(R.string.cmyk_clipboard),
-                cyan / 100.0, magenta / 100.0, yellow / 100.0, key / 100.0))
+            if (rememberSelection.isChecked) st.putBoolean(Constants.CMYK_REMEMBER_SELECTION, true)
+            copyTextToClipboard(
+                getString(R.string.cmyk_code), String.format(
+                    getString(R.string.cmyk_clipboard),
+                    cyan / 100.0, magenta / 100.0, yellow / 100.0, key / 100.0
+                )
+            )
             dialog.dismiss()
         }
         findViewById<LinearLayout>(R.id.formatCmykCss).setOnClickListener {
-            if(rememberSelection.isChecked) st.putBoolean(Constants.CMYK_REMEMBER_SELECTION, false)
-            copyTextToClipboard(getString(R.string.cmyk_code),
-                String.format(getString(R.string.cmyk_clipboard_css), cyan, magenta, yellow, key))
+            if (rememberSelection.isChecked) st.putBoolean(Constants.CMYK_REMEMBER_SELECTION, false)
+            copyTextToClipboard(
+                getString(R.string.cmyk_code),
+                String.format(getString(R.string.cmyk_clipboard_css), cyan, magenta, yellow, key)
+            )
             dialog.dismiss()
         }
         rememberSelection.setOnCheckedChangeListener { _, isChecked ->

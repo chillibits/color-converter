@@ -18,25 +18,25 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 class ColorTools(private var context: Context) {
-    fun getVibrantColor(image: Bitmap)
-            = Palette.from(image).generate().getVibrantColor(ContextCompat.getColor(context, R.color.gray))
+    fun getVibrantColor(image: Bitmap) = Palette.from(image).generate()
+        .getVibrantColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getLightVibrantColor(image: Bitmap)
-            = Palette.from(image).generate().getLightVibrantColor(ContextCompat.getColor(context, R.color.gray))
+    fun getLightVibrantColor(image: Bitmap) = Palette.from(image).generate()
+        .getLightVibrantColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getDarkVibrantColor(image: Bitmap)
-            = Palette.from(image).generate().getDarkVibrantColor(ContextCompat.getColor(context, R.color.gray))
+    fun getDarkVibrantColor(image: Bitmap) = Palette.from(image).generate()
+        .getDarkVibrantColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getMutedColor(image: Bitmap)
-            = Palette.from(image).generate().getMutedColor(ContextCompat.getColor(context, R.color.gray))
+    fun getMutedColor(image: Bitmap) =
+        Palette.from(image).generate().getMutedColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getLightMutedColor(image: Bitmap)
-            = Palette.from(image).generate().getLightMutedColor(ContextCompat.getColor(context, R.color.gray))
+    fun getLightMutedColor(image: Bitmap) = Palette.from(image).generate()
+        .getLightMutedColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getDarkMutedColor(image: Bitmap)
-            = Palette.from(image).generate().getDarkMutedColor(ContextCompat.getColor(context, R.color.gray))
+    fun getDarkMutedColor(image: Bitmap) = Palette.from(image).generate()
+        .getDarkMutedColor(ContextCompat.getColor(context, R.color.gray))
 
-    fun getTextColor(activity: Activity, color: Int) = if(Color.alpha(color) > 127) {
+    fun getTextColor(activity: Activity, color: Int) = if (Color.alpha(color) > 127) {
         val sum = Color.red(color) + Color.green(color) + Color.blue(color)
         if (sum > 384) Color.BLACK else Color.WHITE
     } else {
@@ -48,7 +48,7 @@ class ColorTools(private var context: Context) {
     }
 
     fun getCmykFromRgb(red: Int, green: Int, blue: Int): Array<Int> {
-        if(red == 0 && green == 0 && blue == 0) return arrayOf(0, 0, 0, 100)
+        if (red == 0 && green == 0 && blue == 0) return arrayOf(0, 0, 0, 100)
         val redPercentage = red / 255.0 * 100.0
         val greenPercentage = green / 255.0 * 100.0
         val bluePercentage = blue / 255.0 * 100.0
@@ -64,6 +64,14 @@ class ColorTools(private var context: Context) {
         val red = random.nextInt(256)
         val green = random.nextInt(256)
         val blue = random.nextInt(256)
-        return com.chillibits.colorconverter.model.Color(0, Constants.NAME_SELECTED_COLOR, 255, red, green, blue, -1)
+        return com.chillibits.colorconverter.model.Color(
+            0,
+            Constants.NAME_SELECTED_COLOR,
+            255,
+            red,
+            green,
+            blue,
+            -1
+        )
     }
 }
