@@ -29,8 +29,7 @@ class Color(
         green: Int,
         blue: Int,
         creationTimestamp: Long
-    ) :
-            this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
+    ) : this(id, name, android.graphics.Color.argb(alpha, red, green, blue), creationTimestamp)
 
     override fun compareTo(other: Color) = other.creationTimestamp.compareTo(creationTimestamp)
 }
