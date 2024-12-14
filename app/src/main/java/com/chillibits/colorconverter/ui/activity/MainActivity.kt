@@ -53,10 +53,13 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
     // Tools packages
     @Inject
     lateinit var st: StorageTools
+
     @Inject
     lateinit var ct: ColorTools
+
     @Inject
     lateinit var cnt: ColorNameTools
+
     @Inject
     lateinit var cbt: ClipboardTools
 
@@ -158,6 +161,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
                         )
                     )
             }
+
             Constants.REQ_LOAD_COLOR -> {
                 if (resultCode == Activity.RESULT_OK)
                     updateDisplays(
@@ -200,6 +204,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
                 }
                 setDecorFitsSystemWindows(false)
             }
+
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
@@ -215,6 +220,7 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
                     insets
                 }
             }
+
             else -> {
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 statusBarColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
@@ -240,12 +246,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
         val hexValue = dialogView.findViewById<TextInputEditText>(R.id.dialogHex)
         if (!isAlphaEnabled)
             hexValue.setText(
-                String.format(
-                    getString(
-                        R.string.hex_format,
-                        "%06X".format((0xFFFFFF and vm.selectedColor.color))
-                            .uppercase(Locale.getDefault())
-                    )
+                String.format(getString(R.string.hex_format),
+                    "%06X".format((0xFFFFFF and vm.selectedColor.color))
+                        .uppercase(Locale.getDefault())
                 )
             )
         else
@@ -417,9 +420,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         binding.displayHsv.text = String.format(
             getString(R.string.hsv_),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[1]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[2])
         )
         // Update CMYK TextView
         val cmyk = ct.getCmykFromRgb(color.red, color.green, color.blue)
@@ -516,9 +519,9 @@ class MainActivity : AppCompatActivity(), ColorsAdapter.ColorSelectionListener,
         )
         binding.displayHsv.text = String.format(
             getString(R.string.hsv_),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[1]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[2])
         )
         val cmyk =
             ct.getCmykFromRgb(vm.selectedColor.red, vm.selectedColor.green, vm.selectedColor.blue)

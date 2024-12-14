@@ -137,7 +137,7 @@ class ImageActivity : AppCompatActivity() {
                         applyRotation(
                             BitmapFactory.decodeFile(vm.imageUri),
                             vm.imageUri!!
-                        )!!
+                        )
                     )
                 } catch (e: IOException) {
                     Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show()

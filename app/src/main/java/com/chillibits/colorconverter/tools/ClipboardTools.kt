@@ -69,9 +69,9 @@ class ClipboardTools(
         android.graphics.Color.RGBToHSV(color.red, color.green, color.blue, hsv)
         val hsvString = String.format(
             getString(R.string.hsv_),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[0]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[1]),
-            String.format(Constants.HSV_FORMAT_STRING, hsv[2])
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[0]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[1]),
+            String.format(Locale.getDefault(), Constants.HSV_FORMAT_STRING, hsv[2])
         )
         copyTextToClipboard(getString(R.string.hsv_clipboard), hsvString)
     }
